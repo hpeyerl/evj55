@@ -1,0 +1,9 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 4 wires	0	m	Go-NoGo-Pedal
+2	Cable, 6 wires	0	m	MG1_Resolver, MG2_Resolver, Trans_ECT
+3	Cable, 8 wires	0	m	Inverter
+4	Connector, 6 pins	1		pedal
+5	Connector, 90980-12326, female, 13 pins	1		ect_solenoid
+6	Connector, 90980-12520, female, 8 pins	2		mg1_resolver_conn, mg2_resolver_conn
+7	Connector, toyota_inverter_lhd, male, 40 pins	1		ls600hl_inverter
+8	Connector, zombie56, female, 56 pins	1		zombie56
