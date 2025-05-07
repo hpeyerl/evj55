@@ -1,0 +1,10 @@
+  zombie56:
+    type: zombie56
+    subtype: female
+    pinlabels: [ RS232_Rx, RS232_Tx, GP_Out3, GP_Out2, PWM3_Out, PWM2_Out, PWM1_Out, Analog2_In, Analog1_In, DAC2_Out,
+                 DAC1_Out, MG2_Temp-, MG2_Temp+, MG1_Temp-, Ignition_T15, REQ-, REQ+, CLK-, CLK+, MTH-,
+                 MTH+, HTM-, HTM+, LIN_BUS, CAN_Ext3L, CAN_Ext3H, CAN_ExtL, CAN_ExtH, MG1_Temp+, Oil_Pump_PWM,
+                 GP_Out1, Inverter_Power, Main_Con, PreCharge, POT2_Out, POT1_Out, Trans_SP, Trans_SL2, Trans_SL1, Trans_PB3,
+                 Trans_PB2, Trans_PB1,CAN_Ext2L, CAN_Ext2H, Throttle_GND, Throttle2, Throttle1, Throttle_+5Vcc, Brake_Input, GP12V,
+                 HV_Request, Start, Reverse, Forward, GND, +12Vin ]
+

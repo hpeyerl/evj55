@@ -1,0 +1,5 @@
+  mg2_resolver_conn:
+    type: 90980-12520
+    subtype: female
+    pinlabels: [ GRF, GSN, GCS, GMTG, GRFG, GSNG, GCSG, GMT ]
+

@@ -1,0 +1,3 @@
+  bmw_pedal_v2:
+    pinlabels: [ M_PWG1, M_PWG2, U_PWG2, A_PWG1, U_PWG1, A_PWG2 ]
+

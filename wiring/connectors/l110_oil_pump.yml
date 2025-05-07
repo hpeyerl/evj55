@@ -1,0 +1,5 @@
+  l110_oil_pump:
+    type: 90980-12483
+    subtype: male
+    pinlabels: [NC, NC, NC, NC, B+, SIG, STST]
+

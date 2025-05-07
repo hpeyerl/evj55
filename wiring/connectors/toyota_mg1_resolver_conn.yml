@@ -1,0 +1,5 @@
+  mg1_resolver_conn:
+    type: 90980-12520
+    subtype: female
+    pinlabels: [ MRF, MSN, MCS, MMTG, MRFG, MSNG, MCSG, MMT ]
+
