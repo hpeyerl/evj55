@@ -9,9 +9,15 @@ connectors:
 #include "connectors/l110_vehicle_speed_sensor.yml"
 #include "connectors/bmw_pedal_v2.yml"
 
+// Inverter connector colors
+//    colors: [ BN, WH, BK, WH, BN, BK, WH, BN, BU, BK,
+//              BK, BN, WH, BK, WH, BK, YE, RD, WH, GN,
+//              BN, WH, BK, WH, BK, BN, YE, RD, GN, WHBK,
+//              WHBK, BN, WH, BK, BK, BN, WH, WH, BU, BK ]
 cables:
   Inverter:
     wirecount: 8
+    colors: [ WH, BK, WH, BK, WH, BK, WH, BK ]
 
   Trans_ECT:
     wirecount: 6
@@ -23,16 +29,18 @@ cables:
 
   MG1_Resolver:
     wirecount: 6
+    colors: [ BK, BU, WH, GN, RD, YE ]
 
   MG2_Resolver:
     wirecount: 6
+    colors: [ GN, RD, YE, BU, WH, BK ]
 
 
 connections:
   -
     - zombie56: [ 16-23 ]
     - Inverter: [1-8]
-    - ls600hl_inverter: [20, 29, 38, 39, 7, 8, 26, 27 ]
+    - ls600hl_inverter: [33, 34, 13, 14, 2, 3, 22, 23 ]
   -
     - zombie56: [ 37-42 ]
     - Trans_ECT: [1-6]
