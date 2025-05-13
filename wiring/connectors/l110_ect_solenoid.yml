@@ -3,4 +3,5 @@
     subtype: female
     pinlabels: [ SL1+, SL2+, SP, E, NC, SP, SL1-, SL2-, PB1, PB2,
                  THO, PB3, NC ]
-
+    image:
+      src: images/l110_transmission_ect_connector.png

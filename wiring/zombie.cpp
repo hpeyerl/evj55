@@ -8,6 +8,7 @@ connectors:
 #include "connectors/toyota_mg2_resolver_conn.yml"
 #include "connectors/l110_vehicle_speed_sensor.yml"
 #include "connectors/bmw_pedal_v2.yml"
+#include "connectors/12awg_heat_shrink_ring_terminal.yml"
 
 // Inverter connector colors
 //    colors: [ BN, WH, BK, WH, BN, BK, WH, BN, BU, BK,
@@ -35,6 +36,14 @@ cables:
     wirecount: 6
     colors: [ GN, RD, YE, BU, WH, BK ]
 
+  Oil_Pump:
+    wirecount: 1
+    colors: [ BK ]
+
+  Oil_Pump_B:
+    wirecount: 1
+    colors: [ RD ]
+
 
 connections:
   -
@@ -45,6 +54,14 @@ connections:
     - zombie56: [ 37-42 ]
     - Trans_ECT: [1-6]
     - l110_ect_solenoid: [ 3, 8, 7, 12, 10, 9 ]
+  -
+    - zombie56: [ 30 ]
+    - Oil_Pump: [ 1]
+    - l110_oil_pump: [ 6 ]
+  -
+    - l110_oil_pump: [ 5 ]
+    - Oil_Pump_B: [ 1 ]
+    - ring_terminal: [ 1 ]
   -
     - ls600hl_inverter: [ 33, 23, 24, 22, 35, 34 ]
     - MG1_Resolver: [ 1-6 ]

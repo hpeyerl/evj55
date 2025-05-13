@@ -1,0 +1,5 @@
+l110_shift_connector:
+  subtype: female
+  pinlabels: [P, N, D, MJ, R, RV, +B, B, FD ]
+  image:
+    src: images/l110_shift_connector.png

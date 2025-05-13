@@ -1,0 +1,5 @@
+  ring_terminal:
+    pinlabels: [ B+ ]
+    image:
+      src: images/12awg_heat_shrink_ring_terminal.jpeg
+      height: 70

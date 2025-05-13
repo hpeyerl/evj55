@@ -1,0 +1,13 @@
+hf1a_eb1_tcase:
+  type: eb1
+  subtype: male
+  pinlabels: [ 1, 2, 3, 4, 5 ]
+  image:
+    src: images/hf1a_tcase_eb1.png
+
+hf1a_eb2_tcase:
+  type: eb2
+  subtype: male
+  pinlabels: [ 1, 2, 3, 4, 5, 6 ]
+  image:
+    src: images/hf1a_tcase_eb2.png
