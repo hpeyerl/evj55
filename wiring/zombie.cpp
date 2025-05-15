@@ -7,7 +7,7 @@ connectors:
 #include "connectors/toyota_mg1_resolver_conn.yml"
 #include "connectors/toyota_mg2_resolver_conn.yml"
 #include "connectors/l110_vehicle_speed_sensor.yml"
-#include "connectors/bmw_pedal_v2.yml"
+#include "connectors/honda_fit_pedal.yml"
 #include "connectors/12awg_heat_shrink_ring_terminal.yml"
 
 // Inverter connector colors
@@ -73,4 +73,4 @@ connections:
   -
     - zombie56: [ 45-48]
     - Go-NoGo-Pedal: [ 1-4 ]
-    - bmw_pedal_v2: [ 3, 2, 4, 6 ]
+    - honda_fit_pedal: [ 1, 2, 5, 6 ]

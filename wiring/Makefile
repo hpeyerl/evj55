@@ -2,6 +2,7 @@ all: zombie.png
 
 CONNECTORS=  \
              connectors/bmw_pedal_v2.yml \
+             connectors/honda_fit_pedal.yml \
              connectors/l110_ect_solenoid.yml \
              connectors/l110_oil_pump.yml \
              connectors/l110_shift_lever_position_sensor.yml \
