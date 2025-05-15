@@ -11,3 +11,12 @@ In order to modularize this a bit with an eye to re-use by the community (hopefu
 You will also need to install Wireviz/Graphviz.
 
 Instructions on how to do so are out of the scope of this document.
+
+## Notes
+
+I should probably split out the basic zombie.* files to a separate repository to make it easier for others to use without getting the rest of my EVJ55 junk.
+
+* Backup light should be on a relay and come from Zombie ReverseLight output.
+
+* Brake Light should be on a relay and come from both brake switch and Zombie BrakeLight (presumably for regen braking)
+
