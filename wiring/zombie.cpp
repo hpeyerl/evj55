@@ -30,11 +30,13 @@ cables:
 
   MG1_Resolver:
     wirecount: 6
-    colors: [ BK, BU, WH, GN, RD, YE ]
+    colors: [ GN, RD, YE, BU, WH, BK ]
+    shield: true
 
   MG2_Resolver:
     wirecount: 6
-    colors: [ GN, RD, YE, BU, WH, BK ]
+    colors: [ BK, BU, WH, GN, RD, YE ]
+    shield: true
 
   Oil_Pump:
     wirecount: 1
@@ -63,13 +65,19 @@ connections:
     - Oil_Pump_B: [ 1 ]
     - ring_terminal: [ 1 ]
   -
-    - ls600hl_inverter: [ 33, 23, 24, 22, 35, 34 ]
-    - MG1_Resolver: [ 1-6 ]
+    - ls600hl_inverter: [ 20, 18, 17, 9, 7, 6 ]
+    - MG1_Resolver: [ 1, 2, 3, 4, 5, 6 ]
     - mg1_resolver_conn: [ 1, 2, 3, 5, 6, 7 ]
   -
-    - ls600hl_inverter: [ 1, 14, 13, 11, 3, 2 ]
-    - MG2_Resolver: [ 1-6 ]
+    - ls600hl_inverter: [ 8 ]
+    - MG1_Resolver: [ s ]
+  -
+    - ls600hl_inverter: [ 40, 39, 38, 29, 28, 27 ]
+    - MG2_Resolver: [ 1, 2, 3, 4, 5, 6 ]
     - mg2_resolver_conn: [ 1, 2, 3, 5, 6, 7 ]
+  -
+    - ls600hl_inverter: [ 26 ]
+    - MG2_Resolver: [ s ]
   -
     - zombie56: [ 45-48]
     - Go-NoGo-Pedal: [ 1-4 ]
