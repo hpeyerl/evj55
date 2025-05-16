@@ -1,0 +1,3 @@
+[submodule "wiring/gs450h_ls600hl_zombie_vcu"]
+	path = wiring/gs450h_ls600hl_zombie_vcu
+	url = https://github.com/hpeyerl/gs450h_ls600hl_zombie_vcu.git
