@@ -1,6 +1,6 @@
   mg1_resolver_conn:
     type: 90980-12520
     subtype: female
-    pinlabels: [ MRF, MSN, MCS, MMTG, MRFG, MSNG, MCSG, MMT ]
+    pinlabels: [ GRF, GSN, GCS, GMTG, GRFG, GSNG, GCSG, GMT ]
     image:
       src: images/l110_mg1_mg2_resolver_connector.png
