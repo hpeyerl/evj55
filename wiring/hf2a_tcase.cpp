@@ -1,10 +1,10 @@
 // P.1019  fj_hdj_hdj-80_series_chassis.pdf
 connectors:
-#include "connectors/hf1a_tcase.yml"
-#include "connectors/hf1a_tcase_relay.yml"
+#include "connectors/hf2a_tcase.yml"
+#include "connectors/hf2a_tcase_relay.yml"
 
 cables:
-  hf1a_4wd_actuator:
+  hf2a_4wd_actuator:
     wirecount: 4
     colors: [ GNBU, GNBK, GNYE, GN ]
     // [ 2, 5, 6, 3 ]
