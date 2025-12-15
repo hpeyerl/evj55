@@ -1,5 +1,0 @@
-  l110_shift_lever_position_sensor:
-    type: 90980-12362
-    subtype: female
-    pinlabels: [ P, N, D, MJ, R, RV, +B, B, FD ]
-

@@ -1,7 +1,0 @@
-  honda_fit_pedal:
-    pinlabels: [ GND, APP2, Vref1, GND, APP1, Vref2 ]
-    type: sumitomo HX040 6pin
-    subtype: www.aliexpress.com/item/10000369419171.html
-    image:
-        src: images/honda_fit_pedal_connector.jpg
-

@@ -1,7 +1,0 @@
-  ls600hl_inverter:
-    type: toyota_inverter_lhd
-    subtype: male
-    pinlabels: [DRN2, MTH-, MTH+, NC, DRN5, GCSG, GSNG, DRN6, GRFG, BR2+,
-                BR2-, DRN4, CLK-, CLK+, NC, GI, GCS, GSN, NC, GRF,
-                DRN1, HTM-, HTM+, ILK, HSDN, DRN7, MCSG, MSNG, MRFG, GND1,
-                GND2, DRN3, REQ-, REQ+, NC, DRN8, NC, MCS, MSN, MRF ]

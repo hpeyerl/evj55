@@ -20,3 +20,4 @@ I should probably split out the basic zombie.* files to a separate repository to
 
 * Brake Light should be on a relay and come from both brake switch and Zombie BrakeLight (presumably for regen braking)
 
+* Fuel sender from DAC?
