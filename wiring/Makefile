@@ -1,5 +1,6 @@
 all: zombie.png
 ZOMBIE_DIR=gs450h_ls600hl_zombie_vcu
+WIREVIZ-WEB=$(HOME)/.local/bin/wireviz-web
 
 CONNECTORS=  \
              ${ZOMBIE_DIR}/connectors/bmw_pedal_v2.yml \
@@ -19,3 +20,6 @@ zombie.yml:  ${ZOMBIE_DIR}/zombie.cpp  ${CONNECTORS}
 
 zombie.png: zombie.yml
 	wireviz zombie.yml
+
+start_wireviz-web:
+	$(WIREVIZ-WEB) --listen 0.0.0.0:3005 &
