@@ -1,7 +1,6 @@
 // P.1019  fj_hdj_hdj-80_series_chassis.pdf
 connectors:
-#include "connectors/hf2a_tcase.yml"
-#include "connectors/hf2a_tcase_relay.yml"
+#include "connectors/hf2a.yml"
 
 cables:
   hf2a_4wd_actuator:

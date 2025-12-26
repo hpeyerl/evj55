@@ -1,13 +1,22 @@
-hf2a_eb1_tcase:
-  type: eb1
+// EC1 pins
+// 1 - 4WD indicator sw (CDL)
+// 2 - Transfer Neutral position sw
+// 3 - Transfer L4 indicator sw +12
+// 4 - Transfer L4 indicator sw to CDL relay pin7
+// 7 - CDL Actuator motor from CDL relay pin1
+// 8 - CDL Actuator motor from CDL relay pin4
+// 10 - CDL Actuator motor pin4 to ground
+// 11 - CDL Actuator motor pin 6
+// 12 - CDL Actuator motor pin 5
+//
+hf2a_ec1_tcase:
+  type: ec1
   subtype: male
-  pinlabels: [ 1, 2, 3, 4, 5 ]
-  image:
-    src: images/hf2a_tcase_eb1.png
-
-hf2a_eb2_tcase:
-  type: eb2
-  subtype: male
-  pinlabels: [ 1, 2, 3, 4, 5, 6 ]
+  pinlabels: [ 1, 2, 3, 4, 7, 8, 10, 11, 12 ]
   image:
     src: images/hf2a_tcase_eb2.png
+
+hf2a_cdl_relay:
+  type: 89531-60010
+  subtype: female
+  pinlabels: [ 1 2 3 4 5 6 7 9 10 ]
