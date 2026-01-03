@@ -30,3 +30,6 @@ ibooster.png: ibooster.yml
 
 start_wireviz-web:
 	$(WIREVIZ-WEB) --listen 0.0.0.0:3005 &
+
+clean:
+	rm -f *.svg *.html *.tsv .*.sw?
