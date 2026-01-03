@@ -13,13 +13,20 @@ CONNECTORS=  \
              ${ZOMBIE_DIR}/connectors/toyota_mg1_resolver_conn.yml \
              ${ZOMBIE_DIR}/connectors/toyota_mg2_resolver_conn.yml \
              ${ZOMBIE_DIR}/connectors/zombie56.yml  \
-             ${ZOMBIE_DIR}/connectors/12awg_heat_shrink_ring_terminal.yml
+             ${ZOMBIE_DIR}/connectors/12awg_heat_shrink_ring_terminal.yml \
+             connectors/ibooster_gen1.yml
 
 zombie.yml:  ${ZOMBIE_DIR}/zombie.cpp  ${CONNECTORS}
 	cpp ${ZOMBIE_DIR}/zombie.cpp -o zombie.yml
 
 zombie.png: zombie.yml
 	wireviz zombie.yml
+
+ibooster.yml: ibooster_gen1.cpp ${CONNECTORS}
+	cpp $< -o $@
+
+ibooster.png: ibooster.yml
+	wireviz $<
 
 start_wireviz-web:
 	$(WIREVIZ-WEB) --listen 0.0.0.0:3005 &

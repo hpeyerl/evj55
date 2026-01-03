@@ -1,0 +1,25 @@
+//
+// iBooster GEN1 ECU from https://www.evcreate.com/wiring-the-ibooster/
+//
+// 1 = 12V+ permanent 40A fused
+// 2 = Pedal sensor 1
+// 8 = Pedal sensor 3
+// 9 = GND
+// 17 = 12V+ permanent 5A fused
+// 20 = 12V+ ignition 5A fused
+// 22 = Pedal sensor 2
+// 23 = Pedal sensor 4
+
+  ibooster_gen1_ecu:
+    type: na
+    subtype: female
+    pins: [ 1, 2, 8, 9, 17, 20, 22, 23 ]
+    image:
+      src: images/ibooster_ecu.png
+
+  ibooster_gen1_pedal:
+    type: na
+    subtype: female
+    pins: [ 1, 2, 3, 4 ]
+    image:
+      src: images/ibooster_pedal_sensor.png
