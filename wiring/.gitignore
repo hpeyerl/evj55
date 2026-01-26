@@ -1,6 +1,5 @@
 test.*
 *.svg
-*.png
 *.tsv
 *.html
 *.yml
