@@ -35,3 +35,6 @@ Files related to my EV conversion project.
 - Rear stabilizer bushings
   - Moog K3171 
   - COMPATIBILITY ? Fits 1991-1996 Dodge Dakota; 1984-2001 Jeep Cherokee; 1995-2000 Jeep Cherokee; 1986-1991 Jeep Comanche; 1990-1992 Jeep Comanche; 1993-1996 Jeep Grand Cherokee; 1997-1998 Jeep Grand Cherokee; 1993-1993 Jeep Grand Wagoneer; 1986-1987 Jeep J10; 1986-1987 Jeep J20; 1984-1988 Jeep Wagoneer; 1989-1990 Jeep Wagoneer; 1987-1995 Jeep Wrangler
+- Mitsubishi Outlander battery charger/DCDC MK3 PHEV 2012 - 2015
+- Isabellenhuette Current Sensor Shunt w/Connectors IVT-S-1K-U3-I-CAN1-12/24 ISA
+- TE Connectivity 1-1618002-8 EV200HAANA contactors
