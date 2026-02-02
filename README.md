@@ -1,3 +1,4 @@
+![EVJ55](/images/evj55.png)
 # evj55
 Files related to my EV conversion project.
 
