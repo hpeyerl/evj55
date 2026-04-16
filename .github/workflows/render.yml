@@ -1,0 +1,42 @@
+name: Render wiring plan
+
+on:
+  push:
+    paths:
+      - 'wiring/EVJ-55_plan.json'
+      - 'wiring/splice.yml'
+      - '.github/workflows/render.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render
+        uses: splice-cad/plan-export-action@v0
+        with:
+          config: wiring/splice.yml
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered
+          path: wiring/rendered/
+          if-no-files-found: error
+
+      - name: Commit rendered outputs
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add wiring/rendered/
+          if git diff --staged --quiet; then
+            echo "No changes ? skipping commit."
+          else
+            git commit -m "chore: update rendered wiring outputs [skip ci]"
+            git push
+          fi

@@ -1,0 +1,7 @@
+design:
+  plan-path: wiring/EVJ-55_plan.json
+
+exports:
+  formats:
+    - all-pages-pdf
+  output-dir: wiring/rendered
