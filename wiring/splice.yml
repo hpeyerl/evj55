@@ -3,5 +3,7 @@ design:
 
 exports:
   formats:
-    - all-pages-pdf
+    - bom-xlsx
+    - bom-csv
+    - all-pages-pdf-schematic
   output-dir: wiring/rendered
