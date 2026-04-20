@@ -1,16 +1,17 @@
 Designator(s),Type,MPN,Manufacturer,Description,Quantity,Unit,AWG,Color,Positions,Length (in),Terminals,Signal
+CtrlRelay,connector,89531-60010,Toyota,"",1,ea,,,10,,,
 X3,connector,90980-12326,Sumitomo,"",1,ea,,,13,,,
 X5; X6,connector,90980-12520,Sumitomo,"",2,ea,,,8,,,
 X1,connector,13669859,Aptiv,"",1,ea,,,56,,,
 J1,connector,33511394,Aptiv,"",1,ea,,,56,,,
 X2,connector,HX040-6P,Sumitomo,"",1,ea,,,6,,,
 X4,connector,LS600HL,Lexus,"",1,ea,,,40,,,
-Bat+; BatCtrl; BMS-F; BMS-R; CAN1; CAN2; CanHI; CanLO; Chassis; DCDC-F; DCDC-R; F11; F12; F13; F14; F15; F16; F17; F18; F19; F20; FrontDtsch12-F; FrontDtsch12-M; Gnd; GndCtrl; HV Bat Front; HV Bat Rear; HV- Contactor; HV+ Contactor; IGN+; Inverter HV; K11; K12; K13; K14; K15; K16; K17; K18; K19; K20; Neg Fuse; OilPump; Pos Fuse; Precharge Relay; Precharge Resistor; RearDtsch12-F; RearDtsch12-M; RT32; RT33; RT35; RT38; SENSE; Term; X7; X8; X46; X47; X48; X49; X50; X51; X52; X53; X54; X55; X57; X58; X59; X60; X61; X62; X63; X64; X65; X66; X67; X68; X69; X70; X71; X72; X73; X74; X75; X76; X77; X78; X79; X81; X82; X83; X84; X85; X86; X87; X88; X91; X93,connector,Unassigned,,"",99,ea,,,7,,,
+Bat+; BatCtrl; BMS-F; BMS-R; CAN1; CAN2; CanHI; CanLO; CDL Motor; Chassis; DCDC-F; DCDC-R; EC1; F11; F12; F13; F14; F15; F16; F17; F18; F19; F20; F21; F22; F23; F24; F25; FrontDtsch12-F; FrontDtsch12-M; Gnd; GndCtrl; HV Bat Front; HV Bat Rear; HV- Contactor; HV+ Contactor; IGN+; Inverter HV; K11; K12; K13; K14; K15; K16; K17; K18; K19; K20; Neg Fuse; OilPump; Pos Fuse; Precharge Relay; Precharge Resistor; RearDtsch12-F; RearDtsch12-M; RT32; RT33; RT35; RT38; SENSE; Term; X7; X8; X46; X47; X48; X49; X50; X51; X52; X53; X54; X55; X57; X58; X59; X60; X61; X62; X63; X64; X65; X66; X67; X68; X69; X70; X71; X72; X73; X74; X75; X76; X77; X78; X81; X82; X83; X84; X85; X86; X87; X88; X91; X93; X94; X95; X96; X97,connector,Unassigned,,"",109,ea,,,7,,,
 X2.1_X1.45,wire,Unassigned,,"",1,ea,20 AWG,YEBU,,,,"X2.1_X1.45"
 J1.46_X2.2,wire,Unassigned,,"",1,ea,20 AWG,BNBU,,,,"J1.46_X2.2"
 X2.5_X1.47,wire,Unassigned,,"",1,ea,20 AWG,WHBU,,,,"X2.5_X1.47"
 J1.48_X2.3,wire,Unassigned,,"",1,ea,20 AWG,WHGN,,,,"J1.48_X2.3"
-FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV- Contactor.Coil-_RearDtsch12-M.7; HV+ Contactor.Coil+_X78.1; J1.39_X3.7; Precharge Relay.Coil+_X79.1; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42; X3.10_X1.41; X3.12_X1.40,wire,Unassigned,,"",11,ea,,,,,,"FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV+ Contactor.Coil+_X78.1; HV- Contactor.Coil-_RearDtsch12-M.7; J1.39_X3.7; Precharge Relay.Coil+_X79.1; X3.10_X1.41; X3.12_X1.40; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42"
+EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; F13.OUT_F21.OUT; FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV- Contactor.Coil-_RearDtsch12-M.7; HV+ Contactor.Coil+_X78.1; J1.39_X3.7; Precharge Relay.Coil+_X95.1; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42; X3.10_X1.41; X3.12_X1.40,wire,Unassigned,,"",18,ea,,,,,,"EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; F13.OUT_F21.OUT; FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV+ Contactor.Coil+_X78.1; HV- Contactor.Coil-_RearDtsch12-M.7; J1.39_X3.7; Precharge Relay.Coil+_X95.1; X3.10_X1.41; X3.12_X1.40; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42"
 J1.16_X4.34; J1.18_X4.13; J1.20_X4.2; J1.22_X4.22; X4.17_X5.3; X6.3_X4.38,wire,Unassigned,,"",6,ea,22 AWG,WH,,,,"J1.16_X4.34; J1.18_X4.13; J1.20_X4.2; J1.22_X4.22; X4.17_X5.3; X6.3_X4.38"
 J1.17_X4.35; J1.19_X4.14; J1.21_X4.3; J1.23_X4.23; X4.20_X5.1; X6.1_X4.40,wire,Unassigned,,"",6,ea,22 AWG,BK,,,,"J1.17_X4.35; J1.19_X4.14; J1.21_X4.3; J1.23_X4.23; X4.20_X5.1; X6.1_X4.40"
 X4.18_X5.2; X6.2_X4.39,wire,Unassigned,,"",2,ea,22 AWG,BU,,,,"X4.18_X5.2; X6.2_X4.39"
@@ -33,7 +34,7 @@ FrontDtsch12-F.8_RearDtsch12-F.8,wire,Unassigned,,"",1,ea,,OG,,,,"FrontDtsch12-F
 FrontDtsch12-F.9_RearDtsch12-F.9,wire,Unassigned,,"",1,ea,,WHOG,,,,"FrontDtsch12-F.9_RearDtsch12-F.9"
 FrontDtsch12-F.11_RearDtsch12-F.11,wire,Unassigned,,"",1,ea,,WHGN,,,,"FrontDtsch12-F.11_RearDtsch12-F.11"
 DCDC-F.2_FrontDtsch12-M.12; DCDC-R.2_RearDtsch12-M.12; FrontDtsch12-F.12_RearDtsch12-F.12; HV- Contactor.Coil+_X91.1; J1.15_F11.OUT,wire,Unassigned,,"",5,ea,,RD,,,,"DCDC-F.2_FrontDtsch12-M.12; DCDC-R.2_RearDtsch12-M.12; FrontDtsch12-F.12_RearDtsch12-F.12; HV- Contactor.Coil+_X91.1; J1.15_F11.OUT"
-K17.86_X76.1,wire,Unassigned,,"",1,ea,16 AWG,RD,,,,"K17.86_X76.1"
+F22.IN_X97.1; F22.OUT_X1.56; K17.86_X76.1,wire,Unassigned,,"",3,ea,16 AWG,RD,,,,"F22.IN_X97.1; F22.OUT_X1.56; K17.86_X76.1"
 NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1,wire,Unassigned,,"",3,ea,3/0 AWG,OGRD,,,,"NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1"
 NET_mnnbwso0_7,wire,Unassigned,,"",1,ea,20 AWG,RD,,,,"NET_mnnbwso0_7"
 NET_mnnb3cvb_4,wire,Unassigned,,"",1,ea,14 AWG,OGRD,,,,"NET_mnnb3cvb_4"
@@ -44,12 +45,13 @@ BMS-F.1_DCDC-F.4; BMS-R.1_DCDC-R.4,wire,Unassigned,,"",2,ea,,WHRD,,,,"BMS-F.1_DC
 BMS-F.2_DCDC-F.3; BMS-R.2_DCDC-R.3,wire,Unassigned,,"",2,ea,,RDWH,,,,"BMS-F.2_DCDC-F.3; BMS-R.2_DCDC-R.3"
 BMS-F.3_CanHI.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1,wire,Unassigned,,"",5,ea,,YE,,,,"BMS-F.3_CanHI.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1"
 Gnd.1_X93.1; OilPump.6_X1.30,wire,Unassigned,,"",2,ea,12 AWG,BK,,,,"Gnd.1_X93.1; OilPump.6_X1.30"
-F13.OUT_OilPump.5,wire,Unassigned,,"",1,ea,12 AWG,BU,,,,"F13.OUT_OilPump.5"
+F13.OUT_F21.OUT,wire,Unassigned,,"",1,ea,12 AWG,BU,,,,"F13.OUT_F21.OUT"
+F21.IN_X96.1,wire,Unassigned,,"",1,ea,12 AWG,RD,,,,"F21.IN_X96.1"
 10863985,contact,10863985,Aptiv,"",10,ea,,,,,,
 
 
 Summary
 Harness Name,EVJ-55_plan
 Description,""
-Total Connectors,7
-Total Wires,39
+Total Connectors,8
+Total Wires,40
