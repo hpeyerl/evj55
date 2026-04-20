@@ -1,12 +1,18 @@
-name: Render wiring plan
+name: Render plan
 
 on:
   push:
     paths:
-      - 'wiring/EVJ-55_plan.json'
+      - 'wiring/**'
       - 'wiring/splice.yml'
       - '.github/workflows/render.yml'
   workflow_dispatch:
+
+# Collapse rapid successive commits (e.g. splice pushes design + config +
+# workflow as 3 separate commits) to a single completed run per branch.
+concurrency:
+  group: render-plan-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -33,10 +39,21 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Stage and commit first so the worktree is clean before any rebase.
           git add wiring/rendered/
           if git diff --staged --quiet; then
-            echo "No changes ? skipping commit."
-          else
-            git commit -m "chore: update rendered wiring outputs [skip ci]"
-            git push
+            echo "No changes to wiring/rendered/"
+            exit 0
           fi
+          git commit -m "chore: update rendered outputs [skip ci]"
+          # Retry loop handles concurrent runs racing on the same branch.
+          for i in 1 2 3; do
+            git fetch origin "${{ github.ref_name }}"
+            git rebase "origin/${{ github.ref_name }}" || { git rebase --abort; exit 1; }
+            if git push origin "HEAD:${{ github.ref_name }}"; then
+              exit 0
+            fi
+            echo "Push rejected, retrying ($i/3)..."
+          done
+          echo "Push failed after 3 attempts" >&2
+          exit 1
