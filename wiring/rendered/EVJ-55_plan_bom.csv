@@ -6,12 +6,12 @@ X1,connector,13669859,Aptiv,"",1,ea,,,56,,,
 J1,connector,33511394,Aptiv,"",1,ea,,,56,,,
 X2,connector,HX040-6P,Sumitomo,"",1,ea,,,6,,,
 X4,connector,LS600HL,Lexus,"",1,ea,,,40,,,
-Bat+; BatCtrl; BMS-F; BMS-R; Caliper; CAN1; CAN2; CanHI; CanLO; CDL Motor; Chassis; DCDC-F; DCDC-R; EC1; F11; F12; F13; F14; F15; F16; F17; F18; F19; F20; F21; F22; F23; F24; F25; FrontDtsch12-F; FrontDtsch12-M; Gnd; GndCtrl; GrnLed; HV Bat Front; HV Bat Rear; HV- Contactor; HV+ Contactor; IGN+; InDtsch12-F; Inverter HV; K11; K12; K13; K14; K15; K16; K17; K18; K19; K20; Neg Fuse; OilPump; PBCtrl; PkBrk; Pos Fuse; Precharge Relay; Precharge Resistor; RearDtsch12-F; RearDtsch12-M; RedLed; RT32; RT33; RT35; RT38; SENSE; Term; X7; X8; X46; X47; X48; X49; X50; X51; X52; X53; X54; X55; X57; X58; X59; X60; X61; X62; X63; X64; X65; X66; X67; X68; X69; X70; X71; X72; X73; X74; X75; X76; X77; X81; X82; X83; X84; X85; X86; X87; X88; X93; X95; X96; X97; X98; X99; X100; X101; X102; X103; X104,connector,Unassigned,,"",119,ea,,,7,,,
+Bat+; BatCtrl; BMS-F; BMS-R; Caliper; CAN1; CAN2; CanHI; CanLO; CDL; CDL Motor; Chassis; DCDC-F; DCDC-R; EC1; F11; F12; F13; F14; F15; F16; F17; F18; F19; F20; F21; F22; F23; F24; F25; FrontDtsch12-F; FrontDtsch12-M; Gnd; GndCtrl; GrnLed; HV Bat Front; HV Bat Rear; HV- Contactor; HV+ Contactor; IGN+; InDtsch12-F; InDtsch12-M; Inverter HV; K11; K12; K13; K14; K15; K16; K17; K18; K19; K20; LED; Neg Fuse; OilPump; PBCtrl; PkBrk; Pos Fuse; Precharge Relay; Precharge Resistor; PRNDL; RearDtsch12-F; RearDtsch12-M; RedLed; RT32; RT33; RT35; RT38; SENSE; Term; X7; X8; X46; X47; X48; X49; X50; X51; X52; X53; X54; X55; X57; X58; X59; X60; X61; X62; X63; X64; X65; X66; X67; X68; X69; X70; X71; X72; X73; X74; X75; X76; X77; X81; X82; X83; X84; X85; X86; X87; X88; X93; X96; X97; X98; X99; X100; X101; X102; X103; X104; ZombieDisplay,connector,Unassigned,,"",123,ea,,,7,,,
 X2.1_X1.45,wire,Unassigned,,"",1,ea,20 AWG,YEBU,,,,"X2.1_X1.45"
 J1.46_X2.2,wire,Unassigned,,"",1,ea,20 AWG,BNBU,,,,"J1.46_X2.2"
 X2.5_X1.47,wire,Unassigned,,"",1,ea,20 AWG,WHBU,,,,"X2.5_X1.47"
 J1.48_X2.3,wire,Unassigned,,"",1,ea,20 AWG,WHGN,,,,"J1.48_X2.3"
-EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; F13.OUT_F21.OUT; F23.IN_X104.1; FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV- Contactor.Coil-_RearDtsch12-M.7; J1.39_X3.7; PBCtrl.6_GrnLed.2; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42; X3.10_X1.41; X3.12_X1.40,wire,Unassigned,,"",18,ea,,,,,,"EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; F13.OUT_F21.OUT; F23.IN_X104.1; FrontDtsch12-M.6_Precharge Relay.Coil-; FrontDtsch12-M.7_HV+ Contactor.Coil-; HV- Contactor.Coil-_RearDtsch12-M.7; J1.39_X3.7; PBCtrl.6_GrnLed.2; X3.10_X1.41; X3.12_X1.40; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42"
+EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; F13.OUT_F21.OUT; InDtsch12-M.5_X1.31; InDtsch12-M.6_X1.34; InDtsch12-M.7_X1.33; J1.39_X3.7; PBCtrl.6_GrnLed.2; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42; X3.10_X1.41; X3.12_X1.40,wire,Unassigned,,"",17,ea,,,,,,"EC1.10_CDL Motor.4; EC1.11_CDL Motor.6; EC1.12_CDL Motor.5; EC1.4_CtrlRelay.7; EC1.7_CtrlRelay.1; EC1.8_CtrlRelay.4; F13.OUT_F21.OUT; InDtsch12-M.5_X1.31; InDtsch12-M.6_X1.34; InDtsch12-M.7_X1.33; J1.39_X3.7; PBCtrl.6_GrnLed.2; X3.10_X1.41; X3.12_X1.40; X3.3_X1.37; X3.8_X1.38; X3.9_X1.42"
 J1.16_X4.34; J1.18_X4.13; J1.20_X4.2; J1.22_X4.22; X4.17_X5.3; X6.3_X4.38,wire,Unassigned,,"",6,ea,22 AWG,WH,,,,"J1.16_X4.34; J1.18_X4.13; J1.20_X4.2; J1.22_X4.22; X4.17_X5.3; X6.3_X4.38"
 J1.17_X4.35; J1.19_X4.14; J1.21_X4.3; J1.23_X4.23; X4.20_X5.1; X6.1_X4.40,wire,Unassigned,,"",6,ea,22 AWG,BK,,,,"J1.17_X4.35; J1.19_X4.14; J1.21_X4.3; J1.23_X4.23; X4.20_X5.1; X6.1_X4.40"
 X4.18_X5.2; X6.2_X4.39,wire,Unassigned,,"",2,ea,22 AWG,BU,,,,"X4.18_X5.2; X6.2_X4.39"
@@ -23,9 +23,9 @@ Bat+.1_K11.30; Bat+.2_K13.30; Bat+.3_K14.30; Bat+.4_K15.30; Bat+.5_K16.30; Bat+.
 K11.87_F11.IN; K12.87_F12.IN; K13.87_F13.IN; K14.87_F14.IN; K15.87_F15.IN; K16.87_F16.IN; K17.87_F17.IN; K18.87_F18.IN; K19.87_F19.IN; K20.87_F20.IN,wire,Unassigned,,"",10,ea,14 AWG,,,,,"K11.87_F11.IN; K12.87_F12.IN; K13.87_F13.IN; K14.87_F14.IN; K15.87_F15.IN; K16.87_F16.IN; K17.87_F17.IN; K18.87_F18.IN; K19.87_F19.IN; K20.87_F20.IN"
 IGN+.1_K11.86; IGN+.2_K13.86; IGN+.3_K14.86; IGN+.4_K15.86; IGN+.5_K16.86,wire,Unassigned,,"",5,ea,18 AWG,VT,,,,"IGN+.1_K11.86; IGN+.2_K13.86; IGN+.3_K14.86; IGN+.4_K15.86; IGN+.5_K16.86"
 BatCtrl.3_K19.86; BatCtrl.4_K20.86; BatCtrl.5_K12.86,wire,Unassigned,,"",3,ea,18 AWG,RD,,,,"BatCtrl.3_K19.86; BatCtrl.4_K20.86; BatCtrl.5_K12.86"
-DCDC-F.1_FrontDtsch12-M.1; DCDC-R.1_RearDtsch12-M.1; FrontDtsch12-F.1_RearDtsch12-F.1; K12.85_X103.1; K19.85_X101.1; K20.85_X102.1; PBCtrl.3_X98.1; PBCtrl.6_GrnLed.2,wire,Unassigned,,"",8,ea,,BK,,,,"DCDC-F.1_FrontDtsch12-M.1; DCDC-R.1_RearDtsch12-M.1; FrontDtsch12-F.1_RearDtsch12-F.1; K12.85_X103.1; K19.85_X101.1; K20.85_X102.1; PBCtrl.3_X98.1; PBCtrl.6_GrnLed.2"
+FrontDtsch12-F.1_RearDtsch12-F.1; FrontDtsch12-M.7_InDtsch12-F.5; HV+ Contactor.Coil-_InDtsch12-F.7; InDtsch12-M.1_X104.1; K12.85_X103.1; K19.85_X101.1; K20.85_X102.1; PBCtrl.6_GrnLed.2; Precharge Relay.Coil-_InDtsch12-F.6; RearDtsch12-M.1_DCDC-R.1; RearDtsch12-M.7_HV- Contactor.Coil-,wire,Unassigned,,"",11,ea,,BK,,,,"FrontDtsch12-F.1_RearDtsch12-F.1; FrontDtsch12-M.7_InDtsch12-F.5; HV+ Contactor.Coil-_InDtsch12-F.7; InDtsch12-M.1_X104.1; K12.85_X103.1; K19.85_X101.1; K20.85_X102.1; PBCtrl.6_GrnLed.2; Precharge Relay.Coil-_InDtsch12-F.6; RearDtsch12-M.1_DCDC-R.1; RearDtsch12-M.7_HV- Contactor.Coil-"
 FrontDtsch12-F.2_RearDtsch12-F.2,wire,Unassigned,,"",1,ea,,WH,,,,"FrontDtsch12-F.2_RearDtsch12-F.2"
-BMS-F.4_CanLO.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.2_CanLO.3; FrontDtsch12-F.3_RearDtsch12-F.3; FrontDtsch12-F.10_RearDtsch12-F.10; FrontDtsch12-M.5_CanLO.1; PBCtrl.7_GrnLed.1,wire,Unassigned,,"",8,ea,,GN,,,,"BMS-F.4_CanLO.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.2_CanLO.3; FrontDtsch12-F.10_RearDtsch12-F.10; FrontDtsch12-F.3_RearDtsch12-F.3; FrontDtsch12-M.5_CanLO.1; PBCtrl.7_GrnLed.1"
+BMS-F.4_CanLO.2; CAN1.2_CanLO.3; FrontDtsch12-F.3_RearDtsch12-F.3; FrontDtsch12-F.10_RearDtsch12-F.10; FrontDtsch12-M.5_CanLO.1; InDtsch12-F.3_CanLO.4; InDtsch12-M.3_X1.27; PBCtrl.7_GrnLed.1; Term.1_RearDtsch12-M.4; Term.2_RearDtsch12-M.5,wire,Unassigned,,"",10,ea,,GN,,,,"BMS-F.4_CanLO.2; CAN1.2_CanLO.3; FrontDtsch12-F.10_RearDtsch12-F.10; FrontDtsch12-F.3_RearDtsch12-F.3; FrontDtsch12-M.5_CanLO.1; InDtsch12-F.3_CanLO.4; InDtsch12-M.3_X1.27; PBCtrl.7_GrnLed.1; Term.1_RearDtsch12-M.4; Term.2_RearDtsch12-M.5"
 FrontDtsch12-F.4_RearDtsch12-F.4,wire,Unassigned,,"",1,ea,,WHBU,,,,"FrontDtsch12-F.4_RearDtsch12-F.4"
 FrontDtsch12-F.5_RearDtsch12-F.5,wire,Unassigned,,"",1,ea,,BU,,,,"FrontDtsch12-F.5_RearDtsch12-F.5"
 FrontDtsch12-F.6_RearDtsch12-F.6,wire,Unassigned,,"",1,ea,,WHBN,,,,"FrontDtsch12-F.6_RearDtsch12-F.6"
@@ -33,7 +33,7 @@ FrontDtsch12-F.7_RearDtsch12-F.7; PBCtrl.5_PkBrk.1,wire,Unassigned,,"",2,ea,,BN,
 FrontDtsch12-F.8_RearDtsch12-F.8,wire,Unassigned,,"",1,ea,,OG,,,,"FrontDtsch12-F.8_RearDtsch12-F.8"
 FrontDtsch12-F.9_RearDtsch12-F.9,wire,Unassigned,,"",1,ea,,WHOG,,,,"FrontDtsch12-F.9_RearDtsch12-F.9"
 FrontDtsch12-F.11_RearDtsch12-F.11,wire,Unassigned,,"",1,ea,,WHGN,,,,"FrontDtsch12-F.11_RearDtsch12-F.11"
-DCDC-F.2_FrontDtsch12-M.12; DCDC-R.2_RearDtsch12-M.12; FrontDtsch12-F.12_RearDtsch12-F.12; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1,wire,Unassigned,,"",7,ea,,RD,,,,"DCDC-F.2_FrontDtsch12-M.12; DCDC-R.2_RearDtsch12-M.12; FrontDtsch12-F.12_RearDtsch12-F.12; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1"
+F17.OUT_Precharge Relay.Coil+; F17.OUT_Precharge Relay.Coil+; F17.OUT_Precharge Relay.Coil+; FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; RearDtsch12-M.12_DCDC-R.2,wire,Unassigned,,"",10,ea,,RD,,,,"F17.OUT_Precharge Relay.Coil+; FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; RearDtsch12-M.12_DCDC-R.2"
 NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1,wire,Unassigned,,"",3,ea,3/0 AWG,OGRD,,,,"NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1"
 NET_mnnbwso0_7,wire,Unassigned,,"",1,ea,20 AWG,RD,,,,"NET_mnnbwso0_7"
 NET_mnnb3cvb_4,wire,Unassigned,,"",1,ea,14 AWG,OGRD,,,,"NET_mnnb3cvb_4"
@@ -42,16 +42,16 @@ HV Bat Front.V-_X84.1; HV- Contactor.COM_X87.1; HV- Contactor.NO_X88.1; Neg Fuse
 Neg Fuse.OUT_X85.1,wire,Unassigned,,"",1,ea,,OGBK,,,,"Neg Fuse.OUT_X85.1"
 BMS-F.1_DCDC-F.4; BMS-R.1_DCDC-R.4,wire,Unassigned,,"",2,ea,,WHRD,,,,"BMS-F.1_DCDC-F.4; BMS-R.1_DCDC-R.4"
 BMS-F.2_DCDC-F.3; BMS-R.2_DCDC-R.3,wire,Unassigned,,"",2,ea,,RDWH,,,,"BMS-F.2_DCDC-F.3; BMS-R.2_DCDC-R.3"
-BMS-F.3_CanHI.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1,wire,Unassigned,,"",5,ea,,YE,,,,"BMS-F.3_CanHI.2; BMS-R.3_Term.1; BMS-R.4_Term.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1"
+BMS-F.3_CanHI.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1; InDtsch12-F.2_CanHI.4; InDtsch12-M.2_X1.28; Term.1_RearDtsch12-M.4; Term.2_RearDtsch12-M.5,wire,Unassigned,,"",7,ea,,YE,,,,"BMS-F.3_CanHI.2; CAN1.1_CanHI.3; FrontDtsch12-M.4_CanHI.1; InDtsch12-F.2_CanHI.4; InDtsch12-M.2_X1.28; Term.1_RearDtsch12-M.4; Term.2_RearDtsch12-M.5"
 Gnd.1_X93.1; OilPump.6_X1.30,wire,Unassigned,,"",2,ea,12 AWG,BK,,,,"Gnd.1_X93.1; OilPump.6_X1.30"
 F13.OUT_F21.OUT,wire,Unassigned,,"",1,ea,12 AWG,BU,,,,"F13.OUT_F21.OUT"
-Precharge Relay.Coil+_X95.1,wire,Unassigned,,"",1,ea,16 AWG,VT,,,,"Precharge Relay.Coil+_X95.1"
 F21.IN_X96.1,wire,Unassigned,,"",1,ea,12 AWG,RD,,,,"F21.IN_X96.1"
 F22.IN_X97.1; F22.OUT_X1.56,wire,Unassigned,,"",2,ea,16 AWG,RD,,,,"F22.IN_X97.1; F22.OUT_X1.56"
 PBCtrl.1_Caliper.1,wire,Unassigned,,"",1,ea,14 AWG,WH,,,,"PBCtrl.1_Caliper.1"
 PBCtrl.2_Caliper.2,wire,Unassigned,,"",1,ea,14 AWG,YE,,,,"PBCtrl.2_Caliper.2"
-PBCtrl.4_F23.OUT,wire,Unassigned,,"",1,ea,,VT,,,,"PBCtrl.4_F23.OUT"
-10863985,contact,10863985,Aptiv,"",10,ea,,,,,,
+PBCtrl.3_X98.1,wire,Unassigned,,"",1,ea,14 AWG,BK,,,,"PBCtrl.3_X98.1"
+F14.OUT_PBCtrl.4,wire,Unassigned,,"",1,ea,,VT,,,,"F14.OUT_PBCtrl.4"
+10863985,contact,10863985,Aptiv,"",40,ea,,,,,,
 
 
 Summary
