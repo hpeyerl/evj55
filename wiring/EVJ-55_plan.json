@@ -628,40 +628,6 @@
         "pinId": "pin_1774094566249_zncpk3m9c"
       }
     },
-    "cond_1774095510825_ycd491d48": {
-      "color": "black",
-      "endEndpoint": {
-        "nodeId": "comp_1774095407860_o4olleywv",
-        "pinId": "pin-77fb020d"
-      },
-      "endTermination": {},
-      "gauge": "18 AWG",
-      "id": "cond_1774095510825_ycd491d48",
-      "linkPath": [
-        "link_1774095510825_3ckdkqpvq"
-      ],
-      "netName": "NET_mn0ant49",
-      "startEndpoint": {
-        "nodeId": "comp_1774050003985_eq8v54gm6",
-        "pinId": "pin_1774050040459_wadg8aazq"
-      }
-    },
-    "cond_1774095548285_klb724vki": {
-      "color": "red",
-      "endEndpoint": {
-        "nodeId": "comp_1774095528718_kgpnf05gf"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774095548285_klb724vki",
-      "linkPath": [
-        "link_1774095548285_o9i6ogh03"
-      ],
-      "netName": "NET_mn0aom0t",
-      "startEndpoint": {
-        "nodeId": "comp_1774095407860_o4olleywv",
-        "pinId": "pin-cdca403d"
-      }
-    },
     "cond_1774975815040_05987vipx": {
       "color": "#FF0000",
       "endEndpoint": {
@@ -3398,16 +3364,6 @@
       "id": "link_1774094621276_1pe1uyae4",
       "sourceNodeId": "comp_1774094566248_dt418xnb1",
       "targetNodeId": "comp_1774050003985_eq8v54gm6"
-    },
-    "link_1774095510825_3ckdkqpvq": {
-      "id": "link_1774095510825_3ckdkqpvq",
-      "sourceNodeId": "comp_1774050003985_eq8v54gm6",
-      "targetNodeId": "comp_1774095407860_o4olleywv"
-    },
-    "link_1774095548285_o9i6ogh03": {
-      "id": "link_1774095548285_o9i6ogh03",
-      "sourceNodeId": "comp_1774095407860_o4olleywv",
-      "targetNodeId": "comp_1774095528718_kgpnf05gf"
     },
     "link_1774975815040_0qvtbguhj": {
       "id": "link_1774975815040_0qvtbguhj",
@@ -6256,8 +6212,8 @@
     },
     "comp_1774095407860_o4olleywv": {
       "page_1774035261476_uynpwwfao": {
-        "x": 1087.5,
-        "y": 552.5
+        "x": 1088,
+        "y": 553
       }
     },
     "comp_1774095436613_olrl9gfgg": {
@@ -6268,7 +6224,7 @@
     },
     "comp_1774095528718_kgpnf05gf": {
       "page_1774035261476_uynpwwfao": {
-        "x": 892.5,
+        "x": 893,
         "y": 575
       }
     },
@@ -7292,18 +7248,6 @@
       "page_1774035261476_uynpwwfao": {
         "height": 50,
         "width": 215
-      }
-    },
-    "comp_1774095407860_o4olleywv": {
-      "page_1774035261476_uynpwwfao": {
-        "height": 45,
-        "width": 215
-      }
-    },
-    "comp_1774095528718_kgpnf05gf": {
-      "page_1774035261476_uynpwwfao": {
-        "height": 10,
-        "width": 45
       }
     },
     "comp_1774975815037_0apa3two2": {
@@ -8994,65 +8938,6 @@
         "x": 870,
         "y": 515
       },
-      "type": "component"
-    },
-    "comp_1774095407860_o4olleywv": {
-      "category": "connector",
-      "id": "comp_1774095407860_o4olleywv",
-      "label": "X7",
-      "name": "L110 Oil Pump",
-      "pins": [
-        {
-          "function": "NC",
-          "id": "pin-4fe43283",
-          "label": "1"
-        },
-        {
-          "function": "NC",
-          "id": "pin-db17b58d",
-          "label": "2"
-        },
-        {
-          "function": "NC",
-          "id": "pin-77970309",
-          "label": "3"
-        },
-        {
-          "function": "NC",
-          "id": "pin-8e778904",
-          "label": "4"
-        },
-        {
-          "function": "B+",
-          "id": "pin-cdca403d",
-          "label": "5"
-        },
-        {
-          "function": "SIG",
-          "id": "pin-77fb020d",
-          "label": "6"
-        },
-        {
-          "function": "STST",
-          "id": "pin-e339d7fe",
-          "label": "7"
-        }
-      ],
-      "position": {
-        "x": 870,
-        "y": 790
-      },
-      "type": "component"
-    },
-    "comp_1774095528718_kgpnf05gf": {
-      "category": "",
-      "id": "comp_1774095528718_kgpnf05gf",
-      "label": "X8",
-      "position": {
-        "x": 1920,
-        "y": 2330
-      },
-      "shape": "ring",
       "type": "component"
     },
     "comp_1774975815037_0apa3two2": {
