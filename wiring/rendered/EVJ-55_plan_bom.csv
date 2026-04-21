@@ -33,7 +33,7 @@ FrontDtsch12-F.7_RearDtsch12-F.7; PBCtrl.5_PkBrk.1,wire,Unassigned,,"",2,ea,,BN,
 FrontDtsch12-F.8_RearDtsch12-F.8,wire,Unassigned,,"",1,ea,,OG,,,,"FrontDtsch12-F.8_RearDtsch12-F.8"
 FrontDtsch12-F.9_RearDtsch12-F.9,wire,Unassigned,,"",1,ea,,WHOG,,,,"FrontDtsch12-F.9_RearDtsch12-F.9"
 FrontDtsch12-F.11_RearDtsch12-F.11,wire,Unassigned,,"",1,ea,,WHGN,,,,"FrontDtsch12-F.11_RearDtsch12-F.11"
-F17.OUT_Precharge Relay.Coil+; F17.OUT_Precharge Relay.Coil+; F17.OUT_Precharge Relay.Coil+; FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; RearDtsch12-M.12_DCDC-R.2,wire,Unassigned,,"",10,ea,,RD,,,,"F17.OUT_Precharge Relay.Coil+; FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; RearDtsch12-M.12_DCDC-R.2"
+FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; Precharge Relay.Coil+_HV- Contactor.Coil+; Precharge Relay.Coil+_HV- Contactor.Coil+; Precharge Relay.Coil+_HV- Contactor.Coil+; RearDtsch12-M.12_DCDC-R.2,wire,Unassigned,,"",10,ea,,RD,,,,"FrontDtsch12-F.12_RearDtsch12-F.12; InDtsch12-M.12_F15.OUT; J1.15_F11.OUT; K17.86_X99.1; K18.86_X100.1; PBCtrl.8_RedLed.1; Precharge Relay.Coil+_HV- Contactor.Coil+; RearDtsch12-M.12_DCDC-R.2"
 NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1,wire,Unassigned,,"",3,ea,3/0 AWG,OGRD,,,,"NET_mnnb3cvb_4; NET_mnnbwso0_7; Pos Fuse.IN_X77.1"
 NET_mnnbwso0_7,wire,Unassigned,,"",1,ea,20 AWG,RD,,,,"NET_mnnbwso0_7"
 NET_mnnb3cvb_4,wire,Unassigned,,"",1,ea,14 AWG,OGRD,,,,"NET_mnnb3cvb_4"
