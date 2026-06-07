@@ -1,89 +1,176 @@
-<svg width="680" viewBox="0 0 680 720" xmlns="http://www.w3.org/2000/svg" style="background:#fff;font-family:sans-serif">
+<svg width="680" viewBox="0 0 680 780" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+<title>FJ55 EV system diagram</title>
+<desc>FJ55 EV system diagram with CAN bus rail above MCU row and WiFi rail above that. Green lines indicate CAN connections, red dashed lines indicate WiFi connections, blue dashed lines indicate BLE. Peripherals hang below MCUs. Scope creep items at bottom.</desc>
 <defs>
   <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-grn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-blu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </marker>
 </defs>
 
-<!-- CAN Bus backbone -->
-<rect x="40" y="338" width="600" height="8" rx="4" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
-<text font-size="12" fill="#888" x="340" y="330" text-anchor="middle">CAN bus 500 kbps</text>
+<!-- background -->
+<rect width="680" height="780" fill="#ffffff"/>
+
+<!-- ═══ UPSTREAM WIFI CLOUD ═══ -->
+<rect x="430" y="28" width="200" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="530" y="46" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">Upstream WiFi</text>
+<text x="530" y="64" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">Home / friend / open AP</text>
+
+<!-- NAT router -->
+<rect x="430" y="96" width="200" height="54" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="530" y="115" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">ESP32 NAT router</text>
+<text x="530" y="133" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">STA ↑ roaming · AP ↓ local</text>
+<line x1="530" y1="72" x2="530" y2="96" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.8" marker-end="url(#arrow-red)"/>
+
+<!-- NAT down to WiFi rail -->
+<line x1="530" y1="150" x2="530" y2="172" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+
+<!-- ═══ WIFI RAIL (red) ═══ -->
+<line x1="50" y1="172" x2="630" y2="172" stroke="#993C1D" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.55"/>
+<rect x="276" y="162" width="128" height="18" rx="3" fill="#ffffff" opacity="0.95"/>
+<text x="340" y="172" text-anchor="middle" font-size="12" fill="#993C1D" opacity="0.85" dominant-baseline="central">local WiFi AP</text>
+
+<!-- ═══ CAN RAIL (green) — single unbroken line ═══ -->
+<line x1="50" y1="226" x2="630" y2="226" stroke="#3B6D11" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.55"/>
+<rect x="276" y="216" width="136" height="18" rx="3" fill="#ffffff" opacity="0.95"/>
+<text x="344" y="226" text-anchor="middle" font-size="12" fill="#3B6D11" opacity="0.85" dominant-baseline="central">CAN bus 500 kbps</text>
+
+<!-- ═══ MCU CONNECTIONS TO RAILS ═══ -->
+<!-- M5Dial: CAN (green) -->
+<line x1="90" y1="270" x2="90" y2="226" stroke="#3B6D11" stroke-width="1.5" opacity="0.75"/>
+<circle cx="90" cy="226" r="3" fill="#3B6D11" opacity="0.75"/>
+<!-- M5Dial: WiFi (red) -->
+<line x1="110" y1="270" x2="110" y2="172" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.65"/>
+<circle cx="110" cy="172" r="3" fill="#993C1D" opacity="0.65"/>
+
+<!-- ZombieVerter: CAN -->
+<line x1="258" y1="270" x2="258" y2="226" stroke="#3B6D11" stroke-width="1.5" opacity="0.75"/>
+<circle cx="258" cy="226" r="3" fill="#3B6D11" opacity="0.75"/>
+<!-- ZombieVerter: WiFi -->
+<line x1="278" y1="270" x2="278" y2="172" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.65"/>
+<circle cx="278" cy="172" r="3" fill="#993C1D" opacity="0.65"/>
+
+<!-- BMS: CAN -->
+<line x1="418" y1="270" x2="418" y2="226" stroke="#3B6D11" stroke-width="1.5" opacity="0.75"/>
+<circle cx="418" cy="226" r="3" fill="#3B6D11" opacity="0.75"/>
+<!-- BMS: WiFi -->
+<line x1="438" y1="270" x2="438" y2="172" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.65"/>
+<circle cx="438" cy="172" r="3" fill="#993C1D" opacity="0.65"/>
+
+<!-- P4-Nano: CAN -->
+<line x1="578" y1="270" x2="578" y2="226" stroke="#3B6D11" stroke-width="1.5" opacity="0.75"/>
+<circle cx="578" cy="226" r="3" fill="#3B6D11" opacity="0.75"/>
+<!-- P4-Nano: WiFi -->
+<line x1="598" y1="270" x2="598" y2="172" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.65"/>
+<circle cx="598" cy="172" r="3" fill="#993C1D" opacity="0.65"/>
+
+<!-- ═══ MCU ROW ═══ -->
 
 <!-- M5Dial -->
-<rect x="40" y="40" width="140" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
-<text font-size="14" font-weight="500" fill="#3C3489" x="110" y="65" text-anchor="middle">M5Dial</text>
-<text font-size="12" fill="#534AB7" x="110" y="83" text-anchor="middle">Steering wheel</text>
-<text font-size="11" fill="#888" x="110" y="114" text-anchor="middle">clockspring</text>
-<line x1="110" y1="96" x2="110" y2="130" stroke="#888" stroke-width="0.5" stroke-dasharray="3 2"/>
+<rect x="44" y="270" width="122" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="105" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489" dominant-baseline="central">M5Dial</text>
+<text x="105" y="307" text-anchor="middle" font-size="12" fill="#534AB7" dominant-baseline="central">Shifter + auth arbiter</text>
 
-<!-- IS3050G -->
-<rect x="55" y="130" width="110" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-<text font-size="14" font-weight="500" fill="#2C2C2A" x="110" y="150" text-anchor="middle">IS3050G</text>
-<text font-size="12" fill="#5F5E5A" x="110" y="166" text-anchor="middle">column fixed</text>
-<line x1="110" y1="174" x2="110" y2="338" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
-
-<!-- Zombieverter -->
-<rect x="270" y="40" width="140" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-<text font-size="14" font-weight="500" fill="#085041" x="340" y="65" text-anchor="middle">Zombieverter</text>
-<text font-size="12" fill="#0F6E56" x="340" y="83" text-anchor="middle">motor controller</text>
-<line x1="340" y1="96" x2="340" y2="338" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<!-- ZombieVerter -->
+<rect x="212" y="270" width="122" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="273" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#712B13" dominant-baseline="central">ZombieVerter</text>
+<text x="273" y="307" text-anchor="middle" font-size="12" fill="#993C1D" dominant-baseline="central">Motor controller</text>
 
 <!-- BMS -->
-<rect x="500" y="40" width="140" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-<text font-size="14" font-weight="500" fill="#085041" x="570" y="65" text-anchor="middle">BMS</text>
-<text font-size="12" fill="#0F6E56" x="570" y="83" text-anchor="middle">Lilygo T-CAN485</text>
-<line x1="570" y1="96" x2="570" y2="338" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="380" y="270" width="122" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="441" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#712B13" dominant-baseline="central">BMS</text>
+<text x="441" y="307" text-anchor="middle" font-size="12" fill="#993C1D" dominant-baseline="central">Lilygo T-CAN485</text>
 
-<!-- Dashboard -->
-<rect x="220" y="390" width="240" height="76" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-<text font-size="14" font-weight="500" fill="#0C447C" x="340" y="416" text-anchor="middle">Dashboard</text>
-<text font-size="12" fill="#185FA5" x="340" y="434" text-anchor="middle">ESP32-P4-NANO</text>
-<text font-size="12" fill="#185FA5" x="340" y="452" text-anchor="middle">Waveshare 10.1" DSI</text>
-<line x1="340" y1="346" x2="340" y2="390" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<!-- P4-Nano -->
+<rect x="548" y="270" width="122" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="609" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" dominant-baseline="central">ESP32-P4-Nano</text>
+<text x="609" y="307" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">Dashboard</text>
 
-<!-- Headlight pot -->
-<rect x="40" y="430" width="120" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#2C2C2A" x="100" y="450" text-anchor="middle">Headlight pot</text>
-<text font-size="11" fill="#5F5E5A" x="100" y="466" text-anchor="middle">ADC → dimming</text>
-<line x1="160" y1="452" x2="220" y2="452" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<!-- ═══ LEFT PERIPHERALS — M5Dial ═══ -->
+
+<!-- Android phones — BLE blue -->
+<rect x="44" y="380" width="122" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="105" y="399" text-anchor="middle" font-size="14" font-weight="500" fill="#085041" dominant-baseline="central">Android phones</text>
+<text x="105" y="417" text-anchor="middle" font-size="12" fill="#0F6E56" dominant-baseline="central">BLE presence ×3</text>
+<line x1="82" y1="380" x2="82" y2="326" stroke="#185FA5" stroke-width="1" stroke-dasharray="4 3" opacity="0.7" marker-end="url(#arrow-blu)"/>
+<text x="66" y="356" text-anchor="middle" font-size="12" fill="#185FA5" opacity="0.8">BLE</text>
+
+<!-- RFID -->
+<rect x="44" y="456" width="122" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="105" y="474" text-anchor="middle" font-size="14" font-weight="500" fill="#085041" dominant-baseline="central">RFID key</text>
+<text x="105" y="490" text-anchor="middle" font-size="12" fill="#0F6E56" dominant-baseline="central">Hotel card fallback</text>
+<line x1="105" y1="456" x2="105" y2="436" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
+
+<!-- IS3050G -->
+<rect x="44" y="520" width="122" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="105" y="538" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">IS3050G</text>
+<text x="105" y="554" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">Via clockspring</text>
+<line x1="105" y1="520" x2="105" y2="500" stroke="#555" stroke-width="0.5" stroke-dasharray="3 2" opacity="0.4" marker-end="url(#arrow)"/>
+
+<!-- ═══ LEGEND ═══ -->
+<line x1="212" y1="398" x2="244" y2="398" stroke="#3B6D11" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.8"/>
+<text x="250" y="402" font-size="12" fill="#3B6D11" opacity="0.9">CAN</text>
+<line x1="212" y1="418" x2="244" y2="418" stroke="#993C1D" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/>
+<text x="250" y="422" font-size="12" fill="#993C1D" opacity="0.9">WiFi</text>
+<line x1="212" y1="438" x2="244" y2="438" stroke="#185FA5" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/>
+<text x="250" y="442" font-size="12" fill="#185FA5" opacity="0.9">BLE</text>
+
+<!-- ═══ RIGHT PERIPHERALS — P4-Nano ═══ -->
+
+<!-- Waveshare -->
+<rect x="548" y="380" width="122" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="609" y="399" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" dominant-baseline="central">Waveshare 12.3"</text>
+<text x="609" y="417" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">MIPI DSI + GT911</text>
+<line x1="578" y1="380" x2="578" y2="326" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
+<text x="562" y="356" text-anchor="end" font-size="12" fill="#555" opacity="0.6">DSI</text>
 
 <!-- VSS -->
-<rect x="40" y="510" width="120" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#2C2C2A" x="100" y="530" text-anchor="middle">VSS sensor</text>
-<text font-size="11" fill="#5F5E5A" x="100" y="546" text-anchor="middle">PCNT edge count</text>
-<line x1="160" y1="532" x2="220" y2="475" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="548" y="456" width="122" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="609" y="474" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">VSS sensor</text>
+<text x="609" y="490" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">ISR pulse counter</text>
+<line x1="638" y1="456" x2="638" y2="436" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
+<text x="650" y="449" font-size="12" fill="#555" opacity="0.6">GPIO</text>
+
+<!-- Headlight dimmer -->
+<rect x="548" y="520" width="122" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="609" y="538" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">Headlight pot</text>
+<text x="609" y="554" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">ADC → dim CAN</text>
+<line x1="638" y1="520" x2="638" y2="500" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
+<text x="650" y="513" font-size="12" fill="#555" opacity="0.6">ADC</text>
 
 <!-- EPB -->
-<rect x="40" y="590" width="120" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#2C2C2A" x="100" y="610" text-anchor="middle">EPB controller</text>
-<text font-size="11" fill="#5F5E5A" x="100" y="626" text-anchor="middle">GPIO LED+button</text>
-<line x1="160" y1="612" x2="220" y2="490" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="548" y="584" width="122" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="609" y="602" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">EPB controller</text>
+<text x="609" y="618" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">Auto-engage on P</text>
+<line x1="638" y1="584" x2="638" y2="564" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
+<text x="650" y="577" font-size="12" fill="#555" opacity="0.6">GPIO</text>
 
-<!-- Camera future -->
-<rect x="500" y="430" width="140" height="44" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#2C2C2A" x="570" y="450" text-anchor="middle">Reverse camera</text>
-<text font-size="11" fill="#888" x="570" y="466" text-anchor="middle">future / TBD</text>
-<line x1="500" y1="452" x2="460" y2="452" stroke="#888" stroke-width="0.5" stroke-dasharray="3 2" marker-end="url(#arrow)" opacity="0.4"/>
+<!-- ═══ SCOPE CREEP ROW ═══ -->
+<line x1="44" y1="656" x2="636" y2="656" stroke="#888" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.3"/>
+<text x="340" y="650" text-anchor="middle" font-size="12" fill="#888" opacity="0.4">scope creep</text>
 
-<!-- NAT Router -->
-<rect x="500" y="510" width="140" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#633806" x="570" y="530" text-anchor="middle">NAT router</text>
-<text font-size="11" fill="#854F0B" x="570" y="546" text-anchor="middle">ESP32 dedicated</text>
-<line x1="460" y1="428" x2="502" y2="512" stroke="#888" stroke-width="0.5" stroke-dasharray="3 2" marker-end="url(#arrow)" opacity="0.4"/>
-<text font-size="11" fill="#888" x="493" y="476" text-anchor="middle">WiFi</text>
+<rect x="44" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="109" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">Air suspension</text>
+<text x="109" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">4-corner · ESP32-P4</text>
 
-<!-- Home WiFi -->
-<rect x="500" y="590" width="140" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-<text font-size="13" font-weight="500" fill="#633806" x="570" y="610" text-anchor="middle">Home WiFi</text>
-<text font-size="11" fill="#854F0B" x="570" y="626" text-anchor="middle">debug access</text>
-<line x1="570" y1="554" x2="570" y2="590" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="190" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="255" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">OVMS</text>
+<text x="255" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">LTE modem + CAN</text>
 
-<!-- Legend -->
-<text font-size="11" fill="#888" x="40" y="675">Legend:</text>
-<line x1="90" y1="671" x2="115" y2="671" stroke="#888" stroke-width="1.5" stroke-dasharray="6 3"/>
-<text font-size="11" fill="#888" x="120" y="675">CAN bus</text>
-<line x1="175" y1="671" x2="200" y2="671" stroke="#888" stroke-width="0.5"/>
-<text font-size="11" fill="#888" x="205" y="675">GPIO/analog</text>
-<line x1="270" y1="671" x2="295" y2="671" stroke="#888" stroke-width="0.5" stroke-dasharray="3 2"/>
-<text font-size="11" fill="#888" x="300" y="675">WiFi / future</text>
+<rect x="336" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="401" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">BLE auth system</text>
+<text x="401" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">M5Dial arbiter</text>
+
+<rect x="482" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="547" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">RFID immobilizer</text>
+<text x="547" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">Steering wheel dial</text>
+
 </svg>
