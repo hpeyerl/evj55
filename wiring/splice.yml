@@ -1,9 +1,9 @@
 design:
-  plan-path: wiring/EVJ-55_plan.json
+  plan-path: wiring/evj-55.plan.json
 
 exports:
   formats:
+    - all-pages-pdf
     - bom-xlsx
     - bom-csv
-    - all-pages-pdf-schematic
-  output-dir: wiring/rendered
+  output-dir: rendered
