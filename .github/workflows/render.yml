@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rendered
-          path: wiring/rendered/
+          path: rendered/
           if-no-files-found: error
 
       - name: Commit rendered outputs
@@ -40,9 +40,9 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Stage and commit first so the worktree is clean before any rebase.
-          git add wiring/rendered/
+          git add rendered/
           if git diff --staged --quiet; then
-            echo "No changes to wiring/rendered/"
+            echo "No changes to rendered/"
             exit 0
           fi
           git commit -m "chore: update rendered outputs [skip ci]"
