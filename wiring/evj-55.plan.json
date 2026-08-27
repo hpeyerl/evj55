@@ -693,38 +693,6 @@
         "pinId": "pin_1774975815040_i4eovw97l"
       }
     },
-    "cond_1774975815040_20y9lg2ky": {
-      "color": "#FF0000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_9p82uxt9h",
-        "pinId": "pin_1774975815038_o1q9iiqf7"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_20y9lg2ky",
-      "linkPath": [
-        "link_1774975815040_sextwt237"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815039_v80zu8yb2",
-        "pinId": "pin_1774975815039_djfp7c4lb"
-      }
-    },
-    "cond_1774975815040_2xibzk0xb": {
-      "color": "#000000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_m1m03wxp3",
-        "pinId": "pin_1774975815038_75p4wqmjk"
-      },
-      "gauge": "18 AWG",
-      "id": "cond_1774975815040_2xibzk0xb",
-      "linkPath": [
-        "link_1774975815040_k5y0sum8c"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815039_8fts5f4r6",
-        "pinId": "pin_1774975815039_8wcbulw4v"
-      }
-    },
     "cond_1774975815040_5owzcxnwj": {
       "color": "#000000",
       "endEndpoint": {
@@ -739,67 +707,6 @@
       "startEndpoint": {
         "nodeId": "comp_1774975815039_qxmh0bkvv",
         "pinId": "pin_1774975815039_q5mfxievg"
-      }
-    },
-    "cond_1774975815040_5ry9n3nxp": {
-      "color": "#FF0000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_m1m03wxp3",
-        "pinId": "pin_1774975815038_ozb6c0p2y"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_5ry9n3nxp",
-      "linkPath": [
-        "link_1774975815040_l2z9qf0zc"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_xsja72jiv",
-        "pinId": "pin_1774975815039_8e4yu7rr7"
-      }
-    },
-    "cond_1774975815040_638d7ylsb": {
-      "endEndpoint": {
-        "nodeId": "comp_1774975815037_b30e3jet3",
-        "pinId": "pin_1774975815037_wow2vddua"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_638d7ylsb",
-      "linkPath": [
-        "link_1774975815040_x7dkxfxaq"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_m1m03wxp3",
-        "pinId": "pin_1774975815038_3dymwxi0f"
-      }
-    },
-    "cond_1774975815040_75iqeolut": {
-      "endEndpoint": {
-        "nodeId": "comp_1774975815037_q0cr6apez",
-        "pinId": "pin_1774975815037_q0imdjcl0"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_75iqeolut",
-      "linkPath": [
-        "link_1774975815040_5g86oxjbc"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_9p82uxt9h",
-        "pinId": "pin_1774975815038_7soou40xo"
-      }
-    },
-    "cond_1774975815040_faiddz0kt": {
-      "endEndpoint": {
-        "nodeId": "comp_1774975815037_cp2irth4l",
-        "pinId": "pin_1774975815037_tzcsy7myn"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_faiddz0kt",
-      "linkPath": [
-        "link_1774975815040_xhqjhm39r"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_zizj0yu7g",
-        "pinId": "pin_1774975815038_iep15svuf"
       }
     },
     "cond_1774975815040_ferpa07im": {
@@ -928,54 +835,6 @@
       "startEndpoint": {
         "nodeId": "comp_1774975815039_luw6w6w1u",
         "pinId": "pin_1774975815039_z0e1ih0lh"
-      }
-    },
-    "cond_1774975815040_o9ml7mtlo": {
-      "color": "#FF0000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_9p82uxt9h",
-        "pinId": "pin_1774975815038_djmkt0wkk"
-      },
-      "gauge": "18 AWG",
-      "id": "cond_1774975815040_o9ml7mtlo",
-      "linkPath": [
-        "link_1774975815040_lpwzogseb"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815039_tevq1z3f8",
-        "pinId": "pin_1774975815039_vpp7vpmnh"
-      }
-    },
-    "cond_1774975815040_ooj6xylvn": {
-      "color": "#FF0000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_zizj0yu7g",
-        "pinId": "pin_1774975815038_re0wlqnwx"
-      },
-      "gauge": "18 AWG",
-      "id": "cond_1774975815040_ooj6xylvn",
-      "linkPath": [
-        "link_1774975815040_ygyn4yb3i"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815039_szmbhk77x",
-        "pinId": "pin_1774975815039_0pyndsrlx"
-      }
-    },
-    "cond_1774975815040_opv38uh6x": {
-      "color": "#FF0000",
-      "endEndpoint": {
-        "nodeId": "comp_1774975815038_zizj0yu7g",
-        "pinId": "pin_1774975815038_ecehvh7v5"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1774975815040_opv38uh6x",
-      "linkPath": [
-        "link_1774975815040_0yky0oi3m"
-      ],
-      "startEndpoint": {
-        "nodeId": "comp_1774975815039_hh7c2r9e3",
-        "pinId": "pin_1774975815039_ovnpjlxep"
       }
     },
     "cond_1774975815040_psmhshvzx": {
@@ -1794,54 +1653,6 @@
       "startEndpoint": {
         "nodeId": "comp_1776685436607_kvtr0m7ju",
         "pinId": "pin-6d922ed5"
-      }
-    },
-    "cond_1776688520325_bgrli2iwm": {
-      "color": "red",
-      "endEndpoint": {
-        "nodeId": "comp_1776688520324_rhb45vsh9",
-        "pinId": "pin_1776688520324_eumdao16h"
-      },
-      "id": "cond_1776688520325_bgrli2iwm",
-      "linkPath": [
-        "link_1776688520325_rqqss3daq"
-      ],
-      "netName": "NET_mo76h01x_2",
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_m1m03wxp3",
-        "pinId": "pin_1774975815038_3hgxiwg8r"
-      }
-    },
-    "cond_1776688610824_xk7ogr1cw": {
-      "color": "black",
-      "endEndpoint": {
-        "nodeId": "comp_1776688610823_5ed3fnv9x",
-        "pinId": "pin_1776688610823_1ucyireeq"
-      },
-      "id": "cond_1776688610824_xk7ogr1cw",
-      "linkPath": [
-        "link_1776688610824_58lpwbqso"
-      ],
-      "netName": "NET_mo76ixvs_3",
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_9p82uxt9h",
-        "pinId": "pin_1774975815038_wqwi1hixy"
-      }
-    },
-    "cond_1776688626818_tn7lvel4f": {
-      "color": "black",
-      "endEndpoint": {
-        "nodeId": "comp_1776688626817_z74d0lp6a",
-        "pinId": "pin_1776688626817_e080pxzog"
-      },
-      "id": "cond_1776688626818_tn7lvel4f",
-      "linkPath": [
-        "link_1776688626818_cbfc4nwvu"
-      ],
-      "netName": "NET_mo76ja82_4",
-      "startEndpoint": {
-        "nodeId": "comp_1774975815038_zizj0yu7g",
-        "pinId": "pin_1774975815038_5hk44ihku"
       }
     },
     "cond_1776690524676_w8tpa73gy": {
@@ -3039,23 +2850,6 @@
       "startEndpoint": {
         "nodeId": "comp_1780411328166_c76mpkd4j",
         "pinId": "pin-1514a25e"
-      }
-    },
-    "cond_1782045080263_1ybinwqx7": {
-      "color": "red",
-      "endEndpoint": {
-        "nodeId": "comp_1782045080262_n1i6ow5el",
-        "pinId": "pin_1782045080262_nxnp9td02"
-      },
-      "gauge": "14 AWG",
-      "id": "cond_1782045080263_1ybinwqx7",
-      "linkPath": [
-        "link_1782045080263_t24qps4ge"
-      ],
-      "netName": "NET_mqnrmo5j_1",
-      "startEndpoint": {
-        "nodeId": "comp_1782044974805_hywsgo9np",
-        "pinId": "pin-86a4ac33"
       }
     },
     "cond_1782048242566_1ttbp10tu": {
@@ -4662,11 +4456,6 @@
       "sourceNodeId": "comp_1774975815038_7bovz42k1",
       "targetNodeId": "comp_1774975815038_tqsqbndxp"
     },
-    "link_1774975815040_0yky0oi3m": {
-      "id": "link_1774975815040_0yky0oi3m",
-      "sourceNodeId": "comp_1774975815039_hh7c2r9e3",
-      "targetNodeId": "comp_1774975815038_zizj0yu7g"
-    },
     "link_1774975815040_14hpc56oh": {
       "id": "link_1774975815040_14hpc56oh",
       "sourceNodeId": "comp_1774975815039_e8en631q1",
@@ -4686,11 +4475,6 @@
       "id": "link_1774975815040_4a7v49uir",
       "sourceNodeId": "comp_1774975815038_0jzvjjndj",
       "targetNodeId": "comp_1774975815038_2cq2gsrz9"
-    },
-    "link_1774975815040_5g86oxjbc": {
-      "id": "link_1774975815040_5g86oxjbc",
-      "sourceNodeId": "comp_1774975815038_9p82uxt9h",
-      "targetNodeId": "comp_1774975815037_q0cr6apez"
     },
     "link_1774975815040_70dzzgenu": {
       "id": "link_1774975815040_70dzzgenu",
@@ -4742,21 +4526,6 @@
       "sourceNodeId": "comp_1774975815039_hfnw5zu78",
       "targetNodeId": "comp_1774975815038_3nzpybsjr"
     },
-    "link_1774975815040_k5y0sum8c": {
-      "id": "link_1774975815040_k5y0sum8c",
-      "sourceNodeId": "comp_1774975815039_8fts5f4r6",
-      "targetNodeId": "comp_1774975815038_m1m03wxp3"
-    },
-    "link_1774975815040_l2z9qf0zc": {
-      "id": "link_1774975815040_l2z9qf0zc",
-      "sourceNodeId": "comp_1774975815038_xsja72jiv",
-      "targetNodeId": "comp_1774975815038_m1m03wxp3"
-    },
-    "link_1774975815040_lpwzogseb": {
-      "id": "link_1774975815040_lpwzogseb",
-      "sourceNodeId": "comp_1774975815039_tevq1z3f8",
-      "targetNodeId": "comp_1774975815038_9p82uxt9h"
-    },
     "link_1774975815040_mmseindc7": {
       "id": "link_1774975815040_mmseindc7",
       "sourceNodeId": "comp_1774975815039_b3r2sxjq6",
@@ -4772,20 +4541,10 @@
       "sourceNodeId": "comp_1774975815040_32d0lkwl8",
       "targetNodeId": "comp_1774975815038_n6aps8lrf"
     },
-    "link_1774975815040_sextwt237": {
-      "id": "link_1774975815040_sextwt237",
-      "sourceNodeId": "comp_1774975815039_v80zu8yb2",
-      "targetNodeId": "comp_1774975815038_9p82uxt9h"
-    },
     "link_1774975815040_vgw26ygv7": {
       "id": "link_1774975815040_vgw26ygv7",
       "sourceNodeId": "comp_1774975815039_luw6w6w1u",
       "targetNodeId": "comp_1774975815038_x0fo8yapc"
-    },
-    "link_1774975815040_x7dkxfxaq": {
-      "id": "link_1774975815040_x7dkxfxaq",
-      "sourceNodeId": "comp_1774975815038_m1m03wxp3",
-      "targetNodeId": "comp_1774975815037_b30e3jet3"
     },
     "link_1774975815040_x92xvbrqh": {
       "id": "link_1774975815040_x92xvbrqh",
@@ -4797,20 +4556,10 @@
       "sourceNodeId": "comp_1774975815040_zx10xtt6n",
       "targetNodeId": "comp_1774975815038_zxvvobpr4"
     },
-    "link_1774975815040_xhqjhm39r": {
-      "id": "link_1774975815040_xhqjhm39r",
-      "sourceNodeId": "comp_1774975815038_zizj0yu7g",
-      "targetNodeId": "comp_1774975815037_cp2irth4l"
-    },
     "link_1774975815040_y278d3acf": {
       "id": "link_1774975815040_y278d3acf",
       "sourceNodeId": "comp_1774975815038_zxvvobpr4",
       "targetNodeId": "comp_1774975815037_l7q81ke5b"
-    },
-    "link_1774975815040_ygyn4yb3i": {
-      "id": "link_1774975815040_ygyn4yb3i",
-      "sourceNodeId": "comp_1774975815039_szmbhk77x",
-      "targetNodeId": "comp_1774975815038_zizj0yu7g"
     },
     "link_1774975815040_yztw5d3o3": {
       "id": "link_1774975815040_yztw5d3o3",
@@ -4972,21 +4721,6 @@
       "id": "link_1776686031238_kz60paml3",
       "sourceNodeId": "comp_1776685436607_kvtr0m7ju",
       "targetNodeId": "comp_1776686031237_ushfkwuvq"
-    },
-    "link_1776688520325_rqqss3daq": {
-      "id": "link_1776688520325_rqqss3daq",
-      "sourceNodeId": "comp_1774975815038_m1m03wxp3",
-      "targetNodeId": "comp_1776688520324_rhb45vsh9"
-    },
-    "link_1776688610824_58lpwbqso": {
-      "id": "link_1776688610824_58lpwbqso",
-      "sourceNodeId": "comp_1774975815038_9p82uxt9h",
-      "targetNodeId": "comp_1776688610823_5ed3fnv9x"
-    },
-    "link_1776688626818_cbfc4nwvu": {
-      "id": "link_1776688626818_cbfc4nwvu",
-      "sourceNodeId": "comp_1774975815038_zizj0yu7g",
-      "targetNodeId": "comp_1776688626817_z74d0lp6a"
     },
     "link_1776690524676_s0im6u9ik": {
       "id": "link_1776690524676_s0im6u9ik",
@@ -5193,11 +4927,6 @@
       "sourceNodeId": "comp_1774975815038_2cq2gsrz9",
       "targetNodeId": "comp_1779539618304_jallw1yyo"
     },
-    "link_1779712817889_cr8yhna21": {
-      "id": "link_1779712817889_cr8yhna21",
-      "sourceNodeId": "comp_1776516062330_54e76naqc",
-      "targetNodeId": "comp_1774975815037_b30e3jet3"
-    },
     "link_1779715696265_ny2k1i4yb": {
       "id": "link_1779715696265_ny2k1i4yb",
       "sourceNodeId": "comp_1774975815038_x0fo8yapc",
@@ -5262,11 +4991,6 @@
       "id": "link_1780489557956_8kwuxia8a",
       "sourceNodeId": "comp_1780411328166_c76mpkd4j",
       "targetNodeId": "comp_1776519976947_ciufbfpbo"
-    },
-    "link_1782045080263_t24qps4ge": {
-      "id": "link_1782045080263_t24qps4ge",
-      "sourceNodeId": "comp_1782044974805_hywsgo9np",
-      "targetNodeId": "comp_1782045080262_n1i6ow5el"
     },
     "link_1782575377074_9cv9nuegc": {
       "id": "link_1782575377074_9cv9nuegc",
@@ -8240,22 +7964,6 @@
         "y": 840
       }
     },
-    "comp_1774975815037_b30e3jet3": {
-      "page_1774975610452_xv22udce3": {
-        "x": 690,
-        "y": 980
-      },
-      "page_1776516035918_0j8jjr1fj": {
-        "x": 690,
-        "y": 980
-      }
-    },
-    "comp_1774975815037_cp2irth4l": {
-      "page_1774975610452_xv22udce3": {
-        "x": 690,
-        "y": 1260
-      }
-    },
     "comp_1774975815037_d00gxn79t": {
       "page_1774975610452_xv22udce3": {
         "x": 690,
@@ -8298,12 +8006,6 @@
         "y": 425
       }
     },
-    "comp_1774975815037_q0cr6apez": {
-      "page_1774975610452_xv22udce3": {
-        "x": 690,
-        "y": 1080
-      }
-    },
     "comp_1774975815037_qyl80lgo1": {
       "page_1774975610452_xv22udce3": {
         "x": 690,
@@ -8334,12 +8036,6 @@
         "y": 625
       }
     },
-    "comp_1774975815038_9p82uxt9h": {
-      "page_1774975610452_xv22udce3": {
-        "x": 442.5,
-        "y": 1120
-      }
-    },
     "comp_1774975815038_jsgibxi7g": {
       "page_1774975610452_xv22udce3": {
         "x": 447.5,
@@ -8362,12 +8058,6 @@
       "page_1774975610452_xv22udce3": {
         "x": -135,
         "y": 545
-      }
-    },
-    "comp_1774975815038_m1m03wxp3": {
-      "page_1774975610452_xv22udce3": {
-        "x": 442.5,
-        "y": 980
       }
     },
     "comp_1774975815038_n6aps8lrf": {
@@ -8406,12 +8096,6 @@
       "page_1774975610452_xv22udce3": {
         "x": -135,
         "y": 665
-      }
-    },
-    "comp_1774975815038_zizj0yu7g": {
-      "page_1774975610452_xv22udce3": {
-        "x": 442.5,
-        "y": 1260
       }
     },
     "comp_1774975815038_zxvvobpr4": {
@@ -9312,12 +8996,6 @@
         "y": 250
       }
     },
-    "comp_1782044974805_hywsgo9np": {
-      "page_1774975610452_xv22udce3": {
-        "x": -780,
-        "y": 785
-      }
-    },
     "comp_1782045080262_n1i6ow5el": {
       "page_1774975610452_xv22udce3": {
         "x": -407.5,
@@ -9536,12 +9214,6 @@
         "width": 40
       }
     },
-    "comp_1774975815038_9p82uxt9h": {
-      "page_1774975610452_xv22udce3": {
-        "height": 50,
-        "width": 215
-      }
-    },
     "comp_1774975815038_jsgibxi7g": {
       "page_1774975610452_xv22udce3": {
         "height": 50,
@@ -9564,12 +9236,6 @@
       "page_1774975610452_xv22udce3": {
         "height": 10,
         "width": 40
-      }
-    },
-    "comp_1774975815038_m1m03wxp3": {
-      "page_1774975610452_xv22udce3": {
-        "height": 50,
-        "width": 215
       }
     },
     "comp_1774975815038_n6aps8lrf": {
@@ -9600,12 +9266,6 @@
       "page_1774975610452_xv22udce3": {
         "height": 10,
         "width": 40
-      }
-    },
-    "comp_1774975815038_zizj0yu7g": {
-      "page_1774975610452_xv22udce3": {
-        "height": 50,
-        "width": 215
       }
     },
     "comp_1774975815038_zxvvobpr4": {
@@ -11412,47 +11072,6 @@
       },
       "type": "component"
     },
-    "comp_1774975815037_b30e3jet3": {
-      "category": "fuse",
-      "id": "comp_1774975815037_b30e3jet3",
-      "label": "F18",
-      "name": "",
-      "pins": [
-        {
-          "id": "pin_1774975815037_wow2vddua",
-          "label": "IN"
-        },
-        {
-          "id": "pin_1774975815037_7lcuospdu",
-          "label": "OUT"
-        }
-      ],
-      "position": {
-        "x": 690,
-        "y": 960
-      },
-      "type": "component"
-    },
-    "comp_1774975815037_cp2irth4l": {
-      "category": "fuse",
-      "id": "comp_1774975815037_cp2irth4l",
-      "label": "F20",
-      "pins": [
-        {
-          "id": "pin_1774975815037_tzcsy7myn",
-          "label": "IN"
-        },
-        {
-          "id": "pin_1774975815037_izj1c8rcp",
-          "label": "OUT"
-        }
-      ],
-      "position": {
-        "x": 690,
-        "y": 1200
-      },
-      "type": "component"
-    },
     "comp_1774975815037_d00gxn79t": {
       "category": "fuse",
       "id": "comp_1774975815037_d00gxn79t",
@@ -11610,26 +11229,6 @@
       },
       "type": "component"
     },
-    "comp_1774975815037_q0cr6apez": {
-      "category": "fuse",
-      "id": "comp_1774975815037_q0cr6apez",
-      "label": "F19",
-      "pins": [
-        {
-          "id": "pin_1774975815037_q0imdjcl0",
-          "label": "IN"
-        },
-        {
-          "id": "pin_1774975815037_oq86lvuia",
-          "label": "OUT"
-        }
-      ],
-      "position": {
-        "x": 690,
-        "y": 1080
-      },
-      "type": "component"
-    },
     "comp_1774975815037_qyl80lgo1": {
       "category": "fuse",
       "id": "comp_1774975815037_qyl80lgo1",
@@ -11777,47 +11376,6 @@
       },
       "type": "component"
     },
-    "comp_1774975815038_9p82uxt9h": {
-      "category": "relay",
-      "id": "comp_1774975815038_9p82uxt9h",
-      "label": "K19",
-      "pins": [
-        {
-          "function": "Common",
-          "id": "pin_1774975815038_o1q9iiqf7",
-          "label": "30"
-        },
-        {
-          "function": "Coil GND",
-          "id": "pin_1774975815038_wqwi1hixy",
-          "label": "85"
-        },
-        {
-          "function": "Coil Control",
-          "id": "pin_1774975815038_djmkt0wkk",
-          "label": "86"
-        },
-        {
-          "function": "NO",
-          "id": "pin_1774975815038_7soou40xo",
-          "label": "87"
-        },
-        {
-          "function": "NC",
-          "id": "pin_1774975815038_p04cpnow1",
-          "label": "87a"
-        }
-      ],
-      "position": {
-        "x": 442.5,
-        "y": 1080
-      },
-      "size": {
-        "height": 50,
-        "width": 215
-      },
-      "type": "component"
-    },
     "comp_1774975815038_jsgibxi7g": {
       "category": "relay",
       "id": "comp_1774975815038_jsgibxi7g",
@@ -11920,47 +11478,6 @@
       "size": {
         "height": 10,
         "width": 50
-      },
-      "type": "component"
-    },
-    "comp_1774975815038_m1m03wxp3": {
-      "category": "relay",
-      "id": "comp_1774975815038_m1m03wxp3",
-      "label": "K18",
-      "pins": [
-        {
-          "function": "Common",
-          "id": "pin_1774975815038_ozb6c0p2y",
-          "label": "30"
-        },
-        {
-          "function": "Coil GND",
-          "id": "pin_1774975815038_75p4wqmjk",
-          "label": "85"
-        },
-        {
-          "function": "Coil Control",
-          "id": "pin_1774975815038_3hgxiwg8r",
-          "label": "86"
-        },
-        {
-          "function": "NO",
-          "id": "pin_1774975815038_3dymwxi0f",
-          "label": "87"
-        },
-        {
-          "function": "NC",
-          "id": "pin_1774975815038_o7skuzsnl",
-          "label": "87a"
-        }
-      ],
-      "position": {
-        "x": 442.5,
-        "y": 960
-      },
-      "size": {
-        "height": 50,
-        "width": 215
       },
       "type": "component"
     },
@@ -12129,47 +11646,6 @@
       "size": {
         "height": 10,
         "width": 50
-      },
-      "type": "component"
-    },
-    "comp_1774975815038_zizj0yu7g": {
-      "category": "relay",
-      "id": "comp_1774975815038_zizj0yu7g",
-      "label": "K20",
-      "pins": [
-        {
-          "function": "Common",
-          "id": "pin_1774975815038_ecehvh7v5",
-          "label": "30"
-        },
-        {
-          "function": "Coil GND",
-          "id": "pin_1774975815038_5hk44ihku",
-          "label": "85"
-        },
-        {
-          "function": "Coil Control",
-          "id": "pin_1774975815038_re0wlqnwx",
-          "label": "86"
-        },
-        {
-          "function": "NO",
-          "id": "pin_1774975815038_iep15svuf",
-          "label": "87"
-        },
-        {
-          "function": "NC",
-          "id": "pin_1774975815038_4hdvz66t4",
-          "label": "87a"
-        }
-      ],
-      "position": {
-        "x": 442.5,
-        "y": 1200
-      },
-      "size": {
-        "height": 50,
-        "width": 215
       },
       "type": "component"
     },
@@ -15098,29 +14574,6 @@
       "size": {
         "height": 10,
         "width": 55
-      },
-      "type": "component"
-    },
-    "comp_1782044974805_hywsgo9np": {
-      "category": "fuse",
-      "id": "comp_1782044974805_hywsgo9np",
-      "label": "F20",
-      "name": "Coolant Pumps 20A",
-      "pins": [
-        {
-          "function": "other",
-          "id": "pin-86a4ac33",
-          "label": "In"
-        },
-        {
-          "function": "other",
-          "id": "pin-a652b249",
-          "label": "Out"
-        }
-      ],
-      "position": {
-        "x": -780,
-        "y": 785
       },
       "type": "component"
     },
