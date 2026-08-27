@@ -111,18 +111,84 @@ CM3 owns **no** fuse-box relay today.
 
 ---
 
+## 5b. Power domains — THREE states (2026-08-27 ★)
+
+The truck has three power states, not two. This decides which rail each electronics load sits on.
+
+| State | Trigger | Alive |
+|-------|---------|-------|
+| **Drive** | ignition (key) | Zombie, EPAS, dash, muscle relays … + BMS |
+| **Charge** | **AC plugged in** (key OFF) | Zombie + charger + **BMS** + coolant pumps |
+| **Sleep/off** | bounded STR → full powerdown | **CM3 standby only** |
+
+**Keyswitch rule:** the column keyswitch carries **only relay coil current** (tens of mA), never
+load current. Loads pull from battery through relay contacts; the key just closes the relay.
+
+**CM3** = **permanent-B+** with ignition as a **wake-GPIO** (not its power source) — needs standby
+to hold RAM through STR. Its standby draw = the bounded-STR parasitic budget.
+
+**Small awake-only electronics** (M5Dial, dash peripherals) = **switched-B+ rail**, each fused, off
+the ignition/master relay. Not one relay each.
+
+### Charge domain — RESOLVED via the charger connector (2026-08-27) ★
+
+The onboard charger's connector was built for exactly this. Pinout:
+
+| Pin | Function |
+|-----|----------|
+| A / G | CAN Bus High / Low (Zombie ↔ charger) |
+| **B** | **BMS/VCU Power +, 12V+ when AC applied** ← the charge-wake source |
+| **C** | BMS/VCU Power − (12V−) |
+| E / F | HVIL interlock loop (HV safety, series — NOT power) |
+| T | DCDC logic power (apply 9–16V) |
+| S | DCDC enable (9–16V) — **OR'd with Zombie's CAN enable** (Zombie = DCDC master) |
+
+**Wake scheme (FINAL 2026-08-27 — see `charge-wake-arch.svg`/`.png`):** OR the *trigger*, let a relay
+switch battery — **no standalone relay, no power diodes**.
+
+```
+  Ignition ─▷|─┐                         (▷| = signal diode, mA, anti-backfeed)
+               ├─● OR ─┬─► low-side FET ─► sinks WAKE-RELAY coil-low
+  Pin-B ─────▷|─┘      └─► CM3 wake-GPIO
+                                          WAKE RELAY = ML350 socket K or R (ground-switched):
+                                            coil-hi = ⎓Bat+ (permanent) · coil-lo = FET
+                                            contacts: ⎓Bat+ ──► Zombie + BMS logic rail
+```
+
+- **Diodes are two SIGNAL diodes on the coil trigger** (milliamps) — they only stop Ignition and
+  Pin-B backfeeding *each other*. **No power diodes; no backfeed into the keyswitch.**
+- **Real current comes from Bat+ through the relay contacts**, so **pin B only drives the FET gate
+  (µA)** → its capacity worry evaporates. (Still worth grabbing the pin-B rating for the record.)
+- **One ML350 socket (K or R) + one low-side FET + two signal diodes**, all on the HAT. K and R are
+  the free sockets and both are Bat+-commoned coil-high (ground-switched) → coil-hi is *permanently*
+  Bat+ (always available key-off ✓); the FET sinks coil-low when (Ignition OR Pin-B) is hot.
+- **CM3** = permanent-B+; the **same OR signal is its wake-GPIO**. Display OFF during charge = CM3
+  software (headless wake, backlight off; SoC-over-Sim7060 is a software job). Not wiring.
+- **Rad fan (O) + Coolant (P)** = Zombie-controlled, **coil-lo ← Zombie, power ← Bat+** → they run
+  whenever Zombie is awake (drive *or* charge). Rule: feed O/P from Bat+, not an ignition-only rail.
+- **HV-Request is NOT the wake** — it's a *close-contactors command to an already-powered Zombie*.
+  The wake relay is what powers Zombie up on plug-in.
+- **BMS** = Lilygo T-CAN485 ESP32, ~50–150mA, **no CAN-wake**, no park-monitoring needed → rides the
+  logic rail (dies cleanly when neither driving nor charging). No dedicated relay.
+- Open picks/checks: **K vs R** for the wake socket; pin-B current rating; and (firmware, non-blocking)
+  how Zombie *enters charge mode* once awake — read Stm32-vcu.
+
+---
+
 ## 6. Delta vs current Splice FuseRelay page (the rototill checklist)
 
-The page (`page_1774975610452_xv22udce3`) still models the AliExpress box. To convert:
+The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversion progress:
 
-- [ ] Rename/replace **K11–K20 → real relays** (K,R,M,N,L,O,P,S/T/U) — or, under Option B,
-      **delete most** and keep rad-fan + optional master.
-- [ ] **Delete phantom K18/K19/K20** (empty-socket filler).
-- [ ] Re-number fuses to **real ML350 slots** (f20–f63) per §2; map old logical F11–F21/F23.
-- [ ] Draw coils **ground-switched** — coil-high fixed, control on **coil-LOW** (per §3).
-- [ ] Fix **duplicate F20 label** (spare slot vs "Coolant Pumps 20A").
+- [x] **Delete phantom K18/K19/K20** + partner fuses F18/F19 + both dup F20 (done 2026-08-27,
+      committed baseline `f07fe62`/plan push `1772d7a`).
+- [x] **Rename K11–K17 → real relays** (done 2026-08-27): N=EPAS, M=Oil Pump, L=EPB, O=Rad Fan,
+      S=Zombie / T=Inverter / U=Bat Boxes (the ignition-enable gang). K/R/P still free.
+- [ ] **Add** iBooster (→ K or R, big) and Coolant pumps (→ P) as NEW symbols.
+- [ ] Re-number fuses to **real ML350 slots** (f20–f63) per §2; map old logical F11–F17/F21/F23.
+- [ ] Draw coils **ground-switched** — coil-high fixed, control on **coil-LOW** (per §3) + S/T/U gang.
 - [ ] Resolve **f60/f61 R/P "???"** shared rail — buzz out.
-- [ ] Purge **~33 stale orphan node-page refs** (deleted-symbol leftovers).
+- [ ] Orphan purge (~491 stale assignment refs): **DEFERRED** — harmless, and no bridge command
+      drops the keys (only a full `save_plan` compacts them). Left in place by decision 2026-08-27.
 - [ ] Note: coil sources were never actually wired in the plan — only floating legend symbols
       + IGN+/12V+ stubs. Coil intent = design intent, not drawn.
 

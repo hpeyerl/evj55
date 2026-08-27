@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="740" viewBox="0 0 1080 740" font-family="-apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="740" fill="#fbfbfd"/>
+  <text x="24" y="30" font-size="20" font-weight="700" fill="#222">Charge / Drive wake architecture</text>
+  <text x="24" y="50" font-size="13" fill="#777">One ML350 socket (K or R) + a low-side FET + two signal diodes. No standalone relay. Coolant/fan stay Zombie-controlled off Bat+.</text>
+
+  <!-- ================= SOURCES (left) ================= -->
+  <rect x="24" y="86" width="196" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <text x="122" y="108" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Bat+  (always hot)</text>
+  <text x="122" y="125" font-size="11" fill="#c0392b" text-anchor="middle">• = a fused tap from here</text>
+
+  <rect x="24" y="520" width="196" height="44" rx="6" fill="#fff" stroke="#e67e22" stroke-width="2"/>
+  <text x="122" y="547" font-size="14" font-weight="700" fill="#e67e22" text-anchor="middle">Ignition (key-on 12V)</text>
+
+  <rect x="24" y="600" width="220" height="44" rx="6" fill="#fff" stroke="#2980b9" stroke-width="2"/>
+  <text x="134" y="620" font-size="13" font-weight="700" fill="#2980b9" text-anchor="middle">Charger Pin-B</text>
+  <text x="134" y="636" font-size="11" fill="#2980b9" text-anchor="middle">12V+ when AC applied</text>
+
+  <!-- ============ TRIGGER: diodes -> OR -> FET ============ -->
+  <!-- ignition into OR -->
+  <line x1="220" y1="542" x2="300" y2="542" stroke="#e67e22" stroke-width="2"/>
+  <!-- D1 -->
+  <path d="M258,534 L272,542 L258,550 z" fill="#e67e22"/>
+  <line x1="272" y1="532" x2="272" y2="552" stroke="#e67e22" stroke-width="2"/>
+  <line x1="300" y1="542" x2="300" y2="585" stroke="#e67e22" stroke-width="2"/>
+
+  <!-- pinB into OR -->
+  <line x1="244" y1="622" x2="300" y2="622" stroke="#2980b9" stroke-width="2"/>
+  <!-- D2 -->
+  <path d="M262,614 L276,622 L262,630 z" fill="#2980b9"/>
+  <line x1="276" y1="612" x2="276" y2="632" stroke="#2980b9" stroke-width="2"/>
+  <line x1="300" y1="622" x2="300" y2="585" stroke="#2980b9" stroke-width="2"/>
+
+  <!-- OR node -->
+  <circle cx="300" cy="585" r="7" fill="#8e44ad"/>
+  <text x="314" y="590" font-size="13" font-weight="700" fill="#8e44ad">OR</text>
+  <text x="196" y="580" font-size="10" fill="#888" text-anchor="end">signal diodes</text>
+  <text x="196" y="592" font-size="10" fill="#888" text-anchor="end">(mA, anti-backfeed)</text>
+
+  <!-- OR -> FET gate -->
+  <line x1="300" y1="585" x2="300" y2="512" stroke="#8e44ad" stroke-width="2" marker-end="url(#arrP)"/>
+  <rect x="252" y="470" width="150" height="42" rx="6" fill="#fff" stroke="#8e44ad" stroke-width="2"/>
+  <text x="327" y="487" font-size="13" font-weight="700" fill="#8e44ad" text-anchor="middle">Low-side FET</text>
+  <text x="327" y="502" font-size="11" fill="#8e44ad" text-anchor="middle">(on the HAT)</text>
+  <text x="300" y="527" font-size="10" fill="#8e44ad" text-anchor="middle">gate</text>
+
+  <!-- FET drain -> wake coil-low -->
+  <line x1="352" y1="470" x2="352" y2="352" stroke="#8e44ad" stroke-width="2"/>
+  <line x1="352" y1="352" x2="360" y2="352" stroke="#8e44ad" stroke-width="2" marker-end="url(#arrP)"/>
+  <text x="360" y="345" font-size="10" fill="#8e44ad">sinks coil-low</text>
+
+  <!-- ================= WAKE RELAY ================= -->
+  <rect x="360" y="150" width="248" height="210" rx="8" fill="#faf5ff" stroke="#8e44ad" stroke-width="2.5"/>
+  <text x="484" y="176" font-size="15" font-weight="700" fill="#8e44ad" text-anchor="middle">WAKE RELAY</text>
+  <text x="484" y="194" font-size="11" fill="#8e44ad" text-anchor="middle">ML350 socket K or R (ground-switched)</text>
+  <line x1="376" y1="206" x2="592" y2="206" stroke="#e5d5f0"/>
+  <text x="376" y="232" font-size="12.5" fill="#333" font-weight="600">COIL</text>
+  <text x="376" y="250" font-size="12" fill="#333">hi • Bat+   ·   lo ← FET</text>
+  <text x="376" y="272" font-size="11" fill="#888">fires when key-on OR AC-present</text>
+  <line x1="376" y1="288" x2="592" y2="288" stroke="#e5d5f0"/>
+  <text x="376" y="312" font-size="12.5" fill="#333" font-weight="600">CONTACTS</text>
+  <text x="376" y="332" font-size="12" fill="#333">• Bat+  ──►  Zombie/BMS logic rail</text>
+
+  <!-- Bat+ taps into wake relay (coil-hi + contact-in) -->
+  <line x1="122" y1="132" x2="122" y2="240" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="122" y1="240" x2="360" y2="240" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="150" y="234" font-size="10" fill="#c0392b">•Bat+ → coil-hi + contacts</text>
+
+  <!-- wake contacts out -> logic rail -->
+  <line x1="608" y1="322" x2="648" y2="322" stroke="#16a085" stroke-width="2.5"/>
+  <line x1="648" y1="322" x2="648" y2="200" stroke="#16a085" stroke-width="2.5"/>
+  <line x1="648" y1="200" x2="672" y2="200" stroke="#16a085" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- ================= LOADS (right) ================= -->
+  <rect x="672" y="150" width="384" height="50" rx="6" fill="#e8f8f4" stroke="#16a085" stroke-width="2.5"/>
+  <text x="864" y="180" font-size="14" font-weight="700" fill="#0e7a67" text-anchor="middle">Zombie + BMS  LOGIC RAIL</text>
+
+  <rect x="672" y="238" width="176" height="48" rx="6" fill="#fff" stroke="#16a085" stroke-width="2"/>
+  <text x="760" y="267" font-size="13" font-weight="700" fill="#0e7a67" text-anchor="middle">Zombie VCU</text>
+  <line x1="760" y1="200" x2="760" y2="238" stroke="#16a085" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="880" y="238" width="176" height="48" rx="6" fill="#fff" stroke="#16a085" stroke-width="2"/>
+  <text x="968" y="262" font-size="13" font-weight="700" fill="#0e7a67" text-anchor="middle">BMS</text>
+  <text x="968" y="278" font-size="10.5" fill="#0e7a67" text-anchor="middle">T-CAN485 (ESP32)</text>
+  <line x1="968" y1="200" x2="968" y2="238" stroke="#16a085" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- CM3 -->
+  <rect x="672" y="340" width="230" height="60" rx="6" fill="#fff" stroke="#555" stroke-width="2"/>
+  <text x="787" y="362" font-size="13" font-weight="700" fill="#333" text-anchor="middle">CM3  (• permanent-B+)</text>
+  <text x="787" y="379" font-size="10.5" fill="#666" text-anchor="middle">wakes on OR signal</text>
+  <text x="787" y="393" font-size="10.5" fill="#666" text-anchor="middle">display OFF in charge (software)</text>
+  <!-- CM3 permanent power tap -->
+  <line x1="1020" y1="132" x2="1020" y2="370" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="1020" y1="370" x2="902" y2="370" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="1016" y="126" font-size="10" fill="#c0392b" text-anchor="end">•Bat+ (permanent)</text>
+
+  <!-- OR -> CM3 wake (bottom lane) -->
+  <line x1="300" y1="592" x2="300" y2="700" stroke="#8e44ad" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="300" y1="700" x2="787" y2="700" stroke="#8e44ad" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="787" y1="700" x2="787" y2="400" stroke="#8e44ad" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrP)"/>
+  <text x="470" y="694" font-size="11" fill="#8e44ad">wake GPIO  =  (Ignition OR Pin-B)</text>
+
+  <!-- Zombie-controlled O and P -->
+  <rect x="672" y="450" width="176" height="60" rx="6" fill="#fff" stroke="#e67e22" stroke-width="2"/>
+  <text x="760" y="472" font-size="13" font-weight="700" fill="#b45309" text-anchor="middle">O · Rad Fan</text>
+  <text x="760" y="489" font-size="10.5" fill="#8a5a20" text-anchor="middle">coil-lo ← Zombie</text>
+  <text x="760" y="503" font-size="10.5" fill="#8a5a20" text-anchor="middle">power ← •Bat+</text>
+
+  <rect x="880" y="450" width="176" height="60" rx="6" fill="#fff" stroke="#2980b9" stroke-width="2"/>
+  <text x="968" y="472" font-size="13" font-weight="700" fill="#1f618d" text-anchor="middle">P · Coolant pumps</text>
+  <text x="968" y="489" font-size="10.5" fill="#215f86" text-anchor="middle">coil-lo ← Zombie</text>
+  <text x="968" y="503" font-size="10.5" fill="#215f86" text-anchor="middle">power ← •Bat+</text>
+
+  <!-- Zombie -> O / P (control) -->
+  <line x1="712" y1="286" x2="712" y2="450" stroke="#16a085" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="718" y="430" font-size="10" fill="#0e7a67">fan cmd</text>
+  <line x1="808" y1="286" x2="808" y2="420" stroke="#16a085" stroke-width="1.8"/>
+  <line x1="808" y1="420" x2="968" y2="420" stroke="#16a085" stroke-width="1.8"/>
+  <line x1="968" y1="420" x2="968" y2="450" stroke="#16a085" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="820" y="414" font-size="10" fill="#0e7a67">pump cmd</text>
+
+  <!-- ================= LEGEND + STATE ================= -->
+  <rect x="24" y="160" width="300" height="150" rx="8" fill="#fff" stroke="#ddd"/>
+  <text x="38" y="182" font-size="12.5" font-weight="700" fill="#333">Legend</text>
+  <line x1="38" y1="198" x2="66" y2="198" stroke="#c0392b" stroke-width="3"/><text x="74" y="202" font-size="11.5" fill="#444">Bat+ (permanent, always hot)</text>
+  <line x1="38" y1="216" x2="66" y2="216" stroke="#e67e22" stroke-width="3"/><text x="74" y="220" font-size="11.5" fill="#444">Ignition</text>
+  <line x1="38" y1="234" x2="66" y2="234" stroke="#2980b9" stroke-width="3"/><text x="74" y="238" font-size="11.5" fill="#444">Charger Pin-B (charge)</text>
+  <line x1="38" y1="252" x2="66" y2="252" stroke="#8e44ad" stroke-width="3" stroke-dasharray="6 4"/><text x="74" y="256" font-size="11.5" fill="#444">Wake / OR signal (mA)</text>
+  <line x1="38" y1="270" x2="66" y2="270" stroke="#16a085" stroke-width="3"/><text x="74" y="274" font-size="11.5" fill="#444">Switched power to loads</text>
+  <text x="38" y="298" font-size="11" fill="#777">Solid = power path · Dashed = tap / signal</text>
+
+  <rect x="24" y="330" width="300" height="120" rx="8" fill="#fff" stroke="#ddd"/>
+  <text x="38" y="352" font-size="12.5" font-weight="700" fill="#333">What's live when</text>
+  <text x="38" y="374" font-size="11.5" fill="#2980b9" font-weight="600">CHARGE (key off, AC in):</text>
+  <text x="38" y="390" font-size="11" fill="#444">wake relay, Zombie, BMS, CM3(dark), O, P</text>
+  <text x="38" y="412" font-size="11.5" fill="#e67e22" font-weight="600">DRIVE (key on):</text>
+  <text x="38" y="428" font-size="11" fill="#444">all of the above + muscle relays</text>
+  <text x="38" y="442" font-size="11" fill="#444">N=EPAS · M=OilPump · L=EPB · S/T/U gang</text>
+</svg>
