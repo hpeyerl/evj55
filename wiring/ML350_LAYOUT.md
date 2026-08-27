@@ -158,7 +158,12 @@ switch battery — **no standalone relay, no power diodes**.
 - **Diodes are two SIGNAL diodes on the coil trigger** (milliamps) — they only stop Ignition and
   Pin-B backfeeding *each other*. **No power diodes; no backfeed into the keyswitch.**
 - **Real current comes from Bat+ through the relay contacts**, so **pin B only drives the FET gate
-  (µA)** → its capacity worry evaporates. (Still worth grabbing the pin-B rating for the record.)
+  (µA)** → its capacity is a non-issue.
+- **★Pin-B rating (datasheet) = 0.16A (pin C same).** This SETTLES the design: 160mA **cannot**
+  power Zombie+BMS directly (BMS ESP32 alone ≈120–160mA w/ WiFi; VCU board adds ~100–200mA →
+  ~250–400mA total). Pin B is a **wake-signal supply, not a power bus** (160mA ≈ one relay coil —
+  the charger intends pin B to *fire a relay*, not run electronics). ⇒ the FET/wake-relay is the
+  correct branch, **not** a fallback; a plain diode-OR onto the logic rail would brown them out.
 - **One ML350 socket (K or R) + one low-side FET + two signal diodes**, all on the HAT. K and R are
   the free sockets and both are Bat+-commoned coil-high (ground-switched) → coil-hi is *permanently*
   Bat+ (always available key-off ✓); the FET sinks coil-low when (Ignition OR Pin-B) is hot.
