@@ -75,7 +75,7 @@ Park-pawl interlock = a Zombie **INPUT** (separate budget), not an output.
 
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
-| 29 | HSDN park-pawl +12V feed | OUT | trans HSDN conn | tiny | SIG | DT | contact closes→Zombie INPUT when pawl engaged → Zombie inhibits torque in Park (safety); +12V = sw12 or always-hot (TBD) |
+| 29 | Park-pawl feed (sw12 → HSDN "B" pin) | OUT | trans HSDN conn | tiny | SIG | DT | pawl = **DRY SPST lever switch**: passes B-pin→output pin when in Park (transmission does NOT source 12V — we feed it). Box feeds **sw12 to B**; **output pin → Zombie GP12v Input (pin 50)** → 12V present = in Park → inhibit torque. ⚠fail-safe: broken wire reads "not Park"→torque allowed; consider inverting (gnd on B + pullup, or gate torque-enable). Output→Zombie may not route thru box |
 | 30 | AVC2 +12V | OUT | AVC2 module | <0.02 | SIG | DT | if AVC2 used (J1772 handshake); tiny; likely lives at charge port — may not cross box |
 | 31 | AVC2 relay → Zombie | — | Zombie/charger | <1 | SIG | DT | SPDT charge-enable / motor-inhibit; routing TBD |
 
