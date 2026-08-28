@@ -87,6 +87,28 @@ plug in → CP circuit signals state C → EVSE delivers AC → Dilong pin B goe
 Zombie sees PP + Elcon-saved → commands Dilong over `0x1806E5F4` → current flows (capped by
 `BMS_ChargeLim`, and by CP-advertised limit once the public reader exists).
 
+## BMS cell voltage & SoC during charge (for the BMS + dashboard code)
+Q: if the cells read the *charging* voltage, how does the BMS know real cell voltage / SoC?
+
+The BMS measures each cell's **actual terminal voltage** (sense wires). Under charge that's
+`true_OCV + I·R_internal + polarization` — genuinely elevated vs the resting voltage for that SoC.
+Two independent uses:
+
+1. **Cell protection / charge termination** — the *loaded* terminal voltage is exactly what to
+   limit. Stop when **any cell terminal hits its max charge voltage** (~4.15V for i3 NCM). That
+   correctly includes the I·R rise; no correction needed. So protection works fine off the raw
+   measured voltage.
+2. **SoC (the 80/100 target)** — you CANNOT read SoC from the loaded voltage (inflated). SoC =
+   **coulomb counting** (integrate pack current) as primary, **recalibrated against OCV at rest**
+   (current off → terminal V relaxes to OCV → SoC via the cell OCV-curve; drift correction). The
+   dated rested module-spread readings are exactly this OCV data. Optional: **I·R subtraction**
+   (estimate R_int from ΔV/ΔI, subtract → approximate live OCV) — advanced, not required.
+
+⇒ Not cell-resistance-conversion, not black-box. **TODO (BMS firmware):** SoC estimation
+(coulomb count + rest-OCV recal) — currently the BMS reads per-cell V (good for protect/balance) but
+SoC estimation is the piece to build for accurate SoC-target charging. **Dashboard:** shows SoC, so
+it consumes whatever the BMS derives — coordinate the SoC source with the BMS chat.
+
 ## Open / to-verify
 - ⚠ **`ACrequest` for a dumb Elcon with `targetChgint=Unused`** — what supplies it? The one link not
   resolved from a static source read; confirm on the bench.
