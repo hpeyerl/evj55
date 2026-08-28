@@ -6,6 +6,13 @@ AVC2. Reference doc — ask for "the charging explanation" and this is it. (2026
 ## The hardware
 - **Charger:** Dilong `DA8KM22A-400C-14RC` — combo **6.6 kW OBC + 1.5 kW DCDC**. Speaks the
   **Elcon CAN protocol**. LV signal connector = ECO MATE-RM / AQUARIUS `MS20M23F`, 22 AWG; HV ground = M8.
+  - **"Elcon" = a charger brand AND a CAN protocol.** The real Elcon (TC Charger) is a dumb air-cooled
+    charger that needs a **CAN charge controller (EVCC, sold separately)** to set V/I. Our Dilong is a
+    *different* charger that speaks the *same* Elcon CAN language — so `chargemodes=Elcon` in Zombie
+    means "command it via the Elcon protocol," with **Zombie playing the EVCC role** (we don't buy an
+    EVCC). The J1772 handshake a full EVCC would also do = the piece we DIY (Dilong has no pilot logic).
+  - ⚠ **"Elcon2"** (the contactor gotcha) is NOT the charger — it's a Zombie-side chargemode/config
+    variant, likely newer firmware than the local source. Still to pin down.
 - **Inlet:** J1772 (Type 1).
 - **VCU:** ZombieVerter (Stm32-vcu) — coordinates charging over CAN.
 - **BMS:** Lilygo T-CAN485 (ESP32) — sets the charge-current ceiling.
