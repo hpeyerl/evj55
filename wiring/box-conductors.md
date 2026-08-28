@@ -56,12 +56,32 @@ SIG <5A → Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
-| 19 | Zombie → rad-fan coil-low | IN | Zombie | <1 | SIG | DT | Zombie sinks relay O coil |
-| 20 | Zombie → coolant coil-low | IN | Zombie | <1 | SIG | DT | Zombie sinks relay P coil |
-| 21 | Zombie → trans-pump coil-low | IN | Zombie | <1 | SIG | DT | if booster is separately controlled |
+| 19 | Zombie → rad-fan coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolingFan** (thermostatic, CHARGE+RUN) → assign to **SL1/SL2 or Out1/Out3**; **O coil-high MUST be live in charge (fix f52/N gating)** |
+| 20 | Zombie → coolant coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolantPump** (precharge→drive+charge); P coil-high f50/Bat+ = OK |
+| 21 | Zombie → trans-pump coil-low | IN | Zombie | <1 | SIG | DT | **gang with #20 CoolantPump** (same cooling demand) → NO extra Zombie pin |
 | 22 | Zombie enable (gang S) | OUT | Zombie | <1 | SIG | DT | ignition-enable gang; ⚠ may merge with #15 |
 | 23 | Inverter enable (gang T) | OUT | inverter | <1 | SIG | DT | gang |
 | 24 | Bat-boxes enable (gang U) | OUT | bat boxes | <1 | SIG | DT | gang |
+
+**(Oil-pump PWM `GS450pumpPwm` = Zombie→controller direct, NOT through this box — on Splice already.)**
+
+### Zombie IOMatrix pin budget
+Out2 = NegContactor (used). Allocation: **SL1 = CoolingFan** (box), **SL2 = CoolantPump** (box),
+**Out1 = BrakeLight** (outside box), **Out3 = free** (HvActive if wanted), **PWM1–3 = free**
+(CpSpoof NOT needed if AVC2 used). Trans-booster pump gangs onto CoolantPump. Comfortable — box = 2 pins.
+Park-pawl interlock = a Zombie **INPUT** (separate budget), not an output.
+
+## Charge-port / interlock (routing TBD — may or may not cross THIS box)
+
+| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
+|--|-----------|-----|---------|----|------|-----------|-------|
+| 29 | HSDN park-pawl +12V feed | OUT | trans HSDN conn | tiny | SIG | DT | contact closes→Zombie INPUT when pawl engaged → Zombie inhibits torque in Park (safety); +12V = sw12 or always-hot (TBD) |
+| 30 | AVC2 +12V | OUT | AVC2 module | <0.02 | SIG | DT | if AVC2 used (J1772 handshake); tiny; likely lives at charge port — may not cross box |
+| 31 | AVC2 relay → Zombie | — | Zombie/charger | <1 | SIG | DT | SPDT charge-enable / motor-inhibit; routing TBD |
+
+**Splice to-dos (not this box):** BrakeLight (Zombie→brake lights); park-pawl interlock sense (HSDN→Zombie
+input) + torque inhibit; AVC2 wiring (inlet CP/PP/GND + relay). J1772 handshake = **AVC2 (public) vs
+Zombie CpSpoof (home/known EVSE) vs resistor spoof (crude)** — pick one; AVC2 offloads Zombie.
 
 ## Accessory feeds (above-factory only)
 
