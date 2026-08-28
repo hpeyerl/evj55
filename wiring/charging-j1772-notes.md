@@ -109,6 +109,17 @@ Two independent uses:
 SoC estimation is the piece to build for accurate SoC-target charging. **Dashboard:** shows SoC, so
 it consumes whatever the BMS derives — coordinate the SoC source with the BMS chat.
 
+## ⚠ Known gotcha: contactors stay closed (Elcon2)
+Report (2026-08-28): with **"Elcon2" configured, the HV contactors STAY CLOSED** → manual
+intervention required every charge. Two issues:
+- **"Elcon2" is NOT in the ChargeModes enum** in the source read here (`Off/EXT_DIGI/Volt_Ampera/
+  Leaf_PDM/TeslaOI/Out_lander/Elcon`) → likely a **newer firmware** than local, or shorthand. Pin
+  down what Elcon2 actually is.
+- **Root points to firmware not returning to `MOD_OFF` after charge** — that's where
+  `NEGCONTACTOR/dcsw/prec` are cleared (contactors open). So the **auto-STOP** side of charging needs
+  solving just like auto-start. Leaving HV live post-charge is a safety issue. Candidate owner: the
+  BMS/CM3 automation (command charge-end → contactors open) — bench investigation needed.
+
 ## Open / to-verify
 - ⚠ **`ACrequest` for a dumb Elcon with `targetChgint=Unused`** — what supplies it? The one link not
   resolved from a static source read; confirm on the bench.
