@@ -76,6 +76,18 @@ car to comply*. Draw more and you trip the station's breaker.
     → public charging must impose the station limit separately (via the CP reader).
 - **Wake:** the Dilong's **pin B (12V when AC applied)** wakes Zombie (see `charge-wake-arch`), which
   boots into this logic.
+- **★Charge termination (→ opens HV contactors) — the BMS has NO say:** MOD_CHARGE→MOD_OFF happens
+  ONLY when `chargeMode` goes false (`stm32_vcu.cpp:692`), which needs `RunChg`=false, which falls in
+  ONLY two places: **(a) unplug** (`ppValue > ppThresh`) or **(b) voltage termination**
+  (`udc ≥ Voltspnt && idc ≤ IdcTerm`, line 293). **`BMS_ChargeLim` is not in this chain** — it only
+  scales the current setpoint. ⇒ **A BMS dropping current to 0 at, e.g., 80% does NOT end the
+  session:** current stops but `udc < Voltspnt`, so Zombie stays in **MOD_CHARGE with contactors
+  CLOSED** — this *is* the "contactors stay closed" gotcha, and it's **fundamental, not Elcon2-specific**.
+  - **SoC-target lever in this firmware = `Voltspnt`.** Set it to the target-SoC pack voltage; Zombie
+    CV-terminates there and opens contactors cleanly. **CM3 rewrites `Voltspnt` per session** for
+    80 vs 100. The **BMS stays a safety current-limiter**, not the terminator.
+  - True BMS-SoC termination with clean contactor-open needs a **firmware change** (a BMS "charge
+    complete" flag forcing `RunChg=false`/`MOD_OFF`) — candidate ZombieVerter contribution/fork.
 
 ## The DIY plan (skip the AVC2 — $45 part but ~$93 shipping + Canada duty)
 The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
