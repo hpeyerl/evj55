@@ -76,18 +76,23 @@ car to comply*. Draw more and you trip the station's breaker.
     → public charging must impose the station limit separately (via the CP reader).
 - **Wake:** the Dilong's **pin B (12V when AC applied)** wakes Zombie (see `charge-wake-arch`), which
   boots into this logic.
-- **★Charge termination (→ opens HV contactors) — the BMS has NO say:** MOD_CHARGE→MOD_OFF happens
-  ONLY when `chargeMode` goes false (`stm32_vcu.cpp:692`), which needs `RunChg`=false, which falls in
-  ONLY two places: **(a) unplug** (`ppValue > ppThresh`) or **(b) voltage termination**
-  (`udc ≥ Voltspnt && idc ≤ IdcTerm`, line 293). **`BMS_ChargeLim` is not in this chain** — it only
-  scales the current setpoint. ⇒ **A BMS dropping current to 0 at, e.g., 80% does NOT end the
-  session:** current stops but `udc < Voltspnt`, so Zombie stays in **MOD_CHARGE with contactors
-  CLOSED** — this *is* the "contactors stay closed" gotcha, and it's **fundamental, not Elcon2-specific**.
-  - **SoC-target lever in this firmware = `Voltspnt`.** Set it to the target-SoC pack voltage; Zombie
-    CV-terminates there and opens contactors cleanly. **CM3 rewrites `Voltspnt` per session** for
-    80 vs 100. The **BMS stays a safety current-limiter**, not the terminator.
-  - True BMS-SoC termination with clean contactor-open needs a **firmware change** (a BMS "charge
-    complete" flag forcing `RunChg=false`/`MOD_OFF`) — candidate ZombieVerter contribution/fork.
+- **★Charge termination (→ opens HV contactors).** MOD_CHARGE→MOD_OFF when `chargeMode` goes false
+  (`stm32_vcu.cpp:692`) ← `RunChg`=false, which falls in **three** places, all → contactors open:
+  1. **Unplug** — `ppValue > ppThresh` (line 259)
+  2. **Voltage term** — `udc ≥ Voltspnt && idc ≤ IdcTerm` (line 295) → also sets `ChgLck`
+  3. **BMS shutdown** — `selectedBMS->MaxChargeCurrent()==0` (line 301) → also sets `ChgLck`
+  - So the **BMS CAN end a charge** — but only if it reports **exactly 0** *and* Zombie's configured
+    `selectedBMS` actually receives your BMS's charge limit over CAN. A **low-but-nonzero** BMS limit
+    with `udc < Voltspnt` fires *neither* #2 nor #3 → Zombie trickles in **MOD_CHARGE, contactors
+    CLOSED** = the "contactors stay closed" gotcha.
+  - **SoC target:** two clean levers — set **`Voltspnt`** to the target voltage (CM3 per session), OR
+    have the BMS report **exactly 0** at target. Either opens contactors AND sets `ChgLck`.
+- **★`ChgLck` lockout — blocks plugged-in "maintenance" charging.** Auto-termination (#2 or #3) sets
+  `ChgLck=true`, which **only clears in `MOD_RUN`** (`line 309`: "reset when we drive off"). So once
+  full, Zombie **will NOT re-charge while parked+plugged** until you drive. Timer mode (`ChgSet==2`)
+  is also gated by `!ChgLck`. ⇒ **NOT like a regular EV** (no periodic top-up while plugged); plus
+  contactors are open post-charge so the DCDC can't maintain the 12V aux either. Regular-EV behavior
+  = a firmware feature (clear `ChgLck` on HV/aux sag + a parked-maintenance loop).
 
 ## The DIY plan (skip the AVC2 — $45 part but ~$93 shipping + Canada duty)
 The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
