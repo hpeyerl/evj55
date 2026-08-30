@@ -108,7 +108,10 @@ modem (off the HAT), aux lighting (none), lockers (none), **winch (its own 3/0 l
 4. **Zombie power path** - RESOLVED (2026-08-28): Zombie can't sleep, gets **sw12**, needs 12V live in drive AND charge. Truck is dismantled -> can't measure draw -> **ASSUME >0.16A** -> **wake-switch REQUIRED** (pin-B can't power the rail, only triggers). Wake-switch = small high-side switch, Bat+->sw12 (~2A), fired by OR(IGN, pin-B). **HOME DECIDED (2026-08-28): the spare K/R ML350 socket** (the one iBooster doesn't take) - coil-hi = Bat+, contacts = Bat+->sw12; coil-lo sunk by a **small N-FET** (gate = OR(IGN,pin-B) via 2 signal diodes) on **a small board inside the box** (accepted worst-case; NO inline-in-harness). => both K and R now used (iBooster + wake); V stays the empty spare. (No cat-in-a-python inline blobs - Herb.)
 5. **CAN** - CONFIRMED **bypasses this box** (Herb 2026-08-28); not listed. (ok)
 6. **Grounds** - assumed loads ground to chassis locally (not back through box); confirm.
-7. **Cannon "millrounds"** (Herb has some) - DT pins won't reliably retain in Cannon MIL inserts (different contact/retention systems); use Cannon native contacts. BUT MIL rounds carry more A/contact (sz16 ~13A, 12 ~23A, 8 ~46A, 4 ~80A) -> could REPLACE the Deutsch bulkheads + absorb some heavy loads into one sealed shell. (!) get series/shell/contact layout -> map conductor list onto them.
+7. **Cannon "millrounds"** - **RESOLVED 2026-08-30:** inventoried what Herb actually has and mapped
+   the conductor tiers onto them - see **On-hand connectors + role map** below. MIL-rounds DO replace
+   the Deutsch bulkheads. (Original note: DT pins won't retain in MIL inserts - use native contacts;
+   MIL A/contact = sz16 ~13A, 12 ~23A, 8 ~46A, 4 ~80A, 0 ~150A.)
 
 ## Enclosure
 **12x12 cast-aluminum WATERPROOF Hammond box** houses: ML350 fusebox + 1-2 busbars + the wake-switch board + supporting bits (Herb 2026-08-28).
@@ -116,3 +119,29 @@ modem (off the HAT), aux lighting (none), lockers (none), **winch (its own 3/0 l
 - **Waterproof -> all penetrations must stay sealed:** sealed bulkhead connectors (Deutsch DT / Cannon MIL are sealed) or sealed glands; studs need sealed feed-throughs. Reinforces connectors over open terminals.
 - **Cast-Al case = ground plane** -> chassis-ground stud to the case (covers conductor #2); box bonds to chassis.
 - Room for the wake-switch small board (the "worst-case protoboard") is a non-issue here.
+
+---
+
+## On-hand connectors + role map (inventoried 2026-08-30)
+
+Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4), **MED** (>13A),
+**SIG** (<5A). MIL-5015 contact ratings: sz16=13A, sz12=23A, sz8=46A, sz4=80A, sz0=150A.
+
+| Connector (on hand) | Type / coupling | Contacts | A/contact | Mate status | Role |
+|---|---|---|---|---|---|
+| **3x Amphenol/DDK MS3102A24-5S** | MIL-5015, **threaded**, box-mount recept. | 16x size-16 socket, **populated w/ pigtails** | 13A | **complete pairs** (bulkhead + plug) | **primary sealed SIGNAL bulkhead** - the 16 SIG (16<->16 exact); 2 spare pairs |
+| **TE CPC 206150-1 + bulkheads** | Circular plastic (CPC Sy1), threaded, **IP65** | 37 pos, size-16 | 13A | have plug + bulkhead housings; **need male crimp pins (buy)** | big **internal harness / 2nd bulkhead** where IP65 is enough; 37-way = all SIG+MED+spares |
+| **Bernier CMA 1N14 / 5N14** | **Push-pull** circular, harsh-env | 14 pos, signal | ~few A (confirm) | **both halves** (1N14 recept + 5N14 plug) | **quick-disconnect SIGNAL** group (cabin / M5Dial / service) |
+| **ITT Cannon CA3102E32-17P-B-F80** | MIL-5015 **CA-Bayonet (reverse-bayonet)**, box recept. | 4x size-4 (**4 AWG**), **PIN** | 80A | box recept only - **BUY mate: CA3106E32-17S-B (sockets, CA-B / VG95234 bayonet) + sz32 clamp. NOT a threaded MS3106.** | **FAT bulkhead** - main +Bat, EPAS, iBooster, oil pump (4<->4). Pins-on-box is SAFE: unmating main +Bat de-powers the box -> box pins go dead (only residual = signal-connector backfeed) |
+| **2-cond 32-5P plug (MS5049/41-20A shell)** | MIL-5015-family plug, 2x ~size-0 | 2x ~150A | orphan **plug**, no receptacle | **SHELVED** - redundant with the 4-way; only if a split heavy main-power inlet is later wanted |
+| **Studs x4 + case ground** | stud feed-throughs | - | - | n/a | **FAT fallback** if the CA-B mate isn't sourced; case = chassis ground |
+
+**Rules carried out of this:**
+- **>13A stays off size-16:** HAT +Bat (~20-25A) + all FAT can't ride the MS3102 / CPC size-16 contacts
+  -> **studs or the CA-B**. Small MED (rad fan ~8A, EPB brief) are fine on size-16.
+- **Pin-doubling for current:** paralleling 2x size-16 ~= **~20A** (derate ~20% - contacts don't share
+  50/50, plus a fan-out junction + bundle heat), **NOT a clean 26A**. Fine for something solidly <=20A;
+  do NOT use it to promote HAT +Bat (25A, unmeasured) off the studs. FAT via paralleling = impractical.
+- **Sealing fit:** MS3102 (metal + gasket) and CA-B = best for the waterproof-box walls; CPC = IP65
+  (jets, not immersion); Bernier push-pull = sealed harsh-env (confirm IP rating).
+- **Parts to buy:** CA3106E32-17S-B + sz32 clamp (FAT bulkhead mate); CPC size-16 male crimp pins (if CPC used).
