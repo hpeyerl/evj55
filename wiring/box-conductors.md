@@ -132,9 +132,9 @@ Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4
 | **3x Amphenol/DDK MS3102A24-5S** | MIL-5015, **threaded**, box-mount recept. | 16x size-16 socket, **populated w/ pigtails** | 13A | **complete pairs** (bulkhead + plug) | **primary sealed SIGNAL bulkhead** - the 16 SIG (16<->16 exact); 2 spare pairs |
 | **TE CPC 206150-1 + bulkheads** | Circular plastic (CPC Sy1), threaded, **IP65** | 37 pos, size-16 | 13A | have plug + bulkhead housings; **need male crimp pins (buy)** | big **internal harness / 2nd bulkhead** where IP65 is enough; 37-way = all SIG+MED+spares |
 | **Bernier CMA 1N14 / 5N14** | **Push-pull** circular, harsh-env | 14 pos, signal | ~few A (confirm) | **both halves** (1N14 recept + 5N14 plug) | **quick-disconnect SIGNAL** group (cabin / M5Dial / service) |
-| **ITT Cannon CA3102E32-17P-B-F80** | MIL-5015 **CA-Bayonet (reverse-bayonet)**, box recept. | 4x size-4 (**4 AWG**), **PIN** | 80A | box recept only - **BUY mate: CA3106E32-17S-B (sockets, CA-B / VG95234 bayonet) + sz32 clamp. NOT a threaded MS3106.** | **FAT bulkhead** - main +Bat, EPAS, iBooster, oil pump (4<->4). Pins-on-box is SAFE: unmating main +Bat de-powers the box -> box pins go dead (only residual = signal-connector backfeed) |
+| **ITT Cannon CA3102E32-17P-B-F80** | MIL-5015 **CA-Bayonet (reverse-bayonet)**, box recept. | 4x size-4 (**4 AWG**), **PIN** | 80A | mate CA3106E32-17S-B on DigiKey = **$359 CAD, MOQ 100** (new-prod) -> **not economical for 1** | **SHELVED 2026-08-30.** Would've been the FAT bulkhead, but the mate isn't buyable as a single. Single mate, if ever wanted, = military **surplus/eBay** (cheap NOS singles), not DigiKey |
 | **2-cond 32-5P plug (MS5049/41-20A shell)** | MIL-5015-family plug, 2x ~size-0 | 2x ~150A | orphan **plug**, no receptacle | **SHELVED** - redundant with the 4-way; only if a split heavy main-power inlet is later wanted |
-| **Studs x4 + case ground** | stud feed-throughs | - | - | n/a | **FAT fallback** if the CA-B mate isn't sourced; case = chassis ground |
+| **Studs x4 + case ground** | sealed stud feed-throughs | - | up to lug rating | n/a - no mate needed | **FAT - PRIMARY (DECIDED 2026-08-30):** main +Bat, EPAS, iBooster, oil pump. CA-B mate not economical, so studs it is; case = chassis ground |
 
 **Rules carried out of this:**
 - **>13A stays off size-16:** HAT +Bat (~20-25A) + all FAT can't ride the MS3102 / CPC size-16 contacts
@@ -144,4 +144,6 @@ Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4
   do NOT use it to promote HAT +Bat (25A, unmeasured) off the studs. FAT via paralleling = impractical.
 - **Sealing fit:** MS3102 (metal + gasket) and CA-B = best for the waterproof-box walls; CPC = IP65
   (jets, not immersion); Bernier push-pull = sealed harsh-env (confirm IP rating).
-- **Parts to buy:** CA3106E32-17S-B + sz32 clamp (FAT bulkhead mate); CPC size-16 male crimp pins (if CPC used).
+- **Parts to buy:** CPC size-16 male crimp pins (only if CPC used). ~~CA3106E32-17S-B mate~~ **DROPPED** -
+  DigiKey wants $359 CAD / MOQ 100, so **FAT stays on studs** (CA-B receptacle shelved; single mate only
+  via surplus/eBay if ever revisited).
