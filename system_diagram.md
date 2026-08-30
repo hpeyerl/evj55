@@ -20,17 +20,17 @@
 │                              │                                  │
 │                   ┌──────────┴──────────┐                       │
 │                   │     Dashboard       │                       │
-│                   │  ESP32-P4-NANO      │                       │
-│                   │  Waveshare 10.1"    │                       │
-│                   │  MIPI DSI           │                       │
+│                   │  Radxa CM3          │                       │
+│                   │  dual-CAN HAT+      │                       │
+│                   │  Waveshare 12.3" DSI│                       │
 │                   └──────────┬──────────┘                       │
 └──────────────────────────────┼──────────────────────────────────┘
                                │
         ┌──────────────────────┼──────────────────────┐
         │                      │                      │
 ┌───────┴──────┐    ┌──────────┴───────┐   ┌──────────┴───────┐
-│ Headlight pot│    │   VSS sensor     │   │  EPB controller  │
-│ ADC→dimming  │    │  PCNT edge count │   │ GPIO LED+button  │
+│ Headlight pot│    │   VSS sensor     │   │    EPB sense     │
+│ ADC→dimming  │    │  PCNT edge count │   │ Grn/Red LEDs only│
 └──────────────┘    └──────────────────┘   └──────────────────┘
 ```
 
@@ -50,10 +50,10 @@ Home WiFi ←→ ESP32 NAT Router ←→ Zombieverter web UI
 | 1 | Steering wheel shifter | M5Dial + IS3050G CAN unit | ✅ Done |
 | 2 | BMS interface | Lilygo T-CAN485 | ✅ Done |
 | 3 | NAT router | ESP32 (dedicated, esp32_nat_router) | ⏳ TBD |
-| 4 | Dashboard (bench/dev) | M5Stack Tab5 (ESP32-P4) | ✅ Working |
-| 5 | Dashboard (production) | Waveshare ESP32-P4-NANO + 10.1" DSI | ⏳ Next |
+| 4 | Dashboard (bench/dev) | M5Stack Tab5 (ESP32-P4) | ⚠️ Superseded |
+| 5 | Dashboard (production) | Radxa CM3 + dual-CAN HAT+ + Waveshare 12.3" DSI | ⏳ In progress (CM3 booted, CAN dts pending) |
 | 6 | Reverse camera | TBD (CSI too short for 14ft run) | 🔮 Future |
-| 7 | EPB controller | Existing EPB + GPIO from dashboard | ⏳ Pending |
+| 7 | EPB | RevUS controller drives caliper; CM3 senses Grn/Red only, no auto-cmd | ✅ Decided |
 
 ## CAN Signal Map
 
@@ -71,18 +71,16 @@ Home WiFi ←→ ESP32 NAT Router ←→ Zombieverter web UI
 | Cruise speed | 0xDEAD | Zombieverter (cruisespeed) | TODO: assign CAN ID |
 | Cruise state | 0xDEAD | Zombieverter (cruisestt) | TODO: assign CAN ID |
 
-## Dashboard GPIO (P4-NANO — to be assigned)
+## Dashboard I/O (Radxa CM3 HAT — see evj55-cm3-hat notes for the full pin map)
 
 | Signal | Type | Notes |
 |--------|------|-------|
-| CAN TX | TWAI output | Any free GPIO + IS3050G |
-| CAN RX | TWAI input | Any free GPIO + IS3050G |
+| CAN1/CAN2 | SPI3 → MCP2515 dual-CAN HAT+ | HAT_CAN1↔Zombie CAN EXT (SDO poll), HAT_CAN2↔CAN EXT 2 (vehicle+charger) |
 | Headlight pot | ADC input | Backlight + CAN dimming master |
-| VSS | PCNT input | Pulse counter, cross-check speed |
-| EPB green LED | GPIO input | Active = brake released |
-| EPB red LED | GPIO input | Active = brake applied |
-| EPB button | GPIO output | Pulse low ~200ms to toggle |
-| Backlight PWM | LEDC output | Already on P4-NANO board |
+| VSS | Pulse input (Block A front-end) | Cross-check speed |
+| EPB green LED | GPIO input (Block A, active-high) | Reflects latched released state |
+| EPB red LED | GPIO input (Block A, active-high) | Reflects latched applied state |
+| Backlight PWM | PWM output | Waveshare 12.3" DSI panel |
 
 ## Clockspring Wiring (M5Dial to column IS3050G)
 
@@ -96,11 +94,13 @@ Home WiFi ←→ ESP32 NAT Router ←→ Zombieverter web UI
 
 ## Pending Items
 
-- [ ] Waveshare P4-NANO + 10.1" display bring-up (port tab5_display.c to waveshare_display.c)
+- [ ] CM3 CAN HAT+ device-tree work (board booted, ssh'd in, hostname ev-dashboard; CAN dts still needed)
+- [ ] Waveshare 12.3" DSI bring-up on CM3
 - [ ] VSS pulse counter code (exists in another chat, needs integration)
 - [ ] Headlight pot ADC + CAN dimming broadcast
-- [ ] EPB GPIO task + auto-engage on P gear
+- [ ] EPB sense-only GPIO task (no auto-engage — dropped as a safety call, driver uses the physical button)
 - [ ] NAT router hardware selection and flash
+- [ ] Remote telemetry: own mosquitto MQTT on the VPS + wss page (design only, nothing built; see HANDOFF.md)
 - [ ] Zombieverter oic CAN mappings (script: scripts/setup_can_mappings.sh)
 - [ ] Cruise control CAN IDs (currently 0xDEAD stubs)
 - [ ] RFID immobilizer on M5Dial (hotel key card UID whitelist)

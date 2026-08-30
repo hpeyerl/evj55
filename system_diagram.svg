@@ -42,6 +42,7 @@
 <line x1="50" y1="226" x2="630" y2="226" stroke="#3B6D11" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.55"/>
 <rect x="276" y="216" width="136" height="18" rx="3" fill="#ffffff" opacity="0.95"/>
 <text x="344" y="226" text-anchor="middle" font-size="12" fill="#3B6D11" opacity="0.85" dominant-baseline="central">CAN bus 500 kbps</text>
+<text x="344" y="243" text-anchor="middle" font-size="9.5" fill="#3B6D11" opacity="0.7">(CM3 dual-CAN HAT+)</text>
 
 <!-- ═══ MCU CONNECTIONS TO RAILS ═══ -->
 <!-- M5Dial: CAN (green) -->
@@ -89,10 +90,11 @@
 <text x="441" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#712B13" dominant-baseline="central">BMS</text>
 <text x="441" y="307" text-anchor="middle" font-size="12" fill="#993C1D" dominant-baseline="central">Lilygo T-CAN485</text>
 
-<!-- P4-Nano -->
+<!-- CM3 -->
 <rect x="548" y="270" width="122" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-<text x="609" y="289" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" dominant-baseline="central">ESP32-P4-Nano</text>
-<text x="609" y="307" text-anchor="middle" font-size="12" fill="#185FA5" dominant-baseline="central">Dashboard</text>
+<text x="609" y="285" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C" dominant-baseline="central">CM3</text>
+<text x="609" y="301" text-anchor="middle" font-size="10.5" fill="#185FA5" dominant-baseline="central">Dashboard</text>
+<text x="609" y="314" text-anchor="middle" font-size="10.5" fill="#185FA5" dominant-baseline="central">dual-CAN HAT+</text>
 
 <!-- ═══ LEFT PERIPHERALS — M5Dial ═══ -->
 
@@ -148,8 +150,9 @@
 
 <!-- EPB -->
 <rect x="548" y="584" width="122" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
-<text x="609" y="602" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">EPB controller</text>
-<text x="609" y="618" text-anchor="middle" font-size="12" fill="#5F5E5A" dominant-baseline="central">Auto-engage on P</text>
+<text x="609" y="598" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A" dominant-baseline="central">EPB sense</text>
+<text x="609" y="614" text-anchor="middle" font-size="10.5" fill="#5F5E5A" dominant-baseline="central">Grn/Red LEDs</text>
+<text x="609" y="627" text-anchor="middle" font-size="10.5" fill="#5F5E5A" dominant-baseline="central">no auto-cmd</text>
 <line x1="638" y1="584" x2="638" y2="564" stroke="#555" stroke-width="0.5" opacity="0.4" marker-end="url(#arrow)"/>
 <text x="650" y="577" font-size="12" fill="#555" opacity="0.6">GPIO</text>
 
@@ -162,8 +165,9 @@
 <text x="109" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">4-corner · ESP32-P4</text>
 
 <rect x="190" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-<text x="255" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">OVMS</text>
-<text x="255" y="699" text-anchor="middle" font-size="12" fill="#854F0B" dominant-baseline="central">LTE modem + CAN</text>
+<text x="255" y="676" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">Remote telemetry</text>
+<text x="255" y="692" text-anchor="middle" font-size="11" fill="#854F0B" dominant-baseline="central">own MQTT + wss page</text>
+<text x="255" y="706" text-anchor="middle" font-size="10" fill="#854F0B" opacity="0.75" dominant-baseline="central">(OVMS explored, rejected)</text>
 
 <rect x="336" y="662" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
 <text x="401" y="681" text-anchor="middle" font-size="14" font-weight="500" fill="#633806" dominant-baseline="central">BLE auth system</text>
