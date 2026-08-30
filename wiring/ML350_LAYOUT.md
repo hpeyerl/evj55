@@ -202,7 +202,7 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 ## 7. Open homework (at the box)
 
 - [x] f60/f61 R-vs-P shared rail - **buzz-out 2026-08-30: not "R vs P" - R, P, f60, f61 are ONE common node, nothing else on it. P is bridged onto R's f59-f61 rail (not an independent output). (!) Confirm whether P socket is physically populated - if so, R+P are hard-paralleled and P is unusable as a separate relay; adjust the relay budget.**
-- [ ] (!) Add terminals at **P4:1 (L)** and **P4:7 (K)** if those relays need external control.
+- [x] Add terminals at **P4:1 (L)** and **P4:7 (K)** for external control - **BOTH CONFIRMED as coil-low control taps (2026-08-30); physical crimp insertion DEFERRED (not a blocker).**
       **CONFLICT found 2026-08-30:** the Pinout CSV maps **P4:1,2 -> f43** and **P4:7,8 -> f46**,
       BOTH "tied directly to the constant Bat+ busbar B." If that copper is really busbar, these
       positions are always-hot +12V and **cannot** be K/L coil-low control taps (a terminal there
@@ -210,6 +210,13 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       were flagged "(!)" unverified. **BUZZ P4:1 & P4:7 against a known Bat+ pin (f20 @ P1:9/10)
       FIRST:** continuous = busbar (item moot; K/L need a different control path, e.g. in-box FET
       on the coil pin) // isolated = §3 was right, then just add terminals.
+      **RESULT 2026-08-30: P4:1 & P4:7 do NOT connect to B+** -> isolated, so §3's coil-low-control
+      reading stands and the CSV's f43/f46-busbar mapping for these two pins is WRONG. Remaining:
+      confirm P4:1->L coil pin and P4:7->K coil pin continuity, then add terminals (harvest a
+      spare from any unused busbar-B fuse-output position).
+      **CONFIRMED 2026-08-30: P4:1 -> L's control pin AND P4:7 -> K's control pin** (both genuine
+      coil-low taps; the CSV's f43/f46-busbar mapping for these pins is wrong). Crimp insertion
+      deferred; donor terminals = P5:9 (orphaned P coil-low) + any spare busbar-B fuse output.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
 - [ ] Key-off quiescent draw per controller (gates the Option-B permanent-feed decision).
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
