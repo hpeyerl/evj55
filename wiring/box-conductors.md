@@ -7,8 +7,15 @@ Every conductor crossing the boundary of the electrical box (which contains the 
 SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
 ## Running tally - CLOSED (2026-08-28), ~24 conductors + case-ground
-- **FAT (studs): 4** - main +Bat, EPAS, iBooster, **trans oil pump (>20A)**  /  (chassis Gnd = case bond, not a connector)
+- **FAT (true continuous): main +Bat (+ dedicated main GND)** - stud-pair OR one Anderson SB (2-pole =
+  battery +/- disconnect, sized to total box draw). **RETIERED 2026-08-30:** EPAS / iBooster / trans-oil-pump
+  moved OUT of FAT -> their big numbers are BRIEF PEAKS, not continuous (see MED-peak). Historically chassis
+  Gnd = case bond, but a dedicated main GND return is preferred at high current.
 - **MED (DTP / Cannon sz12-16): 4** - HAT +Bat (~20-25A), rad fan, EPB, Webasto (future)
+- **MED-peak (high BRIEF peak, low continuous; size for fuse + voltage-drop-at-peak, NOT continuous heat):
+  EPAS, iBooster, trans oil pump** - EPAS peak donor-dependent (~40-60A+ at stall, ~5-15A cruising), iBooster
+  only during braking (fused ~50-60A, ~0 otherwise), oil pump likely ~10-20A. -> size-8 / Anderson PP45-75
+  (or stud) once MEASURED at reassembly; likely NOT size-4 / 2AWG.
 - **SIG (DT / Cannon sz16-20): ~16** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, M5Dial, 3x Zombie coil-lo controls, 3x enables (S/T/U), 3x pumps (coolantx2 + trans booster)
 - Accessory feeds **closed** - only future Webasto.
 
@@ -28,15 +35,15 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
-| 6 | EPAS power | OUT | EPAS unit | ~40-80 | **FAT** | stud/HD30 | relay N (5-gang); (!) confirm cont/peak |
-| 7 | iBooster power | OUT | iBooster | ~50-100 pk | **FAT** | stud/HD30 | relay K or R; (!) confirm cont/peak |
+| 6 | EPAS power | OUT | EPAS unit | ~40-80 **pk** | **MED-peak** | size-8 / Anderson / stud | relay N (5-gang); **PEAK not continuous** (~5-15A cruising); size for V-drop at peak; (!) MEASURE at reassembly |
+| 7 | iBooster power | OUT | iBooster | ~50-60 **pk** | **MED-peak** | size-8 / Anderson / stud | relay K or R; only during braking, ~0 otherwise; fused ~50-60A; (!) MEASURE |
 | 8 | HAT +Bat (CM3 + MagneRide) | OUT | HAT (cabin) | ~20-25 | **MED-hi** | DTP or gland | **permanent**; firewall crossing; MR ~15-20A of it |
 
 ## Cooling / pumps OUT
 
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
-| 9 | Trans oil pump | OUT | trans | **>20** | **MED-hi/FAT** | **HD30 / stud** | relay M; (!) Herb: exceeds 20A -> past DTP; get exact |
+| 9 | Trans oil pump | OUT | trans | ~10-20 | **MED** | DTP / connector | relay M; likely <=20A (may fit paralleled sz16 or a sz12); (!) MEASURE - was assumed >20A |
 | 10 | Rad fan | OUT | fan | 4.25 | MED | DT/DTP | relay O; Zombie-controlled |
 | 11 | Coolant pump 1 | OUT | pump | ~2-3 | SIG | DT | relay P; Denso 064100-1110, teeny |
 | 12 | Coolant pump 2 | OUT | pump | ~2-3 | SIG | DT | 2nd Denso - TWO used because one may not flow enough |
@@ -134,7 +141,7 @@ Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4
 | **Bernier CMA 1N14 / 5N14** | **Push-pull** circular, harsh-env | 14 pos, signal | ~few A (confirm) | **both halves** (1N14 recept + 5N14 plug) | **quick-disconnect SIGNAL** group (cabin / M5Dial / service) |
 | **ITT Cannon CA3102E32-17P-B-F80** | MIL-5015 **CA-Bayonet (reverse-bayonet)**, box recept. | 4x size-4 (**4 AWG**), **PIN** | 80A | mate CA3106E32-17S-B on DigiKey = **$359 CAD, MOQ 100** (new-prod) -> **not economical for 1** | **SHELVED 2026-08-30.** Would've been the FAT bulkhead, but the mate isn't buyable as a single. Single mate, if ever wanted, = military **surplus/eBay** (cheap NOS singles), not DigiKey |
 | **2-cond 32-5P plug (MS5049/41-20A shell)** | MIL-5015-family plug, 2x ~size-0 | 2x ~150A | orphan **plug**, no receptacle | **SHELVED** - redundant with the 4-way; only if a split heavy main-power inlet is later wanted |
-| **Studs x4 + case ground** | sealed stud feed-throughs | - | up to lug rating | n/a - no mate needed | **FAT - PRIMARY (DECIDED 2026-08-30):** main +Bat, EPAS, iBooster, oil pump. CA-B mate not economical, so studs it is; case = chassis ground |
+| **Studs (main +Bat/GND) or 1x Anderson SB** | sealed stud feed-throughs / SB 2-pole | 2 (main +/-) | total box draw | n/a / SB single-unit | **true FAT only (RETIERED 2026-08-30):** main +Bat + main GND. EPAS/iBooster/oil-pump demoted to MED-peak (peak not continuous) -> their own MED connectors/studs, sized after measurement. SB = optional single-action main disconnect |
 
 **Rules carried out of this:**
 - **>13A stays off size-16:** HAT +Bat (~20-25A) + all FAT can't ride the MS3102 / CPC size-16 contacts
