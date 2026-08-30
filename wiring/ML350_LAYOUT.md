@@ -32,9 +32,9 @@ Pin convention (BOTH types): **coil = pins 1,2  /  NO contacts = pins 3,5.** (No
 |-------|-----------|-----------------------|------|
 | **N** | f52-f56 (5-gang) | P5:5-14 | Master high-current parallel rail |
 | **M** | f49 | P4:13,14 -> H1:1 | Single isolated loop |
-| **R** | f59,f60,f61 | P6:5-10 | 3-fuse parallel rail |
+| **R** | f59,f60,f61 | P6:5-10 | 3-fuse parallel rail; **P bridged onto f60/f61 of this same rail** (buzz-out 2026-08-30) |
 | **K** | f62,f63 | P6:11-14 | Dual-fuse sub-bus |
-| **P** | f60,f61 (!) | P6:7-10 | **SHARED with R - "???" in CSV, buzz out** |
+| **P** | f60,f61 | P6:7-10 | **RESOLVED (buzz-out 2026-08-30):** R, P, f60, f61 = one common node, nothing else on the rail -> **P is NOT an independent output, it's bridged onto R's f59-f61 rail.** (!) Confirm P socket populated vs empty - if it holds a relay, R+P are hard-paralleled and P can't serve as a separate relay. |
 | **O** | f57 | P6:1,2 | Single isolated loop |
 | **S** | f44 | P4:3,4 | |
 | **T** | f45 | P4:5,6 | |
@@ -191,7 +191,7 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 - [ ] **Add** iBooster (-> K or R, big) and Coolant pumps (-> P) as NEW symbols.
 - [ ] Re-number fuses to **real ML350 slots** (f20-f63) per sec 2; map old logical F11-F17/F21/F23.
 - [ ] Draw coils **ground-switched** - coil-high fixed, control on **coil-LOW** (per sec 3) + S/T/U gang.
-- [ ] Resolve **f60/f61 R/P "???"** shared rail - buzz out.
+- [x] Resolve **f60/f61 R/P "???"** shared rail - **buzz-out 2026-08-30: R, P, f60, f61 all one common node, nothing else on the rail; P bridged onto R's rail (not independent).**
 - [ ] Orphan purge (~491 stale assignment refs): **DEFERRED** - harmless, and no bridge command
       drops the keys (only a full `save_plan` compacts them). Left in place by decision 2026-08-27.
 - [ ] Note: coil sources were never actually wired in the plan - only floating legend symbols
@@ -201,8 +201,15 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 
 ## 7. Open homework (at the box)
 
-- [ ] (!) f60/f61 R-vs-P shared rail - which relay actually feeds them.
+- [x] f60/f61 R-vs-P shared rail - **buzz-out 2026-08-30: not "R vs P" - R, P, f60, f61 are ONE common node, nothing else on it. P is bridged onto R's f59-f61 rail (not an independent output). (!) Confirm whether P socket is physically populated - if so, R+P are hard-paralleled and P is unusable as a separate relay; adjust the relay budget.**
 - [ ] (!) Add terminals at **P4:1 (L)** and **P4:7 (K)** if those relays need external control.
+      **CONFLICT found 2026-08-30:** the Pinout CSV maps **P4:1,2 -> f43** and **P4:7,8 -> f46**,
+      BOTH "tied directly to the constant Bat+ busbar B." If that copper is really busbar, these
+      positions are always-hot +12V and **cannot** be K/L coil-low control taps (a terminal there
+      ties coil-low to +12V -> relay never switches / can cook the sinking driver). §3's P4:1/P4:7
+      were flagged "(!)" unverified. **BUZZ P4:1 & P4:7 against a known Bat+ pin (f20 @ P1:9/10)
+      FIRST:** continuous = busbar (item moot; K/L need a different control path, e.g. in-box FET
+      on the coil pin) // isolated = §3 was right, then just add terminals.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
 - [ ] Key-off quiescent draw per controller (gates the Option-B permanent-feed decision).
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
