@@ -45,9 +45,9 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 |--|-----------|-----|---------|----|------|-----------|-------|
 | 9 | Trans oil pump | OUT | trans | ~10-20 | **MED** | DTP / connector | relay M; likely <=20A (may fit paralleled sz16 or a sz12); (!) MEASURE - was assumed >20A |
 | 10 | Rad fan | OUT | fan | 4.25 | MED | DT/DTP | relay O; Zombie-controlled |
-| 11 | Coolant pump 1 | OUT | pump | ~2-3 | SIG | DT | relay P; Denso 064100-1110, teeny |
-| 12 | Coolant pump 2 | OUT | pump | ~2-3 | SIG | DT | 2nd Denso - TWO used because one may not flow enough |
-| 13 | Trans booster pump | OUT | pump (far) | ~2-3 | SIG | DT | new; boosts trans leg of series loop |
+| 11 | Coolant pump 1 | OUT | pump | **0.48 meas** | SIG | DT | Denso 064100-1110, teeny. **Measured ~480mA moving water** (clamp on 2A DC range - verify in series, clamps are weak <1A). Driven by Zombie low-side, NOT relay P (P is dead). (!) low draw -> flow may be marginal, MEASURE L/min |
+| 12 | Coolant pump 2 | OUT | pump | ~0.48 | SIG | DT | 2nd Denso (assume ~same); TWO used because one may not flow enough - the 480mA draw supports that worry, so **verify FLOW (L/min), not current** |
+| 13 | Trans booster pump | OUT | pump (far) | ~0.5? | SIG | DT | new; boosts trans leg; not yet measured (assume ~0.5A like the Densos) |
 | 14 | EPB power | OUT | park brake | **TBD** | MED | DTP/DT | relay L; brief actuation peak |
 
 ## Electronics feeds OUT (wake-switched / permanent B+)
@@ -64,7 +64,7 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
 | 19 | Zombie -> rad-fan coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolingFan** (thermostatic, CHARGE+RUN) -> assign to **SL1/SL2 or Out1/Out3**; **O coil-high MUST be live in charge (fix f52/N gating)** |
-| 20 | Zombie -> coolant pumps | IN | Zombie | ~2-3 | SIG | DT | Denso ~2-3A, driven **directly by Zombie CoolantPump low-side** (SL1/SL2/Out) - NO relay (**P is DEAD, bridged to R**). (was: drive P coil) |
+| 20 | Zombie -> coolant pumps | IN | Zombie | ~1.5 total | SIG | DT | Densos **measured ~480mA each** (verify in series); 2 coolant + trans booster ganged on one Zombie CoolantPump low-side = **~1.5A total** - (!) confirm the Zombie SL/Out output sinks 1.5A, else buffer with a small relay/FET. NO relay (P DEAD). |
 | 21 | Zombie -> trans-pump coil-low | IN | Zombie | <1 | SIG | DT | **gang with #20 CoolantPump** (same cooling demand) -> NO extra Zombie pin |
 | 22 | Zombie enable (gang S) | OUT | Zombie | <1 | SIG | DT | ignition-enable gang; (!) may merge with #15 |
 | 23 | Inverter enable (gang T) | OUT | inverter | <1 | SIG | DT | gang |
