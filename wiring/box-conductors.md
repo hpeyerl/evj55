@@ -16,7 +16,7 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
   EPAS, iBooster, trans oil pump** - EPAS peak donor-dependent (~40-60A+ at stall, ~5-15A cruising), iBooster
   only during braking (fused ~50-60A, ~0 otherwise), oil pump likely ~10-20A. -> size-8 / Anderson PP45-75
   (or stud) once MEASURED at reassembly; likely NOT size-4 / 2AWG.
-- **SIG (DT / Cannon sz16-20): ~16** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, M5Dial, 3x Zombie coil-lo controls, 3x enables (S/T/U), 3x pumps (coolantx2 + trans booster)
+- **SIG (DT / Cannon sz16-20): ~16** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, M5Dial, 3x Zombie coil-lo controls, 2x enables (S=Zombie, T=inverter; bat-boxes moved to sw12, U freed), 3x pumps (coolantx2 + trans booster)
 - Accessory feeds **closed** - only future Webasto.
 
 ---
@@ -64,11 +64,11 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 | # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
 |--|-----------|-----|---------|----|------|-----------|-------|
 | 19 | Zombie -> rad-fan coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolingFan** (thermostatic, CHARGE+RUN) -> assign to **SL1/SL2 or Out1/Out3**; **O coil-high MUST be live in charge (fix f52/N gating)** |
-| 20 | Zombie -> coolant coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolantPump** (precharge->drive+charge); P coil-high f50/Bat+ = OK |
+| 20 | Zombie -> coolant pumps | IN | Zombie | ~2-3 | SIG | DT | Denso ~2-3A, driven **directly by Zombie CoolantPump low-side** (SL1/SL2/Out) - NO relay (**P is DEAD, bridged to R**). (was: drive P coil) |
 | 21 | Zombie -> trans-pump coil-low | IN | Zombie | <1 | SIG | DT | **gang with #20 CoolantPump** (same cooling demand) -> NO extra Zombie pin |
 | 22 | Zombie enable (gang S) | OUT | Zombie | <1 | SIG | DT | ignition-enable gang; (!) may merge with #15 |
 | 23 | Inverter enable (gang T) | OUT | inverter | <1 | SIG | DT | gang |
-| 24 | Bat-boxes enable (gang U) | OUT | bat boxes | <1 | SIG | DT | gang |
+| 24 | Bat-boxes enable | OUT | bat boxes | <1 | SIG | DT | **rides sw12 (drive OR charge) like #15/#16 - must be alive in charge too (BMS/contactor control); NOT the ignition gang. No relay: fused tap off the sw12 rail = R(Wake) output f59-61. Relay U FREED to spare. So it needs NO AddBrown holder. (2026-09-01)** |
 
 **(Oil-pump PWM `GS450pumpPwm` = Zombie->controller direct, NOT through this box - on Splice already.)**
 
