@@ -65,10 +65,12 @@ BUT the coil-high feed is **NOT uniformly Bat+** - trace each individually.
 **Coil-drive intent (Herb 2026-09-02):** K(iBooster), N(EPAS), M(oil-pump), L(EPB) + the S/T/U gang
 all **ARM ON IGNITION (drive-mode)** - one common ignition trigger. M is on/off enable only (Zombie
 PWMs the pump; pump quiescent until PWM). R = wake FET (drive OR charge, done). O = Zombie CoolingFan
-(thermostatic). P dead. **OPEN - how to implement the ignition-arm, pick before drawing coils:**
-(A) coil-high on an ign-switched 12V rail + coil-low to GND (high-side, simplest, but rewires the
-Bat+ coil-highs); or (B) coil-high on Bat+ + coil-lows commoned to an ignition-gated low-side FET
-(keeps the box ground-switched per this table, mirrors the wake Q1).
+(thermostatic). P dead. **DECIDED + DRAWN 2026-09-02 (option B, RELAY not FET):** coil-highs (85) on
+**Bat+**; coil-lows (86) of K/N/M/L/S/T/U **commoned into one bus** grounded by the **V master relay**
+(V coil = IGN(drive); V contacts sink the bus to GND on ignition - no FET needed, uses the spare V
+socket + a relay from inventory). R coil-low -> wake Q1; O coil-low (86) -> Zombie **GP Out 1** (J1
+pin 31), O coil-high -> Bat+ constant (also fixes the old "fan must be live in charge" gating). Drawn
+on the FuseRelay page. (!) verify IGN(drive) can source V's ~150mA coil.
 
 Center-of-socket **BAT tap** exists (unused) at U/P/S/T for a 5-pin variant - ignore for now.
 
@@ -196,14 +198,18 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       committed baseline `f07fe62`/plan push `1772d7a`).
 - [x] **Rename K11-K17 -> real relays** (done 2026-08-27): N=EPAS, M=Oil Pump, L=EPB, O=Rad Fan,
       S=Zombie / T=Inverter / U=Bat Boxes (the ignition-enable gang). K/R/P still free.
-- [ ] **Add** iBooster (-> K or R, big) and Coolant pumps (-> P) as NEW symbols.
-- [ ] Re-number fuses to **real ML350 slots** (f20-f63) per sec 2; map old logical F11-F17/F21/F23.
-- [ ] Draw coils **ground-switched** - coil-high fixed, control on **coil-LOW** (per sec 3) + S/T/U gang.
+- [x] **Add iBooster (=K)** - DONE. Coolant pumps: NOT a relay (P is DEAD) - run on Zombie CoolantPump
+      low-side (~480mA measured). U re-tasked to the ign-switched accessory relay (F21/F23).
+- [x] **Re-number fuses to real ML350 slots** - DONE 2026-09-02: F11-F17 -> f44/f45/f49/f52-56/f57/
+      AddRed/sw12(f59-61); F21/F23 -> ign-switched via U (their real slots pending the cut/reroute TODO).
+- [x] **Draw coils ground-switched** - DONE 2026-09-02: **V master relay** grounds the commoned coil-low
+      bus of K/N/M/L/S/T/U on ignition; R -> wake Q1; O -> Zombie GP Out 1; P dead. Old coil-ground shorts
+      + red/violet AliExpress cruft purged. See sec 3.
 - [x] Resolve **f60/f61 R/P "???"** shared rail - **buzz-out 2026-08-30: R, P, f60, f61 all one common node, nothing else on the rail; P bridged onto R's rail (not independent).**
-- [ ] Orphan purge (~491 stale assignment refs): **DEFERRED** - harmless, and no bridge command
-      drops the keys (only a full `save_plan` compacts them). Left in place by decision 2026-08-27.
-- [ ] Note: coil sources were never actually wired in the plan - only floating legend symbols
-      + IGN+/12V+ stubs. Coil intent = design intent, not drawn.
+- [~] Orphan purge: the visible old **red/violet AliExpress conductors + coil-ground shorts were PURGED
+      2026-09-02** (canvas decluttered). The ~491 stale assignment refs remain DEFERRED (harmless; only a
+      full `save_plan` compacts them).
+- [x] Coil sources now WIRED (2026-09-02) via the V ignition-master scheme (sec 3) - no longer floating.
 
 ---
 
