@@ -154,3 +154,47 @@ Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4
 - **Parts to buy:** CPC size-16 male crimp pins (only if CPC used). ~~CA3106E32-17S-B mate~~ **DROPPED** -
   DigiKey wants $359 CAD / MOQ 100, so **FAT stays on studs** (CA-B receptacle shelved; single mate only
   via surplus/eBay if ever revisited).
+
+---
+
+## Box external interface / connector map (consolidated - for the IP67-lid label)
+
+Single at-a-glance view of everything crossing the box boundary. Detail lives in the
+conductor list above, `ML350_LAYOUT.md`, and `ML350 fuse box - Pinout.csv`; this ties the
+connector-facing side together. (Also mirrored into the Splice fuse descriptions.)
+
+### Power / ground
+- **Main Bat+ IN -> M8 busbar stud** (feeds constant Bat+ busbar, all relay coil-highs + contacts).
+- **Chassis/case ground** (bond); a Gnd point for V coil-low, V contact, and the wake FET source.
+
+### Relay outputs -> loads (fuse -> output pins) + how each coil is driven
+| Relay | Load | Fuse | Out pins | Coil driven by |
+|---|---|---|---|---|
+| N | EPAS | f52-56 | P5:5-14 | V ign-master |
+| M | Oil pump | f49 | P4:13,14 -> H1:1 | V ign-master (Zombie PWMs the pump) |
+| K | iBooster | f62,63 | P6:11-14 | V ign-master |
+| O | Rad fan | f57 | P6:1,2 | **Zombie GP Out 1 (J1 pin 31)** |
+| L | EPB | AddRed | (add-a-fuse) | V ign-master |
+| S | Zombie enable | f44 | P4:3,4 | V ign-master |
+| T | Inverter enable | f45 | P4:5,6 | V ign-master |
+| R | Wake -> sw12 | f59-61 | P6:5-10 | **wake FET** (OR(IGN, Pin-B)) |
+| U | accessory: F21 status + F23 CDL | reroute | TBD | ign gang |
+| V | **IGN master** (grounds coil-low bus) | - | - | IGN(drive) |
+| P | DEAD (bridged to R) | - | - | - |
+
+### Control inputs (into the box)
+- **IGN(drive)** -> V coil + wake diodes
+- **Charger Pin-B / Pin-C** -> wake (via the Dilong/Charger page)
+- **Zombie GP Out 1 (J1 pin 31)** -> O coil (rad fan)
+- **Zombie CoolantPump low-side** -> coolant pumps (~480mA ea)
+
+### sw12 rail (drive OR charge) out
+- Zombie sw12, BMS 12V, bat-boxes enable - all on R's f59-61 rail.
+
+### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier)
+- IGN+, Pin-B/C, sw12, BMS, ign_sense, M5Dial, 3x coil-lo controls, 3x enables, 3x pumps (see list above).
+
+### CAN - bypasses the box (not routed through it).
+
+### Still TBD before the lid label is final
+- F21/F23 real slots (after the cut/reroute); the 16-pin bulkhead assignments; measured currents.
