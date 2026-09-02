@@ -38,7 +38,7 @@ Pin convention (BOTH types): **coil = pins 1,2  /  NO contacts = pins 3,5.** (No
 | **O** | f57 | P6:1,2 | Single isolated loop |
 | **S** | f44 | P4:3,4 | |
 | **T** | f45 | P4:5,6 | |
-| **U** | ~~AddBrown~~ | - | **FREED 2026-09-01: bat-boxes moved to sw12 (R rail f59-61), U dropped to spare. No AddBrown holder on hand anyway - and not needed.** |
+| **U** | AddBrown (U output) | - | **RE-TASKED 2026-09-02: U = IGN-switched accessory relay.** Coil on the S/T/U gang (arms with ignition); contacts pass Bat+ -> **F21 status feed (pg6) + F23 CDL (pg8)**, both ignition-switched (piggybacked on ONE relay to save relays; V stays the spare). (!) PHYSICAL: F21/F23 are currently CONSTANT-busbar slots - making them IGN-switched via U means isolating them from the Bat+ busbar and feeding from U's switched output (or add-a-fuse on U's AddBrown output - and you're short that holder). Resolve at the box. |
 | **L** | AddRed | (add-a-fuse) | EPB; **AddRed holder is on hand.** (ML350 has ~40 mostly-spare real slots f20-f48 - prefer a spare real slot over an add-a-fuse where PCB routing allows.) |
 
 Everything else (f20-f48 minus S/T outputs, f50/51/58, f64/65) = **constant Bat+ busbar "B"**,
@@ -90,7 +90,7 @@ current class:
 | Rad Fan | **~100W ~ 8A** | **20A** (L/O/P) | small relay plenty; coil = Zombie `CoolingFan` OR overtemp switch |
 | Coolant pumps | motor, low-teens A (!) | **20A** (L/O/P) | OR Zombie low-sides directly - TBD |
 | **S/T/U gang** | signal enables | Zombie + inverter + bat-boxes + controls arm together on IGN | |
-| CDL | - | **spare** | |
+| CDL | ign-switched (actuator) | **U** (shared w/ F21 status) | F23; U = the IGN-switched accessory relay - piggybacks status + CDL on one relay to save a relay; V stays the spare |
 
 Inverter is now an **enable** (in the gang), not a muscle relay - it has its own contactor/driver.
 
