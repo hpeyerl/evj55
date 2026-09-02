@@ -62,6 +62,14 @@ BUT the coil-high feed is **NOT uniformly Bat+** - trace each individually.
 | P | fuse 50 feed | P5:9 | fused feed |
 | S/T/U | ganged, external both legs | **P5:4 & P5:10** | all 3 arm together |
 
+**Coil-drive intent (Herb 2026-09-02):** K(iBooster), N(EPAS), M(oil-pump), L(EPB) + the S/T/U gang
+all **ARM ON IGNITION (drive-mode)** - one common ignition trigger. M is on/off enable only (Zombie
+PWMs the pump; pump quiescent until PWM). R = wake FET (drive OR charge, done). O = Zombie CoolingFan
+(thermostatic). P dead. **OPEN - how to implement the ignition-arm, pick before drawing coils:**
+(A) coil-high on an ign-switched 12V rail + coil-low to GND (high-side, simplest, but rewires the
+Bat+ coil-highs); or (B) coil-high on Bat+ + coil-lows commoned to an ignition-gated low-side FET
+(keeps the box ground-switched per this table, mirrors the wake Q1).
+
 Center-of-socket **BAT tap** exists (unused) at U/P/S/T for a 5-pin variant - ignore for now.
 
 ---
@@ -217,6 +225,11 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       **CONFIRMED 2026-08-30: P4:1 -> L's control pin AND P4:7 -> K's control pin** (both genuine
       coil-low taps; the CSV's f43/f46-busbar mapping for these pins is wrong). Crimp insertion
       deferred; donor terminals = P5:9 (orphaned P coil-low) + any spare busbar-B fuse output.
+- [ ] **F21/F23 cut+reroute (TODO 2026-09-02):** isolate the F21 (status) + F23 (CDL) fuse slots
+  from the Bat+ busbar and jumper **U's switched output** into them -> both become ign-switched
+  via U on their REAL slots, avoiding the AddBrown add-a-fuse holder (which Herb lacks).
+- [ ] **V spare socket:** its output DOES route to an (undocumented) DNP fuse slot, so V is usable
+  IF populated - but it needs 6 pins Herb likely can't source, so V stays unpopulated/unused.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
 - [ ] Key-off quiescent draw per controller (gates the Option-B permanent-feed decision).
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
