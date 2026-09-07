@@ -39,7 +39,7 @@ Pin convention (BOTH types): **coil = pins 1,2  /  NO contacts = pins 3,5.** (No
 | **S** | f44 | P4:3,4 | |
 | **T** | f45 | P4:5,6 | |
 | **U** | AddBrown (U output) | - | **RE-TASKED 2026-09-02: U = IGN-switched accessory relay.** Coil on the S/T/U gang (arms with ignition); contacts pass Bat+ -> **F21 status feed (pg6) + F23 CDL (pg8)**, both ignition-switched (piggybacked on ONE relay to save relays; V stays the spare). (!) PHYSICAL: F21/F23 are currently CONSTANT-busbar slots - making them IGN-switched via U means isolating them from the Bat+ busbar and feeding from U's switched output (or add-a-fuse on U's AddBrown output - and you're short that holder). Resolve at the box. |
-| **L** | AddRed | (add-a-fuse) | EPB; **AddRed holder is on hand.** (ML350 has ~40 mostly-spare real slots f20-f48 - prefer a spare real slot over an add-a-fuse where PCB routing allows.) |
+| **L** | AddRed (output) | - | EPB. (!) **CORRECTION 2026-09-04: Herb does NOT have the AddRed add-a-fuse holder** (they are color-keyed; his only pigtail is a not-red/not-brown color). So L needs the SAME cut/reroute as U: isolate a real slot from the Bat+ busbar and jumper L's switched output in. ML350 has ~40 mostly-spare real slots f20-f48 - prefer a spare real slot. |
 
 Everything else (f20-f48 minus S/T outputs, f50/51/58, f64/65) = **constant Bat+ busbar "B"**,
 always-hot, straight to output pins. f64/f65 = empty slots.
@@ -234,6 +234,9 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 - [ ] **F21/F23 cut+reroute (TODO 2026-09-02):** isolate the F21 (status) + F23 (CDL) fuse slots
   from the Bat+ busbar and jumper **U's switched output** into them -> both become ign-switched
   via U on their REAL slots, avoiding the AddBrown add-a-fuse holder (which Herb lacks).
+- [ ] **L/EPB cut+reroute (TODO 2026-09-04):** same problem as F21/F23 - Herb has NO AddRed
+  add-a-fuse holder, so isolate a real slot from the Bat+ busbar and jumper **L's switched output**
+  into it (feeds the EPB controller). Do NOT rely on an add-a-fuse.
 - [ ] **V spare socket:** its output DOES route to an (undocumented) DNP fuse slot, so V is usable
   IF populated - but it needs 6 pins Herb likely can't source, so V stays unpopulated/unused.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
