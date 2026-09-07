@@ -6,4 +6,4 @@ exports:
     - all-pages-pdf
     - bom-xlsx
     - bom-csv
-  output-dir: rendered
+  output-dir: wiring/splice-cad-rendered
