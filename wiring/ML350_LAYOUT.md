@@ -32,14 +32,14 @@ Pin convention (BOTH types): **coil = pins 1,2  /  NO contacts = pins 3,5.** (No
 |-------|-----------|-----------------------|------|
 | **N** | f52-f56 (5-gang) | P5:5-14 | Master high-current parallel rail |
 | **M** | f49 | P4:13,14 -> H1:1 | Single isolated loop |
-| **R** | f59,f60,f61 | P6:5-10 | 3-fuse parallel rail |
+| **R** | f59,f60,f61 | P6:5-10 | 3-fuse parallel rail; **P bridged onto f60/f61 of this same rail** (buzz-out 2026-08-30) |
 | **K** | f62,f63 | P6:11-14 | Dual-fuse sub-bus |
-| **P** | f60,f61 (!) | P6:7-10 | **SHARED with R - "???" in CSV, buzz out** |
+| **P** | f60,f61 | P6:7-10 | **RESOLVED (buzz-out 2026-08-30):** R, P, f60, f61 = one common node, nothing else on the rail -> **P is NOT an independent output, it's bridged onto R's f59-f61 rail.** (!) Confirm P socket populated vs empty - if it holds a relay, R+P are hard-paralleled and P can't serve as a separate relay. |
 | **O** | f57 | P6:1,2 | Single isolated loop |
 | **S** | f44 | P4:3,4 | |
 | **T** | f45 | P4:5,6 | |
-| **U** | AddBrown | (add-a-fuse) | ganged w/ S,T - see sec 4 |
-| **L** | AddRed | (add-a-fuse) | |
+| **U** | AddBrown (U output) | - | **RE-TASKED 2026-09-02: U = IGN-switched accessory relay.** Coil on the S/T/U gang (arms with ignition); contacts pass Bat+ -> **F21 status feed (pg6) + F23 CDL (pg8)**, both ignition-switched (piggybacked on ONE relay to save relays; V stays the spare). (!) PHYSICAL: F21/F23 are currently CONSTANT-busbar slots - making them IGN-switched via U means isolating them from the Bat+ busbar and feeding from U's switched output (or add-a-fuse on U's AddBrown output - and you're short that holder). Resolve at the box. |
+| **L** | AddRed | (add-a-fuse) | EPB; **AddRed holder is on hand.** (ML350 has ~40 mostly-spare real slots f20-f48 - prefer a spare real slot over an add-a-fuse where PCB routing allows.) |
 
 Everything else (f20-f48 minus S/T outputs, f50/51/58, f64/65) = **constant Bat+ busbar "B"**,
 always-hot, straight to output pins. f64/f65 = empty slots.
@@ -61,6 +61,16 @@ BUT the coil-high feed is **NOT uniformly Bat+** - trace each individually.
 | O | fuse 52 feed | P6:4 | fused/second-stage feed |
 | P | fuse 50 feed | P5:9 | fused feed |
 | S/T/U | ganged, external both legs | **P5:4 & P5:10** | all 3 arm together |
+
+**Coil-drive intent (Herb 2026-09-02):** K(iBooster), N(EPAS), M(oil-pump), L(EPB) + the S/T/U gang
+all **ARM ON IGNITION (drive-mode)** - one common ignition trigger. M is on/off enable only (Zombie
+PWMs the pump; pump quiescent until PWM). R = wake FET (drive OR charge, done). O = Zombie CoolingFan
+(thermostatic). P dead. **DECIDED + DRAWN 2026-09-02 (option B, RELAY not FET):** coil-highs (85) on
+**Bat+**; coil-lows (86) of K/N/M/L/S/T/U **commoned into one bus** grounded by the **V master relay**
+(V coil = IGN(drive); V contacts sink the bus to GND on ignition - no FET needed, uses the spare V
+socket + a relay from inventory). R coil-low -> wake Q1; O coil-low (86) -> Zombie **GP Out 1** (J1
+pin 31), O coil-high -> Bat+ constant (also fixes the old "fan must be live in charge" gating). Drawn
+on the FuseRelay page. (!) verify IGN(drive) can source V's ~150mA coil.
 
 Center-of-socket **BAT tap** exists (unused) at U/P/S/T for a 5-pin variant - ignore for now.
 
@@ -90,7 +100,7 @@ current class:
 | Rad Fan | **~100W ~ 8A** | **20A** (L/O/P) | small relay plenty; coil = Zombie `CoolingFan` OR overtemp switch |
 | Coolant pumps | motor, low-teens A (!) | **20A** (L/O/P) | OR Zombie low-sides directly - TBD |
 | **S/T/U gang** | signal enables | Zombie + inverter + bat-boxes + controls arm together on IGN | |
-| CDL | - | **spare** | |
+| CDL | ign-switched (actuator) | **U** (shared w/ F21 status) | F23; U = the IGN-switched accessory relay - piggybacks status + CDL on one relay to save a relay; V stays the spare |
 
 Inverter is now an **enable** (in the gang), not a muscle relay - it has its own contactor/driver.
 
@@ -188,21 +198,44 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       committed baseline `f07fe62`/plan push `1772d7a`).
 - [x] **Rename K11-K17 -> real relays** (done 2026-08-27): N=EPAS, M=Oil Pump, L=EPB, O=Rad Fan,
       S=Zombie / T=Inverter / U=Bat Boxes (the ignition-enable gang). K/R/P still free.
-- [ ] **Add** iBooster (-> K or R, big) and Coolant pumps (-> P) as NEW symbols.
-- [ ] Re-number fuses to **real ML350 slots** (f20-f63) per sec 2; map old logical F11-F17/F21/F23.
-- [ ] Draw coils **ground-switched** - coil-high fixed, control on **coil-LOW** (per sec 3) + S/T/U gang.
-- [ ] Resolve **f60/f61 R/P "???"** shared rail - buzz out.
-- [ ] Orphan purge (~491 stale assignment refs): **DEFERRED** - harmless, and no bridge command
-      drops the keys (only a full `save_plan` compacts them). Left in place by decision 2026-08-27.
-- [ ] Note: coil sources were never actually wired in the plan - only floating legend symbols
-      + IGN+/12V+ stubs. Coil intent = design intent, not drawn.
+- [x] **Add iBooster (=K)** - DONE. Coolant pumps: NOT a relay (P is DEAD) - run on Zombie CoolantPump
+      low-side (~480mA measured). U re-tasked to the ign-switched accessory relay (F21/F23).
+- [x] **Re-number fuses to real ML350 slots** - DONE 2026-09-02: F11-F17 -> f44/f45/f49/f52-56/f57/
+      AddRed/sw12(f59-61); F21/F23 -> ign-switched via U (their real slots pending the cut/reroute TODO).
+- [x] **Draw coils ground-switched** - DONE 2026-09-02: **V master relay** grounds the commoned coil-low
+      bus of K/N/M/L/S/T/U on ignition; R -> wake Q1; O -> Zombie GP Out 1; P dead. Old coil-ground shorts
+      + red/violet AliExpress cruft purged. See sec 3.
+- [x] Resolve **f60/f61 R/P "???"** shared rail - **buzz-out 2026-08-30: R, P, f60, f61 all one common node, nothing else on the rail; P bridged onto R's rail (not independent).**
+- [~] Orphan purge: the visible old **red/violet AliExpress conductors + coil-ground shorts were PURGED
+      2026-09-02** (canvas decluttered). The ~491 stale assignment refs remain DEFERRED (harmless; only a
+      full `save_plan` compacts them).
+- [x] Coil sources now WIRED (2026-09-02) via the V ignition-master scheme (sec 3) - no longer floating.
 
 ---
 
 ## 7. Open homework (at the box)
 
-- [ ] (!) f60/f61 R-vs-P shared rail - which relay actually feeds them.
-- [ ] (!) Add terminals at **P4:1 (L)** and **P4:7 (K)** if those relays need external control.
+- [x] f60/f61 R-vs-P shared rail - **buzz-out 2026-08-30: not "R vs P" - R, P, f60, f61 are ONE common node, nothing else on it. P is bridged onto R's f59-f61 rail (not an independent output). (!) Confirm whether P socket is physically populated - if so, R+P are hard-paralleled and P is unusable as a separate relay; adjust the relay budget.**
+- [x] Add terminals at **P4:1 (L)** and **P4:7 (K)** for external control - **BOTH CONFIRMED as coil-low control taps (2026-08-30); physical crimp insertion DEFERRED (not a blocker).**
+      **CONFLICT found 2026-08-30:** the Pinout CSV maps **P4:1,2 -> f43** and **P4:7,8 -> f46**,
+      BOTH "tied directly to the constant Bat+ busbar B." If that copper is really busbar, these
+      positions are always-hot +12V and **cannot** be K/L coil-low control taps (a terminal there
+      ties coil-low to +12V -> relay never switches / can cook the sinking driver). sec 3's P4:1/P4:7
+      were flagged "(!)" unverified. **BUZZ P4:1 & P4:7 against a known Bat+ pin (f20 @ P1:9/10)
+      FIRST:** continuous = busbar (item moot; K/L need a different control path, e.g. in-box FET
+      on the coil pin) // isolated = sec 3 was right, then just add terminals.
+      **RESULT 2026-08-30: P4:1 & P4:7 do NOT connect to B+** -> isolated, so sec 3's coil-low-control
+      reading stands and the CSV's f43/f46-busbar mapping for these two pins is WRONG. Remaining:
+      confirm P4:1->L coil pin and P4:7->K coil pin continuity, then add terminals (harvest a
+      spare from any unused busbar-B fuse-output position).
+      **CONFIRMED 2026-08-30: P4:1 -> L's control pin AND P4:7 -> K's control pin** (both genuine
+      coil-low taps; the CSV's f43/f46-busbar mapping for these pins is wrong). Crimp insertion
+      deferred; donor terminals = P5:9 (orphaned P coil-low) + any spare busbar-B fuse output.
+- [ ] **F21/F23 cut+reroute (TODO 2026-09-02):** isolate the F21 (status) + F23 (CDL) fuse slots
+  from the Bat+ busbar and jumper **U's switched output** into them -> both become ign-switched
+  via U on their REAL slots, avoiding the AddBrown add-a-fuse holder (which Herb lacks).
+- [ ] **V spare socket:** its output DOES route to an (undocumented) DNP fuse slot, so V is usable
+  IF populated - but it needs 6 pins Herb likely can't source, so V stays unpopulated/unused.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
 - [ ] Key-off quiescent draw per controller (gates the Option-B permanent-feed decision).
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
