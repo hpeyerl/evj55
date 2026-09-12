@@ -27,7 +27,13 @@ see the banner on each.
   marked terminal.
 - **Coil-hi = permanent Bat+** (pre-contactor, so it's available key-off). **Coil-lo sunk by a
   low-side FET** driven by **(Ignition OR charge Pin-B)** through two signal diodes (the
-  existing charge-wake OR, sec 5b). The **same OR node = CM3 wake-GPIO**.
+  existing charge-wake OR, sec 5b). The **same OR node = CM3 wake-GPIO** and the **BOX-AWAKE**
+  signal for the EPB enable.
+- **Trigger location (DECIDED 2026-09-12): a small PROTOBOARD in the Hammond box next to the
+  ML350 - explicitly NOT the HAT** (no HAT respin). The protoboard holds the 2 signal diodes +
+  OR + low-side FET + contactor-coil drive; it takes IGN, charge Pin-B, permanent Bat+, GND and
+  exposes **BOX-AWAKE** (to CM3 wake-GPIO and EPB enable). On the Splice page it's ONE black-box
+  module, not discretes; the HAT does not own the box-on logic.
 - Effect: **the entire box busbar B is now SWITCHED** - hot only in drive or charge, fully
   dead in sleep = zero parasitic drain. The old constant-Bat+ busbar is gone.
 
@@ -343,8 +349,13 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
 
 **New homework (master-contactor architecture, 2026-09-12):**
-- [ ] **F-Main final size:** needs EPAS worst-case current -> pick the ~100A MEGA/ANL slow-blow value
-  and the feed cable gauge (4-6 AWG); keep <= 120A.
+- [ ] **F-Main final size:** real numbers now = EPAS 60A + iBooster 40A = **100A coincident** (hard
+  steer + hard brake) + fan/coolant ~= 125A -> brushes the AEV14012's 120A. Bump F-Main toward **~120A**
+  (contactor limit) or drop in a bigger contactor from the stash for margin; slow MAXI rides brief peaks.
+  Pick feed-cable gauge to match.
+- [ ] **Protoboard build (Hammond box, next to ML350):** 2 signal diodes + OR + low-side FET +
+  contactor-coil drive; ins = IGN, charge Pin-B, perm Bat+, GND; outs = contactor coil-lo + BOX-AWAKE
+  (to CM3 wake-GPIO and EPB enable). NOT on the HAT.
 - [ ] **Master-contactor drive:** size the low-side FET for AEV14012 coil pull-in + ~0.35A hold; pick the
   two signal diodes for the (IGN OR Pin-B) trigger; confirm coil-hi tap is on **permanent** Bat+
   (pre-contactor). Verify AEV14012 main-terminal polarity/orientation for mounting.
@@ -354,4 +365,56 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
 - [ ] **Inverter (traction) enable:** hard-gate to drive-only in wiring (charge interlock), or leave it
   to Zombie's charge/drive mutual-exclusion + HVIL? If wiring-gated, it's the one enable that keeps a
   drive-only path.
-- [ ] **Freed relays K/N/M/L/R/V:** decide leave-seated-unused vs. pull vs. repurpose. Only O stays in use.
+- [ ] **Unused relay sockets M/N/R/K/T/U/V:** decide leave-seated vs. pull. In use: **O** (rad fan) +
+  **S** (coolant, via the S/T/U gang coil).
+
+---
+
+## 8. Proposed load assignments (pending box-check) - 2026-09-12
+
+Concrete map for the rototill, per sec 0 (master contactor, no V, fuse-direct + 2 relays).
+Cross-referenced to `ML350 fuse box - Pinout.csv` + the pigtail inventory (sec 7). (!) = box-check.
+
+**Power entry:** Battery+ -> F-Main -> AEV14012 master contactor -> **switched B+ bus** (feeds
+busbar B + the MAXI slots + the O/S relay contacts). Trigger = the Hammond-box protoboard (sec 0):
+IGN + Pin-B -> diodes -> OR -> FET -> contactor coil; exposes BOX-AWAKE.
+
+**Big loads -> the box's 5 MAXI (large blade) slots** (fed off busbar B = switched):
+
+| Load | Fuse | Note |
+|------|------|------|
+| EPAS | MAXI 60A | factory fuse = 60A; MAXI headroom to ~80A |
+| iBooster | MAXI 40A | Tesla fuses it at 40A |
+| (3 MAXI spare) | - | |
+
+**Relays (only 2):**
+
+| Relay | Load | Fuse -> pin | Coil |
+|-------|------|-------------|------|
+| O | Rad Fan | f57 -> P6:2 | coil-lo <- Zombie CoolingFan; (!) lift coil-hi off f52 -> switched B+ |
+| S | Coolant pumps | f44 -> P4:3,4 | coil = S/T/U gang (P5:4 hi / P5:10 lo); coil-lo <- Zombie CoolantPump |
+
+**Fuse-direct mini slots** (busbar B; avoids F20-F23 = V-contact donors):
+
+| Load | Fuse -> pin | Note |
+|------|-------------|------|
+| Oil Pump | f37 -> P3:7 | mini |
+| EPB power | f39 -> P3:4 | mini (one caliper, not 40A); **ENABLE = BOX-AWAKE** signal |
+| Zombie logic | f26 -> P2:7 | 10A |
+| Inverter | f27 -> P2:5 | 10A |
+| Bat Boxes | f28 -> P2:3 | 10A |
+| Controls | f33 -> P2:6 | 10A |
+| CDL | f34 -> P2:4 | |
+| Status (old F21) | f25 -> P2:9 | |
+
+Unused sockets: M, N, R, K, T, U, V. Relay contacts in play: O + S only.
+
+**Sizing flag:** EPAS 60A + iBooster 40A = 100A coincident, + fan/coolant ~= 125A -> brushes the
+AEV14012's 120A and exceeds a 100A F-Main. Brief peaks (slow MAXI rides them), but bump **F-Main
+toward ~120A** or use a bigger contactor for margin. Per-branch MAXI (60/40) still protect each load.
+
+**Box-checks before wiring:**
+- (!) The 5 MAXI slots are fed from busbar B (switched side), and their output routing/pins.
+- (!) F20-F23 confirmed out (contacts pulled for V) - nothing routed there.
+- (!) O coil-hi lifted from the OEM f52 feed and re-tied to switched B+.
+- (!) P4 pin-count (CSV 14-pin vs pigtail-walk 10-pin) - affects any P4:11-14 outputs.
