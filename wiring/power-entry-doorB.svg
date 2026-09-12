@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" font-family="-apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2c6fbf"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="34" font-size="20" font-weight="700" fill="#111">EVJ55 Power Entry - master contactor, no V, EPB enable on BOX-AWAKE</text>
+  <text x="30" y="56" font-size="12" fill="#666">Red = permanent B+ / Orange = switched B+ (box bolt) / Blue = signal + control. Battery is the only permanently-hot source.</text>
+
+  <!-- BATTERY -->
+  <rect x="30" y="300" width="120" height="96" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="90" y="342" font-size="15" font-weight="700" fill="#c0392b" text-anchor="middle">BATTERY +</text>
+  <text x="90" y="362" font-size="11" fill="#a33" text-anchor="middle">permanent</text>
+  <text x="90" y="378" font-size="11" fill="#a33" text-anchor="middle">B+ (always hot)</text>
+
+  <!-- perm junction -->
+  <line x1="150" y1="348" x2="205" y2="348" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="205" cy="348" r="4" fill="#c0392b"/>
+
+  <!-- branch up to contactor (permanent B+) -->
+  <line x1="205" y1="348" x2="205" y2="150" stroke="#c0392b" stroke-width="3"/>
+  <rect x="188" y="238" width="34" height="20" rx="3" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="182" y="253" font-size="10" fill="#a33" text-anchor="end">F-MAIN</text>
+  <text x="182" y="266" font-size="9" fill="#999" text-anchor="end">~100A slow</text>
+  <line x1="205" y1="150" x2="258" y2="150" stroke="#c0392b" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="198" y="188" font-size="10" fill="#a33" text-anchor="end">perm B+</text>
+
+  <!-- CONTACTOR -->
+  <rect x="262" y="108" width="176" height="94" rx="8" fill="#eaf1fb" stroke="#2c6fbf" stroke-width="2"/>
+  <text x="350" y="134" font-size="14" font-weight="700" fill="#1b4a86" text-anchor="middle">AEV14012 MASTER</text>
+  <text x="350" y="153" font-size="11" fill="#333" text-anchor="middle">120A SPST-NO</text>
+  <text x="350" y="170" font-size="11" fill="#333" text-anchor="middle">coil-hi = perm Bat+</text>
+  <text x="350" y="187" font-size="11" fill="#333" text-anchor="middle">coil-lo sunk by FET (below)</text>
+
+  <!-- switched B+ out to box -->
+  <line x1="438" y1="150" x2="560" y2="150" stroke="#e67e22" stroke-width="5" marker-end="url(#arr)"/>
+  <text x="499" y="139" font-size="11" fill="#c0651a" font-weight="600" text-anchor="middle">SWITCHED B+</text>
+
+  <!-- branch to CM3 (permanent) -->
+  <line x1="205" y1="348" x2="205" y2="470" stroke="#c0392b" stroke-width="3"/>
+  <rect x="188" y="392" width="34" height="20" rx="3" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="150" y="407" font-size="10" fill="#a33" text-anchor="end">F-CM3</text>
+  <line x1="205" y1="470" x2="262" y2="470" stroke="#c0392b" stroke-width="3" marker-end="url(#arr)"/>
+  <rect x="262" y="432" width="240" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="382" y="458" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">CM3 (upstream of contactor)</text>
+  <text x="382" y="477" font-size="11" fill="#333" text-anchor="middle">permanent-B+ standby - holds RAM</text>
+  <text x="382" y="493" font-size="11" fill="#333" text-anchor="middle">thru STR</text>
+  <text x="382" y="508" font-size="10" fill="#2c6fbf" text-anchor="middle">wake-GPIO &lt;- BOX-AWAKE ; reads box-hot sense</text>
+
+  <!-- ML350 BOX -->
+  <rect x="560" y="80" width="610" height="430" rx="10" fill="#f4f7fa" stroke="#333" stroke-width="2"/>
+  <text x="580" y="106" font-size="16" font-weight="700" fill="#111">ML350 FUSE/RELAY BOX</text>
+  <text x="580" y="125" font-size="12" fill="#c0651a" font-weight="600">busbar B is now SWITCHED - hot only when contactor closed</text>
+
+  <!-- fuse-direct loads -->
+  <rect x="580" y="140" width="560" height="96" rx="6" fill="#fff" stroke="#555" stroke-width="1.2"/>
+  <text x="592" y="162" font-size="12" font-weight="700" fill="#222">Fuse-direct loads  (no relay - each controller manages itself)</text>
+  <text x="592" y="182" font-size="11" fill="#333">EPAS steering      iBooster (brakes)      Oil Pump (Zombie PWMs it)</text>
+  <text x="592" y="200" font-size="11" fill="#333">each: switched B+ -> its own fuse -> load.  Live in DRIVE and CHARGE.</text>
+  <text x="592" y="219" font-size="10" fill="#888">iBooster on the master (door #2): power-loss = manual pedal (mechanical pushthrough), not zero brakes</text>
+
+  <!-- EPB -->
+  <rect x="580" y="248" width="560" height="72" rx="6" fill="#fff" stroke="#2c6fbf" stroke-width="1.4"/>
+  <text x="592" y="270" font-size="12" font-weight="700" fill="#1b4a86">EPB (electric park brake)</text>
+  <text x="592" y="289" font-size="11" fill="#333">power = fuse-direct off switched B+</text>
+  <text x="592" y="307" font-size="11" fill="#2c6fbf" font-weight="600">ENABLE &lt;- BOX-AWAKE = live in drive AND charge, off in sleep</text>
+
+  <!-- Rad fan O -->
+  <rect x="580" y="332" width="330" height="66" rx="6" fill="#fff" stroke="#555" stroke-width="1.2"/>
+  <text x="592" y="354" font-size="12" font-weight="700" fill="#222">Rad Fan = relay O</text>
+  <text x="592" y="373" font-size="11" fill="#333">power = fuse-direct;  coil-lo &lt;- Zombie</text>
+  <text x="592" y="390" font-size="11" fill="#333">CoolingFan (or overtemp switch)</text>
+
+  <!-- coolant -->
+  <rect x="928" y="332" width="212" height="66" rx="6" fill="#fff" stroke="#555" stroke-width="1.2"/>
+  <text x="940" y="354" font-size="12" font-weight="700" fill="#222">Coolant pumps = relay</text>
+  <text x="940" y="373" font-size="11" fill="#333">coil-lo &lt;- Zombie; power</text>
+  <text x="940" y="390" font-size="11" fill="#333">fuse-direct (higher-flow VW pump)</text>
+
+  <!-- footer note -->
+  <text x="580" y="426" font-size="11" fill="#666" font-weight="600">Relays in use: O (rad fan) + coolant.  Freed: rest of K N M L R V (muscle now fuse-direct).</text>
+  <text x="580" y="444" font-size="11" fill="#666">Everything on this bolt dies in SLEEP (contactor open) = zero parasitic drain.</text>
+  <text x="580" y="462" font-size="10" fill="#888">Box is now essentially a fused distribution block + two relays (fan, coolant).</text>
+
+  <!-- TRIGGER block -->
+  <rect x="30" y="560" width="530" height="240" rx="10" fill="#eef3fb" stroke="#2c6fbf" stroke-width="1.5"/>
+  <text x="46" y="586" font-size="14" font-weight="700" fill="#1b4a86">BOX-AWAKE trigger  (Ignition OR Charge)</text>
+
+  <!-- IGN -->
+  <text x="40" y="628" font-size="12" fill="#111" font-weight="600">IGN (drive)</text>
+  <line x1="118" y1="623" x2="130" y2="623" stroke="#2c6fbf" stroke-width="2"/>
+  <path d="M130,615 l14,8 l-14,8 z" fill="#2c6fbf"/><line x1="144" y1="615" x2="144" y2="631" stroke="#2c6fbf" stroke-width="2"/>
+  <line x1="144" y1="623" x2="250" y2="623" stroke="#2c6fbf" stroke-width="2"/>
+
+  <!-- Pin-B -->
+  <text x="30" y="672" font-size="12" fill="#111" font-weight="600">Charge Pin-B</text>
+  <line x1="118" y1="667" x2="130" y2="667" stroke="#2c6fbf" stroke-width="2"/>
+  <path d="M130,659 l14,8 l-14,8 z" fill="#2c6fbf"/><line x1="144" y1="659" x2="144" y2="675" stroke="#2c6fbf" stroke-width="2"/>
+  <line x1="144" y1="667" x2="200" y2="667" stroke="#2c6fbf" stroke-width="2"/>
+  <line x1="200" y1="667" x2="200" y2="623" stroke="#2c6fbf" stroke-width="2"/>
+  <line x1="200" y1="623" x2="250" y2="623" stroke="#2c6fbf" stroke-width="2"/>
+  <text x="150" y="700" font-size="10" fill="#888">signal diodes (mA) - anti-backfeed only</text>
+
+  <!-- OR node -->
+  <circle cx="250" cy="623" r="5" fill="#2c6fbf"/>
+  <text x="238" y="608" font-size="11" fill="#1b4a86" font-weight="700">OR</text>
+
+  <!-- to FET -->
+  <line x1="250" y1="623" x2="330" y2="623" stroke="#2c6fbf" stroke-width="2" marker-end="url(#arrS)"/>
+  <rect x="332" y="600" width="86" height="46" rx="6" fill="#fff" stroke="#2c6fbf" stroke-width="1.5"/>
+  <text x="375" y="620" font-size="11" font-weight="700" fill="#1b4a86" text-anchor="middle">low-side</text>
+  <text x="375" y="636" font-size="11" font-weight="700" fill="#1b4a86" text-anchor="middle">FET</text>
+
+  <!-- FET to contactor coil (dashed up) -->
+  <path d="M418,623 L530,623 L530,205 L438,205" fill="none" stroke="#2c6fbf" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrS)"/>
+  <text x="536" y="420" font-size="10" fill="#2c6fbf">coil-lo</text>
+  <text x="536" y="433" font-size="10" fill="#2c6fbf">~0.35A</text>
+
+  <!-- BOX-AWAKE net label + fanout (as labels, not spaghetti) -->
+  <rect x="250" y="712" width="120" height="26" rx="13" fill="#dfeafb" stroke="#2c6fbf" stroke-width="1.4"/>
+  <text x="310" y="729" font-size="11" font-weight="700" fill="#1b4a86" text-anchor="middle">BOX-AWAKE</text>
+  <line x1="250" y1="623" x2="250" y2="712" stroke="#2c6fbf" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <text x="46" y="770" font-size="11" fill="#333">BOX-AWAKE net drives:  contactor coil-lo (via FET) /  CM3 wake-GPIO /  EPB enable.</text>
+  <text x="46" y="788" font-size="10" fill="#888">Same signal everywhere -> steering + brakes + EPB come alive on ignition OR plug-in; all dead in sleep.</text>
+
+  <!-- STATE legend -->
+  <rect x="580" y="536" width="590" height="264" rx="10" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+  <text x="596" y="560" font-size="14" font-weight="700" fill="#111">Three power states</text>
+
+  <text x="596" y="586" font-size="12" font-weight="700" fill="#1b7a3a">DRIVE  (key on)</text>
+  <text x="612" y="604" font-size="11" fill="#333">contactor CLOSED -> whole box live; controllers run normally</text>
+
+  <text x="596" y="632" font-size="12" font-weight="700" fill="#b8860b">CHARGE  (AC in, key off)</text>
+  <text x="612" y="650" font-size="11" fill="#333">Pin-B closes contactor -> box live; steering / brakes / EPB AVAILABLE</text>
+  <text x="612" y="666" font-size="11" fill="#333">(Blazer-like); oil pump powered but idle</text>
+
+  <text x="596" y="692" font-size="12" font-weight="700" fill="#7a3aa8">SLEEP  (bounded STR -> off)</text>
+  <text x="612" y="710" font-size="11" fill="#333">contactor OPEN -> box fully dark, zero parasitic;</text>
+  <text x="612" y="726" font-size="11" fill="#333">only CM3 standby alive (fed upstream)</text>
+
+  <text x="596" y="752" font-size="10" fill="#888">Fail-open: box dark - EPAS drops (assist only matters at parking speed), brakes -> manual pedal. Bounded.</text>
+  <text x="596" y="768" font-size="10" fill="#888">Weld-closed: box never sleeps -> drain. CM3 box-hot sense line alarms (CM3 = state consumer, does not act).</text>
+  <text x="596" y="784" font-size="10" fill="#888">CM3 owns NO box relay. It only consumes state (EPB, box-hot) for later policy.</text>
+</svg>

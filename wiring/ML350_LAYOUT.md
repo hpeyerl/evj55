@@ -7,7 +7,80 @@ live Splice FuseRelay page.
 Sources: `ML350 fuse box - Pinout.csv` (box truth), `ml350_annotated.png` (PCB),
 `evj-55.plan.json` (old Splice page = models the DEAD AliExpress box).
 
-Status: 2026-08-27 first pass. (!) = needs a buzz-out / confirm at the box.
+Status: 2026-09-12 - **master-contactor architecture (sec 0) is now primary; it supersedes
+the V-master coil scheme and the always-hot-busbar model.** 2026-08-27 first pass below.
+(!) = needs a buzz-out / confirm at the box.
+
+---
+
+## 0. ARCHITECTURE (CURRENT) - external master contactor, no V (2026-09-12)
+
+Supersedes the "always-hot busbar B" model and the V-master-relay coil scheme (sec 3).
+Sections 1-2 (box facts) still stand; sec 3/4/5/5b/6 are historical where they describe V -
+see the banner on each.
+
+**Power entry = ONE external contactor on the B+ feed bolt.**
+- **Panasonic AEV14012 (M21):** 120A SPST-NO, 450V DC contacts, 12V coil, 34 ohm ->
+  ~0.35A / ~4.2W hold. Plain coil (**NOT** economized) - fine here, because the contactor is
+  OPEN in sleep, so the coil only burns in drive (DCDC running) and charge (shore power).
+  Check the main-terminal polarity marking (magnetic blowout); wire battery side to the
+  marked terminal.
+- **Coil-hi = permanent Bat+** (pre-contactor, so it's available key-off). **Coil-lo sunk by a
+  low-side FET** driven by **(Ignition OR charge Pin-B)** through two signal diodes (the
+  existing charge-wake OR, sec 5b). The **same OR node = CM3 wake-GPIO**.
+- Effect: **the entire box busbar B is now SWITCHED** - hot only in drive or charge, fully
+  dead in sleep = zero parasitic drain. The old constant-Bat+ busbar is gone.
+
+**F-Main** (battery -> box feed bolt): **~100A slow-blow (MEGA / ANL) on 4-6 AWG.** Protects
+the feed cable + bolt only (each load is individually fused inside). Keep **<= 120A**
+(contactor carry); slow curve so it rides EPAS inrush without nuisance-blowing. Final number
+gated by EPAS worst-case current (homework).
+
+**Three power states, gated by this ONE part:**
+
+| State | Trigger | Box | Notes |
+|-------|---------|-----|-------|
+| Drive | Ignition | hot | everything available |
+| Charge | Pin-B (key off) | hot | **steering / brakes / EPB available** (Blazer-like, decided 2026-09-12) |
+| Sleep | neither | dark | zero parasitic; only CM3 standby (fed upstream of contactor) |
+
+**V master relay DROPPED (2026-09-12).** With steering / brakes / EPB wanted live in charge,
+V had nothing left to gate drive-only. The oil pump (the one true drive-only load) is
+Zombie-PWM'd, so it stays idle in charge even when powered - doesn't need V either. Dropping V
+also removes the coil-low commoning bus and the K@P4:7 / L@P4:1 crimp-terminal adds.
+
+**Box collapses to FUSE-DIRECT + let the controllers manage behavior:**
+- **EPAS, iBooster, oil pump = fuse-direct off the switched busbar** (no per-load relay).
+  Relays **K, N, M are freed** (leave seated unused, or repurpose).
+- **iBooster stays on the master (door #2).** SPOF accepted: iBooster power-loss = unboosted
+  manual pedal (mechanical pushthrough), not zero brakes. Fail-open only happens at
+  charge/park speeds where it's a heavy pedal at walking pace.
+- **EPB = fuse-direct power + controller ENABLE on the BOX-AWAKE signal (IGN OR Pin-B)**
+  (DECIDED 2026-09-12). NOT raw always-on and NOT raw-ignition - tying the enable to box-awake
+  keeps EPB toggleable while parked charging (forgot-pawl case) yet dead in sleep. **L freed** as
+  a relay.
+- **CM3 = CONSUMER of EPB / vehicle state only** (for later policy decisions). It does **not**
+  drive EPB.
+- **Rad fan = relay O** (coil-lo <- Zombie CoolingFan or an overtemp switch).
+- **Coolant pumps = relay too** (DECIDED 2026-09-12): a freed socket, **coil low-sided by Zombie**
+  (CoolantPump output), pump power **fuse-direct off switched B+**. Relayed (not Zombie-direct)
+  because the new **higher-flow VW pump** draws more running + motor inrush - the relay contacts
+  absorb that instead of the Zombie GP-out FET, and the small ML350 relays have an integral coil
+  snubber so the FET sees only the coil. **Socket = a 20A small (S/T/U/L)** (Herb's call 2026-09-12 -
+  no exact pump number, but a 20A relay covers the VW pump comfortably). Runs in drive AND charge
+  (switched B+ hot + Zombie awake in both).
+- Everything else = fuse-direct.
+
+**Failure modes:**
+- Master **fails open** mid-drive: box goes dark. EPAS drops (accepted - assist only matters at
+  parking speed) and brakes degrade to manual pedal. Single point, but bounded consequence.
+- Master **welds closed**: box never sleeps -> battery drain over days. **Add a box-hot sense
+  line to CM3** to alarm (CM3 reads it as state; it does not act on power).
+
+**Relays in use: O (rad fan) + one coolant relay** (socket TBD by VW-pump current). **Freed:** the
+rest of K/N/M/L/R/V - muscle now fuse-direct, R was the old internal wake relay, V dropped, P dead.
+The ML350 is now mostly a fused distribution block + two relays (fan, coolant), with the external
+master contactor doing all power-state gating.
 
 ---
 
@@ -48,6 +121,10 @@ always-hot, straight to output pins. f64/f65 = empty slots.
 
 ## 3. Coil control - as-traced ((!) several unverified)
 
+> **[SUPERSEDED 2026-09-12 by sec 0 - kept for box facts.]** The V-master-relay coil scheme
+> in this section is DROPPED. The per-relay coil-pin traces below are still valid box facts,
+> but the muscle loads are now fuse-direct (no coil-low bus, no V). Ignore the V/option-B wiring.
+
 Box is **ground-switched**: coil-high sits at a fixed feed, relay fires by **sinking coil-low.**
 BUT the coil-high feed is **NOT uniformly Bat+** - trace each individually.
 
@@ -62,6 +139,7 @@ BUT the coil-high feed is **NOT uniformly Bat+** - trace each individually.
 | P | fuse 50 feed | P5:9 | fused feed |
 | S/T/U | ganged, external both legs | **P5:4 & P5:10** | all 3 arm together |
 
+**[SUPERSEDED 2026-09-12 - V dropped, muscle loads fuse-direct, see sec 0. Kept for history.]**
 **Coil-drive intent (Herb 2026-09-02):** K(iBooster), N(EPAS), M(oil-pump), L(EPB) + the S/T/U gang
 all **ARM ON IGNITION (drive-mode)** - one common ignition trigger. M is on/off enable only (Zombie
 PWMs the pump; pump quiescent until PWM). R = wake FET (drive OR charge, done). O = Zombie CoolingFan
@@ -77,6 +155,11 @@ Center-of-socket **BAT tap** exists (unused) at U/P/S/T for a 5-pin variant - ig
 ---
 
 ## 4. Load assignment - HYBRID (current direction, 2026-08-27 *)
+
+> **[REVISED 2026-09-12 by sec 0.]** The per-load muscle relay map below is HISTORICAL:
+> EPAS/iBooster/oil-pump/EPB are now **fuse-direct** off the switched busbar (no relay), so
+> K/N/M/L are freed. Only O (rad fan) keeps a relay. Use this table only for the current-class
+> homework figures.
 
 **Herb's call (2026-08-27):** the aggressive "collapse to ~1-2 relays" was too far. Split by
 current class:
@@ -122,6 +205,12 @@ CM3 owns **no** fuse-box relay today.
 ---
 
 ## 5b. Power domains - THREE states (2026-08-27 *)
+
+> **[UPDATE 2026-09-12, see sec 0.]** The wake scheme below is now realized by the **external
+> master contactor**, which gates the WHOLE box, not just the Zombie/BMS logic rail. The
+> internal "wake relay = socket K or R" is REMOVED (R freed). Charge now keeps steering/brakes/
+> EPB available. The three-state model, the charger-connector pinout, and the Pin-B rating below
+> all still stand - only the relay that acts on them changed (internal socket -> external AEV14012).
 
 The truck has three power states, not two. This decides which rail each electronics load sits on.
 
@@ -198,25 +287,33 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       committed baseline `f07fe62`/plan push `1772d7a`).
 - [x] **Rename K11-K17 -> real relays** (done 2026-08-27): N=EPAS, M=Oil Pump, L=EPB, O=Rad Fan,
       S=Zombie / T=Inverter / U=Bat Boxes (the ignition-enable gang). K/R/P still free.
-- [x] **Add iBooster (=K)** - DONE. Coolant pumps: NOT a relay (P is DEAD) - run on Zombie CoolantPump
-      low-side (~480mA measured). U re-tasked to the ign-switched accessory relay (F21/F23).
+- [x] **Add iBooster (=K)** - DONE. **[UPDATED 2026-09-12: coolant is now a RELAY (coil low-sided by
+      Zombie), not Zombie-direct - new higher-flow VW pump; socket TBD by pump current; see sec 0. The
+      old ~480mA-direct note is obsolete.]** U re-tasked to the ign-switched accessory relay (F21/F23).
 - [x] **Re-number fuses to real ML350 slots** - DONE 2026-09-02: F11-F17 -> f44/f45/f49/f52-56/f57/
       AddRed/sw12(f59-61); F21/F23 -> ign-switched via U (their real slots pending the cut/reroute TODO).
-- [x] **Draw coils ground-switched** - DONE 2026-09-02: **V master relay** grounds the commoned coil-low
-      bus of K/N/M/L/S/T/U on ignition; R -> wake Q1; O -> Zombie GP Out 1; P dead. Old coil-ground shorts
-      + red/violet AliExpress cruft purged. See sec 3.
+- [~] **Coils** - the 2026-09-02 V-master scheme is **SUPERSEDED 2026-09-12 (sec 0)**. New target for the
+      Splice page: external master contactor gates the whole box; EPAS/iBooster/oil-pump = fuse-direct off
+      the switched busbar (delete K/N/M/L as muscle relays); EPB = fuse-direct power + ignition-gated
+      controller enable; O rad-fan coil-lo -> Zombie GP Out 1 (kept); P dead; R/V dropped. The page still
+      shows the V scheme and needs re-doing. (2026-09-02 cleanup - old coil-ground shorts + red/violet
+      AliExpress cruft - stays purged.)
 - [x] Resolve **f60/f61 R/P "???"** shared rail - **buzz-out 2026-08-30: R, P, f60, f61 all one common node, nothing else on the rail; P bridged onto R's rail (not independent).**
 - [~] Orphan purge: the visible old **red/violet AliExpress conductors + coil-ground shorts were PURGED
       2026-09-02** (canvas decluttered). The ~491 stale assignment refs remain DEFERRED (harmless; only a
       full `save_plan` compacts them).
-- [x] Coil sources now WIRED (2026-09-02) via the V ignition-master scheme (sec 3) - no longer floating.
+- [~] Coil sources: the V ignition-master wiring (2026-09-02) is now SUPERSEDED (sec 0). Re-draw per the
+      master-contactor + fuse-direct model above.
 
 ---
 
 ## 7. Open homework (at the box)
 
 - [x] f60/f61 R-vs-P shared rail - **buzz-out 2026-08-30: not "R vs P" - R, P, f60, f61 are ONE common node, nothing else on it. P is bridged onto R's f59-f61 rail (not an independent output). (!) Confirm whether P socket is physically populated - if so, R+P are hard-paralleled and P is unusable as a separate relay; adjust the relay budget.**
-- [x] Add terminals at **P4:1 (L)** and **P4:7 (K)** for external control - **BOTH CONFIRMED as coil-low control taps (2026-08-30); physical crimp insertion DEFERRED (not a blocker).**
+- [MOOT 2026-09-12] Add terminals at **P4:1 (L)** and **P4:7 (K)** for external control -
+      **no longer needed:** V is dropped and the muscle loads are fuse-direct (sec 0), so K/L are not
+      driven as relays. History retained below.
+      - **BOTH CONFIRMED as coil-low control taps (2026-08-30); physical crimp insertion DEFERRED (not a blocker).**
       **CONFLICT found 2026-08-30:** the Pinout CSV maps **P4:1,2 -> f43** and **P4:7,8 -> f46**,
       BOTH "tied directly to the constant Bat+ busbar B." If that copper is really busbar, these
       positions are always-hot +12V and **cannot** be K/L coil-low control taps (a terminal there
@@ -231,14 +328,30 @@ The page (`page_1774975610452_xv22udce3`) modelled the AliExpress box. Conversio
       **CONFIRMED 2026-08-30: P4:1 -> L's control pin AND P4:7 -> K's control pin** (both genuine
       coil-low taps; the CSV's f43/f46-busbar mapping for these pins is wrong). Crimp insertion
       deferred; donor terminals = P5:9 (orphaned P coil-low) + any spare busbar-B fuse output.
-- [ ] **F21/F23 cut+reroute (TODO 2026-09-02):** isolate the F21 (status) + F23 (CDL) fuse slots
-  from the Bat+ busbar and jumper **U's switched output** into them -> both become ign-switched
-  via U on their REAL slots, avoiding the AddBrown add-a-fuse holder (which Herb lacks).
-- [ ] **L/EPB cut+reroute (TODO 2026-09-04):** same problem as F21/F23 - Herb has NO AddRed
-  add-a-fuse holder, so isolate a real slot from the Bat+ busbar and jumper **L's switched output**
-  into it (feeds the EPB controller). Do NOT rely on an add-a-fuse.
+- [LIKELY MOOT 2026-09-12] **F21/F23 cut+reroute:** with the master contactor the whole busbar is
+  already switched (F21/F23 die in sleep for free), so this reroute is only needed if F21 (status) /
+  F23 (CDL) must be dead in **charge** specifically - they almost certainly don't. Drop unless a reason
+  surfaces. (Original: isolate F21/F23 from the Bat+ busbar and jumper U's switched output in - U is
+  freed anyway now.)
+- [SUPERSEDED 2026-09-12] **L/EPB reroute:** L is dropped as a relay (sec 0). EPB power is now
+  **fuse-direct off the switched busbar** (any real spare slot, no add-a-fuse), with an
+  **ignition-gated ENABLE** to the EPB controller. See the EPB (!) reconcile item below.
 - [ ] **V spare socket:** its output DOES route to an (undocumented) DNP fuse slot, so V is usable
   IF populated - but it needs 6 pins Herb likely can't source, so V stays unpopulated/unused.
 - [ ] Current rating on the `4RA 007 793-02` (K/R/M/N) - confirm the ~40-70A class figure.
 - [ ] Key-off quiescent draw per controller (gates the Option-B permanent-feed decision).
 - [ ] Confirm coil-high feed on the relays not yet Sharpie-traced.
+
+**New homework (master-contactor architecture, 2026-09-12):**
+- [ ] **F-Main final size:** needs EPAS worst-case current -> pick the ~100A MEGA/ANL slow-blow value
+  and the feed cable gauge (4-6 AWG); keep <= 120A.
+- [ ] **Master-contactor drive:** size the low-side FET for AEV14012 coil pull-in + ~0.35A hold; pick the
+  two signal diodes for the (IGN OR Pin-B) trigger; confirm coil-hi tap is on **permanent** Bat+
+  (pre-contactor). Verify AEV14012 main-terminal polarity/orientation for mounting.
+- [ ] **Box-hot sense line to CM3** (weld-closed / stuck-on detection). CM3 reads it as state only.
+- [DECIDED 2026-09-12] EPB enable = **BOX-AWAKE (IGN OR Pin-B)** - toggleable while charging, dead in
+  sleep. CM3 is a state consumer, not the EPB driver.
+- [ ] **Inverter (traction) enable:** hard-gate to drive-only in wiring (charge interlock), or leave it
+  to Zombie's charge/drive mutual-exclusion + HVIL? If wiring-gated, it's the one enable that keeps a
+  drive-only path.
+- [ ] **Freed relays K/N/M/L/R/V:** decide leave-seated-unused vs. pull vs. repurpose. Only O stays in use.
