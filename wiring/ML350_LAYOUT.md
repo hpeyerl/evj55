@@ -67,14 +67,16 @@ also removes the coil-low commoning bus and the K@P4:7 / L@P4:1 crimp-terminal a
   a relay.
 - **CM3 = CONSUMER of EPB / vehicle state only** (for later policy decisions). It does **not**
   drive EPB.
-- **Rad fan = relay O** (coil-lo <- Zombie CoolingFan or an overtemp switch).
-- **Coolant pumps = relay too** (DECIDED 2026-09-12): a freed socket, **coil low-sided by Zombie**
-  (CoolantPump output), pump power **fuse-direct off switched B+**. Relayed (not Zombie-direct)
-  because the new **higher-flow VW pump** draws more running + motor inrush - the relay contacts
-  absorb that instead of the Zombie GP-out FET, and the small ML350 relays have an integral coil
-  snubber so the FET sees only the coil. **Socket = a 20A small (S/T/U/L)** (Herb's call 2026-09-12 -
-  no exact pump number, but a 20A relay covers the VW pump comfortably). Runs in drive AND charge
-  (switched B+ hot + Zombie awake in both).
+- **Rad fan = relay M, Coolant pumps = relay R** (revised 2026-09-13). Both sockets have coils that
+  are **already factory-wired the way we need** - coil-hi on the Bat+ common (= switched B+ now),
+  coil-lo brought out to a **populated P-pin** - so **no coil rework and no S/T/U gang** (this drops
+  the earlier O-rework + gang plans):
+  - **Rad fan -> M:** coil-lo **P5:14** <- Zombie CoolingFan (or overtemp switch); contact out f49 -> H1:1.
+  - **Coolant -> R:** coil-lo **P5:1** <- Zombie CoolantPump; contact out f59 -> P6:5,6 (2 pins for the
+    higher-flow VW pump). Relayed (not Zombie-direct) so the pump's running + inrush go through R's
+    contacts, not the Zombie GP-out FET.
+  Both coils energize only when the box is hot (coil-hi = switched B+), so they run in drive AND charge
+  (Zombie awake in both). R and M are the big 4RA relays = oversized for these loads = reliable.
 - Everything else = fuse-direct.
 
 **Failure modes:**
@@ -83,10 +85,9 @@ also removes the coil-low commoning bus and the K@P4:7 / L@P4:1 crimp-terminal a
 - Master **welds closed**: box never sleeps -> battery drain over days. **Add a box-hot sense
   line to CM3** to alarm (CM3 reads it as state; it does not act on power).
 
-**Relays in use: O (rad fan) + one coolant relay** (socket TBD by VW-pump current). **Freed:** the
-rest of K/N/M/L/R/V - muscle now fuse-direct, R was the old internal wake relay, V dropped, P dead.
-The ML350 is now mostly a fused distribution block + two relays (fan, coolant), with the external
-master contactor doing all power-state gating.
+**Relays in use: M (rad fan) + R (coolant)** - chosen for their ready coils (see sec 8). **Freed:**
+K, N, O, S, T, U, V (+ P dead). The ML350 is now mostly a fused distribution block + two relays
+(fan, coolant), with the external master contactor doing all power-state gating.
 
 ---
 
@@ -379,20 +380,22 @@ Cross-referenced to `ML350 fuse box - Pinout.csv` + the pigtail inventory (sec 7
 busbar B + the MAXI slots + the O/S relay contacts). Trigger = the Hammond-box protoboard (sec 0):
 IGN + Pin-B -> diodes -> OR -> FET -> contactor coil; exposes BOX-AWAKE.
 
-**Big loads -> the box's 5 MAXI (large blade) slots** (fed off busbar B = switched):
+**Big loads -> the box's 5 MAXI (large blade) slots** = F24, F29, F30, F35, F40 (all fed off busbar
+B = switched; the "1/2" output positions on P1/P2/P3 are heavy spades, ~10/12 AWG, confirmed 2026-09-13):
 
-| Load | Fuse | Note |
-|------|------|------|
-| EPAS | MAXI 60A | factory fuse = 60A; MAXI headroom to ~80A |
-| iBooster | MAXI 40A | Tesla fuses it at 40A |
-| (3 MAXI spare) | - | |
+| Load | MAXI -> output | Note |
+|------|----------------|------|
+| EPAS | **F24** 60A -> P1:2 | heavy spade; factory fuse 60A; 10AWG rides the brief stall peaks |
+| iBooster | **F29** 40A -> P1:1 | heavy spade; Tesla fuses it at 40A |
+| spare | F40 -> P3:1 | populated |
+| spare | F30 -> P2:2, F35 -> P2:1 | output pigtails currently unpopulated |
 
 **Relays (only 2):**
 
 | Relay | Load | Fuse -> pin | Coil |
 |-------|------|-------------|------|
-| O | Rad Fan | f57 -> P6:2 | coil-lo <- Zombie CoolingFan; (!) lift coil-hi off f52 -> switched B+ |
-| S | Coolant pumps | f44 -> P4:3,4 | coil = S/T/U gang (P5:4 hi / P5:10 lo); coil-lo <- Zombie CoolantPump |
+| M | Rad Fan | f49 -> H1:1 | READY: hi = Bat+ common (switched B+), lo = **P5:14** <- Zombie CoolingFan |
+| R | Coolant pumps | f59 -> P6:5,6 | READY: hi = Bat+ common, lo = **P5:1** <- Zombie CoolantPump |
 
 **Fuse-direct mini slots** (busbar B; avoids F20-F23 = V-contact donors):
 
@@ -407,14 +410,23 @@ IGN + Pin-B -> diodes -> OR -> FET -> contactor coil; exposes BOX-AWAKE.
 | CDL | f34 -> P2:4 | |
 | Status (old F21) | f25 -> P2:9 | |
 
-Unused sockets: M, N, R, K, T, U, V. Relay contacts in play: O + S only.
+Unused sockets: K, N, O, S, T, U, V. Relay contacts in play: M + R only.
 
 **Sizing flag:** EPAS 60A + iBooster 40A = 100A coincident, + fan/coolant ~= 125A -> brushes the
 AEV14012's 120A and exceeds a 100A F-Main. Brief peaks (slow MAXI rides them), but bump **F-Main
 toward ~120A** or use a bigger contactor for margin. Per-branch MAXI (60/40) still protect each load.
 
-**Box-checks before wiring:**
-- (!) The 5 MAXI slots are fed from busbar B (switched side), and their output routing/pins.
-- (!) F20-F23 confirmed out (contacts pulled for V) - nothing routed there.
-- (!) O coil-hi lifted from the OEM f52 feed and re-tied to switched B+.
-- (!) P4 pin-count (CSV 14-pin vs pigtail-walk 10-pin) - affects any P4:11-14 outputs.
+**Box-checks (status 2026-09-13):**
+- [x] **Single switched domain CONFIRMED:** ONE main B+ bolt feeds everything (busbar B + the 5 MAXI
+  slots + the relay contact-commons). The master contactor on that bolt gates the WHOLE box - and this
+  also settles the FEED side of the MAXI slots and the O/S relay contacts.
+- [x] **F20-F23 out** (contacts pulled for V) - nothing routed there.
+- [x] **MAXI OUTPUT routing CONFIRMED (2026-09-13):** MAXIs = F24/F29/F30/F35/F40; outputs on the "1/2"
+  positions of P1/P2/P3 are **heavy spades (~10/12 AWG)**. EPAS -> F24 (60A) -> P1:2; iBooster -> F29
+  (40A) -> P1:1. F40 -> P3:1 spare (populated); F30/F35 outputs unpopulated. Box carries both natively.
+- [x] **Relay-coil choice REVISED 2026-09-13:** use **M (rad fan)** + **R (coolant)** - their coils are
+  already coil-hi = Bat+ common (switched B+) + coil-lo on a populated P-pin (M->P5:14, R->P5:1), so NO
+  coil rework and NO S/T/U gang. Drops the old O-rework plan entirely.
+- [ ] Quick buzz to confirm: M coil-lo -> P5:14, R coil-lo -> P5:1 (both populated), and M/R contact-ins
+  on busbar B (implied by the single-bolt result). M out f49 -> H1:1; R out f59 -> P6:5,6.
+- [ ] **P4 pin-count** (CSV 14-pin vs pigtail-walk 10-pin) - low priority, already routed around it.
