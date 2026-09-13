@@ -1,0 +1,71 @@
+Type,Source/ID,Target/Bus,Connector,Notes
+Relay Output,M,f49,,Single isolated fuse loop.
+Relay Output,N,"f52, f53, f54, f55, f56",,Master high-current 5-fuse parallel rail.
+Relay Output,R,"f59, f60, f61",,3-fuse parallel rail.
+Relay Output,K,"f62, f63",,Dual-fuse parallel sub-bus.
+Relay Output,P,"f60, f61",,Parallel rail (Overlaps with Relay R tracks).
+Relay Output,O,f57,,Single isolated loop.
+Relay Output,S,f44,,Tracks straight to Fuse 44 line.
+Relay Output,T,f45,,Tracks straight to Fuse 45 line.
+Relay Output,U,AddBrown,,Routes to add-a-fuse section.
+Relay Output,L,AddRed,,Routes to add-a-fuse section.
+Relay Output,V,DNP,,Not Populated
+Fuse Slot,f20,B,"P1 9,10",Tied directly to main constant Battery power busbar.
+Fuse Slot,f21,B,"P1 7,8",Tied directly to main constant Battery power busbar.
+Fuse Slot,f22,B,"P1 5,6",Tied directly to main constant Battery power busbar.
+Fuse Slot,f23,B,"P1 3,4",Tied directly to main constant Battery power busbar.
+Fuse Slot,f24,B,P1 2,Tied directly to main constant Battery power busbar.
+Fuse Slot,f25,B,P2 9,Tied directly to main constant Battery power busbar.
+Fuse Slot,f26,B,P2 7,Tied directly to main constant Battery power busbar.
+Fuse Slot,f27,B,P2 5,Tied directly to main constant Battery power busbar.
+Fuse Slot,f28,B,P2 3,Tied directly to main constant Battery power busbar.
+Fuse Slot,f29,B,P1 1,Tied directly to main constant Battery power busbar.
+Fuse Slot,f30,B,P2 2,Tied directly to main constant Battery power busbar.
+Fuse Slot,f31,B,P2 10,Tied directly to main constant Battery power busbar.
+Fuse Slot,f32,B,P2 8,Tied directly to main constant Battery power busbar.
+Fuse Slot,f33,B,P2 6,Tied directly to main constant Battery power busbar.
+Fuse Slot,f34,B,P2 4,Tied directly to main constant Battery power busbar.
+Fuse Slot,f35,B,P2 1,Tied directly to main constant Battery power busbar.
+Fuse Slot,f36,B,P3 9,Tied directly to main constant Battery power busbar.
+Fuse Slot,f37,B,P3 7,Tied directly to main constant Battery power busbar.
+Fuse Slot,f38,B,P3 5,Tied directly to main constant Battery power busbar.
+Fuse Slot,f39,B,"P3 3,4",Tied directly to main constant Battery power busbar.
+Fuse Slot,f40,B,"P3 1,2",Tied directly to main constant Battery power busbar.
+Fuse Slot,f41,B,D1:1,Tied directly to main constant Battery power busbar.
+Fuse Slot,f42,B,D1:3,Tied directly to main constant Battery power busbar.
+Fuse Slot,f43,B,"P4:1,2",Tied directly to main constant Battery power busbar.
+Fuse Slot,f44,S,"P4:3,4",Fed exclusively by Relay S output.
+Fuse Slot,f45,T,"P4:5,6",Fed exclusively by Relay T output.
+Fuse Slot,f46,B,"P4:7,8",Tied directly to main constant Battery power busbar.
+Fuse Slot,f47,B,"P4:9,10",Tied directly to main constant Battery power busbar.
+Fuse Slot,f48,B,"P4:11,12",Tied directly to main constant Battery power busbar.
+Fuse Slot,f49,M,"P4:13,14 To H1:1",Fed exclusively by Relay M output.
+Fuse Slot,f50,B,"P5:1,2",Tied directly to main constant Battery power busbar.
+Fuse Slot,f51,B,"P5:3,4",Tied directly to main constant Battery power busbar.
+Fuse Slot,f52,N,"P5:5,6",Parallel rail leg fed by Relay N.
+Fuse Slot,f53,N,"P5:7,8",Parallel rail leg fed by Relay N.
+Fuse Slot,f54,N,"P5:9,10",Parallel rail leg fed by Relay N.
+Fuse Slot,f55,N,"P5:11,12",Parallel rail leg fed by Relay N.
+Fuse Slot,f56,N,"P5:13,14",Parallel rail leg fed by Relay N.
+Fuse Slot,f57,O,"P6:1,2",Fed exclusively by Relay O output.
+Fuse Slot,f58,B,"P6:3,4",Tied directly to main constant Battery power busbar.
+Fuse Slot,f59,R,"P6:5,6",Parallel rail leg fed by Relay R.
+Fuse Slot,f60,R / P   ???,"P6:7,8",Parallel rail leg shared by Relay R and Relay P.
+Fuse Slot,f61,R / P   ???,"P6:9,10",Parallel rail leg shared by Relay R and Relay P.
+Fuse Slot,f62,K,"P6:11,12",Parallel rail leg fed by Relay K.
+Fuse Slot,f63,K,"P6:13,14",Parallel rail leg fed by Relay K.
+Fuse Slot,f64,B,,DNP
+Fuse Slot,f65,B,,DNP
+Expansion,AddBrown,U,,Fed exclusively by Relay U output.
+Expansion,AddRed,L,,Fed exclusively by Relay L output.
+Expansion,AddGrn,B,,Tied directly to main constant Battery power busbar.
+Expansion,AddBlu,B,,Tied directly to main constant Battery power busbar.
+Expansion,AddBlk,B,,Tied directly to main constant Battery power busbar.
+Expansion,AddWht,B,,Tied directly to main constant Battery power busbar.
+Expansion,AddPrpl,B,,Tied directly to main constant Battery power busbar.
+,H1:1,,F49,
+,H1:2,,P3:10,
+,H1:3,,DNP,
+,H1:4,,F37:8,
+,H1:5,,DNP,
+,H1:6,,F38:6,
