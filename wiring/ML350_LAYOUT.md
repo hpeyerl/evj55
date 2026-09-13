@@ -427,6 +427,7 @@ toward ~120A** or use a bigger contactor for margin. Per-branch MAXI (60/40) sti
 - [x] **Relay-coil choice REVISED 2026-09-13:** use **M (rad fan)** + **R (coolant)** - their coils are
   already coil-hi = Bat+ common (switched B+) + coil-lo on a populated P-pin (M->P5:14, R->P5:1), so NO
   coil rework and NO S/T/U gang. Drops the old O-rework plan entirely.
-- [ ] Quick buzz to confirm: M coil-lo -> P5:14, R coil-lo -> P5:1 (both populated), and M/R contact-ins
-  on busbar B (implied by the single-bolt result). M out f49 -> H1:1; R out f59 -> P6:5,6.
+- [x] **M/R coils buzzed CONFIRMED (2026-09-13):** M coil-lo -> P5:14, R coil-lo -> P5:1 (both
+  populated), contact-ins on busbar B. M out f49 -> H1:1; R out f59 -> P6:5,6. **All box-checks done
+  except the low-priority P4 pin-count -> cleared to wire + rototill the Splice page.**
 - [ ] **P4 pin-count** (CSV 14-pin vs pigtail-walk 10-pin) - low priority, already routed around it.
