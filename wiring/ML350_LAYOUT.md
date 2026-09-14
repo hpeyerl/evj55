@@ -431,3 +431,32 @@ toward ~120A** or use a bigger contactor for margin. Per-branch MAXI (60/40) sti
   populated), contact-ins on busbar B. M out f49 -> H1:1; R out f59 -> P6:5,6. **All box-checks done
   except the low-priority P4 pin-count -> cleared to wire + rototill the Splice page.**
 - [ ] **P4 pin-count** (CSV 14-pin vs pigtail-walk 10-pin) - low priority, already routed around it.
+
+---
+
+## 9. Splice rototill progress (live canvas) - 2026-09-14
+
+Rototilling the FuseRelay page (`page_1774975610452_xv22udce3`, project `17410eef-...`) to sec 8.
+Driven from a fork holding the plan snapshot (cost discipline). Progress:
+
+- **Phase 1 DONE - demolition:** removed the superseded V-master coil scheme + the wake-trigger block
+  (33 conductors, 11 nodes: V, Q1, D1/D2/Dz/Dfb/Rg/Rpd, 2 Pin-B ferrules, stray X116).
+- **Phase 2 DONE - power entry + coils:** created Perm B+ -> F-Main -> **AEV14012** contactor -> relabeled
+  the old Bat+ bus to **"Switched B+"**; **PROTOBOARD** module (IGN / charge Pin-B [freed Dilong pin-B] /
+  Perm B+ / GND -> contactor coil + BOX-AWAKE). MAXI **F24**(EPAS)/**F29**(iBooster) inputs on Switched B+.
+- **Phase 3 DONE - core loads:** EPAS -> F24 -> "EPAS steering" stub; iBooster -> F29 -> X_iBoost;
+  rad-fan relay **M** (contact SwB+ -> f49 -> "Rad Fan" stub); coolant relay **R** (contact SwB+ -> f59 20A ->
+  "Coolant pump" stub). Both relay coils wired (see GP-output note).
+- **Phase 4 IN PROGRESS:** fuse-direct minis (oil/EPB/Zombie/inverter/bat-boxes/controls/CDL/status),
+  BOX-AWAKE -> EPB-enable + CM3-wake (cross-page ferrules), retire relay nodes N/K/O/S/T/U/L.
+
+**★ Zombie GP-output assignment (hard-won 2026-09-14):**
+- **GPOUT2 (J1 pin 4) = NEGATIVE CONTACTOR.** Herb originally put neg-contactor on **GPOUT1**, it never
+  closed, moved it to GPOUT2 and it worked. So GPOUT1 is suspect (Herb debugging separately).
+- **GPOUT1 = J1 pin 31** (the CAD mislabels pin 31 "Neg Contactor LS Switch"; the old doc line "GP Out 1 =
+  J1 pin 31" was right about the pin). Flagged **DNC**, but used **provisionally** for the rad fan.
+- **Rad fan** = relay M coil-low (ML350 P5:14) -> **GPOUT1 (pin 31)**. **Coolant pump** = relay R coil-low
+  (P5:1) -> **GPOUT3 (J1 pin 3)**. Assign in Zombie **IOMatrix** (func 14 = CoolingFan; a coolant-pump func
+  on GPOUT3). ⚠ If GPOUT1 proves dead, the fan moves to a **PWM output** (pins 7/6/5) - but the web UI may
+  not expose PWM-as-fan, so that's a firmware edit. There is NO plain "GP Out 1" pin in the CAD besides 31.
+- The CAD relays use Splice pins **30/85/86/87** (ISO), not the ML350 physical 1/2/3/5.
