@@ -506,3 +506,26 @@ Project id = 17410eef-ffcd-4a2a-adb7-dab94271a8f4; FuseRelay page = page_1774975
   F23.IN<-X105.1 = cond_1788402000002_v2c; F21.In<-IGN+.10 = cond_1788403000004_u4c. BOX-AWAKE -> DD_Sigs
   (comp_1778936362771_glngrghpf) pin 12 = pin-eba139db (DD_Sigs page unknown -> cross-page ferrule both sides).
 - Switched B+ free pins now: 11, 14, 15 (chain or grow the bus for the remaining tail feeds).
+
+**Update 2026-09-15 #2 - tail nearly done:**
+- **Group fix:** user dragged F24/F29/f59/f39 into the ML350 group in-browser. Done.
+- **Zombie logic:** SwB+ -> new **f26** (comp_1789400000002_fzomb001) -> J1 pin50 GP12v. Done.
+- **Bat Boxes:** SwB+ -> existing **sw12** (comp_1774975815037_d00gxn79t, IN pin_1774975815037_r4yi8n7zz) ->
+  InDtsch12-M.12 (front battery box LV feed). Done.
+- **CDL:** feed-swapped F23.IN from X105 to SwB+ (last free bus pin 15). Done. **Bat+ bus now FULL - chain remaining taps.**
+- **Status (F21):** LEFT ignition-gated per Herb (not needed live in charge). No change.
+- **DONE-list total:** power entry+F-Coil, both relays (M fan/R coolant), EPAS/iBooster MAXI, oil, EPB(f39),
+  Zombie, Bat Boxes, CDL. Retirement of N/K/O/S/T/U/L complete.
+
+**REMAINING (cross-page; blocked on page identity - summary has no page field):**
+- **Inverter:** feed 12V to pins 10/11 = **pin_1774050040459_j08b5ljae ("BR2+")** + **pin_1774050040459_e4t2gojyg ("BR2")**.
+  ⚠ CAD labels them BR2+/BR2 (brake-resistor), not BR+/BR2+ - CONFIRM these are the 12V power pins before wiring.
+- **Controls accessory rail** (connectors, pins): SW12V to DD_Sigs pin1 `pin-d9a21d0f`, PRNDL(M5Dial
+  comp_1776692290252_s8d78i2c8) pin1 `pin-690c003d`, CDLSw(comp_1776692123566_u1ekw8xva) pin2 `pin-749939cd`.
+  Gnd to DD_Power(comp_1786277490575_rtbhwboph) pin2 `pin-958215d4`, DD_Sigs pin2 `pin-0b2324c6`, PRNDL pin2
+  `pin-3523b320`, PBCtrl(comp_1776685436607_kvtr0m7ju) pin3 `pin-6d922ed5`.
+- **DD permanent Bat+ (dashboard/CM3 main power):** DD_Power pin1 "Bat+ in" `pin-18b3bc51` <- **Perm B+** (keep-alive fuse), NOT switched.
+- **BOX-AWAKE -> CM3 wake:** protoboard pin_pb_awake -> DD_Sigs pin12 `pin-eba139db` (cross-page ferrule, net BOX_AWAKE).
+- **Gnd bus free pins:** 2 `pin_1774975815037_h05t96hj2`, 3 `pin_1774975815037_f94yczozi`, 4 `pin_1774975815037_vysg4wnwj`, 9 `pin-58986012`.
+- **Cleanup:** orphan connectors X46-X51, empty links.
+- Note: these Controls/DD/PRNDL connectors' PAGE is unknown from summary -> need get_plan/get_project to know if cross-page ferrules are required, or wire in-browser.
