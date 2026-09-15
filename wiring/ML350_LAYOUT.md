@@ -491,3 +491,18 @@ Driven from a fork holding the plan snapshot (cost discipline). Progress:
 **Switched B+ (Bat+ comp_1774975815037_4dyvjr01w) pin usage:** used = orig 2,3,4,12 + 5(contactor feed),
 6(F24),7(F29),8(M.85),9(M.30),10(f45),13(f39). Free = 11,14,15 (only 3 left -> grow the bus or chain for the tail).
 Project id = 17410eef-ffcd-4a2a-adb7-dab94271a8f4; FuseRelay page = page_1774975610452_xv22udce3.
+
+**Update 2026-09-15 (resumed after session-limit gap):**
+- **F-Coil fix DONE:** Perm B+ -> **F-Coil ~5A** (comp_1789400000001_fcoil001) -> contactor coil-hi + protoboard B+.
+  Removed the old raw-B+ conductors. F-Main (100A) now carries the contact path only.
+- **All prior rototill edits verified intact** (fork re-pull) - the user's rearrange was position-only, 146 components.
+- **Group fix needs a heavier pull:** device-group membership is NOT in get_plan_summary. To add F24/F29/f59/f39
+  to the ML350 group programmatically needs get_plan/get_project for the group id - OR the user drags them into
+  the group box in-browser (fastest).
+- **Inverter has NO fuse-direct target:** the page's "Inverter" connector (comp_1774050003985_eq8v54gm6) is the
+  GS450H **signal** connector (MTH/DRN/CLK/resolver), no 12V power pin. Does the inverter even take box 12V? TBD.
+  **Bat Boxes + Controls** also have no page connectors. All three need stubs or clarification.
+- **Tail resume IDs:** Zombie logic -> J1 pin 50 GP12v Input = pin_1774035486594_d69p9liel. Feed-swap conductors:
+  F23.IN<-X105.1 = cond_1788402000002_v2c; F21.In<-IGN+.10 = cond_1788403000004_u4c. BOX-AWAKE -> DD_Sigs
+  (comp_1778936362771_glngrghpf) pin 12 = pin-eba139db (DD_Sigs page unknown -> cross-page ferrule both sides).
+- Switched B+ free pins now: 11, 14, 15 (chain or grow the bus for the remaining tail feeds).
