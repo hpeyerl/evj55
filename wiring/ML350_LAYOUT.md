@@ -460,3 +460,34 @@ Driven from a fork holding the plan snapshot (cost discipline). Progress:
   on GPOUT3). ⚠ If GPOUT1 proves dead, the fan moves to a **PWM output** (pins 7/6/5) - but the web UI may
   not expose PWM-as-fan, so that's a firmware edit. There is NO plain "GP Out 1" pin in the CAD besides 31.
 - The CAD relays use Splice pins **30/85/86/87** (ISO), not the ML350 physical 1/2/3/5.
+
+### Phase 4 status + RESUME NOTES (2026-09-15)
+
+**DONE on the live canvas (NOT yet `save_plan`'d - verify Herb Ctrl+S'd):**
+- Phase 4A retirement: removed contact/common conductors + deleted relay nodes **N/K/O/S/T/U/L** and
+  orphan fuses **f52-56, f57, f62-63**; killed the iBooster f62-63->X_iBoost double-feed.
+- Oil Pump: Switched B+ -> **f45** (comp_1774975815037_l7q81ke5b) -> OilPump (existing OUT).
+- EPB: Switched B+ -> **f39** (NEW, comp_1789300000001_f39epb) -> PBCtrl.4 (pin-c6f4af4f).
+  **AddRed node DELETED** - Herb has no AddRed add-a-fuse holder (also lacks **AddBrown** - use real slots).
+  EPB "enable" = switched-busbar power itself (PBCtrl has NO separate enable pin; pin4 Sw12v = power).
+
+**PENDING - do when the fork oracle is back (limit resets 12pm Edmonton) or Herb gives IDs:**
+1. **F-Coil fix (design agreed):** contactor coil-hi (pin_mc_85) + protoboard B+ (pin_pb_bp) are on RAW
+   unfused Perm B+. Add small **F-Coil ~5A** off Perm B+ (comp_1789100000001_permbp001 / pin_permb_p),
+   move both onto it. Remove conductors **cond_1789101000004_pwa000004** (coil-hi) +
+   **cond_1789101000008_pwa000008** (proto B+), re-wire via F-Coil. (F-Main stays 100A for the contact path only.)
+2. **Group membership:** F24 (comp_1789100000005_maxi24epa), F29 (comp_1789100000006_maxi29ibo),
+   f59 (comp_1789200000003_f59cool), f39 (comp_1789300000001_f39epb) were created OUTSIDE the ML350
+   group -> add them (AddToDeviceGroupCommand, need group id). External (stay out): Perm B+, F-Main,
+   contactor, protoboard, load stubs. **Fastest: Herb drags these 4 into the group in-browser.**
+3. **Tail loads (fuse-direct off switched busbar, real slots only - NO AddRed/AddBrown):**
+   Zombie logic -> J1 pin 50 (GP12v Input); Inverter -> comp_1774050003985_eq8v54gm6;
+   Bat Boxes + Controls -> NO connector exists, create stubs; CDL (F23 comp_1776605083775_7kwzmgp3u)
+   + Status (F21 comp_1780404612403_j6v4g7dby) -> swap feeds from X105/IGN+ to switched busbar.
+4. **BOX-AWAKE -> CM3 wake:** protoboard BOX-AWAKE (pin_pb_awake) -> cross-page ferrule, net BOX_AWAKE ->
+   DD_Sigs (comp_1778936362771_glngrghpf, free pins 3/12/13/14/15) on the CM3/dashboard page.
+5. **Cleanup:** bare orphan connectors X46-X51 (relay-common leftovers); empty links from removed conductors.
+
+**Switched B+ (Bat+ comp_1774975815037_4dyvjr01w) pin usage:** used = orig 2,3,4,12 + 5(contactor feed),
+6(F24),7(F29),8(M.85),9(M.30),10(f45),13(f39). Free = 11,14,15 (only 3 left -> grow the bus or chain for the tail).
+Project id = 17410eef-ffcd-4a2a-adb7-dab94271a8f4; FuseRelay page = page_1774975610452_xv22udce3.
