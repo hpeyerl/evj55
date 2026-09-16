@@ -529,3 +529,23 @@ Project id = 17410eef-ffcd-4a2a-adb7-dab94271a8f4; FuseRelay page = page_1774975
 - **Gnd bus free pins:** 2 `pin_1774975815037_h05t96hj2`, 3 `pin_1774975815037_f94yczozi`, 4 `pin_1774975815037_vysg4wnwj`, 9 `pin-58986012`.
 - **Cleanup:** orphan connectors X46-X51, empty links.
 - Note: these Controls/DD/PRNDL connectors' PAGE is unknown from summary -> need get_plan/get_project to know if cross-page ferrules are required, or wire in-browser.
+
+**Update 2026-09-16 - TAIL COMPLETE (functional rototill done):**
+- Pages confirmed: **Zombie = page_1774035261476_uynpwwfao**, **Controls = page_1776685218842_k8pqaps5n**.
+  (⚠ `get_plan` returns last-SAVED state, not live - unsaved edits invisible there; trust execute_command successes. **Herb: Ctrl+S to persist.**)
+- **Inverter:** SwB+ -> f_inv (comp_1789400000003_finv0001) -> cross-page ferrule pair (net **INV_12V**,
+  comp_..._ferain0 on FuseRelay / comp_..._ferbin0 on Zombie) -> Inverter pins 10 + 11 (BR2+/BR2 = the 12V feed per Herb's docs).
+- **X124 park-detect FIXED:** SwB+ -> X124.pin1 (comp_1784639381642_umevbzntd; spans Zombie+FuseRelay, so it self-bridges)
+  -> ShiftConn.B+ (pin8) -> [dry contact closes in Park] -> ShiftConn.P (pin3) -> HSDN (Inverter pin25). Used SwB+ (switched) - revisit if park-detect wants a different domain.
+- **Controls accessory rail (cross-page to Controls page), all via ferrule pairs + shared nets:**
+  - **SW12V_ACC:** SwB+ -> f_acc (Controls SW12V 10A) -> ferrule -> DD_Sigs.1, PRNDL.1, CDLSw.2.
+  - **GND_ACC:** Gnd bus -> ferrule -> DD_Sigs.2, DD_Power.2, PRNDL.2, PBCtrl.3.
+  - **PERM_BPLUS:** Perm B+ -> f_ddkeep (DD/CM3 keep-alive 15A) -> ferrule -> DD_Power.1 (dashboard/CM3 main power, permanent).
+  - **BOX_AWAKE:** protoboard BOX-AWAKE -> ferrule -> DD_Sigs.12 (CM3 wake-GPIO).
+- **Status (F21):** left ignition-gated (unchanged).
+- **Group:** F24/F29/f59/f39/f26/f_inv added to ML350 device group dg_1788006772406_1x17l72f2 (Herb also added the first 4 in-browser; AddToDeviceGroup is idempotent).
+
+**STILL OPEN (minor):**
+- Cosmetic cleanup: orphan connectors X46-X51 (retired relay-common leftovers) + empty links from removed conductors.
+- **SAVE (Ctrl+S)** then re-pull to verify the whole thing end-to-end.
+- Inverter BR2+/BR2 label vs 12V-feed: Herb confirmed from external docs these are the power pins.
