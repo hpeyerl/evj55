@@ -549,3 +549,92 @@ Project id = 17410eef-ffcd-4a2a-adb7-dab94271a8f4; FuseRelay page = page_1774975
 - Cosmetic cleanup: orphan connectors X46-X51 (retired relay-common leftovers) + empty links from removed conductors.
 - **SAVE (Ctrl+S)** then re-pull to verify the whole thing end-to-end.
 - Inverter BR2+/BR2 label vs 12V-feed: Herb confirmed from external docs these are the power pins.
+
+**Update 2026-09-18 - CANVAS HAS BUGS + CHEAP-FIX PLAN (thread got too expensive; continue FRESH):**
+The blind programmatic rototill introduced real wiring bugs (Herb found them eyeballing the live canvas).
+The DESIGN (sec 8 above) is correct; the Splice CANVAS execution needs cleanup. Known issues:
+- **Backfeed:** f59(coolant).OUT appears tied to f45(oil).OUT - their outputs must NOT share a node.
+- **f44 orphan IN:** lost its feed when relay S was retired; f44.OUT still -> X1.15. Fix = feed f44.IN from
+  SwB+ if X1 is a live load, else delete f44. (f44 = comp_1774975815037_lscms2trw, IN pin_1774975815037_d2fadmv6o)
+- **F24 anomaly:** Herb sees F24 bridging B+:15 -> B+:6 (EPAS maybe unfed); does NOT match my records
+  (F24.IN<-B+:6 cond_1789101000010, F24.OUT->EPAS stub cond_1789101000018). Needs eyes-on reconcile.
+- **Stale labels:** DONE f49->"Rad Fan", f45->"Oil Pump". Still likely stale: sw12 (now Bat Boxes), and
+  relays M/R are labelled by socket not function (M=Rad Fan, R=Coolant). Check F23/F21 too.
+- **Hand-built ferrules are messy** (X124/X104/X127 + my ferrule pairs). ★LESSON: cross-page wires drawn
+  IN-BROWSER auto-insert the ferrule + the nice off-page "(Pg.N)" clickable label - cleaner than hand-placing.
+  Prefer drawing cross-page bridges in-browser.
+
+**CHEAP FIX RECIPE (do NOT repeat-pull - repeated get_plan pulls burned a 5hr limit in ~20min):**
+1. Herb: **Ctrl+S** so a pull reflects the live canvas (get_plan returns last-SAVED state).
+2. Fresh session: **ONE** fork pull of the canvas -> distilled DIFF vs sec 8 (every orphan / backfeed /
+   mislabel / stray ferrule + its conductor/node ID). One pull, kept in the fork.
+3. Fix all same-page (FuseRelay) issues in ONE batch from that diff.
+4. Cross-page bridges (Inverter/Controls/CM3): draw in-browser (auto-ferrule) OR redo carefully - not many.
+Bus is full (chain taps). Project 17410eef-ffcd-4a2a-adb7-dab94271a8f4, FuseRelay page page_1774975610452_xv22udce3.
+
+**Update 2026-09-18 #2 - CHEAP FIX EXECUTED (recipe followed; ONE pull, fork-held).**
+Ran the recipe exactly: single `get_plan_summary` in a fork, distilled diff, one surgical batch. Results:
+- **The two 09-18 headline bugs were REFUTED in saved state** (were live-canvas visual overlaps, not real wiring):
+  - **Backfeed f59/f45: NOT present.** f45 Oil.OUT->OilPump.5 and f59 coolant.OUT->P6:5,6 are separate nodes.
+  - **F24 anomaly: REFUTED.** F24.IN<-SwB+.6 (cond_1789101000010), F24.OUT->EPAS P1:2 (cond_1789101000018); EPAS IS fed.
+    The B+:15->B+:6 "bridge" was the neighboring B+.15->F23.IN reading as a self-bridge.
+  - Orphan connectors X46-X51: already gone.
+- **SAFE BATCH APPLIED (9 items, all PASS; live canvas, Herb to Ctrl+S):**
+  - Deleted stale switched feed SwB+.1->DD_Power.1 `cond_1786277626734_nhpzqd6e4` (would kill CM3 in sleep;
+    DD_Power.1 correctly fed by PERM_BPLUS `cond_1789101000048`). Frees SwB+ pin 1.
+  - Deleted duplicate park-detect conductor `cond_1789559637000_7dcggz3a9` (dup of ShiftConn.8->X124.1).
+  - Deleted **redundant M.85->R.85 coil-hi jumper** `cond_1789101000013_pwa000013` (both 85s already reach
+    SwB+ via own bus pins R.85->B+.2 / M.85->B+.8; jumper was leftover daisy-chain). **Herb caught this.**
+  - Deleted stray F21 ferrule `xf21fr` node `comp_1788410000001_xf21fr` + its conductor `cond_1788410100001_f21c`.
+  - Fixed net: `cond_1789561497560_7frw9z6q9` NET_mu42pkuw -> NET_f21_status.
+  - Renamed sw12->"Bat Boxes", M->"M (Rad Fan)", R->"R (Coolant)".
+- **★New Splice command shapes learned (add to SPLICE_CAD_SKILL.md sec 4):**
+  - **`RemoveNewConductorCommand {conductorId}`** = surgical single-conductor delete (does NOT touch link siblings,
+    unlike RemoveLinkCommand which nukes all conductors on the link). Use this to delete one wire by its cond_ id.
+  - **`UpdateNewConductorCommand {conductorId, updates:{netName:"..."}}`** = in-place conductor edit (netName confirmed).
+- **STILL OPEN (need Herb's eye, cross-page):**
+  1. **DD_Sigs.1 double-booked** - carries both NET_f21_status (F21 status) and SW12V_ACC (accessory 12V power);
+     move accessory 12V to a free DD_Sigs pin (Herb picks pin + function).
+  2. **Stale Trans Park-Pawl (HSDN) block** on J1.50 - superseded by live X124/ShiftConn.8->3/Inverter.25 path;
+     delete old block (`cond_1787925199021_v1xgjm42e` J1.50->PawlOut, `cond_1787925199021_ufcdcvt74` sw12.1->Pawl.B,
+     the Park-Pawl node, and duplicate sw12 `comp_1787925199021_1cmxqqice`). SAFETY-ADJACENT - confirm first.
+  3. **f44 orphan** (`comp_1774975815037_lscms2trw`) - IN unfed, OUT->X1.15 = "Ignition T15 In" (an ignition INPUT,
+     not a load); delete f44 + `cond_1788403000001_u1c` once confirmed nothing wants switched-12V out there.
+
+**Update 2026-09-18 #3 - session 2 cleanup + wake/protoboard design SETTLED (done live; Herb Ctrl+S'd through most):**
+- **#2 park-pawl + #4 f44 DONE:** deleted the stale Trans Park-Pawl (HSDN) block (`comp_1787925199021_njb2ic33t`),
+  its duplicate sw12 node (`comp_1787925199021_1cmxqqice`), and conductors v1xgjm42e/ufcdcvt74 - this also cleared
+  the J1.50 double-feed (f26->J1.50 now sole Zombie-logic feed). Deleted f44 (`comp_1774975815037_lscms2trw`) +
+  its X1.15 conductor `cond_1788403000001_u1c`.
+- **f49 Rad Fan IN was genuinely orphaned** (relay M pin 87 contact-out was never wired). FIXED: added conductor
+  `cond_1789810000001_m87f49` (M.87 -> f49.IN, net RADFAN, link `link_1789810000001_m87f49`). Fan path now closed:
+  SwB+.9 -> M.30 -> [contact] -> M.87 -> f49.IN -> f49 -> Rad Fan (H1:1). (R/coolant was already correct: R.87->f59.IN.)
+- **F21 is NOT dead** - still feeds `EB2.+12v` (ignition status power) via `cond_1780418505177_nwziatcrj`; only its
+  DD_Sigs branch was removed. Relabeled `comp_1780404612403_j6v4g7dby` -> **"F21 (EB2 +12v)"**.
+- **DD_Sigs.1 double-book RESOLVED:** dropped F21-status leg `cond_1788410100002_ddc` + its dead F21_Out ferrule
+  chain. DD_Sigs.1 now carries only `SW12V_ACC` = the CM3 Sw12v+ **wake pin**.
+- **★WAKE ARCHITECTURE SETTLED:** CM3 wake pin = **DD_Sigs.1 (Sw12v+)**, fed by **SW12V_ACC** (10A fuse off
+  **Switched B+** = POST-contactor 12V; same tap feeds PRNDL.1 + CDLSw.2). Sequence: IGN or Pin-B -> protoboard OR
+  -> FET -> master contactor closes -> Switched B+ hot -> SW12V_ACC hot -> DD_Sigs.1 hot -> CM3 wakes. **The wake
+  signal only says "box is hot" - it CANNOT distinguish charge vs ign.** CM3 discriminates via **CAN** (Zombie mode
+  / charger frames), NOT a hardware pin - forced anyway because the **manufactured HAT DD_Sigs (DE15) has NO free
+  pins** (live: 1 Sw12v+, 4 EPB_GRN, 5 EPB_RED, 6 DIMMER, 7 CDL, 8 TCASE_LO, 9 VSS_SIG, 10 VSS_12V, 11 VSS_GND,
+  SH=GND; **NC/dead: 3,12,13,14,15** - from Herb's KiCad J_SIGS1 screenshot). **Intended CM3 behavior:** charge ->
+  SoC progress bar ONLY; ign-on -> full active display, decided via CAN.
+- **BOX_AWAKE net DELETED as vestigial (Herb's call):** removed conductors cond_1789101000044 (proto->ferrule),
+  cond_1789732444207 (proto->X127), cond_1789732472619 (X127->ferrule), cond_1789101000049 (dead pin-12 leg);
+  removed nodes X127 `comp_1789732291206_g726pysny` + BOX_AWAKE ferrules `comp_1789600000006_fawka00` /
+  `comp_1789600000010_fawkb00`. **Protoboard `comp_1789100000004_proto0001` KEPT** (still drives contactor via
+  coil/IGN/Pin-B/GND/F-Coil-B+). BOX_AWAKE was redundant: its only landing was DD_Sigs.12 (NC on mfg'd HAT), and
+  the wake is already served by SW12V_ACC on pin 1.
+- **★PROTOBOARD (Hammond box, next to ML350) - SIMPLE, final:** inputs = IGN+, charger Pin-B, Perm Bat+, GND.
+  **2 signal diodes (IGN+ & Pin-B) => diode-OR** (diodes exist ONLY to stop IGN+ and Pin-B back-feeding each other)
+  -> **FET gate** -> FET sinks AEV14012 **coil-low**; coil-high = Perm Bat+ via **F-Coil 5A**. Either source high ->
+  contactor closes. Parts: 2 signal diodes + 1 FET + gate resistor + contactor coil. Diodes tiny (gate uA only; coil
+  current from Perm Bat+ through the FET). NOT on the HAT (no respin).
+- **STILL OPEN (session hit 97% usage):** (a) **X1.15 "Ignition T15 In"** - does the Zombie actually need ignition
+  fed there? (wrong f44 feed deleted; may need a correct IGN+ -> X1.15 wire). (b) **Switched B+ cosmetic pin reorder**
+  - Herb deferred (connectivity-safe, wires follow pin IDs). (c) hand-built cross-page direct wires (f26->J1.50,
+  f39->PBCtrl.4, f45->OilPump.5, sw12->InDtsch12-M) are connected but render off-page - optional tidy to ferrule pairs.
+- **★New Splice command shapes confirmed (now in SPLICE_CAD_SKILL.md):** `RemoveNewConductorCommand {conductorId}`
+  (surgical single-wire delete), `UpdateNewConductorCommand {conductorId, updates:{netName}}`.
