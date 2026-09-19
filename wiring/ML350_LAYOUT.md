@@ -638,3 +638,15 @@ Ran the recipe exactly: single `get_plan_summary` in a fork, distilled diff, one
   f39->PBCtrl.4, f45->OilPump.5, sw12->InDtsch12-M) are connected but render off-page - optional tidy to ferrule pairs.
 - **★New Splice command shapes confirmed (now in SPLICE_CAD_SKILL.md):** `RemoveNewConductorCommand {conductorId}`
   (surgical single-wire delete), `UpdateNewConductorCommand {conductorId, updates:{netName}}`.
+
+**PENDING (NOT DONE - hit session limit, resets 11am Edmonton 2026-09-18): split Switched B+ doubled pins.**
+Canvas is UNCHANGED by this op - nothing half-applied. Goal: each SwB+ pin carries exactly ONE wire (Herb prefers
+single-connection pins over multi-tap). SwB+ = `comp_1774975815037_4dyvjr01w`. Do it as same-page delete+recreate
+(NO ferrule - dragging endpoints in-browser auto-ferrules = the mess Herb hit). Cheap: from a held snapshot, no need
+for repeated pulls.
+- **pin 10** = f45 Oil (KEEP) + f_acc Controls SW12V (MOVE, was cond_...039)
+- **pin 11** = f26 Zombie (KEEP) + f_inv Inverter (MOVE, was cond_...034)
+- **pin 14** = sw12 BatBoxes (KEEP) + X124 park-detect (MOVE; ⚠ X124 self-bridges Zombie+FuseRelay - handle carefully)
+- Targets: **pin 1 is now FREE** (its DD_Power.1 feed was deleted this session) -> reuse it + add 2 new SwB+ pins
+  (adding pins must include ALL existing pins if using array-replace, else conductors drop). Move the 3 second-legs
+  onto pin 1 + 2 new pins, preserving each conductor's netName/color/gauge.
