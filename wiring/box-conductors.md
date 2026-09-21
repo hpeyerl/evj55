@@ -209,8 +209,35 @@ Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=F23, Inverter=Inv-12V fuse, Status=
 ### sw12 rail (drive OR charge) out
 - Zombie sw12, BMS 12V, bat-boxes enable - all on R's f59-61 rail.
 
-### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier)
-- IGN+, Pin-B/C, sw12, BMS, ign_sense, M5Dial, 3x coil-lo controls, 3x enables, 3x pumps (see list above).
+### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier) - ★PINOUT FINALIZED 2026-09-21
+Insert 24-5, pins A B C D E F G H J K L M N P R S. Physical rows from keyway down: (A B)(C)(D E)
+(F G H)(J K)(L M N)(P R)(S). Higher-current (★) placed on the outer positions, spread apart.
+
+| Pin | Signal | ~A | Box-side source |
+|--|--|--|--|
+| A | Rad fan power ★ | ~4-8 | H1:1 (M relay out) |
+| B | IGN+ | <1 | box input (vehicle IGN) |
+| C | Charger Pin-B (wake) | 0.16 | charger input |
+| D | Zombie->M coil (fan ctrl) | <1 | -> M.86 relay coil (FuseRelay, x-page) |
+| E | Coolant pump 1 | 0.48 | P6:5 |
+| F | BMS 12V | 0.15 | feed TBD |
+| G | M5Dial 12V | small | feed TBD |
+| H | EPB power ★ | brief pk | P3:4 |
+| J | Zombie->R coil (coolant ctrl) | <1 | -> R.86 relay coil (FuseRelay, x-page) |
+| K | Coolant pump 2 | 0.48 | P6:6 |
+| L | Bat boxes feed ★ | med | P2:3 |
+| M | Charger Pin-C (wake rtn) | 0.16 | charger input |
+| N | Trans booster pump | ~0.5 | feed TBD (coolant rail?) |
+| P | ign_sense / Sw12v+ wake -> HAT | uA | f_acc / accessory (TBD) |
+| R | CDL | small | P2:4 |
+| S | Zombie logic 12V ★ | ~1-3 | P2:7 |
+
+**PENDING Splice build (NOT DONE - session limit 2026-09-21, resets 3:40pm Edmonton). Nothing created.**
+Build on a NEW page **"Hammond"**: (1) mil-round node **MR1** (MS3102A24-5S, 16 pins A-S labeled per table);
+(2) P-connector nodes P2(3,4,7) P3(4,7) P6(5,6) H1(1,3); (3) wire the 7 clean P->MR: H1:1->A, P6:5->E,
+P6:6->K, P3:4->H, P2:3->L, P2:4->R, P2:7->S. The other 9 MR pins (B,C,D,F,G,J,M,N,P) = leave labeled,
+box-side source TBD (inputs / Zombie coil x-page / unestablished feeds). P1/P4/P5/D1 connectors = add later.
+Project 17410eef-ffcd-4a2a-adb7-dab94271a8f4.
 
 ### CAN - bypasses the box (not routed through it).
 
