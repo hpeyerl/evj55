@@ -6,6 +6,27 @@ Every conductor crossing the boundary of the electrical box (which contains the 
 **Tiers:** FAT >25A -> M6/M8 feed-through stud (or HD30)  /  MED 5-25A -> Deutsch **DTP (25A)**  / 
 SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
+## ★2026-09-21 RECONCILE - master-contactor pivot (supersedes the V/relay-master + wake-relay scheme below)
+The relay/coil/wake sections written 2026-08-28..09-02 are SUPERSEDED. Current design (from the Splice
+rototill; authoritative detail in `ML350_LAYOUT.md` sec 0/8/9). **Read this banner as truth; the older
+tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
+- **Power gating = ONE external Panasonic AEV14012 master contactor** on the B+ bolt: Perm B+ -> F-Main
+  (100A) -> contactor -> **Switched B+** bus. Coil driven by the **protoboard** (in the Hammond box next to
+  the ML350): OR(IGN, charge Pin-B) via 2 signal diodes -> FET sinks coil-low; coil-hi = Perm B+ via
+  **F-Coil 5A**. **NO V ign-master, NO internal wake relay.** Whole box is dead in sleep.
+- **Only TWO relays remain: M (rad fan) + R (coolant).** Everything else = **fuse-direct off Switched B+**:
+  EPAS=F24 MAXI 60A->P1:2; iBooster=F29 MAXI 40A->P1:1; oil pump=f45->P3:7; EPB=f39->P3:4; Zombie logic=
+  f26->X1.50; Bat Boxes=sw12; CDL=F23; Inverter=Inv-12V fuse; Status=F21->EB2 (IGN-fed).
+  - **M (rad fan):** contact SwB+ -> f49 -> H1:1; coil-low -> Zombie CoolingFan = **PWM1 (X1.7)**.
+  - **R (coolant):** contact SwB+ -> f59 -> P6:5,6; coil-low -> Zombie CoolantPump = **GP Out 3 (X1.3)**.
+- **Zombie IOMatrix (this session):** CoolingFan=**PWM1 (X1.7)**, BrakeLight=**PWM2 (X1.6)**, CoolantPump=
+  **GP Out 3 (X1.3)**, NegContactor=GP Out 2 (X1.4), oil-pump PWM on **pin 30** (GS450HOIL). **GP Out 1
+  ABANDONED (suspect HW).** SL1/SL2=trans solenoids, **PWM3=free spare**.
+- **Rad-fan failsafe:** a dumb overtemp switch in parallel with M coil-low (additive, TBD).
+- **X1 = the real Zombie 56-way F harness block** (the phantom J1 header + its mate/group were deleted).
+- Bulkhead/mil-round connector inventory (MS3102A24-5S etc.) below is CURRENT; only the relay-coil/wake
+  wiring is superseded.
+
 ## Running tally - CLOSED (2026-08-28), ~24 conductors + case-ground
 - **FAT (true continuous): main +Bat (+ dedicated main GND)** - stud-pair OR one Anderson SB (2-pole =
   battery +/- disconnect, sized to total box draw). **RETIERED 2026-08-30:** EPAS / iBooster / trans-oil-pump
@@ -72,11 +93,11 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
 **(Oil-pump PWM `GS450pumpPwm` = Zombie->controller direct, NOT through this box - on Splice already.)**
 
-### Zombie IOMatrix pin budget
-Out2 = NegContactor (used). Allocation: **SL1 = CoolingFan** (box), **SL2 = CoolantPump** (box),
-**Out1 = BrakeLight** (outside box), **Out3 = free** (HvActive if wanted), **PWM1-3 = free**
-(CpSpoof NOT needed if AVC2 used). Trans-booster pump gangs onto CoolantPump. Comfortable - box = 2 pins.
-Park-pawl interlock = a Zombie **INPUT** (separate budget), not an output.
+### Zombie IOMatrix pin budget  [SUPERSEDED 2026-09-21 - see top banner]
+Current: **PWM1 = CoolingFan**, **PWM2 = BrakeLight**, **GP Out 3 = CoolantPump**, **GP Out 2 = NegContactor**,
+oil-pump PWM on **pin 30**, **SL1/SL2 = trans solenoids**, **PWM3 = free spare**. **GP Out 1 ABANDONED**
+(suspect HW - both rad-fan + brake moved to PWM). Park-pawl interlock = a Zombie **INPUT** (separate budget).
+~~Old: SL1=CoolingFan, SL2=CoolantPump, Out1=BrakeLight, Out3=free, PWM1-3=free.~~
 
 ## Charge-port / interlock (routing TBD - may or may not cross THIS box)
 
@@ -167,26 +188,23 @@ connector-facing side together. (Also mirrored into the Splice fuse descriptions
 - **Main Bat+ IN -> M8 busbar stud** (feeds constant Bat+ busbar, all relay coil-highs + contacts).
 - **Chassis/case ground** (bond); a Gnd point for V coil-low, V contact, and the wake FET source.
 
-### Relay outputs -> loads (fuse -> output pins) + how each coil is driven
+### Relay outputs -> loads + how each coil is driven  [REPLACED 2026-09-21 - see top banner]
+Only TWO relays now; everything else fuse-direct off Switched B+ (master contactor gates the box).
 | Relay | Load | Fuse | Out pins | Coil driven by |
 |---|---|---|---|---|
-| N | EPAS | f52-56 | P5:5-14 | V ign-master |
-| M | Oil pump | f49 | P4:13,14 -> H1:1 | V ign-master (Zombie PWMs the pump) |
-| K | iBooster | f62,63 | P6:11-14 | V ign-master |
-| O | Rad fan | f57 | P6:1,2 | **Zombie GP Out 1 (J1 pin 31)** |
-| L | EPB | AddRed | (add-a-fuse) | V ign-master |
-| S | Zombie enable | f44 | P4:3,4 | V ign-master |
-| T | Inverter enable | f45 | P4:5,6 | V ign-master |
-| R | Wake -> sw12 | f59-61 | P6:5-10 | **wake FET** (OR(IGN, Pin-B)) |
-| U | accessory: F21 status + F23 CDL | reroute | TBD | ign gang |
-| V | **IGN master** (grounds coil-low bus) | - | - | IGN(drive) |
-| P | DEAD (bridged to R) | - | - | - |
+| **M** | Rad fan | f49 | H1:1 | Zombie **CoolingFan = PWM1 (X1.7)** (+ dumb overtemp switch parallel, TBD) |
+| **R** | Coolant | f59 | P6:5,6 | Zombie **CoolantPump = GP Out 3 (X1.3)** |
 
-### Control inputs (into the box)
-- **IGN(drive)** -> V coil + wake diodes
-- **Charger Pin-B / Pin-C** -> wake (via the Dilong/Charger page)
-- **Zombie GP Out 1 (J1 pin 31)** -> O coil (rad fan)
-- **Zombie CoolantPump low-side** -> coolant pumps (~480mA ea)
+Fuse-direct (no relay): EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=f45->P3:7, EPB=f39->P3:4,
+Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=F23, Inverter=Inv-12V fuse, Status=F21->EB2.
+~~Old relay roster (N EPAS / M oilpump / K iBooster / O radfan / L EPB / S,T,U gang / V ign-master / P dead)
+= all gone; EPAS/iBooster/oil/EPB are fuse-direct, V/gang/wake-relay replaced by the external contactor.~~
+
+### Control inputs (into the box)  [REPLACED 2026-09-21]
+- **Master-contactor coil** <- protoboard FET, gated by **OR(IGN, charge Pin-B)** via 2 signal diodes.
+- **Zombie CoolingFan (PWM1/X1.7)** -> M coil (rad fan).
+- **Zombie CoolantPump (GP Out 3/X1.3)** -> R coil (coolant pumps, ~480mA ea).
+- **Zombie BrakeLight (PWM2/X1.6)** -> brake lights (ties into OEM harness, outside box).
 
 ### sw12 rail (drive OR charge) out
 - Zombie sw12, BMS 12V, bat-boxes enable - all on R's f59-61 rail.
