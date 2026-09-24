@@ -650,3 +650,47 @@ for repeated pulls.
 - Targets: **pin 1 is now FREE** (its DD_Power.1 feed was deleted this session) -> reuse it + add 2 new SwB+ pins
   (adding pins must include ALL existing pins if using array-replace, else conductors drop). Move the 3 second-legs
   onto pin 1 + 2 new pins, preserving each conductor's netName/color/gauge.
+
+**Update 2026-09-22..24 - SwB+ pin-split DONE + full HAMMOND BULKHEAD build (the P->MR1 harness).**
+- **SwB+ pin-split DONE + verified:** each SwB+ pin now carries exactly one wire (f_acc->pin1, f_inv->new pin16,
+  X124->new pin17; keeps 10/11/14). Verified clean by fresh pull.
+- **★HAMMOND page created = the box's bulkhead / P->mil-round harness view.** `page_1790200000001_hammond`.
+  - **Mil-round MR1** (MS3102A24-5S, 16 pins A-S, pinout in `box-conductors.md`) modeled as a MATED PAIR:
+    **MR1-F** (`comp_1790200000010_mr1`, bulkhead/inside) ═16-pin mate `mate_1790076792516_fzt1sxnk0`═ **MR1-M**
+    (`comp_1790076457063_h8g3bgx9p`, plug/outside). The mate = the physical connector coupling (pin D touches pin D);
+    inside wiring lands on MR1-F, outside/external on MR1-M. ⚠ MR1-F & MR1-M are drawn OVERLAPPING - drag apart to read.
+  - **ML350 output P-connectors modeled** on Hammond: P1/P2/P3/P4/P5/P6/D1/H1 with their pigtail-populated pins.
+  - **★P->MR1 RE-ROUTE DONE for the 6 SIG/mil-round loads** (each: ML350 fuse -> P-pin -> MR1-F.<pin> ═mate═
+    MR1-M.<pin> -> external load; old direct fuse->load conductors retired):
+    RadFan f49->H1:1->A->DT_RadFan; Coolant f59->P6:5->E->Cooling_Pump1; BatBoxes sw12->P2:3->L->InDtsch12-M;
+    EPB f39->P3:4->H->PBCtrl.4; Zombie-logic f26->P2:7->S->X1:50; CDL F23->P2:4->R-> (fans to CtrlRelay+CDLSw+CDLLED,
+    OEM harness does the external split).
+  - **Zombie coil-control signals routed through MR1** (not direct): CoolingFan X1.7->MR1-M.D ═ MR1-F.D->M relay coil
+    (M.86); CoolantPump X1.3->MR1-M.J ═ MR1-F.J->R relay coil (R.86). (X1 = the real Zombie 56-pin, on Zombie pg.)
+  - **Power-entry STUDS on Hammond:** "Perm B+ Stud" (M8) -> existing Perm B+ node (feeds F-Main/F-Coil/f_ddkeep);
+    "GND Stud" (M8) -> main Gnd bus. **ChassisGnd** (local, on Cooling pg) grounds DT_RadFan + Cooling_Pump1 and ties
+    up to the GND Stud (cross-page). Load grounds are LOCAL chassis (not through MR1) - Herb runs chassis/body lines.
+  - **MR1-M external (outside-box) connections:** A->DT_RadFan.+12v, E->Cooling_Pump1.+12v, C->Charger Pin-B
+    (Dilong_Sigs "BMS/VCU+"), M->Charger Pin-C (Dilong_Sigs "BMS/VCU-"), F->BMS +12V (BMWi3BMS MASTER on Battery-box-LV pg).
+  - **Mil-round pin relabels:** E="Coolant pump (VW)" (single VW pump, well under 13A); **K, N, G = "Spare"**
+    (N was Trans-booster=dropped, G was M5Dial=rides accessory rail instead); **P = "OR'd wakeup -> CM3"** (was
+    ign_sense/Sw12v+; it's the protoboard OR(IGN,PinB) output to the CM3, NOT IGN+). IGN+ = pin B (from OEM harness).
+  - **BMS CAN bus:** front/rear CSC-chain heads BMS-F/BMS-R joined to BMWi3BMS master CAN[HL] (one CANH + one CANL
+    net). Future = a dual-channel BMS re-splits front/rear.
+- **★SPLICE mechanics banked to SPLICE_CAD_SKILL.md this run:** cross-page connection needs a FERRULE per page + an
+  **AddMateCommand** joining the two ferrules - matching netName ALONE does NOT electrically join (proven). AddMateCommand
+  shape is FLAT `{connector1Id, connector2Id, options:{id,mateType,pinMappings}}`. AddNodeCommand ignores pageId ->
+  follow with MoveToPageCommand. get_plan reads SAVED state (agents can't see unsaved live edits) -> Ctrl+S between passes.
+  Fresh COLD sub-agents (skill + one pull) are far cheaper than resuming a fat fork.
+- **STILL OPEN (next session):**
+  1. **Inside-feed side** for MR1-F pins F (BMS 12V) and M (Charger Pin-C) - i.e. box fuse/protoboard -> MR1-F.<pin>
+     (only the OUTSIDE MR1-M side is wired for those).
+  2. **Heavy/MED loads NOT yet on a bulkhead:** EPAS (P1:2, ~60A) + iBooster (P1:1, ~40A) -> STUDS or the paralleled
+     13.2A connectors; Oil Pump (P3:7, ~10-20A) -> a DTP. All still run direct; P1/P3:7 pins unwired.
+  3. **Controls-accessory (P2:6, f_acc/SW12V_ACC) + Status (P2:9, F21)** box-crossing bulkhead = TBD.
+  4. **Inverter** (P2:5 / INV_12V / BR2) = Herb's domain (agents kept hands off).
+  5. **IGN+ (pin B)** sourced from the OEM harness = external, on Herb.
+  6. Cosmetic: 3 orphan empty links from the CDL conductor deletes; drag MR1-F off MR1-M; reconcile BMS CAN net labels.
+- **Hardware notes:** F-Main = a **100A automotive MEGA** (slow-blow, rides EPAS/iBooster inrush; ordered). Two spare
+  Sensata W23-X1A1G-50 **50A resettable breakers** freed (do NOT parallel them for the main - poor current-share; use
+  one-per-load if wanted). Amp-Trap A25X100 = fast-acting, shelved (wrong curve for F-Main).
