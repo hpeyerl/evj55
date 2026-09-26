@@ -8,7 +8,7 @@ SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
 ## ★2026-09-21 RECONCILE - master-contactor pivot (supersedes the V/relay-master + wake-relay scheme below)
 The relay/coil/wake sections written 2026-08-28..09-02 are SUPERSEDED. Current design (from the Splice
-rototill; authoritative detail in `ML350_LAYOUT.md` sec 0/8/9). **Read this banner as truth; the older
+rototill; authoritative detail in `EVJ55_ML350_powerdist.md` sec 0/8/9). **Read this banner as truth; the older
 tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
 - **Power gating = ONE external Panasonic AEV14012 master contactor** on the B+ bolt: Perm B+ -> F-Main
   (100A) -> contactor -> **Switched B+** bus. Coil driven by the **protoboard** (in the Hammond box next to
@@ -181,7 +181,7 @@ Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4
 ## Box external interface / connector map (consolidated - for the IP67-lid label)
 
 Single at-a-glance view of everything crossing the box boundary. Detail lives in the
-conductor list above, `ML350_LAYOUT.md`, and `ML350 fuse box - Pinout.csv`; this ties the
+conductor list above, `EVJ55_ML350_powerdist.md`, and `ML350 fuse box - Pinout.csv`; this ties the
 connector-facing side together. (Also mirrored into the Splice fuse descriptions.)
 
 ### Power / ground
