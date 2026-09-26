@@ -38,8 +38,8 @@ of the contactor; it wakes on switched-12V.
 
 | Load | Fuse -> pin | Note |
 |------|-------------|------|
-| EPAS | F24 60A -> P1:2 | factory 60A; 10AWG rides stall peaks |
-| iBooster | F29 40A -> P1:1 | Tesla fuses at 40A |
+| EPAS | F24 -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
+| iBooster | F29 40A -> P1:1 | ~40A class; **dedicated ground return too** (not chassis-local) |
 | (spare) | F40 -> P3:1 (pop.); F30/F35 (unpop.) | |
 
 **Relays (2):**
@@ -91,8 +91,11 @@ B+ hot -> CM3 sees 12V and wakes. Pin-B only drives the FET gate (uA), so its 0.
 
 The box lives in a 12x12 cast-Al waterproof Hammond enclosure. Signals cross the wall via a
 **MS3102A24-5S mil-round** (16 pins A-S; pinout in `box-conductors.md`), modeled in Splice as a mated
-pair **MR1-F** (bulkhead/inside) <-> **MR1-M** (plug/outside). Heavy loads (EPAS/iBooster) and Perm
-B+/GND cross on **studs**, not the sz16 mil-round.
+pair **MR1-F** (bulkhead/inside) <-> **MR1-M** (plug/outside). Perm B+/GND cross on **studs**; the
+heavy loads (EPAS/iBooster/oil) cross via **one gland as XT60 pairs** (each XT60 = the load's power
++ its **dedicated ground**), wire-tied + heat-shrink - fused in-box (F24/F29 + oil), grounds land on
+the GND stud. **EPAS/iBooster get dedicated ground returns, not chassis-local** (precision actuators;
+Toyota ran EPAS 10AWG red+black). None of these use the sz16 mil-round.
 
 **Done** (Splice page `page_1790200000001_hammond`): every box-crossing SIG load routes
 `fuse -> P-pin -> MR1-F -> [mate] -> MR1-M -> external` (rad fan, coolant, bat boxes, EPB, Zombie

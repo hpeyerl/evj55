@@ -13,10 +13,14 @@ conductor list in `box-conductors.md`.
       so the bundle stays flat. Full populated-pin list = `ML350_box_reference.md`.
 - [ ] **Mount the Altech HE1WPR/12** (20A) terminal strip under the FR box.
 - [ ] **Wire Px -> mil-round** per the chart below (sz16 mil contacts = **16 AWG max**).
-- [ ] **Add a switched-B+ M8 feed-through stud** (same style as the Bat+/GND posts - no glands).
-- [ ] **External M8 busbar + branch fuse block** for the 3 heavy loads, fed from that switched-B+
-      stud (post-contactor = hot in drive AND charge): **EPAS ~60A / iBooster ~40A / oil ~15A**.
-      These bypass the ML350 entirely (F24/F29 MAXI slots go unused).
+- [ ] **Heavy loads out via ONE gland, as XT60 pairs** (DECIDED - good-enough over perfect): EPAS,
+      iBooster, oil each on its own XT60 (the 2 pins = that load's **power + its dedicated ground**),
+      wire-tied into a bundle + heat-shrink, through one gland. **Fused in-box** (F24=EPAS, F29=iBooster,
+      ~15-20A for oil) - no external fuse block. Inside: + -> fuse output, - -> GND bus/stud. EPAS/iBooster
+      are **~40A / 10AWG class** (Toyota sizing; ~60A only a brief stall peak).
+- [ ] **EPAS + iBooster dedicated ground returns** - run the ground (10AWG black) back to the **GND
+      stud**, NOT a local chassis bolt. They're precision steering/brake actuators; a ground offset
+      degrades them (Toyota ran EPAS 10AWG red+black). Fan/pumps still ground locally.
 - [ ] **CM3/HAT feed -> battery post** directly (its own ~15-20A fuse at the post), out of the box -
       it's permanent-B+, doesn't belong in the switched box. Keep only the **OR'd-wakeup signal wire**
       (mil-round P) running from the box to the CM3 wake pin.
