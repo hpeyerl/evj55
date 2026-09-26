@@ -39,7 +39,7 @@ of the contactor; it wakes on switched-12V.
 | Load | Fuse -> pin | Note |
 |------|-------------|------|
 | EPAS | F24 -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
-| iBooster | F29 40A -> P1:1 | ~40A class; **dedicated ground return too** (not chassis-local) |
+| iBooster | F29 40A -> P1:1 | OEM = **2x ~12AWG** (power + **dedicated ground**, not chassis-local); ~40A class. Box P1:1 doubled-12 is at least as heavy |
 | Oil Pump | F40 -> P3:1 | heavy spade, **12AWG** (Toyota); ~20A MAXI. **Chassis-local ground**. Zombie-PWM'd ~50% duty -> avg well under rating |
 | (spare) | F30 / F35 (outputs unpopulated) | |
 
