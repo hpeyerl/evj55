@@ -14,9 +14,10 @@ conductor list in `box-conductors.md`.
 - [ ] **Mount the Altech HE1WPR/12** (20A) terminal strip under the FR box.
 - [ ] **Wire Px -> mil-round** per the chart below (sz16 mil contacts = **16 AWG max**).
 - [ ] **Heavy loads out via panel-mount XT60E-1** (DECIDED - ordered): one per load (EPAS, iBooster,
-      oil), bolted to the box wall, mate from outside - **no gland**. Each XT60 = that load's **power +
-      its dedicated ground** (the 2 pins). **Fused in-box** (F24=EPAS, F29=iBooster, ~15-20A oil) - no
-      external block. Inside: + -> fuse output, - -> GND bus/stud. EPAS/iBooster are **~40A / 10AWG class**.
+      oil), bolted to the box wall, mate from outside - **no gland**. **Fused in-box** (F24=EPAS -> P1:2,
+      F29=iBooster -> P1:1, ~20A MAXI oil -> **F40/P3:1** heavy spade). EPAS/iBooster XT60 = **power +
+      dedicated ground** (return to GND stud); oil XT60 = **power only** (chassis-grounds locally, 12AWG).
+      EPAS/iBooster **~40A / 10AWG class**.
       Seal the flange (thin gasket/RTV) + cap when unmated - worst case is indirect car-wash spray, so IP
       is a non-issue.
 - [ ] **EPAS + iBooster dedicated ground returns** - run the ground (10AWG black) back to the **GND

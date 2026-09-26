@@ -40,7 +40,7 @@ of the contactor; it wakes on switched-12V.
 |------|-------------|------|
 | EPAS | F24 -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
 | iBooster | F29 40A -> P1:1 | ~40A class; **dedicated ground return too** (not chassis-local) |
-| Oil Pump | F40 -> P3:1 | heavy spade; ~15-20A MAXI (P3:7/f37 is 18ga = too small) |
+| Oil Pump | F40 -> P3:1 | heavy spade, **12AWG** (Toyota); ~20A MAXI. **Chassis-local ground**. Zombie-PWM'd ~50% duty -> avg well under rating |
 | (spare) | F30 / F35 (outputs unpopulated) | |
 
 **Relays (2):**
@@ -93,9 +93,10 @@ The box lives in a 12x12 cast-Al waterproof Hammond enclosure. Signals cross the
 **MS3102A24-5S mil-round** (16 pins A-S; pinout in `box-conductors.md`), modeled in Splice as a mated
 pair **MR1-F** (bulkhead/inside) <-> **MR1-M** (plug/outside). Perm B+/GND cross on **studs**; the
 heavy loads (EPAS/iBooster/oil) cross via **panel-mount XT60E-1 connectors** (one per load, bolted to
-the box wall, mate from outside - no gland). Each XT60 = the load's power + its **dedicated ground** -
-fused in-box (F24/F29 + oil), grounds land on the GND stud. **EPAS/iBooster get dedicated ground
-returns, not chassis-local** (precision actuators; Toyota ran EPAS 10AWG red+black). None use the sz16
+the box wall, mate from outside - no gland). Fused in-box (F24/F29 + oil). **EPAS/iBooster XT60s carry
+power + a dedicated ground** (return to the GND stud, NOT chassis-local - precision actuators; Toyota
+ran EPAS 10AWG red+black). **Oil-pump XT60 = power only** (12AWG; it chassis-grounds locally like the
+fan/pumps). None use the sz16
 mil-round. (Env: worst case is indirect car-wash spray, so seal the flange + cap unmated = plenty.)
 
 **Done** (Splice page `page_1790200000001_hammond`): every box-crossing SIG load routes
