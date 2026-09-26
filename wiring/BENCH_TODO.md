@@ -79,7 +79,7 @@ contacts cap at **16 AWG**, so nothing bigger on the mil-round side.
 
 | MR pin | Circuit | From Px | ~A | AWG |
 |--|--|--|--|--|
-| A | Rad fan power | P4:13 (was H1:1; f49 bussed there) | ~4-8 | 16 |
+| A | Rad fan power | P4:13,14 (was H1:1; term. from P4:6/8) | ~4-8 | 16 |
 | E | Coolant pump (VW) | P6:5 | ~2-5 | 16 |
 | H | EPB power | P3:4 | few | 18 |
 | L | Bat boxes | P2:3 | ~10 | 16 |

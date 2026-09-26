@@ -47,16 +47,16 @@ of the contactor; it wakes on switched-12V.
 
 | Relay | Load | Contact out | Coil-lo | Coil-hi |
 |-------|------|-------------|---------|---------|
-| M | Rad Fan | f49 -> **P4:13** | P5:14 <- Zombie CoolingFan | Bat+ common (switched B+) |
+| M | Rad Fan | f49 -> **P4:13,14** | P5:14 <- Zombie CoolingFan | Bat+ common (switched B+) |
 | R | Coolant pump (single VW) | f59 -> P6:5,6 | P5:1 <- Zombie CoolantPump | Bat+ common |
 
 Both coils energize only when the box is hot (coil-hi = switched B+). Coil-lo taps are populated
 P-pins = no coil rework. Rad-fan failsafe = a dumb overtemp switch in parallel on M's coil-lo (TBD).
 
-**Rad-fan output moved H1:1 -> P4:13** (H1 pigtail was lost; f49 is bussed to P4:13/14 + H1:1, so a
-terminal harvested from a spare P4 position taps the same output). ⚠ Confirm P4 physically has
-positions 13/14 (CSV says 14-pin, an earlier pigtail-walk found 10). Splice canvas still labels this
-H1:1 - cosmetic, reconcile later.
+**Rad-fan output moved H1:1 -> P4:13,14** (H1 pigtail lost; f49 is bussed to P4:13/14, so terminals
+harvested from spare positions **P4:6 and P4:8** were reseated at 13/14 - paralleled, both on the f49
+rail. P4:6/8 were unused, so vacating them is harmless). P4 confirmed to have positions 13/14. Splice
+canvas still labels this H1:1 - cosmetic, reconcile later.
 
 **Fuse-direct minis** (switched busbar B):
 
