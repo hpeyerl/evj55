@@ -47,6 +47,25 @@ conductor list in `box-conductors.md`.
 
 ---
 
+## Spare-HAT reuse (optional - 5 EVJ55 Vehicle Interface HATs were made, ~4 spare)
+
+Use a spare HAT as a bare **carrier** (its power front-end, AOD4184A low-side FETs, sealed connectors)
+- **NOT plugged onto a CM3**, no MCU driving anything.
+
+- [ ] **OR/wake on a spare HAT:** the AOD4184A MagneRide FETs are already low-side N-FETs (source->GND,
+      drain->MR_SW connector) = the config the contactor drive needs. Wire the 2 signal diodes (IGN +
+      charge Pin-B) -> OR node -> the FET **gate** (reach it at its header pin); **drain -> AEV14012
+      coil-lo**; source already GND. A 12V OR-node fully turns it on (within Vgs). Check the HAT
+      schematic: (a) the OR node reaches the gate at >~4-5V (watch for a pulldown divider), (b) a gate
+      pulldown exists so it's off when both inputs are cold. Works **passively** - the HAT needn't even
+      be powered.
+- [ ] **AVC2 emulator on a spare HAT + ESP32:** logic needed here -> add an ESP32. Use the HAT's sealed
+      connectors for the J1772 inlet, a spare MOSFET channel to switch the CP-state resistor, and build
+      the CP-read front-end (pilot = +/-12V 1kHz PWM -> divider/clamp to an ESP32 ADC/GPIO; a Block-A
+      front-end may cover most of it). Public-charging path; home path = the resistor-spoof above.
+
+---
+
 ## Px -> mil-round chart (for the strip)
 
 Currents ~ (from `box-conductors.md` where known, else est.); AWGs are sizing recs - sz16 mil
