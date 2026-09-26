@@ -40,7 +40,8 @@ of the contactor; it wakes on switched-12V.
 |------|-------------|------|
 | EPAS | F24 -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
 | iBooster | F29 40A -> P1:1 | ~40A class; **dedicated ground return too** (not chassis-local) |
-| (spare) | F40 -> P3:1 (pop.); F30/F35 (unpop.) | |
+| Oil Pump | F40 -> P3:1 | heavy spade; ~15-20A MAXI (P3:7/f37 is 18ga = too small) |
+| (spare) | F30 / F35 (outputs unpopulated) | |
 
 **Relays (2):**
 
@@ -56,7 +57,6 @@ P-pins = no coil rework. Rad-fan failsafe = a dumb overtemp switch in parallel o
 
 | Load | Fuse -> pin |
 |------|-------------|
-| Oil Pump | f37 -> P3:7 (busbar; Splice labels it f45) |
 | EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
 | Zombie logic | f26 -> P2:7 |
 | Inverter | Inv-12V -> P2:5 |

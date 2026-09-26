@@ -15,7 +15,7 @@ tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
   the ML350): OR(IGN, charge Pin-B) via 2 signal diodes -> FET sinks coil-low; coil-hi = Perm B+ via
   **F-Coil 5A**. **NO V ign-master, NO internal wake relay.** Whole box is dead in sleep.
 - **Only TWO relays remain: M (rad fan) + R (coolant).** Everything else = **fuse-direct off Switched B+**:
-  EPAS=F24 MAXI 60A->P1:2; iBooster=F29 MAXI 40A->P1:1; oil pump=f37->P3:7; EPB=f39->P3:4; Zombie logic=
+  EPAS=F24 MAXI 60A->P1:2; iBooster=F29 MAXI 40A->P1:1; oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small); EPB=f39->P3:4; Zombie logic=
   f26->X1.50; Bat Boxes=sw12; CDL=F23; Inverter=Inv-12V fuse; Status=F21->EB2 (IGN-fed).
   - **M (rad fan):** contact SwB+ -> f49 -> H1:1; coil-low -> Zombie CoolingFan = **PWM1 (X1.7)**.
   - **R (coolant):** contact SwB+ -> f59 -> P6:5,6; coil-low -> Zombie CoolantPump = **GP Out 3 (X1.3)**.
@@ -195,7 +195,7 @@ Only TWO relays now; everything else fuse-direct off Switched B+ (master contact
 | **M** | Rad fan | f49 | H1:1 | Zombie **CoolingFan = PWM1 (X1.7)** (+ dumb overtemp switch parallel, TBD) |
 | **R** | Coolant | f59 | P6:5,6 | Zombie **CoolantPump = GP Out 3 (X1.3)** |
 
-Fuse-direct (no relay): EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=f37->P3:7, EPB=f39->P3:4,
+Fuse-direct (no relay): EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small), EPB=f39->P3:4,
 Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=F23, Inverter=Inv-12V fuse, Status=F21->EB2.
 ~~Old relay roster (N EPAS / M oilpump / K iBooster / O radfan / L EPB / S,T,U gang / V ign-master / P dead)
 = all gone; EPAS/iBooster/oil/EPB are fuse-direct, V/gang/wake-relay replaced by the external contactor.~~
