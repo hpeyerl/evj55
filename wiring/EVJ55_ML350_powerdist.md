@@ -56,7 +56,7 @@ P-pins = no coil rework. Rad-fan failsafe = a dumb overtemp switch in parallel o
 
 | Load | Fuse -> pin |
 |------|-------------|
-| Oil Pump | f45 -> P3:7 |
+| Oil Pump | f37 -> P3:7 (busbar; Splice labels it f45) |
 | EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
 | Zombie logic | f26 -> P2:7 |
 | Inverter | Inv-12V -> P2:5 |
