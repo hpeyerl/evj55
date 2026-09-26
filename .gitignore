@@ -1,0 +1,4 @@
+
+# vim swap files + nested reference clone (added by mistake)
+*.swp
+wiring/gs450h_ls600hl_zombie_vcu/
