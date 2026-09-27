@@ -64,9 +64,9 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 |------|-------------|
 | EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
 | Zombie logic | f26 -> P2:7 |
-| Inverter | Inv-12V -> P2:5 |
+| Inverter | f27 -> P2:5 (5A; enable signal, gating relies on Zombie drive/charge mutual-excl) |
 | Bat Boxes | sw12 -> P2:3 |
-| Controls accessory | f_acc -> P2:6 |
+| Controls accessory | f33 -> P2:6 (10A; PRNDL/CDL-switch/dash 12V - confirm loads) |
 | CDL | f34 -> P2:4 |
 | Status | f25 -> P2:9 (ignition-gated) |
 
