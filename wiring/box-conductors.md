@@ -16,7 +16,9 @@ tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
   **F-Coil 5A**. **NO V ign-master, NO internal wake relay.** Whole box is dead in sleep.
 - **Only TWO relays remain: M (rad fan) + R (coolant).** Everything else = **fuse-direct off Switched B+**:
   EPAS=F24 MAXI 60A->P1:2; iBooster=F29 MAXI 40A->P1:1; oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small); EPB=f39->P3:4; Zombie logic=
-  f26->X1.50; Bat Boxes=sw12; CDL=F23; Inverter=Inv-12V fuse; Status=F21->EB2 (IGN-fed).
+  f26->X1.50; Bat Boxes=sw12; CDL=f34->P2:4; Inverter=Inv-12V fuse; Status=f25->P2:9/EB2 (IGN-fed).
+  **F20-F23 = EMPTY** (contacts robbed for relay V in an earlier iteration) - CDL/Status moved off F23/F21
+  to spare busbar slots f34/f25 (done 2026-09-13). Splice canvas still *names* the components F23/F21 (cosmetic).
   - **M (rad fan):** contact SwB+ -> f49 -> H1:1; coil-low -> Zombie CoolingFan = **PWM1 (X1.7)**.
   - **R (coolant):** contact SwB+ -> f59 -> P6:5,6; coil-low -> Zombie CoolantPump = **GP Out 3 (X1.3)**.
 - **Zombie IOMatrix (this session):** CoolingFan=**PWM1 (X1.7)**, BrakeLight=**PWM2 (X1.6)**, CoolantPump=
@@ -196,7 +198,8 @@ Only TWO relays now; everything else fuse-direct off Switched B+ (master contact
 | **R** | Coolant | f59 | P6:5,6 | Zombie **CoolantPump = GP Out 3 (X1.3)** |
 
 Fuse-direct (no relay): EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small), EPB=f39->P3:4,
-Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=F23, Inverter=Inv-12V fuse, Status=F21->EB2.
+Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=f34->P2:4, Inverter=Inv-12V fuse, Status=f25->P2:9/EB2.
+(**F20-F23 empty** - contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25.)
 ~~Old relay roster (N EPAS / M oilpump / K iBooster / O radfan / L EPB / S,T,U gang / V ign-master / P dead)
 = all gone; EPAS/iBooster/oil/EPB are fuse-direct, V/gang/wake-relay replaced by the external contactor.~~
 
@@ -242,4 +245,5 @@ Project 17410eef-ffcd-4a2a-adb7-dab94271a8f4.
 ### CAN - bypasses the box (not routed through it).
 
 ### Still TBD before the lid label is final
-- F21/F23 real slots (after the cut/reroute); the 16-pin bulkhead assignments; measured currents.
+- ~~F21/F23 real slots~~ RESOLVED: F20-F23 empty (robbed for V); Status=f25, CDL=f34. The 16-pin
+  bulkhead assignments; measured currents.

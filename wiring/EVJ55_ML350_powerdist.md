@@ -67,10 +67,16 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 | Inverter | Inv-12V -> P2:5 |
 | Bat Boxes | sw12 -> P2:3 |
 | Controls accessory | f_acc -> P2:6 |
-| CDL | F23 -> P2:4 |
-| Status | F21 -> P2:9 (ignition-gated) |
+| CDL | f34 -> P2:4 |
+| Status | f25 -> P2:9 (ignition-gated) |
 
-Unused ML350 sockets: K, N, O, S, T, U, V.
+Unused ML350 sockets: K, N, O, S, T, U, V. (**V is populated with pins/contacts but drives no load** -
+its contacts were harvested from F20-F23; V itself is idle.)
+
+**F20-F23 = EMPTY** - their contacts were moved into relay V's socket in an earlier iteration (V has
+pins but is not wired to anything). CDL/Status were moved off F23/F21 to spare busbar slots **f34 /
+f25** (done 2026-09-13). The Splice canvas still *names* the components F23/F21 - cosmetic only; the
+physical feed is f34 (CDL) / f25 (Status), outputs unchanged at P2:4 / P2:9.
 
 ## 3. Zombie IOMatrix (control-signal pins)
 
