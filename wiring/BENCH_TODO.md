@@ -26,9 +26,15 @@ conductor list in `box-conductors.md`.
 - [ ] **CM3/HAT feed -> battery post** directly (its own ~15-20A fuse at the post), out of the box -
       it's permanent-B+, doesn't belong in the switched box. Keep only the **OR'd-wakeup signal wire**
       (mil-round P) running from the box to the CM3 wake pin.
-- [ ] **Build the protoboard** (in the Hammond box next to the ML350): 2 signal diodes (IGN, charge
-      Pin-B) -> OR node -> low-side FET -> AEV14012 coil-lo; coil-hi = Perm B+ via F-Coil ~5A; expose
-      the OR'd-wakeup. Size the FET for the AEV14012 coil (~0.35A hold).
+- [x] **Build the protoboard - BUILT + bench-verified 2026-09-27.** Parts: 2x 1N4148 (OR diodes),
+      IRLB3813 (N-ch low-side FET), 1N4744A 15V Zener (flyback clamp, cathode->drain / anode->GND),
+      Rg 1k (gate series), Rpd 10k (gate pulldown), F-Coil 5A. Schematic = `or_board_schematic.html`.
+      Bench test PASSED: gate drives ~11V, FET switches, OR works both ways (IGN and Pin-B each pull
+      coil-out to ~0). Bug found+fixed = **source was floating** (cold ground-joint at the screw
+      terminal). NB the P-ch **GSFD6959 is NOT part of this board** (spare, another project).
+      **PENDING - real contactor click test, in-situ** (contactor is in the truck): bump the supply
+      current limit to >=0.5A (coil pulls ~0.35A), coil-hi = Perm B+ via F-Coil, coil-lo = FET drain,
+      Zener across drain->GND. Apply IGN or Pin-B -> should click in; release -> click out crisply.
 - [ ] **Install F-Main** - 100A automotive MEGA (slow) on the Perm B+ -> contactor feed.
 - [ ] **J1772 home resistor-spoof** (permanent State-C) so the EVSE energizes AC on plug-in
       -> charger Pin-B goes 12V -> box wakes. (Smart/public CP reader = separate, needs its own power.)
