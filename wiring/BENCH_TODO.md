@@ -14,12 +14,23 @@ conductor list in `box-conductors.md`.
 - [ ] **Mount the Altech HE1WPR/12** (20A) terminal strip under the FR box.
 - [ ] **Wire Px -> mil-round** per the chart below (sz16 mil contacts = **16 AWG max**).
 - [ ] **Heavy loads out via panel-mount XT60E-1** (DECIDED - ordered): one per load (EPAS, iBooster,
-      oil), bolted to the box wall, mate from outside - **no gland**. **Fused in-box** (F24=EPAS -> P1:2,
+      oil), mate from outside - **no gland**. **Fused in-box** (F24=EPAS -> P1:2,
       F29=iBooster -> P1:1, ~20A MAXI oil -> **F40/P3:1** heavy spade). EPAS/iBooster XT60 = **power +
       dedicated ground** (return to GND stud); oil XT60 = **power only** (chassis-grounds locally, 12AWG).
       EPAS/iBooster **~40A / 10AWG class**.
       Seal the flange (thin gasket/RTV) + cap when unmated - worst case is indirect car-wash spray, so IP
       is a non-issue.
+  - **Mounting = 0.25" (6.35mm) aluminum SUBPLATE, not direct-in-cast** (no rectangular punch/hole saw
+    needed for the cast wall). Cut ONE round clearance hole in the box wall (**1.5" or less** - hole saws
+    go elliptical, fine here) and bolt the subplate over it, thin gasket behind. **Tap M3 straight into
+    the 1/4" plate** (~2xD engagement, ample; 2.5mm tap drill) - no nuts.
+  - **XT60E-1 dims (datasheet, CONFIRM W/ CALIPERS):** flange **27 x 8.1mm** (screws in-line above/below),
+    M3 (Phi3.0) screw centers **20mm** apart, body ~6.7 x 15.5mm, depth 16.7 (4.0 front lip). Body
+    protrudes ~6mm past the back of a 1/4" plate.
+  - **Layout = 2+1 cluster** (two vertical, one horizontal below) -> ~38mm body footprint = fits the 1.5"
+    clearance hole comfortably (a straight row of 3 = ~40mm, cramps the six 10-12AWG tails at 1.5"). Also
+    fits the room budget next to the 1.75"-sq MR1 flange already mounted on that wall.
+  - Per XT60 in the plate: one **~8 x 15.5mm body slot** + two **tapped M3 holes @20mm**. x3.
 - [ ] **EPAS + iBooster dedicated ground returns** - run the ground (10AWG black) back to the **GND
       stud**, NOT a local chassis bolt. They're precision steering/brake actuators; a ground offset
       degrades them (Toyota ran EPAS 10AWG red+black). Fan/pumps still ground locally.
