@@ -6,7 +6,7 @@ Every conductor crossing the boundary of the electrical box (which contains the 
 **Tiers:** FAT >25A -> M6/M8 feed-through stud (or HD30)  /  MED 5-25A -> Deutsch **DTP (25A)**  / 
 SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
 
-## ★2026-09-21 RECONCILE - master-contactor pivot (supersedes the V/relay-master + wake-relay scheme below)
+## *2026-09-21 RECONCILE - master-contactor pivot (supersedes the V/relay-master + wake-relay scheme below)
 The relay/coil/wake sections written 2026-08-28..09-02 are SUPERSEDED. Current design (from the Splice
 rototill; authoritative detail in `EVJ55_ML350_powerdist.md` sec 0/8/9). **Read this banner as truth; the older
 tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
@@ -40,7 +40,7 @@ tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
   EPAS, iBooster, trans oil pump** - EPAS peak donor-dependent (~40-60A+ at stall, ~5-15A cruising), iBooster
   only during braking (fused ~50-60A, ~0 otherwise), oil pump likely ~10-20A. -> size-8 / Anderson PP45-75
   (or stud) once MEASURED at reassembly; likely NOT size-4 / 2AWG.
-- **SIG (DT / Cannon sz16-20)** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, Zombie coil-lo controls, enables, **ONE coolant pump** (single VW). NB: M5Dial (no MR feed) and "trans booster pump" (never existed) are NOT on MR. Authoritative MR count = the §217 pinout (13 used + G/K/N spare).
+- **SIG (DT / Cannon sz16-20)** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, Zombie coil-lo controls, enables, **ONE coolant pump** (single VW). NB: M5Dial (no MR feed) and "trans booster pump" (never existed) are NOT on MR. Authoritative MR count = the MR1 pinout table below (13 used + G/K/N spare).
 - Accessory feeds **closed** - only future Webasto.
 
 ---
@@ -70,7 +70,7 @@ tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
 | 9 | Trans oil pump | OUT | trans | ~10-20 | **MED** | DTP / connector | relay M; likely <=20A (may fit paralleled sz16 or a sz12); (!) MEASURE - was assumed >20A |
 | 10 | Rad fan | OUT | fan | 4.25 | MED | DT/DTP | relay O; Zombie-controlled |
 | 11 | Coolant pump 1 | OUT | pump | **0.48 meas** | SIG | DT | Denso 064100-1110, teeny. **Measured ~480mA moving water** (clamp on 2A DC range - verify in series, clamps are weak <1A). Driven by Zombie low-side, NOT relay P (P is dead). (!) low draw -> flow may be marginal, MEASURE L/min |
-| ~~12~~ | ~~Coolant pump 2~~ | - | - | - | - | - | **REMOVED - single VW coolant pump now (see §217 pin E). MR pin K freed.** |
+| ~~12~~ | ~~Coolant pump 2~~ | - | - | - | - | - | **REMOVED - single VW coolant pump now (see MR1 pinout pin E). MR pin K freed.** |
 | ~~13~~ | ~~Trans booster pump~~ | - | - | - | - | - | **NEVER EXISTED - rejected suggestion. MR pin N freed.** |
 | 14 | EPB power | OUT | park brake | **TBD** | MED | DTP/DT | relay L; brief actuation peak |
 
@@ -214,31 +214,31 @@ Controls-acc=f33->P2:6 (10A). (Slot<->P-pin map = factory-fixed per `ML350 fuse 
 ### sw12 rail (drive OR charge) out
 - Zombie sw12, BMS 12V, bat-boxes enable - all on R's f59-61 rail.
 
-### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier) - ★PINOUT (reconciled 2026-09-28)
+### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier) - *PINOUT (reconciled 2026-09-28)
 Insert 24-5, pins A B C D E F G H J K L M N P R S. Physical rows from keyway down: (A B)(C)(D E)
-(F G H)(J K)(L M N)(P R)(S). Higher-current (★) placed on the outer positions, spread apart.
+(F G H)(J K)(L M N)(P R)(S). Higher-current (*) placed on the outer positions, spread apart.
 **This table is the SOURCE OF TRUTH for MR1** - it supersedes the older "Cooling/pumps OUT" inventory
 rows above (which are pre-contactor and list dropped/phantom loads). Recovered from the 2026-09-27/28
 session transcripts + Herb's direct confirmations.
 
 | Pin | Signal | ~A | Box-side source |
 |--|--|--|--|
-| A | Rad fan power ★ | ~4-8 | **P4:13,14 paralleled in the connector -> ONE wire to strip** (M relay out; was H1:1) |
+| A | Rad fan power * | ~4-8 | **P4:13,14 paralleled in the connector -> ONE wire to strip** (M relay out; was H1:1) |
 | B | IGN+ | <1 | protoboard (vehicle IGN) |
 | C | Charger Pin-B (wake) | 0.16 | protoboard / Charger page |
 | D | Zombie->M coil (fan ctrl) | <1 | M.86 relay coil (x-page); phys lands P5:14 |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
 | F | BMS 12V | 0.15 | inside-feed TBD |
 | **G** | **SPARE** | - | (was M5Dial 12V - M5Dial needs NO MR feed) |
-| H | EPB power ★ | brief pk | P3:4 |
+| H | EPB power * | brief pk | P3:4 |
 | J | Zombie->R coil (coolant ctrl) | <1 | R.86 relay coil (x-page); phys lands P5:1 |
 | **K** | **SPARE** | - | (was Coolant pump 2 - single VW pump now, only E used) |
-| L | Bat boxes feed ★ | med | P2:3 |
+| L | Bat boxes feed * | med | P2:3 |
 | M | Charger Pin-C (wake rtn) | 0.16 | protoboard / Charger page |
 | **N** | **SPARE** | - | (was "Trans booster pump" - **never existed**, rejected suggestion) |
 | P | ign_sense / Sw12v+ wake -> HAT | uA | protoboard |
 | R | CDL | small | P2:4 |
-| S | Zombie logic 12V ★ | ~1-3 | P2:7 |
+| S | Zombie logic 12V * | ~1-3 | P2:7 |
 
 **3 spare pins = G, K, N.** Future expansion is bounded to +3 circuits: pre-run 3 gauge-picked flex Px
 spares (candidates P1:7/f21, P1:10/f20, P2:10/f31, P3:7/f37-18AWG) to the strip so a future load can land

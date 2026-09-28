@@ -50,10 +50,10 @@ The box is **ground-switched**: each coil's high side sits at a fixed feed, and 
 
 | Relay | Coil-high feed | Coil-low (control) tap | Note |
 |-------|----------------|------------------------|------|
-| K | Bat+ common | P4:7 | ⚠ pin has NO terminal fitted - add one to control K |
+| K | Bat+ common | P4:7 | (!) pin has NO terminal fitted - add one to control K |
 | R | Bat+ common | P5:1 | populated, ready |
 | M | Bat+ common | P5:14 | populated, ready |
-| L | Bat+ (direct) | P4:1 | ⚠ pin has NO terminal fitted - add one |
+| L | Bat+ (direct) | P4:1 | (!) pin has NO terminal fitted - add one |
 | N | external (both legs) | P6:12 & P5:2 | not Bat+ commoned |
 | O | fuse-52 feed | P6:4 | fused/second-stage feed |
 | P | fuse-50 feed | P5:9 | fused feed |
