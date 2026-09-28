@@ -1,255 +1,124 @@
 # Electrical Box - Conductor List
 
-Every conductor crossing the boundary of the electrical box (which contains the ML350 fusebox
-+ the wake diodes). Drives the connector plan. Started 2026-08-28, grows as gaps fill.
+Every conductor crossing the boundary of the electrical box (ML350 fusebox + protoboard) in the
+12x12 cast-aluminum waterproof Hammond enclosure. Bench reference - facts only.
+Rationale, history, and superseded schemes live in the private `evj55_contexts/FUSEBOX_CONTEXT.md`.
+Fuse/pin detail: `EVJ55_ML350_powerdist.md` + `ML350 fuse box - Pinout.csv`.
 
-**Tiers:** FAT >25A -> M6/M8 feed-through stud (or HD30)  /  MED 5-25A -> Deutsch **DTP (25A)**  / 
-SIG <5A -> Deutsch **DT (13A)**. `~` = estimate, **TBD** = unknown.
-
-## *2026-09-21 RECONCILE - master-contactor pivot (supersedes the V/relay-master + wake-relay scheme below)
-The relay/coil/wake sections written 2026-08-28..09-02 are SUPERSEDED. Current design (from the Splice
-rototill; authoritative detail in `EVJ55_ML350_powerdist.md` sec 0/8/9). **Read this banner as truth; the older
-tables (V ign-master, N/K/O relays, wake=R) are HISTORICAL.**
-- **Power gating = ONE external Panasonic AEV14012 master contactor** on the B+ bolt: Perm B+ -> F-Main
-  (100A) -> contactor -> **Switched B+** bus. Coil driven by the **protoboard** (in the Hammond box next to
-  the ML350): OR(IGN, charge Pin-B) via 2 signal diodes -> FET sinks coil-low; coil-hi = Perm B+ via
-  **F-Coil 5A**. **NO V ign-master, NO internal wake relay.** Whole box is dead in sleep.
-- **Only TWO relays remain: M (rad fan) + R (coolant).** Everything else = **fuse-direct off Switched B+**:
-  EPAS=F24 MAXI 60A->P1:2; iBooster=F29 MAXI 40A->P1:1; oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small); EPB=f39->P3:4; Zombie logic=
-  f26->X1.50; Bat Boxes=sw12; CDL=f34->P2:4; Inverter=f27->P2:5 (5A); Status=f25->P2:9/EB2 (IGN-fed);
-  Controls-acc=f33->P2:6 (10A).
-  **F20-F23 = EMPTY** (contacts robbed for relay V in an earlier iteration) - CDL/Status moved off F23/F21
-  to spare busbar slots f34/f25 (done 2026-09-13). Splice canvas still *names* the components F23/F21 (cosmetic).
-  - **M (rad fan):** contact SwB+ -> f49 -> H1:1; coil-low -> Zombie CoolingFan = **PWM1 (X1.7)**.
-  - **R (coolant):** contact SwB+ -> f59 -> P6:5,6; coil-low -> Zombie CoolantPump = **GP Out 3 (X1.3)**.
-- **Zombie IOMatrix (this session):** CoolingFan=**PWM1 (X1.7)**, BrakeLight=**PWM2 (X1.6)**, CoolantPump=
-  **GP Out 3 (X1.3)**, NegContactor=GP Out 2 (X1.4), oil-pump PWM on **pin 30** (GS450HOIL). **GP Out 1
-  ABANDONED (suspect HW).** SL1/SL2=trans solenoids, **PWM3=free spare**.
-- **Rad-fan failsafe:** a dumb overtemp switch in parallel with M coil-low (additive, TBD).
-- **X1 = the real Zombie 56-way F harness block** (the phantom J1 header + its mate/group were deleted).
-- Bulkhead/mil-round connector inventory (MS3102A24-5S etc.) below is CURRENT; only the relay-coil/wake
-  wiring is superseded.
-
-## Running tally - CLOSED (2026-08-28), ~24 conductors + case-ground
-- **FAT (true continuous): main +Bat (+ dedicated main GND)** - stud-pair OR one Anderson SB (2-pole =
-  battery +/- disconnect, sized to total box draw). **RETIERED 2026-08-30:** EPAS / iBooster / trans-oil-pump
-  moved OUT of FAT -> their big numbers are BRIEF PEAKS, not continuous (see MED-peak). Historically chassis
-  Gnd = case bond, but a dedicated main GND return is preferred at high current.
-- **MED (DTP / Cannon sz12-16): 4** - HAT +Bat (~20-25A), rad fan, EPB, Webasto (future)
-- **MED-peak (high BRIEF peak, low continuous; size for fuse + voltage-drop-at-peak, NOT continuous heat):
-  EPAS, iBooster, trans oil pump** - EPAS peak donor-dependent (~40-60A+ at stall, ~5-15A cruising), iBooster
-  only during braking (fused ~50-60A, ~0 otherwise), oil pump likely ~10-20A. -> size-8 / Anderson PP45-75
-  (or stud) once MEASURED at reassembly; likely NOT size-4 / 2AWG.
-- **SIG (DT / Cannon sz16-20)** - IGN+, Pin-B/C, Zombie sw12, BMS, ign_sense, Zombie coil-lo controls, enables, **ONE coolant pump** (single VW). NB: M5Dial (no MR feed) and "trans booster pump" (never existed) are NOT on MR. Authoritative MR count = the MR1 pinout table below (13 used + G/K/N spare).
-- Accessory feeds **closed** - only future Webasto.
+**Tiers:** FAT >25A -> M6/M8 stud (or HD30) / MED 5-25A -> Deutsch DTP (25A) / SIG <5A -> Deutsch DT (13A).
+**MIL-5015 contact ratings:** sz16=13A, sz12=23A, sz8=46A, sz4=80A, sz0=150A. `~`=estimate, TBD=unknown.
 
 ---
 
-## Power feeds IN
+## Conductors crossing the box
 
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 1 | Main +Bat feed | IN | battery / main disconnect | 100+ | **FAT** | stud M8 | feeds the whole box busbar; size to Sum  loads |
-| 2 | Chassis Gnd | IN | chassis | heavy | **FAT** | stud/strap | box ground reference |
-| 3 | IGN+ (ignition) | IN | key / ign relay | <1 | SIG | DT | feeds wake diodes + ignition-gate group |
-| 4 | Charger Pin-B (+wake) | IN | charger | 0.16 | SIG | DT | 12V when AC present |
-| 5 | Charger Pin-C (-wake) | IN | charger | 0.16 | SIG | DT | return for pin-B |
+### Power / ground IN
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 1 | Main +Bat feed | IN | battery / main disconnect | 100+ | FAT | stud M8 |
+| 2 | Chassis Gnd | IN | chassis | heavy | FAT | stud/strap (case bond) |
+| 3 | IGN+ | IN | key / ign relay | <1 | SIG | DT |
+| 4 | Charger Pin-B (+wake) | IN | charger | 0.16 | SIG | DT |
+| 5 | Charger Pin-C (-wake) | IN | charger | 0.16 | SIG | DT |
 
-## Heavy loads OUT
+### Heavy loads OUT (peak, not continuous)
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 6 | EPAS power | OUT | EPAS | ~40-80 pk | MED-peak | size-8 / Anderson / stud |
+| 7 | iBooster power | OUT | iBooster | ~50-60 pk | MED-peak | size-8 / Anderson / stud |
+| 8 | HAT +Bat (CM3 + MagneRide) | OUT | HAT (cabin) | ~20-25 | MED-hi | DTP or gland; permanent, firewall crossing |
 
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 6 | EPAS power | OUT | EPAS unit | ~40-80 **pk** | **MED-peak** | size-8 / Anderson / stud | relay N (5-gang); **PEAK not continuous** (~5-15A cruising); size for V-drop at peak; (!) MEASURE at reassembly |
-| 7 | iBooster power | OUT | iBooster | ~50-60 **pk** | **MED-peak** | size-8 / Anderson / stud | relay K or R; only during braking, ~0 otherwise; fused ~50-60A; (!) MEASURE |
-| 8 | HAT +Bat (CM3 + MagneRide) | OUT | HAT (cabin) | ~20-25 | **MED-hi** | DTP or gland | **permanent**; firewall crossing; MR ~15-20A of it |
+### Cooling / pumps OUT
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 9 | Trans oil pump | OUT | trans | ~10-20 | MED | DTP |
+| 10 | Rad fan | OUT | fan | ~4-8 | MED | DT/DTP |
+| 11 | Coolant pump (single VW) | OUT | pump | ~0.5 | SIG | DT |
+| 14 | EPB power | OUT | park brake | TBD | MED | DTP/DT |
 
-## Cooling / pumps OUT
+### Electronics feeds OUT
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 15 | Zombie sw12 | OUT | Zombie VCU | TBD | SIG-MED | DT; live in drive AND charge |
+| 16 | BMS 12V | OUT | BMS (pack) | ~0.15 | SIG | DT; rides sw12 rail |
+| 17 | ign_sense -> HAT | OUT | HAT | uA | SIG | DT; = OR(IGN, Pin-B) |
 
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 9 | Trans oil pump | OUT | trans | ~10-20 | **MED** | DTP / connector | relay M; likely <=20A (may fit paralleled sz16 or a sz12); (!) MEASURE - was assumed >20A |
-| 10 | Rad fan | OUT | fan | 4.25 | MED | DT/DTP | relay O; Zombie-controlled |
-| 11 | Coolant pump 1 | OUT | pump | **0.48 meas** | SIG | DT | Denso 064100-1110, teeny. **Measured ~480mA moving water** (clamp on 2A DC range - verify in series, clamps are weak <1A). Driven by Zombie low-side, NOT relay P (P is dead). (!) low draw -> flow may be marginal, MEASURE L/min |
-| ~~12~~ | ~~Coolant pump 2~~ | - | - | - | - | - | **REMOVED - single VW coolant pump now (see MR1 pinout pin E). MR pin K freed.** |
-| ~~13~~ | ~~Trans booster pump~~ | - | - | - | - | - | **NEVER EXISTED - rejected suggestion. MR pin N freed.** |
-| 14 | EPB power | OUT | park brake | **TBD** | MED | DTP/DT | relay L; brief actuation peak |
+### Control / signal (Zombie <-> box)
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 19 | Zombie -> M coil (rad-fan ctrl) | IN | Zombie CoolingFan (PWM1/X1.7) | <1 | SIG | DT |
+| 20 | Zombie -> R coil (coolant ctrl) | IN | Zombie CoolantPump (GP Out 3/X1.3) | <1 | SIG | DT |
+| 22 | Zombie enable (gang S) | OUT | Zombie | <1 | SIG | DT |
+| 23 | Inverter enable (gang T) | OUT | inverter | <1 | SIG | DT |
+| 24 | Bat-boxes enable | OUT | bat boxes | <1 | SIG | DT; rides sw12 (drive OR charge) |
 
-## Electronics feeds OUT (wake-switched / permanent B+)
+### Charge-port / interlock (routing TBD - may not cross this box)
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 29 | Park-pawl feed (sw12 -> HSDN "B") | OUT | trans HSDN | tiny | SIG | DT; dry SPST, 12V present = in Park |
+| 30 | AVC2 +12V | OUT | AVC2 | <0.02 | SIG | DT; if AVC2 used |
+| 31 | AVC2 relay -> Zombie | - | Zombie/charger | <1 | SIG | DT; charge-enable / motor-inhibit |
 
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 15 | Zombie **sw12** | OUT | Zombie VCU | TBD | SIG-MED | DT | **Zombie can't sleep -> needs sw12 live in drive AND charge**; power path decided by (Zombie+BMS draw) vs Pin-B 0.16A - see open Q4 |
-| 16 | BMS 12V | OUT | BMS (pack) | ~0.15 | SIG | DT | ESP32 T-CAN485; rides the sw12 wake rail |
-| 17 | ign_sense -> HAT | OUT | HAT | uA | SIG | DT | = OR(IGN, Pin-B) via the 2 inline diodes; wake/sleep |
-| ~~18~~ | ~~M5Dial 12V~~ | - | - | - | - | - | **NOT via MR - M5Dial needs no MR feed (powered on controls side). MR pin G freed.** |
+### Accessory (above-factory only; all '76 FJ-55 factory loads stay on the OEM fusebox)
+| # | Conductor | Dir | Far end | ~A | Tier | Connector |
+|--|--|--|--|--|--|--|
+| 25 | Webasto 12V | OUT | Webasto | ~10 | MED | DT; FUTURE, V socket, CM3-driven coil |
 
-## Control / signal (Zombie <-> box)
-
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 19 | Zombie -> rad-fan coil-low | IN | Zombie | <1 | SIG | DT | = Zombie **CoolingFan** (thermostatic, CHARGE+RUN) -> assign to **SL1/SL2 or Out1/Out3**; **O coil-high MUST be live in charge (fix f52/N gating)** |
-| 20 | Zombie -> coolant pump | IN | Zombie | ~0.5 | SIG | DT | **Single VW pump** on relay R coil-low (Zombie CoolantPump = X1.3). (No 2nd pump, no trans booster - both dropped.) |
-| ~~21~~ | ~~Zombie -> trans-pump coil-low~~ | - | - | - | - | - | **REMOVED - trans booster never existed.** |
-| 22 | Zombie enable (gang S) | OUT | Zombie | <1 | SIG | DT | ignition-enable gang; (!) may merge with #15 |
-| 23 | Inverter enable (gang T) | OUT | inverter | <1 | SIG | DT | gang |
-| 24 | Bat-boxes enable | OUT | bat boxes | <1 | SIG | DT | **rides sw12 (drive OR charge) like #15/#16 - must be alive in charge too (BMS/contactor control); NOT the ignition gang. No relay: fused tap off the sw12 rail = R(Wake) output f59-61. Relay U FREED to spare. So it needs NO AddBrown holder. (2026-09-01)** |
-
-**(Oil-pump PWM `GS450pumpPwm` = Zombie->controller direct, NOT through this box - on Splice already.)**
-
-### Zombie IOMatrix pin budget  [SUPERSEDED 2026-09-21 - see top banner]
-Current: **PWM1 = CoolingFan**, **PWM2 = BrakeLight**, **GP Out 3 = CoolantPump**, **GP Out 2 = NegContactor**,
-oil-pump PWM on **pin 30**, **SL1/SL2 = trans solenoids**, **PWM3 = free spare**. **GP Out 1 ABANDONED**
-(suspect HW - both rad-fan + brake moved to PWM). Park-pawl interlock = a Zombie **INPUT** (separate budget).
-~~Old: SL1=CoolingFan, SL2=CoolantPump, Out1=BrakeLight, Out3=free, PWM1-3=free.~~
-
-## Charge-port / interlock (routing TBD - may or may not cross THIS box)
-
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 29 | Park-pawl feed (sw12 -> HSDN "B" pin) | OUT | trans HSDN conn | tiny | SIG | DT | pawl = **DRY SPST lever switch**: passes B-pin->output pin when in Park (transmission does NOT source 12V - we feed it). Box feeds **sw12 to B**; **output pin -> Zombie GP12v Input (pin 50)** -> 12V present = in Park -> inhibit torque. (!)fail-safe: broken wire reads "not Park"->torque allowed; consider inverting (gnd on B + pullup, or gate torque-enable). Output->Zombie may not route thru box |
-| 30 | AVC2 +12V | OUT | AVC2 module | <0.02 | SIG | DT | if AVC2 used (J1772 handshake); tiny; likely lives at charge port - may not cross box |
-| 31 | AVC2 relay -> Zombie | - | Zombie/charger | <1 | SIG | DT | SPDT charge-enable / motor-inhibit; routing TBD |
-
-**Splice to-dos (not this box):** BrakeLight (Zombie->brake lights); park-pawl interlock sense (HSDN->Zombie
-input) + torque inhibit; AVC2 wiring (inlet CP/PP/GND + relay). J1772 handshake = **AVC2 (public) vs
-Zombie CpSpoof (home/known EVSE) vs resistor spoof (crude)** - pick one; AVC2 offloads Zombie.
-
-## Accessory feeds (above-factory only)
-
-**SCOPE:** vehicle = **1976 FJ-55 Land Cruiser**. This box handles **only stuff ABOVE the factory
-harness** (EV conversion + new tech). All the usual '76 accoutrements - headlights, tail/brake,
-wipers, horn, blower, dome, etc. - are on the **factory harness/fusebox** (fed from the 12V battery
-in parallel), NOT through this box. So the accessory list here is short - only genuinely-new feeds:
-
-| # | Conductor | Dir | Far end | ~A | Tier | Connector | Notes |
-|--|-----------|-----|---------|----|------|-----------|-------|
-| 25 | Webasto 12V | OUT | Webasto | ~10 (20A relay) | MED | DT | **FUTURE**; populate empty **V socket**; **coil-lo = CM3-driven** (remote MQTT pre-heat) = the one CM3 relay |
-
-**Ruled OUT of this box (2026-08-28):** air-ride compressor (none yet - Schrader valves), Sim7060
-modem (off the HAT), aux lighting (none), lockers (none), **winch (its own 3/0 lug off 12V Aux)**.
-=> accessory list is **closed** - Webasto is the only above-factory add, and it's future.
+List closed 2026-08-28. (CAN bypasses this box.)
 
 ---
 
-## Open questions (fill these and the count firms up)
+## Relay + fuse-direct map (box internals)
 
-1. **Accessory feeds** - what else leaves the box always-hot/fused? (lights, USB, aux, horn, etc.)
-2. **EPAS + iBooster** actual continuous/peak amps -> stud vs HD30 connector.
-3. **Trans oil pump / EPB / coolant pumps** amps -> DT vs DTP.
-4. **Zombie power path** - RESOLVED (2026-08-28): Zombie can't sleep, gets **sw12**, needs 12V live in drive AND charge. Truck is dismantled -> can't measure draw -> **ASSUME >0.16A** -> **wake-switch REQUIRED** (pin-B can't power the rail, only triggers). Wake-switch = small high-side switch, Bat+->sw12 (~2A), fired by OR(IGN, pin-B). **HOME DECIDED (2026-08-28): the spare K/R ML350 socket** (the one iBooster doesn't take) - coil-hi = Bat+, contacts = Bat+->sw12; coil-lo sunk by a **small N-FET** (gate = OR(IGN,pin-B) via 2 signal diodes) on **a small board inside the box** (accepted worst-case; NO inline-in-harness). => both K and R now used (iBooster + wake); V stays the empty spare. (No cat-in-a-python inline blobs - Herb.)
-5. **CAN** - CONFIRMED **bypasses this box** (Herb 2026-08-28); not listed. (ok)
-6. **Grounds** - assumed loads ground to chassis locally (not back through box); confirm.
-7. **Cannon "millrounds"** - **RESOLVED 2026-08-30:** inventoried what Herb actually has and mapped
-   the conductor tiers onto them - see **On-hand connectors + role map** below. MIL-rounds DO replace
-   the Deutsch bulkheads. (Original note: DT pins won't retain in MIL inserts - use native contacts;
-   MIL A/contact = sz16 ~13A, 12 ~23A, 8 ~46A, 4 ~80A, 0 ~150A.)
-
-## Enclosure
-**12x12 cast-aluminum WATERPROOF Hammond box** houses: ML350 fusebox + 1-2 busbars + the wake-switch board + supporting bits (Herb 2026-08-28).
-- Plenty of wall real estate (4x 12" walls) for bulkhead connectors + studs -> the ~25-40 conductor plan is physically fine.
-- **Waterproof -> all penetrations must stay sealed:** sealed bulkhead connectors (Deutsch DT / Cannon MIL are sealed) or sealed glands; studs need sealed feed-throughs. Reinforces connectors over open terminals.
-- **Cast-Al case = ground plane** -> chassis-ground stud to the case (covers conductor #2); box bonds to chassis.
-- Room for the wake-switch small board (the "worst-case protoboard") is a non-issue here.
-
----
-
-## On-hand connectors + role map (inventoried 2026-08-30)
-
-Connectors Herb has in hand and where each lands. Tiers: **FAT** (studs / size-4), **MED** (>13A),
-**SIG** (<5A). MIL-5015 contact ratings: sz16=13A, sz12=23A, sz8=46A, sz4=80A, sz0=150A.
-
-| Connector (on hand) | Type / coupling | Contacts | A/contact | Mate status | Role |
-|---|---|---|---|---|---|
-| **3x Amphenol/DDK MS3102A24-5S** | MIL-5015, **threaded**, box-mount recept. | 16x size-16 socket, **populated w/ pigtails** | 13A | **complete pairs** (bulkhead + plug) | **primary sealed SIGNAL bulkhead** - the 16 SIG (16<->16 exact); 2 spare pairs |
-| **TE CPC 206150-1 + bulkheads** | Circular plastic (CPC Sy1), threaded, **IP65** | 37 pos, size-16 | 13A | have plug + bulkhead housings; **need male crimp pins (buy)** | big **internal harness / 2nd bulkhead** where IP65 is enough; 37-way = all SIG+MED+spares |
-| **Bernier CMA 1N14 / 5N14** | **Push-pull** circular, harsh-env | 14 pos, signal | ~few A (confirm) | **both halves** (1N14 recept + 5N14 plug) | **quick-disconnect SIGNAL** group (cabin / M5Dial / service) |
-| **ITT Cannon CA3102E32-17P-B-F80** | MIL-5015 **CA-Bayonet (reverse-bayonet)**, box recept. | 4x size-4 (**4 AWG**), **PIN** | 80A | mate CA3106E32-17S-B on DigiKey = **$359 CAD, MOQ 100** (new-prod) -> **not economical for 1** | **SHELVED 2026-08-30.** Would've been the FAT bulkhead, but the mate isn't buyable as a single. Single mate, if ever wanted, = military **surplus/eBay** (cheap NOS singles), not DigiKey |
-| **2-cond 32-5P plug (MS5049/41-20A shell)** | MIL-5015-family plug, 2x ~size-0 | 2x ~150A | orphan **plug**, no receptacle | **SHELVED** - redundant with the 4-way; only if a split heavy main-power inlet is later wanted |
-| **Studs (main +Bat/GND) or 1x Anderson SB** | sealed stud feed-throughs / SB 2-pole | 2 (main +/-) | total box draw | n/a / SB single-unit | **true FAT only (RETIERED 2026-08-30):** main +Bat + main GND. EPAS/iBooster/oil-pump demoted to MED-peak (peak not continuous) -> their own MED connectors/studs, sized after measurement. SB = optional single-action main disconnect |
-
-**Rules carried out of this:**
-- **>13A stays off size-16:** HAT +Bat (~20-25A) + all FAT can't ride the MS3102 / CPC size-16 contacts
-  -> **studs or the CA-B**. Small MED (rad fan ~8A, EPB brief) are fine on size-16.
-- **Pin-doubling for current:** paralleling 2x size-16 ~= **~20A** (derate ~20% - contacts don't share
-  50/50, plus a fan-out junction + bundle heat), **NOT a clean 26A**. Fine for something solidly <=20A;
-  do NOT use it to promote HAT +Bat (25A, unmeasured) off the studs. FAT via paralleling = impractical.
-- **Sealing fit:** MS3102 (metal + gasket) and CA-B = best for the waterproof-box walls; CPC = IP65
-  (jets, not immersion); Bernier push-pull = sealed harsh-env (confirm IP rating).
-- **Parts to buy:** CPC size-16 male crimp pins (only if CPC used). ~~CA3106E32-17S-B mate~~ **DROPPED** -
-  DigiKey wants $359 CAD / MOQ 100, so **FAT stays on studs** (CA-B receptacle shelved; single mate only
-  via surplus/eBay if ever revisited).
-
----
-
-## Box external interface / connector map (consolidated - for the IP67-lid label)
-
-Single at-a-glance view of everything crossing the box boundary. Detail lives in the
-conductor list above, `EVJ55_ML350_powerdist.md`, and `ML350 fuse box - Pinout.csv`; this ties the
-connector-facing side together. (Also mirrored into the Splice fuse descriptions.)
-
-### Power / ground
-- **Main Bat+ IN -> M8 busbar stud** (feeds constant Bat+ busbar, all relay coil-highs + contacts).
-- **Chassis/case ground** (bond); a Gnd point for V coil-low, V contact, and the wake FET source.
-
-### Relay outputs -> loads + how each coil is driven  [REPLACED 2026-09-21 - see top banner]
-Only TWO relays now; everything else fuse-direct off Switched B+ (master contactor gates the box).
+**Relays (2):** everything else is fuse-direct off Switched B+ (external master contactor gates the box).
 | Relay | Load | Fuse | Out pins | Coil driven by |
-|---|---|---|---|---|
-| **M** | Rad fan | f49 | H1:1 | Zombie **CoolingFan = PWM1 (X1.7)** (+ dumb overtemp switch parallel, TBD) |
-| **R** | Coolant | f59 | P6:5,6 | Zombie **CoolantPump = GP Out 3 (X1.3)** |
+|--|--|--|--|--|
+| M | Rad fan | f49 | P4:13,14 | Zombie CoolingFan = PWM1 (X1.7) |
+| R | Coolant | f59 | P6:5,6 | Zombie CoolantPump = GP Out 3 (X1.3) |
 
-Fuse-direct (no relay): EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1 (heavy spade; f37/P3:7 was 18ga, too small), EPB=f39->P3:4,
-Zombie logic=f26->X1.50, Bat Boxes=sw12, CDL=f34->P2:4, Inverter=f27->P2:5 (5A), Status=f25->P2:9/EB2,
-Controls-acc=f33->P2:6 (10A). (Slot<->P-pin map = factory-fixed per `ML350 fuse box - Pinout.csv`.)
-(**F20-F23 empty** - contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25.)
-~~Old relay roster (N EPAS / M oilpump / K iBooster / O radfan / L EPB / S,T,U gang / V ign-master / P dead)
-= all gone; EPAS/iBooster/oil/EPB are fuse-direct, V/gang/wake-relay replaced by the external contactor.~~
+**Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
+Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
+Status=f25->P2:9 (IGN-fed), Controls-acc=f33->P2:6 (10A). Slot<->P-pin map = factory-fixed per the CSV.
+**F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25).
 
-### Control inputs (into the box)  [REPLACED 2026-09-21]
-- **Master-contactor coil** <- protoboard FET, gated by **OR(IGN, charge Pin-B)** via 2 signal diodes.
-- **Zombie CoolingFan (PWM1/X1.7)** -> M coil (rad fan).
-- **Zombie CoolantPump (GP Out 3/X1.3)** -> R coil (coolant pumps, ~480mA ea).
-- **Zombie BrakeLight (PWM2/X1.6)** -> brake lights (ties into OEM harness, outside box).
+---
 
-### sw12 rail (drive OR charge) out
-- Zombie sw12, BMS 12V, bat-boxes enable - all on R's f59-61 rail.
+## Signal bulkhead - MS3102A24-5S mil-round (MR1) pinout
 
-### Signal bulkhead (MS3102A24-5S, 16x sz16 = the SIG tier) - *PINOUT (reconciled 2026-09-28)
-Insert 24-5, pins A B C D E F G H J K L M N P R S. Physical rows from keyway down: (A B)(C)(D E)
-(F G H)(J K)(L M N)(P R)(S). Higher-current (*) placed on the outer positions, spread apart.
-**This table is the SOURCE OF TRUTH for MR1** - it supersedes the older "Cooling/pumps OUT" inventory
-rows above (which are pre-contactor and list dropped/phantom loads). Recovered from the 2026-09-27/28
-session transcripts + Herb's direct confirmations.
+Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from keyway down:
+(A B)(C)(D E)(F G H)(J K)(L M N)(P R)(S); higher-current (*) on outer positions. **SOURCE OF TRUTH for MR1.**
 
 | Pin | Signal | ~A | Box-side source |
 |--|--|--|--|
-| A | Rad fan power * | ~4-8 | **P4:13,14 paralleled in the connector -> ONE wire to strip** (M relay out; was H1:1) |
-| B | IGN+ | <1 | protoboard (vehicle IGN) |
+| A | Rad fan power * | ~4-8 | P4:13,14 paralleled in-connector -> one wire to strip |
+| B | IGN+ | <1 | protoboard |
 | C | Charger Pin-B (wake) | 0.16 | protoboard / Charger page |
-| D | Zombie->M coil (fan ctrl) | <1 | M.86 relay coil (x-page); phys lands P5:14 |
+| D | Zombie -> M coil (fan ctrl) | <1 | M.86 coil, x-page (phys P5:14) |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
 | F | BMS 12V | 0.15 | inside-feed TBD |
-| **G** | **SPARE** | - | (was M5Dial 12V - M5Dial needs NO MR feed) |
+| G | SPARE | - | - |
 | H | EPB power * | brief pk | P3:4 |
-| J | Zombie->R coil (coolant ctrl) | <1 | R.86 relay coil (x-page); phys lands P5:1 |
-| **K** | **SPARE** | - | (was Coolant pump 2 - single VW pump now, only E used) |
+| J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
+| K | SPARE | - | - |
 | L | Bat boxes feed * | med | P2:3 |
 | M | Charger Pin-C (wake rtn) | 0.16 | protoboard / Charger page |
-| **N** | **SPARE** | - | (was "Trans booster pump" - **never existed**, rejected suggestion) |
+| N | SPARE | - | - |
 | P | ign_sense / Sw12v+ wake -> HAT | uA | protoboard |
 | R | CDL | small | P2:4 |
 | S | Zombie logic 12V * | ~1-3 | P2:7 |
 
-**3 spare pins = G, K, N.** Future expansion is bounded to +3 circuits: pre-run 3 gauge-picked flex Px
-spares (candidates P1:7/f21, P1:10/f20, P2:10/f31, P3:7/f37-18AWG) to the strip so a future load can land
-on G/K/N without pulling the box. Leave P2:5/P2:6/P2:9 earmarked (Inv/f_acc/Status).
+**3 spare pins = G, K, N** (expansion bounded to +3 circuits). Leave P2:5/P2:6/P2:9 earmarked.
 
-**Splice status (2026-09-28):** MR1 built on the "Hammond" page (project 17410eef-ffcd-4a2a-adb7-dab94271a8f4);
-A rewired to P4:13,14 and H1 deleted; H1-era RADFAN orphan ferrules/bundles cleansed. TODO in Splice:
-rename A's two P4 conductors from auto-net (NET_mula*) to RADFAN_PWR; resolve F (BMS 12V) box-side feed.
+---
 
-### CAN - bypasses the box (not routed through it).
+## On-hand connectors + role
 
-### Still TBD before the lid label is final
-- ~~F21/F23 real slots~~ RESOLVED: F20-F23 empty (robbed for V); Status=f25, CDL=f34. The 16-pin
-  bulkhead assignments; measured currents.
+| Connector | Type | Contacts | A/contact | Role |
+|--|--|--|--|--|
+| 3x Amphenol/DDK MS3102A24-5S | MIL-5015 threaded, box recept. | 16x sz16 socket, pigtailed | 13A | primary sealed SIGNAL bulkhead (MR1); 2 spare pairs |
+| TE CPC 206150-1 + bulkheads | Circular plastic, IP65, threaded | 37 pos, sz16 | 13A | big internal harness / 2nd bulkhead (need male crimp pins) |
+| Bernier CMA 1N14 / 5N14 | Push-pull circular, harsh-env | 14 pos | ~few A | quick-disconnect SIGNAL group (cabin/service) |
+| Studs (main +Bat/GND) or 1x Anderson SB | sealed stud feed-throughs / SB 2-pole | 2 | total box draw | FAT: main +Bat + main GND (SB = optional main disconnect) |
+
+**Rules:** >13A stays off sz16 (studs); rad fan/EPB fine on sz16. Waterproof walls -> sealed bulkheads
+(MS3102 metal+gasket best) or sealed glands; studs need sealed feed-throughs. Case = ground plane.
