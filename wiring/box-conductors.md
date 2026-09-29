@@ -78,8 +78,13 @@ List closed 2026-08-28. (CAN bypasses this box.)
 
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
 Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
-Status=f25->P2:9 (IGN-fed), Controls-acc=f33->P2:6 (10A). Slot<->P-pin map = factory-fixed per the CSV.
-**F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25).
+Status=f25->P2:9 (IGN-fed), Controls-acc=f33->P2:6 (10A), BMS 12V=f31->P2:10 (5A). Slot<->P-pin map = factory-fixed per the CSV.
+**F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25). **P1:3-10 are DEAD**
+(f20-f23 slots robbed = no contacts) - future spare fuses must come from P2/P3/P4/P6 slots, not P1.
+
+**Status (P2:9)** = ignition-switched 12V feed to the dash **"EB2" 8-pin Status Connector** (dash/status power).
+**Controls-acc (P2:6)** = cabin controls 12V (PRNDL / CDL switch / dash). Both cross to the cabin (connector TBD;
+candidate = Bernier cabin QD, keeping MR1 G/K/N spare). Neither rides MR1.
 
 ---
 
@@ -92,16 +97,16 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 |--|--|--|--|
 | A | Rad fan power * | ~4-8 | P4:13,14 paralleled in-connector -> one wire to strip |
 | B | IGN+ | <1 | protoboard |
-| C | Charger Pin-B (wake) | 0.16 | protoboard / Charger page |
+| C | Charger Pin-B (wake) | 0.16 | protoboard OR-wake (12V when AC present) |
 | D | Zombie -> M coil (fan ctrl) | <1 | M.86 coil, x-page (phys P5:14) |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
-| F | BMS 12V | 0.15 | inside-feed TBD |
+| F | BMS 12V | 0.15 | f31 -> P2:10 (Switched B+ / sw12; alive drive+charge) |
 | G | SPARE | - | - |
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | SPARE | - | - |
 | L | Bat boxes feed * | med | P2:3 |
-| M | Charger Pin-C (wake rtn) | 0.16 | protoboard / Charger page |
+| M | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
 | N | SPARE | - | - |
 | P | ign_sense / Sw12v+ wake -> HAT | uA | protoboard |
 | R | CDL | small | P2:4 |
