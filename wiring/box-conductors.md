@@ -117,6 +117,10 @@ G and M are the two center-of-connector pins (hardest to solder) - keep them spa
 **Charger B/C** ride MR1 (C=Pin-B, N=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
 (no extra box perforation). Pin-B -> protoboard OR-wake; Pin-C -> Hammond ground stud.
 
+**VCU control (D, J, S)** break out on the MR1-M vehicle side to a **3-pin DT**, pins alphabetical:
+DT-1 = D (Zombie CoolingFan ctrl, M coil-low), DT-2 = J (Zombie CoolantPump ctrl, R coil-low),
+DT-3 = S (Zombie logic 12V) -> Zombie VCU (X1). These are the ONLY MR1-M pins that reach the VCU.
+
 ---
 
 ## On-hand connectors + role
