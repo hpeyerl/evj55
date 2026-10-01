@@ -127,15 +127,15 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | SPARE | - | - |
 | L | Bat boxes feed * | med | P2:3 |
-| M | SPARE | - | (was Charger Pin-C; moved to N to avoid a center-of-connector solder joint) |
-| N | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
+| M | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
+| N | SPARE | - | - |
 | P | CM3 wake (ign_sense = OR(IGN,Pin-B)) | uA | ORBoard OR-out -> MR1:P -> DD_Sigs:1 (CM3 wake) |
 | R | CDL | small | P2:4 |
 | S | Zombie logic 12V * | ~1-3 | P2:7 |
 
-**3 spare pins = G, K, M** (expansion bounded to +3 circuits). Leave P2:5/P2:6/P2:9 earmarked.
-G and M are the two center-of-connector pins (hardest to solder) - keep them spare where possible.
-**Charger B/C** ride MR1 (C=Pin-B, N=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
+**3 spare pins = G, K, N** (expansion bounded to +3 circuits). Leave P2:5/P2:6/P2:9 earmarked.
+(G and M are the two center-of-connector pins; G is kept spare. Charger Pin-C uses M by Herb's call.)
+**Charger B/C** ride MR1 (C=Pin-B, M=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
 (no extra box perforation). Pin-B -> protoboard OR-wake; Pin-C -> Hammond ground stud.
 
 **VCU control (D, J, S)** break out on the MR1-M vehicle side to a **3-pin DT**, pins alphabetical:
