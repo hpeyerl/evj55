@@ -88,6 +88,12 @@ Slot<->P-pin map = factory-fixed per the CSV.
 (**4WD light, reverse light, VSS**) originate at the **transfer case** - hence the name. Box-fed, ign-gated;
 cabin crossing route still TBD.
 
+**CM3 wake vs controls power - SPLIT (2026-10-01):** the CM3 wakes on **DD_Sigs:1**, fed by **MR1:P
+(IGN_SENSE = ORBoard OR(IGN,Pin-B))** -> wakes in **drive AND charge** (so the dash comes up to show charge
+status). PRNDL + CDL power stays on **SW12V_ACC** from the **OEM ign-switched fuse** -> **drive only** (they
+sleep in charge, which is fine - you don't shift or lock diffs while charging). DD_Sigs:1 is NO LONGER on
+SW12V_ACC. (CM3 wake pin confirmed OK sensing a 12V-level OR'd signal, not the full accessory rail.)
+
 **Controls-acc (P2:6)** = switched 12V for the EV control gear (dashboard DD-*, M5Dial/PRNDL, EPB, CDL switch).
 **RESOLVED 2026-10-01: fed from an existing OEM fuse behind the firewall (low current), NOT via this box**
 -> **P2:6 / f33 now FREE.** (Use an ignition/accessory-switched OEM fuse so the controls sleep.) NB this is
@@ -123,7 +129,7 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | L | Bat boxes feed * | med | P2:3 |
 | M | SPARE | - | (was Charger Pin-C; moved to N to avoid a center-of-connector solder joint) |
 | N | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
-| P | ign_sense / Sw12v+ wake -> HAT | uA | protoboard |
+| P | CM3 wake (ign_sense = OR(IGN,Pin-B)) | uA | ORBoard OR-out -> MR1:P -> DD_Sigs:1 (CM3 wake) |
 | R | CDL | small | P2:4 |
 | S | Zombie logic 12V * | ~1-3 | P2:7 |
 
