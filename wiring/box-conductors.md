@@ -83,8 +83,9 @@ Status=f25->P2:9 (IGN-fed), Controls-acc=f33->P2:6 (10A), BMS 12V=f31->P2:10 (5A
 (f20-f23 slots robbed = no contacts) - future spare fuses must come from P2/P3/P4/P6 slots, not P1.
 
 **Status (P2:9)** = ignition-switched 12V feed to the dash **"EB2" 8-pin Status Connector** (dash/status power).
-**Controls-acc (P2:6)** = cabin controls 12V (PRNDL / CDL switch / dash). Both cross to the cabin (connector TBD;
-candidate = Bernier cabin QD, keeping MR1 G/K/N spare). Neither rides MR1.
+**Controls-acc (P2:6)** = cabin controls 12V (PRNDL / CDL switch / dash). Both must reach the cabin but the
+**crossing route is UNDECIDED** - Bernier nixed, a dedicated cabin DT nixed, and MR1's only spares (G/K/M)
+include the two center pins to keep spare. Needs Herb's call. (They do NOT currently ride MR1.)
 
 ---
 
