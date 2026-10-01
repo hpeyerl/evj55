@@ -78,25 +78,28 @@ List closed 2026-08-28. (CAN bypasses this box.)
 
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
 Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
-Status=f25->P2:9 (IGN-fed; rename pending -> Tcase/Dash-Status), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse
-behind firewall - P2:6/f33 now FREE), BMS 12V=f31->P2:10 (5A; **may change - BMS-inside proposal, see below**).
+Tcase-Status=f25->P2:9 (IGN-fed), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse behind firewall - P2:6/f33 now
+FREE), BMS 12V=f31->P2:10 (5A; **may change - BMS-inside proposal, see below**).
 Slot<->P-pin map = factory-fixed per the CSV.
 **F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25). **P1:3-10 are DEAD**
 (f20-f23 slots robbed = no contacts) - future spare fuses must come from P2/P3/P4/P6 slots, not P1.
 
-**Status (P2:9, f25)** = ignition-switched 12V to the dash **"EB2" status connector**, which returns
-**4WD-light / reverse-light / VSS** indicator state. Box-fed, ign-gated; cabin crossing route still TBD.
-**Rename pending** -> `Tcase-Status` (or broader, since it's 4WD+reverse+VSS).
+**Tcase-Status (P2:9, f25)** = ignition-switched 12V to the dash **"EB2" status connector**. All its signals
+(**4WD light, reverse light, VSS**) originate at the **transfer case** - hence the name. Box-fed, ign-gated;
+cabin crossing route still TBD.
 
 **Controls-acc (P2:6)** = switched 12V for the EV control gear (dashboard DD-*, M5Dial/PRNDL, EPB, CDL switch).
 **RESOLVED 2026-10-01: fed from an existing OEM fuse behind the firewall (low current), NOT via this box**
 -> **P2:6 / f33 now FREE.** (Use an ignition/accessory-switched OEM fuse so the controls sleep.) NB this is
 distinct from CDL, whose external split rides the OEM harness too (Herb: "all the CDL stuff has its own OEM harness").
 
-**PROPOSED (pending BMS packaging) - BMS inside the box:** mount the BMS ESP32 in the Hammond box, power it
-internally off f31 (sw12), and re-task **MR1 F -> CANH, K -> CANL** so the pack CAN exits via MR1 instead of
-BMS 12V. Removes the f31->P2:10->MR1-F.F feed; routes BMS CAN THROUGH the box (reverses "CAN bypasses box" for
-this leg); check CAN termination (120R at the truck's rear) + thermal fit. Drops spares to G, M. NOT DONE.
+**PROPOSED (pending BMS packaging + open CAN1 harness) - BMS inside the box:** mount the BMS ESP32 in the
+Hammond box, power it internally off f31 (sw12), and re-task **MR1 F -> CANH, K -> CANL** so the pack CAN exits
+via MR1 instead of BMS 12V. Removes the f31->P2:10->MR1-F.F feed; routes BMS CAN THROUGH the box (reverses
+"CAN bypasses box" for this leg). **Topology (Herb's plan):** F carries **2x CANH**, K carries **2x CANL**
+(bus passes through = in + out), with a **~6in spur** to the BMS hardware; **disable the BMS onboard
+termination** (it sits mid-bus, not an end). Verify thermal fit in the sealed box + reconcile where the
+120R termination actually lives (one is at the truck's rear; exact BMS-end TBD). Drops spares to G, M. NOT DONE.
 
 ---
 
