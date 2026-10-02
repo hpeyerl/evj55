@@ -40,8 +40,8 @@ one green/white twisted pair.
 | T | DCDC logic power | White red |
 | S | DCDC enable | White black |
 | E/F | HVIL loop | NOT run in cable (plan: jumper at charger - TBD) |
-(CAN H/L carried in BOTH cables' green/white pairs - 4 wires on the 2-wire bus, likely a
-daisy-chain/pass-through. A=CANH / G=CANL per the A/G "High/Low" ordering above.)
+(CAN H/L carried in BOTH cables' green/white pairs - 4 wires on the 2-wire bus =
+a daisy-chain/pass-through (confirmed) - this node is mid-bus, so NO 120R here (termination at the bus ends). A=CANH / G=CANL per the A/G "High/Low" ordering above.)
 
 ## The core problem: it's THREE things, not one
 Getting a pack to actually charge requires all three, and they're independent:
