@@ -28,6 +28,21 @@ AVC2. Reference doc - ask for "the charging explanation" and this is it. (2026-0
 | S | DCDC enable (9-16V) - OR'd with the CAN enable command |
 > Cascadia variant pinout differs slightly (per wiki, unspecified).
 
+## Charger harness cable map (RT06 charger connector)
+Two 2-pair cables - **grey sheath** + **white sheath**; each = one red/black twisted pair +
+one green/white twisted pair.
+| Dilong pin | Signal | Wire(s) |
+|--|--|--|
+| B | Charger Pin-B (wake +, 12V on AC) | Grey red |
+| C | Charger Pin-C (wake -, return) | Grey black |
+| A | CANH | Grey white + White white |
+| G | CANL | Grey green + White green |
+| T | DCDC logic power | White red |
+| S | DCDC enable | White black |
+| E/F | HVIL loop | NOT run in cable (plan: jumper at charger - TBD) |
+(CAN H/L carried in BOTH cables' green/white pairs - 4 wires on the 2-wire bus, likely a
+daisy-chain/pass-through. A=CANH / G=CANL per the A/G "High/Low" ordering above.)
+
 ## The core problem: it's THREE things, not one
 Getting a pack to actually charge requires all three, and they're independent:
 
