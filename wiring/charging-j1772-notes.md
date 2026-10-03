@@ -37,11 +37,15 @@ one green/white twisted pair.
 | C | Charger Pin-C (wake -, return) | Grey black |
 | A | CANH | Grey white + White white |
 | G | CANL | Grey green + White green |
-| T | DCDC logic power | White red |
-| S | DCDC enable | White black |
+| T | DCDC logic power (fed sw12 via MR1-G <- f33/P2:6) | White red |
+| S | DCDC enable = TIED TO T (both sw12) | White black (jumper to T) |
 | E/F | HVIL loop | NOT run in cable (plan: jumper at charger - TBD) |
 (CAN H/L carried in BOTH cables' green/white pairs - 4 wires on the 2-wire bus =
 a daisy-chain/pass-through (confirmed) - this node is mid-bus, so NO 120R here (termination at the bus ends). A=CANH / G=CANL per the A/G "High/Low" ordering above.)
+
+**S tied to T (2026-10-03):** both on sw12 -> DCDC enabled in drive+charge, off when parked (keeps
+no-float). Overrides the Zombie CAN enable; Zombie still masters via HV contactors + CAN current limits.
+CONFIRM the Dilong allows concurrent OBC+DCDC and S asserted at wake (pre-HV).
 
 ## The core problem: it's THREE things, not one
 Getting a pack to actually charge requires all three, and they're independent:
