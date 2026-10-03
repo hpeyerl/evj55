@@ -79,7 +79,7 @@ List closed 2026-08-28. (CAN bypasses this box.)
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
 Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
 Tcase-Status=f25->P2:9 (IGN-fed), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse behind firewall - P2:6/f33 now
-FREE), BMS 12V=f31->P2:10 (5A; **may change - BMS-inside proposal, see below**).
+FREE), BMS 12V=f31->P2:10 (5A).
 Slot<->P-pin map = factory-fixed per the CSV.
 **F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25). **P1:3-10 are DEAD**
 (f20-f23 slots robbed = no contacts) - future spare fuses must come from P2/P3/P4/P6 slots, not P1.
@@ -99,13 +99,8 @@ SW12V_ACC. (CM3 wake pin confirmed OK sensing a 12V-level OR'd signal, not the f
 -> **P2:6 / f33 now FREE.** (Use an ignition/accessory-switched OEM fuse so the controls sleep.) NB this is
 distinct from CDL, whose external split rides the OEM harness too (Herb: "all the CDL stuff has its own OEM harness").
 
-**PROPOSED (pending BMS packaging + open CAN1 harness) - BMS inside the box:** mount the BMS ESP32 in the
-Hammond box, power it internally off f31 (sw12), and re-task **MR1 F -> CANH, K -> CANL** so the pack CAN exits
-via MR1 instead of BMS 12V. Removes the f31->P2:10->MR1-F.F feed; routes BMS CAN THROUGH the box (reverses
-"CAN bypasses box" for this leg). **Topology (Herb's plan):** F carries **2x CANH**, K carries **2x CANL**
-(bus passes through = in + out), with a **~6in spur** to the BMS hardware; **disable the BMS onboard
-termination** (it sits mid-bus, not an end). Verify thermal fit in the sealed box + reconcile where the
-120R termination actually lives (one is at the truck's rear; exact BMS-end TBD). Drops spares to G, M. NOT DONE.
+**BMS-inside = REJECTED (2026-10-03): the BMS does NOT go in the box.** F stays BMS 12V
+(f31->P2:10->MR1-F.F->BMS); K stays SPARE; BMS CAN keeps bypassing this box (charger CAN is A/G, not F/K).
 
 ---
 
@@ -122,7 +117,7 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | D | Zombie -> M coil (fan ctrl) | <1 | M.86 coil, x-page (phys P5:14) |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
 | F | BMS 12V | 0.15 | f31 -> P2:10 (Switched B+ / sw12; alive drive+charge) |
-| G | SPARE | - | - |
+| G | sw12 -> charger T | <1 | f33/P2:6 -> MR1-F.G -> charger T (DCDC logic pwr) |
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | SPARE | - | - |
@@ -133,9 +128,9 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | R | CDL | small | P2:4 |
 | S | Zombie logic 12V * | ~1-3 | P2:7 |
 
-**3 spare pins = G, K, M** (expansion bounded to +3 circuits). Leave P2:5/P2:6/P2:9 earmarked.
-(Charger Pin-C is on N - matches the ALREADY-SOLDERED female, so this is LOCKED. G and M are the two
-center-of-connector pins, both kept spare.)
+**2 spare pins = K, M** (M is the hard-to-solder center pin). Leave P2:5/P2:9 earmarked.
+(Charger Pin-C is on N - matches the ALREADY-SOLDERED female, LOCKED. G now = sw12 -> charger T
+(via f33/P2:6). M is a center-of-connector pin, kept spare.)
 **Charger B/C** ride MR1 (C=Pin-B, N=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
 (no extra box perforation). Pin-B -> protoboard OR-wake; Pin-C -> Hammond ground stud.
 
