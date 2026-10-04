@@ -128,12 +128,15 @@ mil-round pin assignment + Splice node IDs live in `box-conductors.md` and the S
 
 ## 7. Open items
 
-- **Inside-feed side** of MR1-F pins F (BMS 12V) and M (Charger Pin-C) - box fuse/protoboard -> MR1-F.
+- **Inside-feed side** of MR1-F pins F (BMS 12V) and N (Charger Pin-C) - box fuse/protoboard -> MR1-F.
 - **Heavy/MED bulkheads not yet modeled:** EPAS/iBooster on studs (or paralleled 13.2A connectors);
   Oil Pump on a DTP. Still run direct in Splice; P1 / P3:7 pins unwired.
 - **Controls-accessory (P2:6) + Status (P2:9)** box-crossing bulkhead path = TBD.
 - **Protoboard build** (Hammond): 2 signal diodes + OR + low-side FET + contactor drive; size the FET
-  for the AEV14012 coil; verify contactor main-terminal polarity before mounting.
+  for the AEV14012 coil.
+- **AEV14012 polarity:** main contacts are polarized - **(+) to Perm B+ bus bar (supply), (-) to ML350
+  M8 (switched load)**; current enters (+), exits (-). Coil: t5 = V+ (Perm B+ via F-Coil), t6 = GND (FET
+  sink). (At 12V reversed-blowout risk is low, but observe the marking.)
 - **Box-hot sense line to CM3** (weld-closed / stuck-on alarm; CM3 reads state only, does not act).
 - **Inverter (traction) enable:** hard-wire-gate to drive-only, or rely on Zombie charge/drive
   mutual-exclusion + HVIL?
