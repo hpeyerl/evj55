@@ -77,7 +77,8 @@ List closed 2026-08-28. (CAN bypasses this box.)
 | R | Coolant | f59 | P6:5,6 | Zombie CoolantPump = GP Out 3 (X1.3) |
 
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
-Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
+Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, ~~Inverter=f27->P2:5~~ (now gated by the
+K/M inverter-enable relay/switch; in-box feed TBD),
 Tcase-Status=f25->P2:9 (IGN-fed), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse behind firewall - P2:6/f33 now
 FREE; f33/P2:6 now = sw12->charger T via MR1-G), ~~BMS 12V=f31->P2:10~~ (freed 2026-10-08: BMS now fed from
 L/CAN box; f31/P2:10 FREE).

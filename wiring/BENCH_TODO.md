@@ -60,12 +60,12 @@ conductor list in `box-conductors.md`.
 
 ## Design-open (decide / wire later)
 
-- [ ] **Inside-feed side of mil-round F (BMS 12V) and M (Charger Pin-C)** - box fuse / protoboard ->
-      MR1-F. Only the outside (MR1-M) side is wired so far.
+- [ ] **Inside-feed side of mil-round N (Charger Pin-C)** - box fuse / protoboard -> MR1-F. (Pin-C is on
+      N, not M. F freed 2026-10-08: BMS now fed from L / the CAN box.)
 - [ ] **Controls-accessory (P2:6) + Status (P2:9) box-crossing** bulkhead path - TBD.
 - [ ] **Box-hot sense line to CM3** - weld-closed / stuck-on-contactor alarm (CM3 reads state only).
-- [ ] **Inverter (traction) enable** - hard-wire-gate to drive-only, or rely on Zombie charge/drive
-      mutual-exclusion + HVIL?
+- [ ] **Inverter (traction) enable** - DECIDED: hard drive-only gate via inverter-enable relay/switch
+      (Zombie low-side on coil; MR1 K=coil-low, M=12V out). In-box switch (socket O vs protoboard FET) TBD.
 - [ ] **Rad-fan failsafe** - dumb overtemp switch in parallel on M's coil-low.
 
 ---
@@ -106,5 +106,6 @@ contacts cap at **16 AWG**, so nothing bigger on the mil-round side.
 | J | CoolantPump ctrl (R coil-low) | P5:1 | <1 | 18-20 |
 
 **Not on the strip** (land on the protoboard, not a Px pigtail): mil-round **B** (IGN+), **C**
-(Charger Pin-B), **M** (Charger Pin-C), **P** (OR'd-wakeup). **F** (BMS 12V) inside-feed TBD.
-**G / K / N** = spare.
+(Charger Pin-B), **N** (Charger Pin-C), **P** (OR'd-wakeup).
+**Spare = F only** (freed 2026-10-08, BMS now on L / CAN box). Now used: G=charger T, K=inverter enable,
+M=inverter 12V, N=Pin-C.

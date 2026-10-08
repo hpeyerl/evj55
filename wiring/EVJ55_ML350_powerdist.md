@@ -64,7 +64,7 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 |------|-------------|
 | EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
 | Zombie logic | f26 -> P2:7 |
-| Inverter | f27 -> P2:5 (5A; enable signal, gating relies on Zombie drive/charge mutual-excl) |
+| Inverter | 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
 | Bat Boxes | sw12 -> P2:3 |
 | Controls accessory | f33 -> P2:6 (10A; PRNDL/CDL-switch/dash 12V - confirm loads) |
 | CDL | f34 -> P2:4 |
@@ -128,7 +128,7 @@ mil-round pin assignment + Splice node IDs live in `box-conductors.md` and the S
 
 ## 7. Open items
 
-- **Inside-feed side** of MR1-F pins F (BMS 12V) and N (Charger Pin-C) - box fuse/protoboard -> MR1-F.
+- **Inside-feed side** of MR1-F pin N (Charger Pin-C) - box fuse/protoboard -> MR1-F. (F freed 2026-10-08: BMS now fed from L / the CAN box.)
 - **Heavy/MED bulkheads not yet modeled:** EPAS/iBooster on studs (or paralleled 13.2A connectors);
   Oil Pump on a DTP. Still run direct in Splice; P1 / P3:7 pins unwired.
 - **Controls-accessory (P2:6) + Status (P2:9)** box-crossing bulkhead path = TBD.
@@ -138,8 +138,9 @@ mil-round pin assignment + Splice node IDs live in `box-conductors.md` and the S
   M8 (switched load)**; current enters (+), exits (-). Coil: t5 = V+ (Perm B+ via F-Coil), t6 = GND (FET
   sink). (At 12V reversed-blowout risk is low, but observe the marking.)
 - **Box-hot sense line to CM3** (weld-closed / stuck-on alarm; CM3 reads state only, does not act).
-- **Inverter (traction) enable:** hard-wire-gate to drive-only, or rely on Zombie charge/drive
-  mutual-exclusion + HVIL?
+- **Inverter (traction) enable - RESOLVED:** hard drive-only gate via an inverter-enable relay/switch -
+  Zombie low-side drives the coil in Drive, contacts feed the inverter 12V. MR1 K=coil-low, M=12V out.
+  In-box switch (ML350 socket O vs protoboard FET) still TBD.
 - Confirm `4RA 007 793-02` (K/R/M/N) contact rating; per-controller key-off quiescent draw.
 - Cosmetic (Splice): orphan empty links from CDL deletes; drag MR1-F off MR1-M; reconcile BMS CAN net labels.
 
