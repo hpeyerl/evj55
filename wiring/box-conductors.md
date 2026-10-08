@@ -40,7 +40,7 @@ Fuse/pin detail: `EVJ55_ML350_powerdist.md` + `ML350 fuse box - Pinout.csv`.
 | # | Conductor | Dir | Far end | ~A | Tier | Connector |
 |--|--|--|--|--|--|--|
 | 15 | Zombie sw12 | OUT | Zombie VCU | TBD | SIG-MED | DT; live in drive AND charge |
-| 16 | BMS 12V | OUT | BMS (pack) | ~0.15 | SIG | DT; rides sw12 rail |
+| 16 | BMS 12V | OUT | BMS (in CAN box) | ~0.15 | SIG | fed from L (P2:3) into the CAN box, not its own pin |
 | 17 | ign_sense -> HAT | OUT | HAT | uA | SIG | DT; = OR(IGN, Pin-B) |
 
 ### Control / signal (Zombie <-> box)
@@ -79,7 +79,8 @@ List closed 2026-08-28. (CAN bypasses this box.)
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
 Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, Inverter=f27->P2:5 (5A),
 Tcase-Status=f25->P2:9 (IGN-fed), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse behind firewall - P2:6/f33 now
-FREE), BMS 12V=f31->P2:10 (5A).
+FREE; f33/P2:6 now = sw12->charger T via MR1-G), ~~BMS 12V=f31->P2:10~~ (freed 2026-10-08: BMS now fed from
+L/CAN box; f31/P2:10 FREE).
 Slot<->P-pin map = factory-fixed per the CSV.
 **F20-F23 = empty** (contacts robbed for relay V; CDL/Status relocated F23/F21 -> f34/f25). **P1:3-10 are DEAD**
 (f20-f23 slots robbed = no contacts) - future spare fuses must come from P2/P3/P4/P6 slots, not P1.
@@ -99,8 +100,10 @@ SW12V_ACC. (CM3 wake pin confirmed OK sensing a 12V-level OR'd signal, not the f
 -> **P2:6 / f33 now FREE.** (Use an ignition/accessory-switched OEM fuse so the controls sleep.) NB this is
 distinct from CDL, whose external split rides the OEM harness too (Herb: "all the CDL stuff has its own OEM harness").
 
-**BMS-inside = REJECTED (2026-10-03): the BMS does NOT go in the box.** F stays BMS 12V
-(f31->P2:10->MR1-F.F->BMS); K stays SPARE; BMS CAN keeps bypassing this box (charger CAN is A/G, not F/K).
+**BMS placement (updated 2026-10-08):** BMS does NOT go in the Hammond fusebox, but DOES go in the **CAN box**
+(the hub box with the T-2CAN). Battery-box power + CAN also route into the CAN box. 12V to the CAN box comes
+from **MR1 pin L** (P2:3), which powers both the BMS and the battery boxes. **F is freed** (was BMS 12V,
+f31/P2:10). Supersedes the 2026-10-03 "BMS-external / F stays BMS 12V" note.
 
 ---
 
@@ -116,21 +119,21 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | C | Charger Pin-B (wake) | 0.16 | protoboard OR-wake (12V when AC present) |
 | D | Zombie -> M coil (fan ctrl) | <1 | M.86 coil, x-page (phys P5:14) |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
-| F | BMS 12V | 0.15 | f31 -> P2:10 (Switched B+ / sw12; alive drive+charge) |
+| F | SPARE | - | freed 2026-10-08: BMS now powered from L (in the CAN box) |
 | G | sw12 -> charger T | <1 | f33/P2:6 -> MR1-F.G -> charger T (DCDC logic pwr) |
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
-| K | SPARE | - | - |
-| L | Bat boxes feed * | med | P2:3 |
-| M | SPARE | - | - |
+| K | Inverter enable | <1 | Zombie coil-low (Drive) -> inverter-enable relay/switch |
+| L | Bat boxes + BMS feed * | med | P2:3 -> CAN box (powers BMS + battery boxes) |
+| M | Inverter 12V * | ~10 | switched 12V to inverter (in-box feed/relay TBD); center pin |
 | N | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
 | P | CM3 wake (ign_sense = OR(IGN,Pin-B)) | uA | ORBoard OR-out -> MR1:P -> DD_Sigs:1 (CM3 wake) |
 | R | CDL | small | P2:4 |
 | S | Zombie logic 12V * | ~1-3 | P2:7 |
 
-**2 spare pins = K, M** (M is the hard-to-solder center pin). Leave P2:5/P2:9 earmarked.
-(Charger Pin-C is on N - matches the ALREADY-SOLDERED female, LOCKED. G now = sw12 -> charger T
-(via f33/P2:6). M is a center-of-connector pin, kept spare.)
+**1 spare pin = F** (freed 2026-10-08 when the BMS moved to L / the CAN box). Leave P2:9 earmarked.
+(Charger Pin-C is on N - matches the ALREADY-SOLDERED female, LOCKED. G = sw12 -> charger T (via f33/P2:6).
+K = inverter enable, M (center pin) = inverter 12V ~10A.)
 **Charger B/C** ride MR1 (C=Pin-B, N=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
 (no extra box perforation). Pin-B -> protoboard OR-wake; Pin-C -> Hammond ground stud.
 
