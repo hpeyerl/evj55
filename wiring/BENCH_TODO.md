@@ -66,7 +66,7 @@ conductor list in `box-conductors.md`.
 - [ ] **Box-hot sense line to CM3** - weld-closed / stuck-on-contactor alarm (CM3 reads state only).
 - [ ] **Inverter (traction) enable** - DECIDED: hard drive-only gate via inverter-enable relay/switch
       (Zombie low-side on coil; MR1 K=coil-low, M=12V out). In-box switch (socket O vs protoboard FET) TBD.
-- [ ] **Rad-fan failsafe** - dumb overtemp switch in parallel on M's coil-low.
+- [x] **Rad-fan failsafe** - DECIDED SKIP (2026-09-29); no overtemp switch.
 
 ---
 

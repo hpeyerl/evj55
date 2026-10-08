@@ -51,7 +51,7 @@ of the contactor; it wakes on switched-12V.
 | R | Coolant pump (single VW) | f59 -> P6:5,6 | P5:1 <- Zombie CoolantPump | Bat+ common |
 
 Both coils energize only when the box is hot (coil-hi = switched B+). Coil-lo taps are populated
-P-pins = no coil rework. Rad-fan failsafe = a dumb overtemp switch in parallel on M's coil-lo (TBD).
+P-pins = no coil rework. Rad-fan failsafe = SKIP (decided 2026-09-29; no overtemp switch).
 
 **Rad-fan output moved H1:1 -> P4:13,14** (H1 pigtail lost; f49 is bussed to P4:13/14, so terminals
 harvested from spare positions **P4:6 and P4:8** were reseated at 13/14 - paralleled, both on the f49
@@ -66,7 +66,7 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 | Zombie logic | f26 -> P2:7 |
 | Inverter | 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
 | Bat Boxes | sw12 -> P2:3 |
-| Controls accessory | f33 -> P2:6 (10A; PRNDL/CDL-switch/dash 12V - confirm loads) |
+| ~~Controls accessory~~ | moved OFF-box to an OEM ign fuse behind firewall; f33/P2:6 freed, now = sw12->charger T (MR1 G) |
 | CDL | f34 -> P2:4 |
 | Status | f25 -> P2:9 (ignition-gated) |
 

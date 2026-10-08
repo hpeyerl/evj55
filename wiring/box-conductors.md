@@ -135,8 +135,9 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 **1 spare pin = F** (freed 2026-10-08 when the BMS moved to L / the CAN box). Leave P2:9 earmarked.
 (Charger Pin-C is on N - matches the ALREADY-SOLDERED female, LOCKED. G = sw12 -> charger T (via f33/P2:6).
 K = inverter enable, M (center pin) = inverter 12V ~10A.)
-**Charger B/C** ride MR1 (C=Pin-B, N=Pin-C) and break out on the MR1-M vehicle side to a **DT-2 pigtail**
-(no extra box perforation). Pin-B -> protoboard OR-wake; Pin-C -> Hammond ground stud.
+**Charger B/C/S-T** ride MR1 (C=Pin-B, N=Pin-C, G=sw12->S/T) and break out on the MR1-M vehicle side to a
+**DT3 pigtail** (1=Pin-B, 2=Pin-C, 3=S/T; no extra box perforation). Pin-B -> protoboard OR-wake;
+Pin-C -> Hammond ground stud; S/T -> charger (sw12 via f33/P2:6).
 
 **VCU control (D, J, S)** break out on the MR1-M vehicle side to a **3-pin DT**, pins alphabetical:
 DT-1 = D (Zombie CoolingFan ctrl, M coil-low), DT-2 = J (Zombie CoolantPump ctrl, R coil-low),
@@ -148,7 +149,7 @@ DT-3 = S (Zombie logic 12V) -> Zombie VCU (X1). These are the ONLY MR1-M pins th
 
 | Connector | Type | Contacts | A/contact | Role |
 |--|--|--|--|--|
-| 3x Amphenol/DDK MS3102A24-5S | MIL-5015 threaded, box recept. | 16x sz16 socket, pigtailed | 13A | primary sealed SIGNAL bulkhead (MR1); 2 spare pairs |
+| 3x Amphenol/DDK MS3102A24-5S | MIL-5015 threaded, box recept. | 16x sz16 socket, pigtailed | 13A | primary sealed SIGNAL bulkhead (MR1); 1 spare pin (F) |
 | TE CPC 206150-1 + bulkheads | Circular plastic, IP65, threaded | 37 pos, sz16 | 13A | big internal harness / 2nd bulkhead (need male crimp pins) |
 | Bernier CMA 1N14 / 5N14 | Push-pull circular, harsh-env | 14 pos | ~few A | quick-disconnect SIGNAL group (cabin/service) |
 | Studs (main +Bat/GND) or 1x Anderson SB | sealed stud feed-throughs / SB 2-pole | 2 | total box draw | FAT: main +Bat + main GND (SB = optional main disconnect) |
