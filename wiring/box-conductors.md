@@ -77,7 +77,7 @@ List closed 2026-08-28. (CAN bypasses this box.)
 | R | Coolant | f59 | P6:5,6 | Zombie CoolantPump = GP Out 3 (X1.3) |
 
 **Fuse-direct (no relay):** EPAS=F24->P1:2, iBooster=F29->P1:1, oil pump=F40->P3:1, EPB=f39->P3:4,
-Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12->P2:3, CDL=f34->P2:4, ~~Inverter=f27->P2:5~~ (now gated by the
+Zombie logic=f26->X1.50/P2:7, Bat Boxes=sw12(f28)->P2:3, CDL=f34->P2:4, ~~Inverter=f27->P2:5~~ (now gated by the
 K/M inverter-enable relay/switch; in-box feed TBD),
 Tcase-Status=f25->P2:9 (IGN-fed), ~~Controls-acc=f33->P2:6~~ (moved to OEM fuse behind firewall - P2:6/f33 now
 FREE; f33/P2:6 now = sw12->charger T via MR1-G), ~~BMS 12V=f31->P2:10~~ (freed 2026-10-08: BMS now fed from
@@ -125,7 +125,7 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | Inverter enable | <1 | Zombie coil-low (Drive) -> inverter-enable relay/switch |
-| L | Bat boxes + BMS feed * | med | P2:3 -> CAN box (powers BMS + battery boxes) |
+| L | Bat boxes + BMS feed * | med | f28/P2:3 -> CAN box (powers BMS + battery boxes) |
 | M | Inverter 12V * | ~10 | switched 12V to inverter (in-box feed/relay TBD); center pin |
 | N | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
 | P | CM3 wake (ign_sense = OR(IGN,Pin-B)) | uA | ORBoard OR-out -> MR1:P -> DD_Sigs:1 (CM3 wake) |

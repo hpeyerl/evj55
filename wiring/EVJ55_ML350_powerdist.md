@@ -65,7 +65,7 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 | EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
 | Zombie logic | f26 -> P2:7 |
 | Inverter | 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
-| Bat Boxes | sw12 -> P2:3 |
+| Bat Boxes | sw12 (f28) -> P2:3 |
 | ~~Controls accessory~~ | moved OFF-box to an OEM ign fuse behind firewall; f33/P2:6 freed, now = sw12->charger T (MR1 G) |
 | CDL | f34 -> P2:4 |
 | Status | f25 -> P2:9 (ignition-gated) |
