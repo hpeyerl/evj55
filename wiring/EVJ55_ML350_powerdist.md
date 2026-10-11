@@ -38,17 +38,17 @@ of the contactor; it wakes on switched-12V.
 
 | Load | Fuse -> pin | Note |
 |------|-------------|------|
-| EPAS | F24 -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
-| iBooster | F29 40A -> P1:1 | OEM = **2x ~12AWG** (power + **dedicated ground**, not chassis-local); ~40A class. Box P1:1 doubled-12 is at least as heavy |
-| Oil Pump | F40 -> P3:1 | heavy spade, **12AWG** (Toyota); ~20A MAXI. **Chassis-local ground**. Zombie-PWM'd ~50% duty -> avg well under rating |
+| EPAS | F24 **40A** -> P1:2 | **10AWG, ~40A class** (Toyota sizing; ~60A is only a brief stall peak). **Dedicated ground return to the GND stud, NOT chassis-local** |
+| iBooster | F29 **40A** -> P1:1 | OEM = **2x ~12AWG** (power + **dedicated ground**, not chassis-local); ~40A class. Box P1:1 doubled-12 is at least as heavy |
+| Oil Pump | F40 **20A** -> P3:1 | heavy spade, **12AWG** (Toyota); ~20A MAXI. **Chassis-local ground**. Zombie-PWM'd ~50% duty -> avg well under rating |
 | (spare) | F30 / F35 (outputs unpopulated) | |
 
 **Relays (2):**
 
 | Relay | Load | Contact out | Coil-lo | Coil-hi |
 |-------|------|-------------|---------|---------|
-| M | Rad Fan | f49 -> **P4:13,14** | P5:14 <- Zombie CoolingFan | Bat+ common (switched B+) |
-| R | Coolant pump (single VW) | f59 -> P6:5,6 | P5:1 <- Zombie CoolantPump | Bat+ common |
+| M | Rad Fan | f49 **7.5A** -> **P4:13,14** | P5:14 <- Zombie CoolingFan | Bat+ common (switched B+) |
+| R | Coolant pump (single VW) | f59 **10A** -> P6:5,6 | P5:1 <- Zombie CoolantPump | Bat+ common |
 
 Both coils energize only when the box is hot (coil-hi = switched B+). Coil-lo taps are populated
 P-pins = no coil rework. Rad-fan failsafe = SKIP (decided 2026-09-29; no overtemp switch).
@@ -62,13 +62,13 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 
 | Load | Fuse -> pin |
 |------|-------------|
-| EPB power | f39 -> P3:4 (enable = BOX-AWAKE signal) |
-| Zombie logic | f26 -> P2:7 |
-| Inverter | 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
-| Bat Boxes | sw12 (f28) -> P2:3 |
-| ~~Controls accessory~~ | moved OFF-box to an OEM ign fuse behind firewall; f33/P2:6 freed, now = sw12->charger T (MR1 G) |
-| CDL | f34 -> P2:4 |
-| Status | f25 -> P2:9 (ignition-gated) |
+| EPB power | f39 **20A** -> P3:4 (enable = BOX-AWAKE signal) |
+| VCU (Zombie) logic | f26 **5A** -> P2:7 |
+| Inverter | f57 (socket O) **~10A** TBD. 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
+| Bat Boxes + BMS | sw12 (f28 **5A**) -> P2:3 |
+| ~~Controls accessory~~ | moved OFF-box to an OEM ign fuse behind firewall; f33/P2:6 freed, now = sw12->charger T (MR1 G), **5A** |
+| CDL | f34 **10A** -> P2:4 |
+| TCase Status | f25 **5A** -> P2:9 (ignition-gated) |
 
 Unused ML350 sockets: K, N, O, S, T, U, V. (**V is populated with pins/contacts but drives no load** -
 its contacts were harvested from F20-F23; V itself is idle.)
