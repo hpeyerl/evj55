@@ -93,7 +93,7 @@ hardware - rad fan + brake both moved to PWM). SL1/SL2 = trans solenoids; PWM3 =
 | B | 12V+ when AC applied = the **charge-wake** source (**0.16A - a signal, not a power bus**) |
 | C | 12V- (wake return) |
 | E / F | HVIL interlock loop (series, not power) |
-| T / S | DCDC logic power / enable (Zombie is DCDC master) |
+| T / S | DCDC 12V - S and T are **tied together**, both switched-12V (powered/enabled together when the box is hot; no separate enable line). Zombie is DCDC master over the charger CAN (A/G). |
 
 The protoboard OR's IGN and Pin-B (2 signal diodes, mA) -> FET fires the master contactor -> Switched
 B+ hot -> CM3 sees 12V and wakes. Pin-B only drives the FET gate (uA), so its 0.16A rating is a non-issue.

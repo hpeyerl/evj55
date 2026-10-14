@@ -121,7 +121,7 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | D | Zombie -> M coil (fan ctrl) | <1 | M.86 coil, x-page (phys P5:14) |
 | E | Coolant pump (single VW) | ~0.5 | P6:5 |
 | F | SPARE | - | freed 2026-10-08: BMS now powered from L (in the CAN box) |
-| G | sw12 -> charger T | <1 | f33/P2:6 -> MR1-F.G -> charger T (DCDC logic pwr) |
+| G | sw12 -> charger S+T | <1 | f33/P2:6 -> MR1-F.G -> charger S+T (tied, both sw12; DCDC pwr) |
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | Inverter enable | <1 | Zombie coil-low (Drive) -> inverter-enable relay/switch |
