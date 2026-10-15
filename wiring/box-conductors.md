@@ -103,8 +103,11 @@ distinct from CDL, whose external split rides the OEM harness too (Herb: "all th
 
 **BMS placement (updated 2026-10-08):** BMS does NOT go in the Hammond fusebox, but DOES go in the **CAN box**
 (the hub box with the T-2CAN). Battery-box power + CAN also route into the CAN box. 12V to the CAN box comes
-from **MR1 pin L** (P2:3), which powers both the BMS and the battery boxes. **F is freed** (was BMS 12V,
-f31/P2:10). Supersedes the 2026-10-03 "BMS-external / F stays BMS 12V" note.
+from **MR1 pin L** (P2:3). In the CAN box L lands on a **4-position terminal block** that wyes 12V to the
+**T-2CAN power connector** (2 screw terminals) and out to the **battery box** (which bucks it for the CSCs).
+Block GND is chassis-local. "BMS" here = the **Lilygo T-2CAN board** (currently a T-CAN485); the CSCs are
+buck-powered, not on this 12V. **No dedicated BMS fuse** - the T-2CAN shares f28 with the bat boxes. **F is
+freed** (was BMS 12V, f31/P2:10). Supersedes the 2026-10-03 "BMS-external / F stays BMS 12V" note.
 
 ---
 
@@ -125,7 +128,7 @@ Insert 24-5, 16x sz16, pins A B C D E F G H J K L M N P R S. Physical rows from 
 | H | EPB power * | brief pk | P3:4 |
 | J | Zombie -> R coil (coolant ctrl) | <1 | R.86 coil, x-page (phys P5:1) |
 | K | Inverter enable | <1 | Zombie coil-low (Drive) -> inverter-enable relay/switch |
-| L | Bat boxes + BMS feed * | med | f28/P2:3 -> CAN box (powers BMS + battery boxes) |
+| L | Bat boxes + BMS feed * | med | f28/P2:3 -> CAN-box 4-pos block; wyes to T-2CAN 12V + battery-box bucks |
 | M | Inverter 12V * | ~10 | switched 12V to inverter (in-box feed/relay TBD); center pin |
 | N | Charger Pin-C (wake rtn) | 0.16 | Hammond ground stud (return ref for Pin-B) |
 | P | CM3 wake (ign_sense = OR(IGN,Pin-B)) | uA | ORBoard OR-out -> MR1:P -> DD_Sigs:1 (CM3 wake) |

@@ -65,7 +65,7 @@ canvas still labels this H1:1 - cosmetic, reconcile later.
 | EPB power | f39 **20A** -> P3:4 (enable = BOX-AWAKE signal) |
 | VCU (Zombie) logic | f26 **5A** -> P2:7 |
 | Inverter | f57 (socket O) **~10A** TBD. 12V gated by the inverter-enable relay/switch (Zombie low-side, Drive). MR1: K=coil-low, M=12V out ~10A. In-box switch (ML350 socket O vs protoboard FET) TBD |
-| Bat Boxes + BMS | sw12 (f28 **5A**) -> P2:3 |
+| Bat Boxes + BMS (T-2CAN) | sw12 (f28 **5A**) -> P2:3 -> CAN-box 4-pos block: wyes to T-2CAN 12V + battery-box bucks (CSCs). No separate BMS fuse |
 | ~~Controls accessory~~ | moved OFF-box to an OEM ign fuse behind firewall; f33/P2:6 freed, now = sw12->charger T (MR1 G), **5A** |
 | CDL | f34 **10A** -> P2:4 |
 | TCase Status | f25 **5A** -> P2:9 (ignition-gated) |
