@@ -28,6 +28,29 @@ AVC2. Reference doc - ask for "the charging explanation" and this is it. (2026-0
 | S | DCDC enable (9-16V) - OR'd with the CAN enable command |
 > Cascadia variant pinout differs slightly (per wiki, unspecified).
 
+## Dilong AC input (mains side) - "ACIN Input Terminal"
+Separate **HV** connector (NOT the LV signal connector above). Per the Dilong datasheet:
+- Connector (product end): **JONHON HV02-F3P(40A)-MA-1**, 3-pin, **40A** rated.
+- Pin defs: **A = ACL** (AC line) | **C = ACN** (AC neutral) | **B = PE** (protective earth).
+
+## J1772 inlet (vehicle side) - Duosida, Type-1
+Inlet = **Duosida** J1772 Type-1, **straight-through** (orientation standard, no cross-over). Standard
+Type-1 pinout:
+| Inlet pin | Signal | Contact | -> goes to |
+|--|--|--|--|
+| 1 | **L1** (AC line) | large | Dilong ACIN **A (ACL)** |
+| 2 | **L2/N** (AC line/neutral) | large | Dilong ACIN **C (ACN)** |
+| 3 | **PE** (protective earth) | large | Dilong ACIN **B (PE)** / HV-chassis ground |
+| 4 | **CP** (control pilot) | small | CP spoof + Zombie (see CP section) |
+| 5 | **PP** (proximity pilot) | small | Zombie PP analog input (see PP section) |
+
+- The three large contacts = AC/PE; the two small contacts = CP/PP signal.
+- CP / PP do NOT land on the Dilong ACIN connector - signal side, handled separately (CP/PP sections below).
+
+Caveat: on a 240V L2 EVSE (NA split-phase) the second conductor landing on **C "ACN" is actually a hot
+leg**, not neutral - the Dilong rectifies either way, so the label is cosmetic; wire both AC lines to A/C,
+earth to B.
+
 ## Charger harness cable map (RT06 charger connector)
 Two 2-pair cables - **grey sheath** + **white sheath**; each = one red/black twisted pair +
 one green/white twisted pair.

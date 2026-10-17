@@ -85,6 +85,12 @@ NegContactor = GP Out 2 (X1.4), oil-pump PWM = pin 30 (dedicated). **GP Out 1 ab
 hardware - rad fan + brake both moved to PWM). SL1/SL2 = trans solenoids; PWM3 = spare.
 (X1 = the real Zombie 56-way harness connector.)
 
+**Oil-pump PWM cable** (pin 30 -> trans oil pump): shielded 2-conductor via a **Deutsch DT 2-way**
+(connector labeled "oil pump sig", DT2-M = Zombie-side plug).
+- Zombie end: pin 30 = **green** (PWM); cable shield drained to a **black** wire + **ring terminal**
+  (chassis ground).
+- Oil-pump end (**DT2-F**): pin 1 = **white** (PWM), pin 2 = **bare** (shield).
+
 ## 4. Charger connector + wake
 
 | Pin | Function |
