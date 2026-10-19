@@ -82,7 +82,8 @@ physical feed is f34 (CDL) / f25 (Status), outputs unchanged at P2:4 / P2:9.
 
 CoolingFan = **PWM1 (X1.7)**, CoolantPump = **GP Out 3 (X1.3)**, BrakeLight = **PWM2 (X1.6)**,
 NegContactor = GP Out 2 (X1.4), oil-pump PWM = pin 30 (dedicated). **GP Out 1 abandoned** (suspect
-hardware - rad fan + brake both moved to PWM). SL1/SL2 = trans solenoids; PWM3 = spare.
+hardware - rad fan + brake both moved to PWM). SL1/SL2 = trans solenoids; **PWM3 = HvActive**
+(high-side 12V) -> Dilong **S** (DCDC enable gate; HIGH only post-precharge, in RUN/CHARGE).
 (X1 = the real Zombie 56-way harness connector.)
 
 **Oil-pump PWM cable** (pin 30 -> trans oil pump): shielded 2-conductor via a **Deutsch DT 2-way**
@@ -99,7 +100,8 @@ hardware - rad fan + brake both moved to PWM). SL1/SL2 = trans solenoids; PWM3 =
 | B | 12V+ when AC applied = the **charge-wake** source (**0.16A - a signal, not a power bus**) |
 | C | 12V- (wake return) |
 | E / F | HVIL interlock loop (series, not power) |
-| T / S | DCDC 12V - S and T are **tied together**, both switched-12V (powered/enabled together when the box is hot; no separate enable line). Zombie is DCDC master over the charger CAN (A/G). |
+| T | DCDC **logic power** - sw12 via MR1-G (<- f33/P2:6). Live whenever the box is hot, so the Dilong logic is reachable over CAN **before HV** (diagnostics/comms). |
+| S | DCDC **enable** - driven by **Zombie PWM3 = HvActive** (high-side 12V, HIGH only in RUN/CHARGE = post-precharge), run **vehicle-side direct to the Dilong, NOT via MR1**. S-T jumper removed. Holds the DCDC disabled through precharge so it can't load the precharge resistor. (S is OR'd with the CAN enable - firmware must not CAN-enable the DCDC pre-HV, or the OR defeats the gate.) |
 
 The protoboard OR's IGN and Pin-B (2 signal diodes, mA) -> FET fires the master contactor -> Switched
 B+ hot -> CM3 sees 12V and wakes. Pin-B only drives the FET gate (uA), so its 0.16A rating is a non-issue.

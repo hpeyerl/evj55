@@ -61,14 +61,20 @@ one green/white twisted pair.
 | A | CANH | Grey white + White white |
 | G | CANL | Grey green + White green |
 | T | DCDC logic power (fed sw12 via MR1-G <- f33/P2:6) | White red |
-| S | DCDC enable = TIED TO T (both sw12) | White black (jumper to T) |
+| S | DCDC enable -> **Zombie PWM3 (HvActive)**, vehicle-side direct (NOT via MR1); HIGH only post-precharge (RUN/CHARGE). **T->S jumper REMOVED.** | White black |
 | E/F | HVIL loop | looped at the charger mil-round (RT06) - DONE |
 (CAN H/L carried in BOTH cables' green/white pairs - 4 wires on the 2-wire bus =
 a daisy-chain/pass-through (confirmed) - this node is mid-bus, so NO 120R here (termination at the bus ends). A=CANH / G=CANL per the A/G "High/Low" ordering above.)
 
-**S tied to T (2026-10-03):** both on sw12 -> DCDC enabled in drive+charge, off when parked (keeps
-no-float). Overrides the Zombie CAN enable; Zombie still masters via HV contactors + CAN current limits.
-CONFIRM the Dilong allows concurrent OBC+DCDC and S asserted at wake (pre-HV).
+**S/T gating (2026-10-19, SUPERSEDES the 2026-10-03 "S tied to T on sw12"):** the old scheme enabled the
+DCDC whenever the box was hot - including the pre-HV window - so the DCDC tried to draw off HV **through the
+precharge resistor**, loading it. Fix: split S from T.
+- **T** stays on sw12 (via MR1-G) so the Dilong logic is powered pre-HV (CAN comms/diagnostics retained).
+- **S** (enable) now driven by **Zombie PWM3 = HvActive** (IOMatrix func 15; high-side 12V; `Set()`=HIGH in
+  MOD_RUN/MOD_CHARGE only = post-precharge, `Clear()`=LOW otherwise). Run vehicle-side direct, no MR1. S is
+  mA so PWM3 sources it easily.
+- Residual: S is OR'd with the CAN enable, so the hardware gate holds only if Zombie never CAN-enables the
+  DCDC before HVActive. Verify the charge/DCDC firmware does not assert DCDC-enable pre-HV.
 
 ## The core problem: it's THREE things, not one
 Getting a pack to actually charge requires all three, and they're independent:
