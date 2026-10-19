@@ -73,8 +73,8 @@ precharge resistor**, loading it. Fix: split S from T.
 - **S** (enable) now driven by **Zombie PWM3 = HvActive** (IOMatrix func 15; high-side 12V; `Set()`=HIGH in
   MOD_RUN/MOD_CHARGE only = post-precharge, `Clear()`=LOW otherwise). Run vehicle-side direct, no MR1. S is
   mA so PWM3 sources it easily.
-- Residual: S is OR'd with the CAN enable, so the hardware gate holds only if Zombie never CAN-enables the
-  DCDC before HVActive. Verify the charge/DCDC firmware does not assert DCDC-enable pre-HV.
+- S is OR'd with a CAN enable, but the firmware does NOT CAN-enable the DCDC (confirmed 2026-10-19), so
+  gating S alone is sufficient - there's no CAN-enable OR to defeat the hardware gate.
 
 ## The core problem: it's THREE things, not one
 Getting a pack to actually charge requires all three, and they're independent:
