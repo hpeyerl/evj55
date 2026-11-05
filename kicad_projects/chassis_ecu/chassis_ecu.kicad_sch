@@ -1,0 +1,92 @@
+(kicad_sch
+  (version 20230121)
+  (generator "eeschema")
+  (generator_version "7.0")
+  (uuid "fd25475b-2097-5b65-9996-70dc977a2af5")
+  (paper "A4")
+  (title_block
+    (title "chassis_ecu")
+    (rev "A")
+    (company "EVJ55"))
+  (lib_symbols)
+  (sheet
+    (at 25.4 30.48)
+    (size 50.8 12.7)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "9717b866-0949-5778-9ac5-4cfe8c76caee")
+    (property "Sheetname" "Power"
+      (at 25.4 29.7684 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "power.kicad_sch"
+      (at 25.4 43.7646 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5"
+          (page "2")))))
+  (sheet
+    (at 88.9 30.48)
+    (size 50.8 12.7)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "31056ee8-de04-5cca-b69f-c466f1bc969f")
+    (property "Sheetname" "MCU"
+      (at 88.9 29.7684 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "mcu.kicad_sch"
+      (at 88.9 43.7646 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5"
+          (page "3")))))
+  (sheet
+    (at 152.4 30.48)
+    (size 50.8 12.7)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "a6ce970d-2253-56fa-8b58-f400adecc808")
+    (property "Sheetname" "CAN"
+      (at 152.4 29.7684 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "can.kicad_sch"
+      (at 152.4 43.7646 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5"
+          (page "4")))))
+  (sheet_instances
+    (path "/"
+      (page "1"))))

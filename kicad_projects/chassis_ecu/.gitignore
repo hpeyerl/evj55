@@ -1,0 +1,6 @@
+gen/__pycache__/
+gen/erc.rpt
+gen/netlist.xml
+*-backups/
+*.kicad_prl
+fp-info-cache
