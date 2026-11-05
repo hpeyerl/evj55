@@ -90,7 +90,8 @@ contactor -> no AC -> **pack voltage never rises** even though everything *looks
 
 ## J1772 basics (CP & PP)
 - **CP (Control Pilot):** the **EVSE drives** a +/-12V, 1 kHz PWM. The **car responds by switching
-  resistance to ground**: 2.74 kohm = state B ("connected"); add 1.3 kohm + series diode = state C
+  resistance to ground** behind one series diode: CP -> diode -> 2.74 kohm to GND = state B
+  ("connected"); add 1.3 kohm in parallel (switch S2) = state C
   ("ready - deliver power"). The PWM **duty cycle advertises the max current** the circuit allows
   (roughly Amps = duty% x 0.6). CP is *not* a clean car output - it's a modulated-resistance
   interface (+ optional duty reader). The resistor spoof, the AVC2, and Zombie's `CpSpoof` are all
@@ -145,7 +146,7 @@ car to comply*. Draw more and you trip the station's breaker.
 ## The DIY plan (skip the AVC2 - $45 part but ~$93 shipping + Canada duty)
 The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
 
-- **Home-only (now):** a **resistor spoof** - 2.74 kohm CP->GND always, switch in 1.3 kohm + diode for
+- **Home-only (now):** a **resistor spoof** - diode + 2.74 kohm CP->GND always, 1.3 kohm in parallel for
   state C. ~$3. No duty reading (you've pre-set the Dilong <= your circuit).
 - **Public (soon - "not much later"):** a tiny **ESP32/RP2040 J1772 car-side controller** that reads
   the CP PWM duty and throttles the Dilong to the station limit. ~$15, open-source designs exist.
@@ -158,6 +159,44 @@ The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
 plug in -> CP circuit signals state C -> EVSE delivers AC -> Dilong pin B goes hot -> wakes Zombie ->
 Zombie sees PP + Elcon-saved -> commands Dilong over `0x1806E5F4` -> current flows (capped by
 `BMS_ChargeLim`, and by CP-advertised limit once the public reader exists).
+
+## Wake ordering - requirements
+EVSE order (home and public): plug in (EVSE sees state B) -> authorise (app / RFID; public stations
+refuse payment until state B is seen) -> EVSE starts the 1 kHz PWM -> car presents state C -> EVSE
+closes its contactor -> AC. The EVSE never checks HV or the pack; it only sees CP.
+
+Dilong Pin-B is live only once AC is present, and Pin-B (OR IGN) is what powers the vehicle 12V box.
+So the vehicle wakes AFTER authorisation, and no vehicle-side "wait for AC" timeout exists.
+
+- **REQ-1: state C without vehicle power.** Whatever presents state C must do so with the 12V box
+  dead (the box only powers up after AC). Either the 1.3 kohm path is closed when unpowered
+  (resistor spoof, or a normally-closed switch), or the CP controller runs from permanent B+ and
+  sequences B -> C itself. A CP controller on the switched bus with a normally-open S2 can never
+  request AC = never charges.
+- **REQ-2: AC loss mid-charge (bench test).** EVSE pause / payment hold / breaker drops AC -> Pin-B
+  drops -> master contactor drops -> HV contactors open on coil loss (not commanded). Verify the
+  pack current at the moment they open and that the Zombie comes back cleanly on the next wake.
+- Unverified: whether some EVSEs reject a car that presents state C at plug-in (skipping B).
+  Unverified: whether public EVSEs end a session if no current is drawn within some window after
+  the contactor closes (our wake -> precharge -> Elcon start should be seconds; measure it).
+
+## Zombie charge-interface (CAN) - for the CP controller
+- `interface` (CHGINT, `param_prj.h:292`): 0=Unused, 1=i3LIM, 2=Chademo, **3=CPC**, 4=Foccci.
+- **Unused:** `ACRequest(RunChg)` returns `RunChg` (`notused.h:34`) -> with a dumb Elcon, AC request
+  = plug detected + `ChgSet` + `!ChgLck`.
+- **CPC** (`CPC.cpp`) = a car-side charge-port controller on CAN. The ECU-carrier AVC2 role can
+  emulate it:
+  - Zombie RX **0x357**: byte0 = IsoStop, bytes1-2 = AC current limit A (byte1 low, byte2 high),
+    byte3 = status (**0x03 = AC connected, ready**; 0x07 = error), byte4 = plug (2 = inserted,
+    3 = error), byte5 = lock.
+  - Zombie sets `PilotLim` and `CableLim` = AC limit, `PlugDet`, `PilotTyp`, and
+    `Pwrspnt = ChgAcVolt x ACLimit x ChgEff%`.
+  - `ACRequest` = true only while status == 0x03.
+  - Zombie TX **0x358** every 400 ms: byte0 = 0x01 allow charge / 0x02 stop.
+- **Gap:** the Elcon setpoint uses `BMS_ChargeLim` only (`ElconCharger.cpp:72`); it ignores
+  `PilotLim` / `Pwrspnt`. Throttling the Dilong to the station limit needs an hp_dev patch
+  (e.g. HV current = min(BMS_ChargeLim, Pwrspnt / udc)).
+- Hardware: ECU carrier, AVC2 role (`evj55_contexts/ECU_CARRIER_CONTEXT.md`).
 
 ## BMS cell voltage & SoC during charge (for the BMS + dashboard code)
 Q: if the cells read the *charging* voltage, how does the BMS know real cell voltage / SoC?
@@ -193,8 +232,6 @@ intervention required every charge. Two issues:
   BMS/CM3 automation (command charge-end -> contactors open) - bench investigation needed.
 
 ## Open / to-verify
-- (!) **`ACrequest` for a dumb Elcon with `targetChgint=Unused`** - what supplies it? The one link not
-  resolved from a static source read; confirm on the bench.
 - **Auto-charge-on-plug vs manual gate:** with Elcon saved + PP wired, *any* plug-in auto-charges.
   If that's unwanted sometimes, `ChgSet` (or leaving Elcon unset) is the manual interlock - a
   possible reason to NOT save Elcon permanently.
