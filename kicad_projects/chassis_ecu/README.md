@@ -15,26 +15,35 @@ Every pin is drawn as a short stub with a net label (or power symbol); connectiv
 name. Layout is one functional block per row.
 
 ## Status
-- Done: Power (12V in, protection, LM5164 3.3V buck, 12V sense), MCU (ESP32-S3, USB-C, reset/boot),
-  CAN (CAN1 native, CAN2 MCP2518FD).
-- To do: connector (32-pin ECU header, footprint pending), I/O (MCP23017, opto inputs, FET
-  outputs), EPB H-bridges, pawl output, J1772 CP/PP, sensors (ADS1115, LSM6DSO, INA226).
+- Drawn (0 ERC errors, netlist self-check OK): Power, MCU, CAN, IO (MCP23017, 6 opto inputs,
+  4 light outputs, EPB button + LEDs, status LEDs), Motors (EPB 2x H-bridge, pawl high-side, all
+  BTN8982TA), J1772 (CP state + read, PP option), Sensors (ADS1115, LSM6DSO, INA226), Connector.
+- Connector pin numbers are PROVISIONAL until the 32-pin header drawing arrives.
+- 4 ERC warnings: the SparkFun LSM6DSOX symbol types its strap pins bidirectional (benign).
+- Open: caliper / pawl stall current, crystal CL (CAN2 load caps), LCSC part numbers, PP ownership.
 
 ## ESP32-S3 pin map
 | GPIO | Net | GPIO | Net |
 |---|---|---|---|
 | IO0 | ESP_BOOT | IO21 | CAN2_INT |
-| IO1 | HB_L_IS (ADC1) | IO35 | HB_L_IN1 |
-| IO2 | HB_R_IS (ADC1) | IO36 | HB_L_IN2 |
-| IO4 | ANA1 (ADC1) | IO37 | HB_R_IN1 |
-| IO5 | ANA2 (ADC1) | IO38 | HB_R_IN2 |
-| IO7 | VSENSE_12V (ADC1) | IO39 | HB_L_INH |
-| IO10 | IOX_INT | IO40 | HB_R_INH |
-| IO11 | SPI_MOSI | IO41 | CP_DUTY |
-| IO12 | SPI_SCK | IO42 | CP_S2_OPEN |
-| IO13 | SPI_MISO | IO48 | PAWL_DRV |
-| IO14 | CAN2_CS | IO19/20 | USB D-/D+ |
-| IO15 | I2C_SDA | IO43/44 | UART TX/RX (debug) |
-| IO16 | I2C_SCL | spare | IO6, IO8, IO9, IO47 |
-| IO17 | CAN1_TXD | unused (strapping) | IO3, IO45, IO46 |
-| IO18 | CAN1_RXD | | |
+| IO1 | HB_LA_IS (ADC1) | IO35 | HB_L_IN1 |
+| IO2 | HB_RA_IS (ADC1) | IO36 | HB_L_IN2 |
+| IO4 | ANA1 (ADC1, test pad) | IO37 | HB_R_IN1 |
+| IO5 | ANA2 (ADC1, test pad) | IO38 | HB_R_IN2 |
+| IO6 | PAWL_IS (ADC1) | IO39 | HB_L_INH |
+| IO7 | VSENSE_12V (ADC1) | IO40 | HB_R_INH |
+| IO8 | HB_LB_IS (ADC1) | IO41 | CP_DUTY |
+| IO9 | HB_RB_IS (ADC1) | IO42 | CP_S2_OPEN |
+| IO10 | IOX_INT | IO47 | IMU_INT1 |
+| IO11 | SPI_MOSI | IO48 | PAWL_DRV |
+| IO12 | SPI_SCK | IO19/20 | USB D-/D+ |
+| IO13 | SPI_MISO | IO43/44 | UART TX/RX (debug) |
+| IO14 | CAN2_CS | unused (strapping) | IO3, IO45, IO46 |
+| IO15 / IO16 | I2C_SDA / I2C_SCL | IO17 / IO18 | CAN1_TXD / CAN1_RXD |
+
+## I2C
+0x20 MCP23017, 0x40 INA226, 0x48 ADS1115, 0x6A LSM6DSO.
+
+## MCP23017
+GPA0-5 opto IN1-6 (P_SENSE, BRAKE, WELD1, WELD2, IN5, IN6; active-low), GPA6 EPB button,
+GPA7 STAT1 LED, GPB0-3 light OUT1-4, GPB4/5 EPB LED green/red, GPB6 PAWL_INH, GPB7 STAT2 LED.

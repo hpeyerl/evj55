@@ -81,12 +81,13 @@ def build():
            'Strapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\n'
            'USB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\n'
            'runs from 12V, so bench programming needs the 12V supply.\n'
-           'ADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.  Spare: IO6, IO8, IO9, IO47.',
+           'ADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.  No spare GPIO; ANA1/ANA2 (IO4/IO5) go to test pads.',
            20, 15)
     s.row('ESP32-S3 module')
     s.add('U2', 'RF_Module:ESP32-S3-WROOM-1', 'ESP32-S3-WROOM-1-N8', {
         'GND': 'GND', '3V3': '+3V3', 'EN': 'ESP_EN', 'IO0': 'ESP_BOOT',
-        'IO1': 'HB_L_IS', 'IO2': 'HB_R_IS', 'IO4': 'ANA1', 'IO5': 'ANA2', 'IO7': 'VSENSE_12V',
+        'IO1': 'HB_LA_IS', 'IO8': 'HB_LB_IS', 'IO2': 'HB_RA_IS', 'IO9': 'HB_RB_IS', 'IO4': 'ANA1', 'IO5': 'ANA2', 'IO6': 'PAWL_IS',
+        'IO7': 'VSENSE_12V', 'IO47': 'IMU_INT1',
         'IO10': 'IOX_INT', 'IO11': 'SPI_MOSI', 'IO12': 'SPI_SCK', 'IO13': 'SPI_MISO',
         'IO14': 'CAN2_CS', 'IO21': 'CAN2_INT', 'IO15': 'I2C_SDA', 'IO16': 'I2C_SCL',
         'IO17': 'CAN1_TXD', 'IO18': 'CAN1_RXD',
@@ -94,7 +95,7 @@ def build():
         'IO39': 'HB_L_INH', 'IO40': 'HB_R_INH',
         'IO41': 'CP_DUTY', 'IO42': 'CP_S2_OPEN', 'IO48': 'PAWL_DRV',
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
-    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO6', 'IO8', 'IO9', 'IO47'])
+    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46'])
     s.row('Decoupling, reset, boot, I2C pull-ups')
     C(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', C1206)
     C(s, 'C11', '100nF', '+3V3', 'GND')
@@ -160,4 +161,244 @@ def build():
     s.add('JP2', 'Jumper:SolderJumper_2_Open', 'CAN2 TERM', {'A': 'CAN2_H', 'B': 'CAN2_TERM'},
           'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm')
     R(s, 'R19', '120R', 'CAN2_TERM', 'CAN2_L', 'Resistor_SMD:R_1206_3216Metric')
+    io_sheet(b)
+    motor_sheet(b)
+    j1772_sheet(b)
+    sensor_sheet(b)
+    connector_sheet(b)
     return b
+
+
+def opto_in(s, n, net, rser):
+    """12V-active input: series R -> opto LED (reverse diode across it) -> GND.
+    Collector pulled up to 3V3 = ACTIVE-LOW at the expander."""
+    s.add('R%d' % (100 + n), 'Device:R', rser, {'1': net, '2': 'OPTO%d_A' % n},
+          'Resistor_SMD:R_1206_3216Metric')
+    s.add('D%d' % (100 + n), 'Device:D', '1N4148W', {'K': 'OPTO%d_A' % n, 'A': 'GND'}, 'Diode_SMD:D_SOD-123')
+    s.add('U%d' % (100 + n), 'Isolator:PC817', 'LTV-357T', {'1': 'OPTO%d_A' % n, '2': 'GND',
+          '3': 'GND', '4': 'IOX_IN%d' % n}, 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm')
+    R(s, 'R%d' % (110 + n), '10k', '+3V3', 'IOX_IN%d' % n)
+    C(s, 'C%d' % (100 + n), '10nF', 'IOX_IN%d' % n, 'GND')
+
+
+def lowside_out(s, n):
+    """Light low-side output (small relay / LED / lamp), flyback to +12V_LOGIC."""
+    R(s, 'R%d' % (120 + n), '100R', 'IOX_OUT%d' % n, 'OUT%d_G' % n)
+    R(s, 'R%d' % (130 + n), '100k', 'OUT%d_G' % n, 'GND')
+    s.add('Q%d' % (100 + n), 'Transistor_FET:DMN6075S', 'DMN6075S 60V',
+          {'G': 'OUT%d_G' % n, 'S': 'GND', 'D': 'OUT%d' % n})
+    s.add('D%d' % (110 + n), 'Device:D_Schottky', 'B5819W', {'K': '+12V_LOGIC', 'A': 'OUT%d' % n},
+          'Diode_SMD:D_SOD-123')
+
+
+def highside_led(s, n, ctl, out):
+    """12V high-side drive for an EPB button LED (P-FET, N-FET level shift)."""
+    R(s, 'R%d' % (140 + n), '1k', ctl, 'HSL%d_G' % n)
+    R(s, 'R%d' % (145 + n), '100k', 'HSL%d_G' % n, 'GND')
+    s.add('Q%d' % (110 + n), 'Transistor_FET:2N7002', '2N7002',
+          {'G': 'HSL%d_G' % n, 'S': 'GND', 'D': 'HSL%d_PG' % n})
+    R(s, 'R%d' % (150 + n), '10k', '+12V_LOGIC', 'HSL%d_PG' % n)
+    s.add('Q%d' % (115 + n), 'PCM_Transistor_MOSFET_AKL:AO3401A', 'AO3401A',
+          {'G': 'HSL%d_PG' % n, 'S': '+12V_LOGIC', 'D': 'HSL%d_D' % n})
+    R(s, 'R%d' % (155 + n), '0R', 'HSL%d_D' % n, out, 'Resistor_SMD:R_0805_2012Metric',
+      fields={'Note': 'LED series R if the button LED has none'})
+
+
+def io_sheet(b):
+    s = b.sheet('IO', 'io.kicad_sch')
+    s.paper = 'A1'
+    s.note('MCP23017 at 0x20 (A2..A0 = GND).  GPA7 / GPB7 are OUTPUT-only on current silicon -> status LEDs.\n'
+           'GPA0-5 = opto inputs (ACTIVE-LOW), GPA6 = EPB button, GPB0-3 = light outputs, GPB4/5 = EPB LEDs,\n'
+           'GPB6 = PAWL_INH.  INTA -> IOX_INT (configure open-drain, mirrored).\n'
+           'Opto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\n'
+           'Light outputs: DMN6075S 60V low-side, B5819W flyback to +12V_LOGIC.\n'
+           'EPB LEDs: high-side 12V (AO3401A + 2N7002).  The HAT reads the same lines (EPB_GRN / EPB_RED).',
+           20, 15)
+    s.row('MCP23017 I/O expander')
+    s.add('U10', 'Interface_Expansion:MCP23017x-x-SS', 'MCP23017-E/SS', {
+        'V_{DD}': '+3V3', 'V_{SS}': 'GND', 'SCK': 'I2C_SCL', 'SDA': 'I2C_SDA',
+        'A0': 'GND', 'A1': 'GND', 'A2': 'GND', '~{RESET}': 'IOX_RST', 'INTA': 'IOX_INT',
+        'GPA0': 'IOX_IN1', 'GPA1': 'IOX_IN2', 'GPA2': 'IOX_IN3', 'GPA3': 'IOX_IN4',
+        'GPA4': 'IOX_IN5', 'GPA5': 'IOX_IN6', 'GPA6': 'EPB_BTN_IN', 'GPA7': 'LED_STAT1',
+        'GPB0': 'IOX_OUT1', 'GPB1': 'IOX_OUT2', 'GPB2': 'IOX_OUT3', 'GPB3': 'IOX_OUT4',
+        'GPB4': 'EPB_LEDG_CTL', 'GPB5': 'EPB_LEDR_CTL', 'GPB6': 'PAWL_INH', 'GPB7': 'LED_STAT2',
+    }, 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', nc=['INTB'])
+    C(s, 'C110', '100nF', '+3V3', 'GND')
+    R(s, 'R160', '10k', '+3V3', 'IOX_RST')
+    R(s, 'R161', '10k', '+3V3', 'IOX_INT')
+    s.row('Opto inputs (12V active)')
+    for n, (net, rr) in enumerate([('IN_P_SENSE', '4.7k'), ('IN_BRAKE', '2.2k'), ('IN_WELD1', '2.2k'),
+                                   ('IN_WELD2', '2.2k'), ('IN5', '2.2k'), ('IN6', '2.2k')], 1):
+        opto_in(s, n, net, rr)
+    s.row('EPB button input (to GND, normally open)')
+    R(s, 'R162', '4.7k', '+3V3', 'EPB_BTN_IN')
+    R(s, 'R163', '1k', 'EPB_BTN', 'EPB_BTN_IN')
+    C(s, 'C111', '100nF', 'EPB_BTN_IN', 'GND')
+    s.add('D120', 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'EPB_BTN_IN'}, SOT23)
+    s.row('Light low-side outputs')
+    for n in range(1, 5):
+        lowside_out(s, n)
+    s.row('EPB button LEDs (12V high-side)')
+    highside_led(s, 1, 'EPB_LEDG_CTL', 'EPB_LED_G')
+    highside_led(s, 2, 'EPB_LEDR_CTL', 'EPB_LED_R')
+    s.row('Status LEDs')
+    R(s, 'R164', '1k', '+3V3', 'LED_PWR_A')
+    s.add('D121', 'Device:LED', 'PWR green', {'A': 'LED_PWR_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    R(s, 'R165', '1k', 'LED_STAT1', 'LED1_A')
+    s.add('D122', 'Device:LED', 'STAT1', {'A': 'LED1_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    R(s, 'R166', '1k', 'LED_STAT2', 'LED2_A')
+    s.add('D123', 'Device:LED', 'STAT2', {'A': 'LED2_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    s.row('Expansion header (DNP): spare I/O not on the main connector')
+    s.add('J10', 'Connector_Generic:Conn_01x10', 'EXP', {
+        '1': 'GND', '2': '+3V3', '3': 'I2C_SDA', '4': 'I2C_SCL', '5': 'IN5', '6': 'IN6',
+        '7': 'OUT1', '8': 'OUT2', '9': 'OUT3', '10': 'OUT4'},
+        'Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical', dnp=True)
+
+
+def half_bridge(s, ref, n, vs, out, inp, inh, isn):
+    """One BTN8982TA.  1k series on IN/INH (input current up to 150 uA; 10k would
+    drop below VIH from 3.3V logic).  SR 5.1k to GND (slew), 220nF on OUT."""
+    s.add(ref, 'Power_Management:BTN8982TA', 'BTN8982TA',
+          {'1': 'GND', '2': 'BR%d_IN' % n, '3': 'BR%d_INH' % n, '4': out, '8': out,
+           '5': 'BR%d_SR' % n, '6': isn, '7': vs})
+    R(s, 'R%d' % (200 + n), '1k', inp, 'BR%d_IN' % n)
+    R(s, 'R%d' % (210 + n), '1k', inh, 'BR%d_INH' % n)
+    R(s, 'R%d' % (220 + n), '5.1k', 'BR%d_SR' % n, 'GND')
+    C(s, 'C%d' % (200 + n), '100nF 50V', vs, 'GND')
+    C(s, 'C%d' % (210 + n), '220nF 50V', out, 'GND', 'Capacitor_SMD:C_0805_2012Metric')
+
+
+def is_sense(s, n, raw, adc):
+    """IS -> 1k + 1nF (19.5 mV/A typ per chip at 1k, dkILIS 14k..25k), then 4.7k +
+    BAT54S clamp: fault current 4-6.5 mA would put ~6.5 V on 1k."""
+    R(s, 'R%d' % (230 + n), '1k', raw, 'GND')
+    C(s, 'C%d' % (220 + n), '1nF', raw, 'GND')
+    R(s, 'R%d' % (240 + n), '4.7k', raw, adc)
+    C(s, 'C%d' % (230 + n), '10nF', adc, 'GND')
+    s.add('D%d' % (200 + n), 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': adc}, SOT23)
+
+
+def motor_sheet(b):
+    s = b.sheet('Motors', 'motors.kicad_sch')
+    s.note('EPB: 2 H-bridges (2x BTN8982TA each), left + right caliper.  Pawl: 1 BTN8982TA used as a\n'
+           'high-side switch (single direction; actuator - grounds at the motor).  IN=1 drives OUT to VS.\n'
+           'BTN8982 VS abs max 40 V -> SMCJ22A on each motor feed (Vc ~35.5 V).  No reverse protection on the\n'
+           'motor feeds: reverse battery conducts through the body diodes -> the EXTERNAL fuse must blow.\n'
+           'Each half-bridge IS has its own 1k sense resistor and ADC1 pin (per-side, per-direction current).\n'
+           'INA226 measures total EPB supply current on a 2 mOhm Kelvin shunt (sheet Sensors).\n'
+           'Bulk: 2x 470uF 35V on EPB_VS, 220uF 35V on PAWL_12V.  Caliper / pawl stall current: TBD (measure).',
+           20, 15)
+    s.row('EPB supply: TVS, current shunt, bulk')
+    s.add('D210', 'Device:D_TVS', 'SMCJ22A', {'1': 'EPB_12V', '2': 'GND'}, 'Diode_SMD:D_SMC')
+    s.add('R250', 'Device:R_Shunt', '2mR 3W', {'1': 'EPB_12V', '2': 'EPB_SH_P', '3': 'EPB_SH_N', '4': 'EPB_VS'},
+          'Resistor_SMD:R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm')
+    s.add('C240', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
+    s.add('C241', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
+    s.row('Left caliper H-bridge')
+    half_bridge(s, 'U20', 1, 'EPB_VS', 'CAL_L_A', 'HB_L_IN1', 'HB_L_INH', 'HB_LA_ISRAW')
+    half_bridge(s, 'U21', 2, 'EPB_VS', 'CAL_L_B', 'HB_L_IN2', 'HB_L_INH', 'HB_LB_ISRAW')
+    is_sense(s, 1, 'HB_LA_ISRAW', 'HB_LA_IS')
+    is_sense(s, 2, 'HB_LB_ISRAW', 'HB_LB_IS')
+    s.row('Right caliper H-bridge')
+    half_bridge(s, 'U22', 3, 'EPB_VS', 'CAL_R_A', 'HB_R_IN1', 'HB_R_INH', 'HB_RA_ISRAW')
+    half_bridge(s, 'U23', 4, 'EPB_VS', 'CAL_R_B', 'HB_R_IN2', 'HB_R_INH', 'HB_RB_ISRAW')
+    is_sense(s, 3, 'HB_RA_ISRAW', 'HB_RA_IS')
+    is_sense(s, 4, 'HB_RB_ISRAW', 'HB_RB_IS')
+    s.row('Pawl motor (high-side switch)')
+    s.add('D211', 'Device:D_TVS', 'SMCJ22A', {'1': 'PAWL_12V', '2': 'GND'}, 'Diode_SMD:D_SMC')
+    s.add('C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
+    half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW')
+    is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS')
+    s.row('Power flags')
+    flag(s, '#FLG04', 'EPB_VS')
+    flag(s, '#FLG05', 'PAWL_12V')
+
+
+def j1772_sheet(b):
+    s = b.sheet('J1772', 'j1772.kicad_sch')
+    s.note('Car-side pilot.  CP -> diode -> 2.74k to GND (state B, always) ; 1.3k via K1 to GND (state C).\n'
+           'K1 = CPC1117N, form-B (CLOSED when unpowered): a dead board presents state C, so the EVSE delivers\n'
+           'AC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\n'
+           'CP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\n'
+           'load on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\n'
+           'Same node -> ADS1115 AIN0 for the high level (+12 / +9 / +6 V = state A / B / C).\n'
+           'PP: fit only if this board owns PP (else PP stays on the Zombie GPA).  4.7k pull-up to 3V3:\n'
+           'open 3.3 V, plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ADS1115 AIN1.',
+           20, 15)
+    s.row('Pilot state circuit')
+    s.add('D300', 'Device:D_TVS', 'SMAJ15CA', {'1': 'CP', '2': 'GND'}, 'Diode_SMD:D_SMA')
+    s.add('D301', 'Device:D', '1N4148W', {'A': 'CP', 'K': 'CP_D'}, 'Diode_SMD:D_SOD-123')
+    R(s, 'R300', '2.74k 1%', 'CP_D', 'GND', 'Resistor_SMD:R_0805_2012Metric')
+    R(s, 'R301', '1.3k 1%', 'CP_D', 'CP_S2', 'Resistor_SMD:R_0805_2012Metric')
+    s.add('K1', 'Relay_SolidState:CPC1117N', 'CPC1117N', {'1': 'K1_LED', '2': 'GND', '3': 'CP_S2', '4': 'GND'})
+    R(s, 'R302', '330R', 'CP_S2_OPEN', 'K1_LED')
+    s.row('CP read: level shift, comparator, ADC')
+    R(s, 'R303', '200k', 'CP', 'CP_SENSE')
+    R(s, 'R304', '45.3k', '+3V3', 'CP_SENSE')
+    R(s, 'R305', '57.6k', 'CP_SENSE', 'GND')
+    C(s, 'C300', '100pF', 'CP_SENSE', 'GND')
+    R(s, 'R306', '10k', '+3V3', 'CP_REF')
+    R(s, 'R307', '10k', 'CP_REF', 'GND')
+    C(s, 'C301', '100nF', 'CP_REF', 'GND')
+    s.add('U30', 'PCM_Analog_Comparator_AKL:TLV3201AIDBV', 'TLV3201AIDBV',
+          {'1': 'CP_DUTY', '2': 'GND', '3': 'CP_SENSE', '4': 'CP_REF', '5': '+3V3'})
+    R(s, 'R308', '1M', 'CP_DUTY', 'CP_SENSE')
+    C(s, 'C302', '100nF', '+3V3', 'GND')
+    R(s, 'R309', '1k', 'CP_SENSE', 'CP_LVL')
+    C(s, 'C303', '1nF', 'CP_LVL', 'GND')
+    R(s, 'R310', '0R', 'CP_GND', 'GND', 'Resistor_SMD:R_0805_2012Metric',
+      fields={'Note': 'CP return to the inlet PE'})
+    s.row('PP (fit only if this board owns PP)')
+    s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA', dnp=True)
+    R(s, 'R311', '4.7k', '+3V3', 'PP', dnp=True)
+    R(s, 'R312', '1k', 'PP', 'PP_SENSE', dnp=True)
+    C(s, 'C304', '10nF', 'PP_SENSE', 'GND', dnp=True)
+
+
+def sensor_sheet(b):
+    s = b.sheet('Sensors', 'sensors.kicad_sch')
+    s.note('I2C bus (IO15 SDA / IO16 SCL, 4.7k pull-ups on sheet MCU):\n'
+           '  0x20 MCP23017, 0x40 INA226 (A1 = A0 = GND), 0x48 ADS1115 (ADDR = GND), 0x6A LSM6DSO (SA0 = GND).\n'
+           'ADS1115: AIN0 CP level, AIN1 PP, AIN2 / AIN3 spare analog (ANA3 / ANA4).\n'
+           'LSM6DSO: I2C mode (CS = 3V3); aux SPI pins unused (SDx / SCx to GND).  INT1 -> IO47.\n'
+           'Mount the board square to the vehicle axes.\n'
+           'INA226: EPB supply shunt 2 mOhm -> 81.92 mV full scale = 40 A; 10R + 100nF input filter.',
+           20, 15)
+    s.row('ADS1115 16-bit ADC')
+    s.add('U40', 'Analog_ADC:ADS1115IDGS', 'ADS1115IDGS',
+          {'VDD': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL', 'ADDR': 'GND',
+           'AIN0': 'CP_LVL', 'AIN1': 'PP_SENSE', 'AIN2': 'ANA3', 'AIN3': 'ANA4'}, nc=['ALERT/RDY'])
+    C(s, 'C400', '100nF', '+3V3', 'GND')
+    s.row('LSM6DSO IMU')
+    s.add('U41', 'PCM_SparkFun-Sensor:LSM6DSOX', 'LSM6DSO',
+          {'VDD': '+3V3', 'VDDIO': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL',
+           '~{CS}': '+3V3', 'SDO/SA0': 'GND', 'SDx': 'GND', 'SCx': 'GND', 'INT1': 'IMU_INT1'},
+          nc=['INT2', 'OCS_Aux', 'SDO_Aux'])
+    C(s, 'C401', '100nF', '+3V3', 'GND')
+    C(s, 'C402', '100nF', '+3V3', 'GND')
+    s.row('INA226 EPB supply current')
+    s.add('U42', 'Sensor_Energy:INA226', 'INA226AIDGSR',
+          {'VS': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL', 'A0': 'GND', 'A1': 'GND',
+           'Vin+': 'INA_INP', 'Vin-': 'INA_INN', 'Vbus': 'EPB_VS'}, nc=['~{Alert}'])
+    R(s, 'R400', '10R', 'EPB_SH_P', 'INA_INP')
+    R(s, 'R401', '10R', 'EPB_SH_N', 'INA_INN')
+    C(s, 'C403', '100nF 50V', 'INA_INP', 'INA_INN')
+    C(s, 'C404', '100nF', '+3V3', 'GND')
+
+
+def connector_sheet(b):
+    s = b.sheet('Connector', 'connector.kicad_sch')
+    s.note('32-pin ECU header.  PIN NUMBERS ARE PROVISIONAL until the header drawing arrives.\n'
+           'Heavy nets doubled (GND, EPB_12V, caliper and pawl leads); per-pin current rating TBD.\n'
+           'H-bridge current returns through the board GND pins (not at the motor) -> GND x3.',
+           20, 15)
+    s.row('Main connector')
+    pins = ['VIN_12V', 'GND', 'GND', 'EPB_12V', 'EPB_12V', 'CAL_L_A', 'CAL_L_A', 'CAL_L_B', 'CAL_L_B',
+            'CAL_R_A', 'CAL_R_A', 'CAL_R_B', 'CAL_R_B', 'PAWL_12V', 'PAWL_12V', 'MOT_OUT', 'MOT_OUT',
+            'CAN1_H', 'CAN1_L', 'CAN2_H', 'CAN2_L', 'IN_P_SENSE', 'IN_BRAKE', 'IN_WELD1', 'IN_WELD2',
+            'CP', 'CP_GND', 'PP', 'EPB_BTN', 'EPB_LED_G', 'EPB_LED_R', 'GND']
+    s.add('J20', 'Connector_Generic:Conn_01x32', '32-pin ECU header',
+          {str(i + 1): n for i, n in enumerate(pins)})
+    s.row('Spare analog (test pads until a connector pin is free)')
+    for i, n in enumerate(['ANA1', 'ANA2', 'ANA3', 'ANA4'], 1):
+        s.add('TP%d' % i, 'Connector:TestPoint', n, {'1': n}, 'TestPoint:TestPoint_Pad_1.5x1.5mm')

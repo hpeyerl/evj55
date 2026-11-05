@@ -2278,7 +2278,8 @@
       (width 0)
       (type default))
     (uuid "d5343a89-d446-500f-98e7-a48aafb54321"))
-  (label "ANA1"
+  (global_label "ANA1"
+    (shape passive)
     (at 45.72 76.2 180)
     (fields_autoplaced yes)
     (effects
@@ -2294,7 +2295,8 @@
       (width 0)
       (type default))
     (uuid "44044e3f-b5b3-567d-911d-c604902b23dd"))
-  (label "ANA2"
+  (global_label "ANA2"
+    (shape passive)
     (at 45.72 78.74 180)
     (fields_autoplaced yes)
     (effects
@@ -2302,9 +2304,23 @@
         (size 1.27 1.27))
       (justify right))
     (uuid "e8121677-6cd6-5d2d-a3b3-14b4b6524474"))
-  (no_connect
-    (at 48.26 81.28)
-    (uuid "fb36063f-19b3-5d57-8ddf-3c4b61514536"))
+  (wire
+    (pts
+      (xy 48.26 81.28)
+      (xy 45.72 81.28))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d2708e02-1f1c-5694-95ba-eacda79a7031"))
+  (global_label "PAWL_IS"
+    (shape passive)
+    (at 45.72 81.28 180)
+    (fields_autoplaced yes)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "a33bd8d8-05c6-5241-9f17-5aa82449f32c"))
   (wire
     (pts
       (xy 48.26 83.82)
@@ -2330,7 +2346,8 @@
       (width 0)
       (type default))
     (uuid "8799545b-d176-5371-8d6c-33769398b069"))
-  (label "I2C_SDA"
+  (global_label "I2C_SDA"
+    (shape passive)
     (at 45.72 104.14 180)
     (fields_autoplaced yes)
     (effects
@@ -2346,7 +2363,8 @@
       (width 0)
       (type default))
     (uuid "0be8416b-a829-54be-a8e1-d777959bd66c"))
-  (label "I2C_SCL"
+  (global_label "I2C_SCL"
+    (shape passive)
     (at 45.72 106.68 180)
     (fields_autoplaced yes)
     (effects
@@ -2388,9 +2406,23 @@
         (size 1.27 1.27))
       (justify left))
     (uuid "eb513b55-d0fd-5fb6-ada5-d0afd64f71f1"))
-  (no_connect
-    (at 48.26 86.36)
-    (uuid "4ba84bb5-5de6-52d0-9cf1-019cd96fcc23"))
+  (wire
+    (pts
+      (xy 48.26 86.36)
+      (xy 45.72 86.36))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "caa05f5d-c19f-55a0-a000-58c8e0dedd6c"))
+  (global_label "HB_LB_IS"
+    (shape passive)
+    (at 45.72 86.36 180)
+    (fields_autoplaced yes)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "e5847ce0-9a7a-557c-a4cf-3f8c2ca29196"))
   (wire
     (pts
       (xy 78.74 71.12)
@@ -2429,9 +2461,23 @@
   (no_connect
     (at 78.74 101.6)
     (uuid "84f21ebd-b709-5d08-9338-fe3e23b8013a"))
-  (no_connect
-    (at 48.26 88.9)
-    (uuid "801d031a-d02f-5f68-bead-67ed585ab0f6"))
+  (wire
+    (pts
+      (xy 48.26 88.9)
+      (xy 45.72 88.9))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "df34dc16-3078-5a05-850b-9483ab9f5158"))
+  (global_label "HB_RB_IS"
+    (shape passive)
+    (at 45.72 88.9 180)
+    (fields_autoplaced yes)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "2f36d43c-39a8-5a42-ae72-bdae17bfda47"))
   (wire
     (pts
       (xy 48.26 91.44)
@@ -2440,7 +2486,8 @@
       (width 0)
       (type default))
     (uuid "7c414c9a-c5e6-5753-9a3e-bb96e3035c50"))
-  (label "IOX_INT"
+  (global_label "IOX_INT"
+    (shape passive)
     (at 45.72 91.44 180)
     (fields_autoplaced yes)
     (effects
@@ -2533,9 +2580,23 @@
         (size 1.27 1.27))
       (justify left))
     (uuid "b64181ec-1701-5cb4-9fa3-1cbe496a1c10"))
-  (no_connect
-    (at 78.74 104.14)
-    (uuid "eb24df5c-a4b1-5e85-b644-a6cfdc2dec49"))
+  (wire
+    (pts
+      (xy 78.74 104.14)
+      (xy 81.28 104.14))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a01fc57b-b7a6-5a76-b070-59e6d659308e"))
+  (global_label "IMU_INT1"
+    (shape passive)
+    (at 81.28 104.14 0)
+    (fields_autoplaced yes)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid "8db54508-4987-5f12-9715-713c4ec6ca7f"))
   (wire
     (pts
       (xy 78.74 106.68)
@@ -2544,7 +2605,8 @@
       (width 0)
       (type default))
     (uuid "ec87179d-a604-5d9f-a4da-a15f7b4c286c"))
-  (label "PAWL_DRV"
+  (global_label "PAWL_DRV"
+    (shape passive)
     (at 81.28 106.68 0)
     (fields_autoplaced yes)
     (effects
@@ -2579,7 +2641,8 @@
       (width 0)
       (type default))
     (uuid "1328e473-76f4-53ed-b0d4-51fa70c2233f"))
-  (label "HB_L_IN1"
+  (global_label "HB_L_IN1"
+    (shape passive)
     (at 81.28 78.74 0)
     (fields_autoplaced yes)
     (effects
@@ -2595,7 +2658,8 @@
       (width 0)
       (type default))
     (uuid "2db96546-502c-54c4-8b0f-beabee8daa3f"))
-  (label "HB_L_IN2"
+  (global_label "HB_L_IN2"
+    (shape passive)
     (at 81.28 81.28 0)
     (fields_autoplaced yes)
     (effects
@@ -2611,7 +2675,8 @@
       (width 0)
       (type default))
     (uuid "75691738-1834-5137-9972-d8e64b2b2220"))
-  (label "HB_R_IN1"
+  (global_label "HB_R_IN1"
+    (shape passive)
     (at 81.28 83.82 0)
     (fields_autoplaced yes)
     (effects
@@ -2627,7 +2692,8 @@
       (width 0)
       (type default))
     (uuid "743a641b-8adb-52bd-93c3-8ef323fe4c05"))
-  (label "HB_R_IN2"
+  (global_label "HB_R_IN2"
+    (shape passive)
     (at 81.28 86.36 0)
     (fields_autoplaced yes)
     (effects
@@ -2643,7 +2709,8 @@
       (width 0)
       (type default))
     (uuid "e3628720-bb0b-57ff-b26c-9272ba6b32be"))
-  (label "HB_L_INH"
+  (global_label "HB_L_INH"
+    (shape passive)
     (at 81.28 88.9 0)
     (fields_autoplaced yes)
     (effects
@@ -2659,7 +2726,8 @@
       (width 0)
       (type default))
     (uuid "06f262b8-7ced-51ab-ae7b-4a8797b3fec9"))
-  (label "HB_R_INH"
+  (global_label "HB_R_INH"
+    (shape passive)
     (at 81.28 91.44 0)
     (fields_autoplaced yes)
     (effects
@@ -2675,7 +2743,8 @@
       (width 0)
       (type default))
     (uuid "9d06b02c-9f21-574d-a495-4dcade334caf"))
-  (label "CP_DUTY"
+  (global_label "CP_DUTY"
+    (shape passive)
     (at 81.28 93.98 0)
     (fields_autoplaced yes)
     (effects
@@ -2691,7 +2760,8 @@
       (width 0)
       (type default))
     (uuid "9273f549-f971-58ba-90c0-7a69b7e97faa"))
-  (label "CP_S2_OPEN"
+  (global_label "CP_S2_OPEN"
+    (shape passive)
     (at 81.28 96.52 0)
     (fields_autoplaced yes)
     (effects
@@ -2739,7 +2809,8 @@
       (width 0)
       (type default))
     (uuid "383cbe17-b98c-5011-8305-ffb41925ff05"))
-  (label "HB_R_IS"
+  (global_label "HB_RA_IS"
+    (shape passive)
     (at 45.72 71.12 180)
     (fields_autoplaced yes)
     (effects
@@ -2755,7 +2826,8 @@
       (width 0)
       (type default))
     (uuid "7d46428f-e859-5c57-b1fc-6a2c639b4761"))
-  (label "HB_L_IS"
+  (global_label "HB_LA_IS"
+    (shape passive)
     (at 45.72 68.58 180)
     (fields_autoplaced yes)
     (effects
@@ -3695,7 +3767,8 @@
       (width 0)
       (type default))
     (uuid "063949c7-a10d-54eb-b50f-fb49160ba47c"))
-  (label "I2C_SDA"
+  (global_label "I2C_SDA"
+    (shape passive)
     (at 393.7 149.86 270)
     (fields_autoplaced yes)
     (effects
@@ -3795,7 +3868,8 @@
       (width 0)
       (type default))
     (uuid "ae376616-ac51-596e-8944-c0291ac1325e"))
-  (label "I2C_SCL"
+  (global_label "I2C_SCL"
+    (shape passive)
     (at 441.96 149.86 270)
     (fields_autoplaced yes)
     (effects
@@ -4811,7 +4885,7 @@
         (size 2.54 2.54) bold)
       (justify left top))
     (uuid "2b4c8aa7-0116-5e79-a20e-906adfcee8a4"))
-  (text "ESP32-S3-WROOM-1-N8 (plastic case, PCB antenna) or -1U-N8 (metal case, u.FL).\nSame pad pattern; the -1 footprint outline covers both.  Keep the antenna end clear of copper.\nStrapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\nUSB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\nruns from 12V, so bench programming needs the 12V supply.\nADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.  Spare: IO6, IO8, IO9, IO47."
+  (text "ESP32-S3-WROOM-1-N8 (plastic case, PCB antenna) or -1U-N8 (metal case, u.FL).\nSame pad pattern; the -1 footprint outline covers both.  Keep the antenna end clear of copper.\nStrapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\nUSB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\nruns from 12V, so bench programming needs the 12V supply.\nADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.  No spare GPIO; ANA1/ANA2 (IO4/IO5) go to test pads."
     (at 20 15 0)
     (effects
       (font

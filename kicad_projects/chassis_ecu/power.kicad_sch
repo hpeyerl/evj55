@@ -1737,7 +1737,8 @@
       (width 0)
       (type default))
     (uuid "57600635-361f-50ee-a72c-8d0b584e69b1"))
-  (label "VIN_12V"
+  (global_label "VIN_12V"
+    (shape passive)
     (at 49.53 57.15 90)
     (fields_autoplaced yes)
     (effects
@@ -1944,7 +1945,8 @@
       (width 0)
       (type default))
     (uuid "ceb4d8e9-cb7c-53e2-96dc-fa0ad181cb1c"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 154.94 57.15 90)
     (fields_autoplaced yes)
     (effects
@@ -2101,7 +2103,8 @@
       (width 0)
       (type default))
     (uuid "6857d048-9277-53c1-8009-59ff6569f75a"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 246.38 59.69 180)
     (fields_autoplaced yes)
     (effects
@@ -2174,7 +2177,8 @@
       (width 0)
       (type default))
     (uuid "6041ac78-5618-5afb-821c-aee5bfff64b1"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 50.8 95.25 90)
     (fields_autoplaced yes)
     (effects
@@ -2274,7 +2278,8 @@
       (width 0)
       (type default))
     (uuid "845a2853-b5b9-574a-9c9c-47cfc426da2d"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 99.06 95.25 90)
     (fields_autoplaced yes)
     (effects
@@ -2374,7 +2379,8 @@
       (width 0)
       (type default))
     (uuid "d28ba3ac-705f-555b-84ac-ce3764b75bb0"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 144.78 95.25 90)
     (fields_autoplaced yes)
     (effects
@@ -2531,7 +2537,8 @@
       (width 0)
       (type default))
     (uuid "fc8ece94-9cf9-5e95-acb3-03c8ef2ebc8a"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 45.72 135.89 180)
     (fields_autoplaced yes)
     (effects
@@ -2714,7 +2721,8 @@
       (width 0)
       (type default))
     (uuid "3cc22cf0-c71b-56dc-9d84-edc89ee2dbff"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 120.65 130.81 90)
     (fields_autoplaced yes)
     (effects
@@ -3860,7 +3868,8 @@
       (width 0)
       (type default))
     (uuid "b7bfde57-ab3b-5c97-b4f2-006c3d3b150c"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 49.53 217.17 90)
     (fields_autoplaced yes)
     (effects
@@ -4280,7 +4289,8 @@
       (width 0)
       (type default))
     (uuid "da4a01d9-7ecf-5aae-9d91-9db82026c2a4"))
-  (label "+12V_LOGIC"
+  (global_label "+12V_LOGIC"
+    (shape passive)
     (at 48.26 257.81 270)
     (fields_autoplaced yes)
     (effects

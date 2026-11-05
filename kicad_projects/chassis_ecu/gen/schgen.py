@@ -142,6 +142,7 @@ class Sheet:
         self.parts = []
         self.notes = []                 # (text, x, y)
         self.uuid = uid('sheet', filename)
+        self.paper = 'A2'
 
     def add(self, *a, **k):
         p = Part(*a, **k)
@@ -219,7 +220,8 @@ class Board:
         items = []
         # simple row packing
         lines = sum(t.count('\n') + 1 for t, _, _ in s.notes)
-        x0, y0, xmax = 25.4, snap(20.32 + 3.0 * lines), 560.0
+        x0, y0 = 25.4, snap(20.32 + 3.0 * lines)
+        xmax = {'A2': 560.0, 'A1': 800.0}[s.paper]
         cx, cy, rowh = x0, y0, 0.0
         heads = []
         for p in s.parts:
@@ -259,7 +261,7 @@ class Board:
                     libs[lid] = lib_symbol(lid)
         e = [Sym('kicad_sch'), [Sym('version'), Sym('20230121')], [Sym('generator'), 'eeschema'],
              [Sym('generator_version'), '7.0'], [Sym('uuid'), s.uuid],
-             [Sym('paper'), 'A2'], self._title_block(s.name),
+             [Sym('paper'), s.paper], self._title_block(s.name),
              [Sym('lib_symbols')] + list(libs.values())] + items
         with open(os.path.join(outdir, s.filename), 'w') as f:
             f.write(dump(e) + '\n')
