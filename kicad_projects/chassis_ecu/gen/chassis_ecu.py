@@ -21,6 +21,23 @@ def flag(s, ref, net):
     return s.add(ref, 'power:PWR_FLAG', 'PWR_FLAG', {'1': net})
 
 
+# Manufacturer part numbers by Value.  LCSC numbers are filled only once verified
+# against the JLC parts index; JLCPCB's BOM matcher can also resolve from MPN.
+MPN = {
+    'LM5164DDAR': 'LM5164DDAR', 'FDD4685': 'FDD4685', 'SMAJ33CA': 'SMAJ33CA', 'BZT52C15': 'BZT52C15',
+    'BAT54S': 'BAT54S', 'ESP32-S3-WROOM-1-N8': 'ESP32-S3-WROOM-1-N8', 'USBLC6-2SC6': 'USBLC6-2SC6',
+    'SN65HVD230': 'SN65HVD230DR', 'NUP2105L': 'NUP2105LT1G', 'MCP2518FD': 'MCP2518FDT-E/QBB',
+    '40MHz 12pF': '7B040000M01', 'MCP23017-E/SS': 'MCP23017-E/SS', 'LTV-357T': 'LTV-357T',
+    '1N4148W': '1N4148W', 'DMN6075S 60V': 'DMN6075S-7', 'B5819W': 'B5819W', '2N7002': '2N7002',
+    'AO3401A': 'AO3401A', 'BTN8982TA': 'BTN8982TA', 'SMCJ22A': 'SMCJ22A', 'SMAJ15CA': 'SMAJ15CA',
+    'CPC1117N': 'CPC1117NTR', 'TLV3201AIDBV': 'TLV3201AIDBVR', 'ADS1115IDGS': 'ADS1115IDGSR',
+    'LSM6DSO': 'LSM6DSOTR', 'INA226AIDGSR': 'INA226AIDGSR',
+}
+LCSC = {
+    '40MHz 12pF': 'C655034',     # jlcsearch result 2026-11-05: 7B040000M01, 12pF, +-10ppm, 3225
+}
+
+
 def build():
     b = Board('chassis_ecu', 'A')
 
@@ -125,7 +142,7 @@ def build():
     s = b.sheet('CAN', 'can.kicad_sch')
     s.note('CAN1 = native TWAI (vehicle bus).  CAN2 = MCP2518FD on SPI (CAN-FD capable).\n'
            'Rs tied to GND = high-speed mode.  120R terminators on solder jumpers, default OPEN (mid-bus).\n'
-           'Y1: 40 MHz; load caps C16/C17 depend on the crystal CL (12 pF placeholder).',
+           'Y1: 40 MHz, CL 12 pF (7B040000M01) -> C16/C17 = 2 x (12 - ~3 pF stray) = 18 pF.',
            20, 15)
     s.row('CAN1: native TWAI, vehicle bus')
     s.add('U4', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230',
@@ -148,10 +165,10 @@ def build():
     C(s, 'C15', '1uF', '+3V3', 'GND')
     R(s, 'R17', '10k', '+3V3', 'CAN2_INT')
     R(s, 'R18', '10k', '+3V3', 'CAN2_CS')
-    s.add('Y1', 'Device:Crystal_GND24', '40MHz', {'1': 'CAN2_OSC1', '3': 'CAN2_OSC2', 'G': 'GND'},
+    s.add('Y1', 'Device:Crystal_GND24', '40MHz 12pF', {'1': 'CAN2_OSC1', '3': 'CAN2_OSC2', 'G': 'GND'},
           'Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm')
-    C(s, 'C16', '12pF', 'CAN2_OSC1', 'GND')
-    C(s, 'C17', '12pF', 'CAN2_OSC2', 'GND')
+    C(s, 'C16', '18pF', 'CAN2_OSC1', 'GND')
+    C(s, 'C17', '18pF', 'CAN2_OSC2', 'GND')
     s.row('CAN2 transceiver')
     s.add('U6', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230',
           {'D': 'CAN2_TXD', 'R': 'CAN2_RXD', 'VCC': '+3V3', 'GND': 'GND', 'Rs': 'GND',
@@ -166,6 +183,14 @@ def build():
     j1772_sheet(b)
     sensor_sheet(b)
     connector_sheet(b)
+    for sh in b.sheets:
+        for p in sh.parts:
+            if isinstance(p, tuple):
+                continue
+            if p.value in MPN:
+                p.fields.setdefault('MPN', MPN[p.value])
+            if p.value in LCSC:
+                p.fields.setdefault('LCSC', LCSC[p.value])
     return b
 
 

@@ -272,7 +272,11 @@ class Board:
     def _place(self, p, ls, sx, sy, path, s):
         out = []
         pins = sym_pins(ls, p.unit)
-        props = [('Reference', p.ref), ('Value', p.value), ('Footprint', p.footprint),
+        fp = p.footprint
+        if not fp:
+            d = [x for x in ls if head(x) == 'property' and x[1] == 'Footprint']
+            fp = d[0][2] if d else ''
+        props = [('Reference', p.ref), ('Value', p.value), ('Footprint', fp),
                  ('Datasheet', '~')] + list(p.fields.items())
         bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
         sym = [Sym('symbol'), [Sym('lib_id'), p.lib_id], [Sym('at'), sx, sy, 0],

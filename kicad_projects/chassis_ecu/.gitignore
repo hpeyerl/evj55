@@ -4,3 +4,4 @@ gen/netlist.xml
 *-backups/
 *.kicad_prl
 fp-info-cache
+gen/lcsc_cache.json
