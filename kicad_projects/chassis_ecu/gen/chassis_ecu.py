@@ -6,7 +6,7 @@ C0603 = 'Capacitor_SMD:C_0603_1608Metric'
 C1206 = 'Capacitor_SMD:C_1206_3216Metric'
 C1210 = 'Capacitor_SMD:C_1210_3225Metric'
 SOT23 = 'Package_TO_SOT_SMD:SOT-23'
-BTN = 'Button_Switch_SMD:SW_SPST_TL3342'
+BTN = 'Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A'
 
 
 def R(s, ref, val, a, b, fp=R0603, **k):
@@ -28,14 +28,19 @@ MPN = {
     'BAT54S': 'BAT54S', 'ESP32-S3-WROOM-1-N8': 'ESP32-S3-WROOM-1-N8', 'USBLC6-2SC6': 'USBLC6-2SC6',
     'SN65HVD230': 'SN65HVD230DR', 'NUP2105L': 'NUP2105LT1G', 'MCP2518FD': 'MCP2518FDT-E/QBB',
     '40MHz 12pF': '7B040000M01', 'MCP23017-E/SS': 'MCP23017-E/SS', 'LTV-357T': 'LTV-357T',
-    '1N4148W': '1N4148W', 'DMN6075S 60V': 'DMN6075S-7', 'B5819W': 'B5819W', '2N7002': '2N7002',
+    '1N4148W': '1N4148W', 'DMN6075S': 'DMN6075S-7', 'B5819W': 'B5819W', '2N7002': '2N7002',
     'AO3401A': 'AO3401A', 'BTN8982TA': 'BTN8982TA', 'SMCJ22A': 'SMCJ22A', 'SMAJ15CA': 'SMAJ15CA',
     'CPC1117N': 'CPC1117NTR', 'TLV3201AIDBV': 'TLV3201AIDBVR', 'ADS1115IDGS': 'ADS1115IDGSR',
-    'LSM6DSO': 'LSM6DSOTR', 'INA226AIDGSR': 'INA226AIDGSR',
+    'LSM6DSOX': 'LSM6DSOXTR', 'INA226AIDGSR': 'INA226AIDGSR', 'SMAJ24CA': 'SMAJ24CA',
+    'BSS84': 'LBSS84LT1G', 'MCP23017-E/SO': 'MCP23017-E/SO', 'TYPE-C-31-M-12': 'TYPE-C-31-M-12',
+    '22uH 2.2A': 'FNR6045S220MT', '1A 63V': '0466001.NRHF', 'LTV-357T': 'LTV-357T-C',
 }
-LCSC = {
-    '40MHz 12pF': 'C655034',     # jlcsearch result 2026-11-05: 7B040000M01, 12pF, +-10ppm, 3225
-}
+# LCSC numbers: gen/lcsc_parts.json, written by jlc_select.py from the jlcparts database
+# (keys 'value|footprint' for passives, 'value' for parts chosen by MPN).
+import json as _json
+import os as _os
+with open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'lcsc_parts.json')) as _f:
+    LCSC = _json.load(_f)
 
 
 def build():
@@ -43,24 +48,24 @@ def build():
 
     # --- Power ----------------------------------------------------------------
     s = b.sheet('Power', 'power.kicad_sch')
-    s.note('12V logic input -> fuse -> bidirectional TVS -> P-FET reverse protection (same as the HAT)\n'
+    s.note('12V logic input (steady <= 15 V; TVS is for spikes) -> fuse -> SMAJ24CA bidirectional TVS -> P-FET reverse protection (same as the HAT)\n'
            '-> LM5164 buck, 3.3V 1A, 300 kHz, Type-3 ripple injection (datasheet SNVSAU4D 7.2.2).\n'
            'VOUT = 1.2 x (1 + 174k/100k) = 3.29 V.  RON = 3.3 x 2500 / 300 kHz = 27.4k.\n'
            'EN/UVLO: start 1.5 x (1 + 301k/100k) = 6.0 V, stop 5.6 V.\n'
-           'L1: 22uH, Isat >= 2 A (LM5164 peak limit 1.75 A max), DCR <= 0.15 R, 6x6 shielded.\n'
+           'L1: FNR6045S220MT 22uH, 2.2 A (LM5164 peak limit 1.75 A max), 116 mR, 6x6 shielded.\n'
            'Ripple 0.46 A p-p at 40 V in.  Type 3: CA >= 525 pF -> 3.3 nF, RA 124k -> 16 mV (8 V) .. 25 mV (40 V) at FB.\n'
            'VSENSE_12V: 100k/10k divider (12 V -> 1.09 V), BAT54S clamp to the rails.',
            20, 15)
     s.row('Input protection: fuse, TVS, reverse-polarity P-FET')
-    s.add('F1', 'Device:Fuse', '1A >=50V', {'1': 'VIN_12V', '2': 'VIN_F'}, 'Fuse:Fuse_1206_3216Metric')
-    s.add('D1', 'Device:D_TVS', 'SMAJ33CA', {'1': 'VIN_F', '2': 'GND'}, 'Diode_SMD:D_SMA')
+    s.add('F1', 'Device:Fuse', '1A 63V', {'1': 'VIN_12V', '2': 'VIN_F'}, 'Fuse:Fuse_1206_3216Metric')
+    s.add('D1', 'Device:D_TVS', 'SMAJ24CA', {'1': 'VIN_F', '2': 'GND'}, 'Diode_SMD:D_SMA')
     s.add('Q1', 'PCM_Transistor_MOSFET_AKL:FDD4685', 'FDD4685',
           {'G': 'QREV_G', 'D': 'VIN_F', 'S': '+12V_LOGIC'}, 'Package_TO_SOT_SMD:TO-252-2')
     R(s, 'R1', '10k', 'QREV_G', 'GND')
     s.add('D2', 'Device:D_Zener', 'BZT52C15', {'K': '+12V_LOGIC', 'A': 'QREV_G'}, 'Diode_SMD:D_SOD-123')
     s.row('Buck input capacitors')
     s.add('C1', 'Device:C_Polarized', '47uF 63V', {'1': '+12V_LOGIC', '2': 'GND'},
-          'Capacitor_SMD:CP_Elec_8x10')
+          'Capacitor_SMD:CP_Elec_6.3x7.7')
     C(s, 'C2', '2.2uF 100V X7R', '+12V_LOGIC', 'GND', C1210)
     C(s, 'C3', '2.2uF 100V X7R', '+12V_LOGIC', 'GND', C1210)
     s.row('LM5164 buck, 3.3V')
@@ -72,8 +77,8 @@ def build():
     R(s, 'R4', '27.4k', 'BUCK_RON', 'GND')
     C(s, 'C4', '2.2nF 50V X7R', 'BUCK_BST', 'BUCK_SW')
     s.row('Inductor, ripple injection, feedback, output caps')
-    s.add('L1', 'Device:L', '22uH Isat>=2A', {'1': 'BUCK_SW', '2': '+3V3'},
-          'Inductor_SMD:L_Bourns_SRN6045TA')
+    s.add('L1', 'Device:L', '22uH 2.2A', {'1': 'BUCK_SW', '2': '+3V3'},
+          'Inductor_SMD:L_Changjiang_FNR6045S')
     R(s, 'R5', '124k', 'BUCK_SW', 'BUCK_RIP')
     C(s, 'C5', '3.3nF', 'BUCK_RIP', '+3V3')
     C(s, 'C6', '100pF', 'BUCK_RIP', 'BUCK_FB')
@@ -112,7 +117,8 @@ def build():
         'IO39': 'HB_L_INH', 'IO40': 'HB_R_INH',
         'IO41': 'CP_DUTY', 'IO42': 'CP_S2_OPEN', 'IO48': 'PAWL_DRV',
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
-    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46'])
+    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46'],
+        fields={'JLC': 'not assembled - hand-solder (N8, or N4 = LCSC C2913197)'})
     s.row('Decoupling, reset, boot, I2C pull-ups')
     C(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', C1206)
     C(s, 'C11', '100nF', '+3V3', 'GND')
@@ -124,10 +130,10 @@ def build():
     R(s, 'R12', '4.7k', '+3V3', 'I2C_SDA')
     R(s, 'R13', '4.7k', '+3V3', 'I2C_SCL')
     s.row('USB-C (data only) and debug UART')
-    s.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C',
+    s.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'TYPE-C-31-M-12',
           {'GND': 'GND', 'VBUS': 'USB_VBUS', 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM', 'SHIELD': 'GND'},
-          'Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal',
+          'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12',
           nc=['SBU1', 'SBU2'])
     R(s, 'R14', '5.1k', 'USB_CC1', 'GND')
     R(s, 'R15', '5.1k', 'USB_CC2', 'GND')
@@ -189,8 +195,11 @@ def build():
                 continue
             if p.value in MPN:
                 p.fields.setdefault('MPN', MPN[p.value])
-            if p.value in LCSC:
-                p.fields.setdefault('LCSC', LCSC[p.value])
+            k = p.value + '|' + p.footprint.split(':')[-1]
+            hit = LCSC.get(k) or LCSC.get(p.value)
+            if hit and 'JLC' not in p.fields:
+                p.fields.setdefault('LCSC', hit['lcsc'])
+                p.fields.setdefault('MPN', hit['mfr'])
     return b
 
 
@@ -198,10 +207,10 @@ def opto_in(s, n, net, rser):
     """12V-active input: series R -> opto LED (reverse diode across it) -> GND.
     Collector pulled up to 3V3 = ACTIVE-LOW at the expander."""
     s.add('R%d' % (100 + n), 'Device:R', rser, {'1': net, '2': 'OPTO%d_A' % n},
-          'Resistor_SMD:R_1206_3216Metric')
+          'Resistor_SMD:R_0805_2012Metric')
     s.add('D%d' % (100 + n), 'Device:D', '1N4148W', {'K': 'OPTO%d_A' % n, 'A': 'GND'}, 'Diode_SMD:D_SOD-123')
     s.add('U%d' % (100 + n), 'Isolator:PC817', 'LTV-357T', {'1': 'OPTO%d_A' % n, '2': 'GND',
-          '3': 'GND', '4': 'IOX_IN%d' % n}, 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm')
+          '3': 'GND', '4': 'IOX_IN%d' % n}, 'Package_SO:SO-4_4.4x3.6mm_P2.54mm')
     R(s, 'R%d' % (110 + n), '10k', '+3V3', 'IOX_IN%d' % n)
     C(s, 'C%d' % (100 + n), '10nF', 'IOX_IN%d' % n, 'GND')
 
@@ -210,7 +219,7 @@ def lowside_out(s, n):
     """Light low-side output (small relay / LED / lamp), flyback to +12V_LOGIC."""
     R(s, 'R%d' % (120 + n), '100R', 'IOX_OUT%d' % n, 'OUT%d_G' % n)
     R(s, 'R%d' % (130 + n), '100k', 'OUT%d_G' % n, 'GND')
-    s.add('Q%d' % (100 + n), 'Transistor_FET:DMN6075S', 'DMN6075S 60V',
+    s.add('Q%d' % (100 + n), 'Transistor_FET:DMN6075S', 'DMN6075S',
           {'G': 'OUT%d_G' % n, 'S': 'GND', 'D': 'OUT%d' % n})
     s.add('D%d' % (110 + n), 'Device:D_Schottky', 'B5819W', {'K': '+12V_LOGIC', 'A': 'OUT%d' % n},
           'Diode_SMD:D_SOD-123')
@@ -223,7 +232,7 @@ def highside_led(s, n, ctl, out):
     s.add('Q%d' % (110 + n), 'Transistor_FET:2N7002', '2N7002',
           {'G': 'HSL%d_G' % n, 'S': 'GND', 'D': 'HSL%d_PG' % n})
     R(s, 'R%d' % (150 + n), '10k', '+12V_LOGIC', 'HSL%d_PG' % n)
-    s.add('Q%d' % (115 + n), 'PCM_Transistor_MOSFET_AKL:AO3401A', 'AO3401A',
+    s.add('Q%d' % (115 + n), 'Transistor_FET:BSS84', 'BSS84',
           {'G': 'HSL%d_PG' % n, 'S': '+12V_LOGIC', 'D': 'HSL%d_D' % n})
     R(s, 'R%d' % (155 + n), '0R', 'HSL%d_D' % n, out, 'Resistor_SMD:R_0805_2012Metric',
       fields={'Note': 'LED series R if the button LED has none'})
@@ -237,17 +246,17 @@ def io_sheet(b):
            'GPB6 = PAWL_INH.  INTA -> IOX_INT (configure open-drain, mirrored).\n'
            'Opto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\n'
            'Light outputs: DMN6075S 60V low-side, B5819W flyback to +12V_LOGIC.\n'
-           'EPB LEDs: high-side 12V (AO3401A + 2N7002).  The HAT reads the same lines (EPB_GRN / EPB_RED).',
+           'EPB LEDs: high-side 12V (BSS84 50V +-20V Vgs, + 2N7002).  The HAT reads the same lines (EPB_GRN / EPB_RED).',
            20, 15)
     s.row('MCP23017 I/O expander')
-    s.add('U10', 'Interface_Expansion:MCP23017x-x-SS', 'MCP23017-E/SS', {
+    s.add('U10', 'Interface_Expansion:MCP23017x-x-SO', 'MCP23017-E/SO', {
         'V_{DD}': '+3V3', 'V_{SS}': 'GND', 'SCK': 'I2C_SCL', 'SDA': 'I2C_SDA',
         'A0': 'GND', 'A1': 'GND', 'A2': 'GND', '~{RESET}': 'IOX_RST', 'INTA': 'IOX_INT',
         'GPA0': 'IOX_IN1', 'GPA1': 'IOX_IN2', 'GPA2': 'IOX_IN3', 'GPA3': 'IOX_IN4',
         'GPA4': 'IOX_IN5', 'GPA5': 'IOX_IN6', 'GPA6': 'EPB_BTN_IN', 'GPA7': 'LED_STAT1',
         'GPB0': 'IOX_OUT1', 'GPB1': 'IOX_OUT2', 'GPB2': 'IOX_OUT3', 'GPB3': 'IOX_OUT4',
         'GPB4': 'EPB_LEDG_CTL', 'GPB5': 'EPB_LEDR_CTL', 'GPB6': 'PAWL_INH', 'GPB7': 'LED_STAT2',
-    }, 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', nc=['INTB'])
+    }, 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', nc=['INTB'])
     C(s, 'C110', '100nF', '+3V3', 'GND')
     R(s, 'R160', '10k', '+3V3', 'IOX_RST')
     R(s, 'R161', '10k', '+3V3', 'IOX_INT')
@@ -268,11 +277,11 @@ def io_sheet(b):
     highside_led(s, 2, 'EPB_LEDR_CTL', 'EPB_LED_R')
     s.row('Status LEDs')
     R(s, 'R164', '1k', '+3V3', 'LED_PWR_A')
-    s.add('D121', 'Device:LED', 'PWR green', {'A': 'LED_PWR_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    s.add('D121', 'Device:LED', 'LED green', {'A': 'LED_PWR_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
     R(s, 'R165', '1k', 'LED_STAT1', 'LED1_A')
-    s.add('D122', 'Device:LED', 'STAT1', {'A': 'LED1_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    s.add('D122', 'Device:LED', 'LED green', {'A': 'LED1_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
     R(s, 'R166', '1k', 'LED_STAT2', 'LED2_A')
-    s.add('D123', 'Device:LED', 'STAT2', {'A': 'LED2_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
+    s.add('D123', 'Device:LED', 'LED green', {'A': 'LED2_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
     s.row('Expansion header (DNP): spare I/O not on the main connector')
     s.add('J10', 'Connector_Generic:Conn_01x10', 'EXP', {
         '1': 'GND', '2': '+3V3', '3': 'I2C_SDA', '4': 'I2C_SCL', '5': 'IN5', '6': 'IN6',
@@ -315,10 +324,10 @@ def motor_sheet(b):
            20, 15)
     s.row('EPB supply: TVS, current shunt, bulk')
     s.add('D210', 'Device:D_TVS', 'SMCJ22A', {'1': 'EPB_12V', '2': 'GND'}, 'Diode_SMD:D_SMC')
-    s.add('R250', 'Device:R_Shunt', '2mR 3W', {'1': 'EPB_12V', '2': 'EPB_SH_P', '3': 'EPB_SH_N', '4': 'EPB_VS'},
-          'Resistor_SMD:R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm')
-    s.add('C240', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
-    s.add('C241', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
+    s.add('R250', 'Device:R', '2mR 3W', {'1': 'EPB_12V', '2': 'EPB_VS'}, 'Resistor_SMD:R_2512_6332Metric',
+          fields={'Note': 'Kelvin: route INA226 sense traces from the inner pad edges'})
+    s.add('C240', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10')
+    s.add('C241', 'Device:C_Polarized', '470uF 35V', {'1': 'EPB_VS', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10')
     s.row('Left caliper H-bridge')
     half_bridge(s, 'U20', 1, 'EPB_VS', 'CAL_L_A', 'HB_L_IN1', 'HB_L_INH', 'HB_LA_ISRAW')
     half_bridge(s, 'U21', 2, 'EPB_VS', 'CAL_L_B', 'HB_L_IN2', 'HB_L_INH', 'HB_LB_ISRAW')
@@ -331,7 +340,7 @@ def motor_sheet(b):
     is_sense(s, 4, 'HB_RB_ISRAW', 'HB_RB_IS')
     s.row('Pawl motor (high-side switch)')
     s.add('D211', 'Device:D_TVS', 'SMCJ22A', {'1': 'PAWL_12V', '2': 'GND'}, 'Diode_SMD:D_SMC')
-    s.add('C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_10x10.5')
+    s.add('C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'}, 'Capacitor_SMD:CP_Elec_8x10.5')
     half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW')
     is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS')
     s.row('Power flags')
@@ -395,7 +404,7 @@ def sensor_sheet(b):
            'AIN0': 'CP_LVL', 'AIN1': 'PP_SENSE', 'AIN2': 'ANA3', 'AIN3': 'ANA4'}, nc=['ALERT/RDY'])
     C(s, 'C400', '100nF', '+3V3', 'GND')
     s.row('LSM6DSO IMU')
-    s.add('U41', 'PCM_SparkFun-Sensor:LSM6DSOX', 'LSM6DSO',
+    s.add('U41', 'PCM_SparkFun-Sensor:LSM6DSOX', 'LSM6DSOX',
           {'VDD': '+3V3', 'VDDIO': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL',
            '~{CS}': '+3V3', 'SDO/SA0': 'GND', 'SDx': 'GND', 'SCx': 'GND', 'INT1': 'IMU_INT1'},
           nc=['INT2', 'OCS_Aux', 'SDO_Aux'])
@@ -405,8 +414,8 @@ def sensor_sheet(b):
     s.add('U42', 'Sensor_Energy:INA226', 'INA226AIDGSR',
           {'VS': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL', 'A0': 'GND', 'A1': 'GND',
            'Vin+': 'INA_INP', 'Vin-': 'INA_INN', 'Vbus': 'EPB_VS'}, nc=['~{Alert}'])
-    R(s, 'R400', '10R', 'EPB_SH_P', 'INA_INP')
-    R(s, 'R401', '10R', 'EPB_SH_N', 'INA_INN')
+    R(s, 'R400', '10R', 'EPB_12V', 'INA_INP')
+    R(s, 'R401', '10R', 'EPB_VS', 'INA_INN')
     C(s, 'C403', '100nF 50V', 'INA_INP', 'INA_INN')
     C(s, 'C404', '100nF', '+3V3', 'GND')
 

@@ -14,13 +14,24 @@ libraries and `pcbnew` are installed there.
 Every pin is drawn as a short stub with a net label (or power symbol); connectivity is by label
 name. Layout is one functional block per row.
 
+## Parts / BOM
+- `gen/jlc_select.py <cache.sqlite3>` picks LCSC parts from the jlcparts database
+  (yaqwsx.github.io/jlcparts/data/cache.zip + cache.z01..z05, a split zip of one 2.1 GB sqlite file;
+  the concatenated parts start with a 4-byte split marker) and writes `gen/lcsc_parts.json`.
+  Preference: in stock, JLC basic > preferred > extended.
+- `gen/bom.py` writes `chassis_ecu_bom_jlc.csv` (JLCPCB assembly format).
+- Not assembled by JLC: U2 ESP32 module (hand-solder; N8, or N4 = LCSC C2913197), connectors,
+  solder jumpers, test points, DNP parts (PP circuit).
+- 69 BOM lines: 30 basic, 6 preferred, 33 extended. Low JLC stock (< 5000) on the crystal,
+  BTN8982TA, CPC1117N, FDD4685, LSM6DSOX, MCP23017, SMCJ22A, TLV3201 - recheck at order time.
+
 ## Status
 - Drawn (0 ERC errors, netlist self-check OK): Power, MCU, CAN, IO (MCP23017, 6 opto inputs,
   4 light outputs, EPB button + LEDs, status LEDs), Motors (EPB 2x H-bridge, pawl high-side, all
   BTN8982TA), J1772 (CP state + read, PP option), Sensors (ADS1115, LSM6DSO, INA226), Connector.
 - Connector pin numbers are PROVISIONAL until the 32-pin header drawing arrives.
 - 4 ERC warnings: the SparkFun LSM6DSOX symbol types its strap pins bidirectional (benign).
-- Open: caliper / pawl stall current, crystal CL (CAN2 load caps), LCSC part numbers, PP ownership.
+- Design stall current 20 A.  Open: PP ownership, connector drawing.
 
 ## ESP32-S3 pin map
 | GPIO | Net | GPIO | Net |

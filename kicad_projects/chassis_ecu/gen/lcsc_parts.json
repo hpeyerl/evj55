@@ -1,0 +1,562 @@
+{
+ "0R|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 0Ω 100mW 75V Thick Film Resistor ±1% 0603 Chip Resistor - Surface Mount ROHS",
+  "lcsc": "C21189",
+  "mfr": "0603WAF0000T5E",
+  "package": "0603",
+  "stock": 24128786,
+  "type": "basic"
+ },
+ "0R|R_0805_2012Metric": {
+  "desc": "-55℃~+155℃ 0Ω 125mW 150V Thick Film Resistor ±1% ±800ppm/℃ 0805 Chip Resistor - Surface Mo",
+  "lcsc": "C17477",
+  "mfr": "0805W8F0000T5E",
+  "package": "0805",
+  "stock": 6171305,
+  "type": "basic"
+ },
+ "1.3k 1%|R_0805_2012Metric": {
+  "desc": "-55℃~+155℃ 1.3kΩ 125mW 150V Thick Film Resistor ±1% ±100ppm/℃ 0805 Chip Resistor - Surface",
+  "lcsc": "C17384",
+  "mfr": "0805W8F1301T5E",
+  "package": "0805",
+  "stock": 67523,
+  "type": "ext"
+ },
+ "100R|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 100Ω 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface M",
+  "lcsc": "C22775",
+  "mfr": "0603WAF1000T5E",
+  "package": "0603",
+  "stock": 11248464,
+  "type": "basic"
+ },
+ "100k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100kΩ 100mW 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C25803",
+  "mfr": "0603WAF1003T5E",
+  "package": "0603",
+  "stock": 19748113,
+  "type": "basic"
+ },
+ "100nF 50V|C_0603_1608Metric": {
+  "desc": "100nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C14663",
+  "mfr": "CC0603KRX7R9BB104",
+  "package": "0603",
+  "stock": 50349394,
+  "type": "basic"
+ },
+ "100nF|C_0603_1608Metric": {
+  "desc": "100nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C14663",
+  "mfr": "CC0603KRX7R9BB104",
+  "package": "0603",
+  "stock": 50349394,
+  "type": "basic"
+ },
+ "100pF|C_0603_1608Metric": {
+  "desc": "100pF 50V C0G ±5% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C14858",
+  "mfr": "CL10C101JB8NNNC",
+  "package": "0603",
+  "stock": 3177165,
+  "type": "basic"
+ },
+ "10R|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 10Ω 75V Thick Film Resistor ±1% ±400ppm/℃ 0603 Chip Resistor - Surface Mo",
+  "lcsc": "C22859",
+  "mfr": "0603WAF100JT5E",
+  "package": "0603",
+  "stock": 6134273,
+  "type": "basic"
+ },
+ "10k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 10kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface M",
+  "lcsc": "C25804",
+  "mfr": "0603WAF1002T5E",
+  "package": "0603",
+  "stock": 32380385,
+  "type": "basic"
+ },
+ "10nF|C_0603_1608Metric": {
+  "desc": "10nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C57112",
+  "mfr": "0603B103K500NT",
+  "package": "0603",
+  "stock": 5976362,
+  "type": "basic"
+ },
+ "120R|R_1206_3216Metric": {
+  "desc": "-55℃~+155℃ 120Ω 200V 250mW Thick Film Resistor ±1% ±100ppm/℃ 1206 Chip Resistor - Surface ",
+  "lcsc": "C17909",
+  "mfr": "1206W4F1200T5E",
+  "package": "1206",
+  "stock": 451968,
+  "type": "basic"
+ },
+ "124k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 124kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C22788",
+  "mfr": "0603WAF1243T5E",
+  "package": "0603",
+  "stock": 200087,
+  "type": "ext"
+ },
+ "174k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 174kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C22890",
+  "mfr": "0603WAF1743T5E",
+  "package": "0603",
+  "stock": 24513,
+  "type": "ext"
+ },
+ "18pF|C_0603_1608Metric": {
+  "desc": "18pF 50V C0G ±5% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C1647",
+  "mfr": "CL10C180JB8NNNC",
+  "package": "0603",
+  "stock": 359438,
+  "type": "basic"
+ },
+ "1A 63V": {
+  "desc": "-55℃~+90℃ 0.0423 1.6mm 1A 3.2mm 50A 63V 63V Surface Mount Fuse 1206 Disposable fuses ROHS",
+  "lcsc": "C151135",
+  "mfr": "0466001.NRHF",
+  "package": "1206",
+  "stock": 55928,
+  "type": "ext"
+ },
+ "1M|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 1MΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface Mo",
+  "lcsc": "C22935",
+  "mfr": "0603WAF1004T5E",
+  "package": "0603",
+  "stock": 5647551,
+  "type": "basic"
+ },
+ "1N4148W": {
+  "desc": "150mA 1A 1V@50mA 1uA@75V 400mW 4ns 75V Independent SOD-123 Switching Diodes ROHS",
+  "lcsc": "C81598",
+  "mfr": "1N4148W",
+  "package": "SOD-123",
+  "stock": 4633707,
+  "type": "basic"
+ },
+ "1k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 1kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface Mo",
+  "lcsc": "C21190",
+  "mfr": "0603WAF1001T5E",
+  "package": "0603",
+  "stock": 24277749,
+  "type": "basic"
+ },
+ "1nF|C_0603_1608Metric": {
+  "desc": "1nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C1588",
+  "mfr": "CL10B102KB8NNNC",
+  "package": "0603",
+  "stock": 6432787,
+  "type": "basic"
+ },
+ "1uF|C_0603_1608Metric": {
+  "desc": "1uF 50V X5R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C15849",
+  "mfr": "CL10A105KB8NNNC",
+  "package": "0603",
+  "stock": 9868521,
+  "type": "basic"
+ },
+ "2.2k|R_0805_2012Metric": {
+  "desc": "-55℃~+155℃ 125mW 150V 2.2kΩ Thick Film Resistor ±1% ±100ppm/℃ 0805 Chip Resistor - Surface",
+  "lcsc": "C17520",
+  "mfr": "0805W8F2201T5E",
+  "package": "0805",
+  "stock": 3699382,
+  "type": "basic"
+ },
+ "2.2nF 50V X7R|C_0603_1608Metric": {
+  "desc": "2.2nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C1604",
+  "mfr": "0603B222K500NT",
+  "package": "0603",
+  "stock": 989882,
+  "type": "basic"
+ },
+ "2.2uF 100V X7R|C_1210_3225Metric": {
+  "desc": "100V 2.2uF X7R ±10% 1210 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C153036",
+  "mfr": "FS32X225K101EGG",
+  "package": "1210",
+  "stock": 282914,
+  "type": "ext"
+ },
+ "2.74k 1%|R_0805_2012Metric": {
+  "desc": "-55℃~+155℃ 125mW 150V 2.74kΩ Thick Film Resistor ±1% ±100ppm/℃ 0805 Chip Resistor - Surfac",
+  "lcsc": "C204367",
+  "mfr": "CR0805-FX-2741ELF",
+  "package": "0805",
+  "stock": 12327,
+  "type": "ext"
+ },
+ "200k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 200kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C25811",
+  "mfr": "0603WAF2003T5E",
+  "package": "0603",
+  "stock": 2578190,
+  "type": "basic"
+ },
+ "220nF 50V|C_0805_2012Metric": {
+  "desc": "220nF 50V X7R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C5378",
+  "mfr": "CL21B224KBFNNNE",
+  "package": "0805",
+  "stock": 723613,
+  "type": "basic"
+ },
+ "220uF 35V|CP_Elec_8x10.5": {
+  "desc": "-55℃~+105℃ 10.5mm 2000hrs@105℃ 220uF 300mA@120Hz 35V 8mm Polarized ±20% SMD,D8xL10mm Alumi",
+  "lcsc": "C136294",
+  "mfr": "UCD1V221MNL1GS",
+  "package": "SMD,D8xL10mm",
+  "stock": 119515,
+  "type": "ext"
+ },
+ "22uF 10V X7R|C_1206_3216Metric": {
+  "desc": "22uF 25V X5R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C12891",
+  "mfr": "CL31A226KAHNNNE",
+  "package": "1206",
+  "stock": 553006,
+  "type": "basic"
+ },
+ "22uH 2.2A": {
+  "desc": "116mΩ 2.2A 22uH 2A Magnetic Shielded Inductor ±20% SMD,6x6mm Power Inductors ROHS",
+  "lcsc": "C168080",
+  "mfr": "FNR6045S220MT",
+  "package": "SMD,6x6mm",
+  "stock": 13972,
+  "type": "ext"
+ },
+ "27.4k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 27.4kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface",
+  "lcsc": "C843937",
+  "mfr": "CRCW060327K4FKEA",
+  "package": "0603",
+  "stock": 31273,
+  "type": "ext"
+ },
+ "2N7002": {
+  "desc": "1 N-channel 115mA 2.5V 225mW 25pF 50pF 5pF 5Ω@10V 60V N-Channel ±20V SOT-23 MOSFETs ROHS",
+  "lcsc": "C8545",
+  "mfr": "2N7002",
+  "package": "SOT-23",
+  "stock": 1830508,
+  "type": "basic"
+ },
+ "2mR 3W|R_2512_6332Metric": {
+  "desc": "2mΩ 5W SMD Shunt ±1% ±50ppm/℃ 2512 Current Sense Resistors / Shunt Resistors ROHS",
+  "lcsc": "C695817",
+  "mfr": "ASR-K-3-2F",
+  "package": "2512",
+  "stock": 84565,
+  "type": "ext"
+ },
+ "3.3nF|C_0603_1608Metric": {
+  "desc": "3.3nF 50V X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS",
+  "lcsc": "C1613",
+  "mfr": "CL10B332KB8NNNC",
+  "package": "0603",
+  "stock": 241569,
+  "type": "basic"
+ },
+ "301k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 301kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C23026",
+  "mfr": "0603WAF3013T5E",
+  "package": "0603",
+  "stock": 34428,
+  "type": "ext"
+ },
+ "330R|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 330Ω 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface M",
+  "lcsc": "C23138",
+  "mfr": "0603WAF3300T5E",
+  "package": "0603",
+  "stock": 3527043,
+  "type": "basic"
+ },
+ "4.7k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 4.7kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C23162",
+  "mfr": "0603WAF4701T5E",
+  "package": "0603",
+  "stock": 19500720,
+  "type": "basic"
+ },
+ "4.7k|R_0805_2012Metric": {
+  "desc": "-55℃~+155℃ 125mW 150V 4.7kΩ Thick Film Resistor ±1% ±100ppm/℃ 0805 Chip Resistor - Surface",
+  "lcsc": "C17673",
+  "mfr": "0805W8F4701T5E",
+  "package": "0805",
+  "stock": 4322885,
+  "type": "basic"
+ },
+ "40MHz 12pF": {
+  "desc": "12pF 40MHz Crystal Oscillator ±10ppm ±20ppm SMD3225-4P Crystals ROHS",
+  "lcsc": "C655034",
+  "mfr": "7B040000M01",
+  "package": "SMD3225-4P",
+  "stock": 2845,
+  "type": "ext"
+ },
+ "45.3k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 45.3kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface",
+  "lcsc": "C23058",
+  "mfr": "0603WAF4532T5E",
+  "package": "0603",
+  "stock": 69797,
+  "type": "ext"
+ },
+ "470uF 35V|CP_Elec_10x10": {
+  "desc": "-55℃~+105℃ 10.2mm 10mm 2000hrs@105℃ 35V 470uF ±20% SMD,D10xL10.2mm Aluminum Electrolytic C",
+  "lcsc": "C3350",
+  "mfr": "RVT1V471M1010",
+  "package": "SMD,D10xL10.2mm",
+  "stock": 96529,
+  "type": "ext"
+ },
+ "47uF 63V|CP_Elec_6.3x7.7": {
+  "desc": "-40℃~+105℃ 2000hrs@105℃ 47uF 6.3mm 63V 63mA@120Hz 7.7mm ±20% SMD,D6.3xL7.7mm Aluminum Elec",
+  "lcsc": "C48971005",
+  "mfr": "RV63V47M6X8",
+  "package": "SMD,D6.3xL7.7mm",
+  "stock": 376411,
+  "type": "ext"
+ },
+ "5.1k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 5.1kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface ",
+  "lcsc": "C23186",
+  "mfr": "0603WAF5101T5E",
+  "package": "0603",
+  "stock": 23749760,
+  "type": "basic"
+ },
+ "57.6k|R_0603_1608Metric": {
+  "desc": "-55℃~+155℃ 100mW 57.6kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface",
+  "lcsc": "C23082",
+  "mfr": "0603WAF5762T5E",
+  "package": "0603",
+  "stock": 63846,
+  "type": "ext"
+ },
+ "ADS1115IDGS": {
+  "desc": "-40℃~+125℃ 16 1LSB 2 2.048V 2V~5.5V 500nA 860Hz 8Hz、16Hz、32Hz、64Hz、128Hz、250Hz、475Hz、860Hz",
+  "lcsc": "C37593",
+  "mfr": "ADS1115IDGSR",
+  "package": "VSSOP-10",
+  "stock": 23467,
+  "type": "ext"
+ },
+ "B5819W": {
+  "desc": "1A 40V 600mV@1A 9A Independent SOD-123 Schottky Diodes ROHS",
+  "lcsc": "C8598",
+  "mfr": "B5819W SL",
+  "package": "SOD-123",
+  "stock": 384842,
+  "type": "basic"
+ },
+ "BAT54S": {
+  "desc": "1 Pair Series Connection 200mA 2uA@30V 30V 400mV@10mA 600mA SOT-23 Schottky Diodes ROHS",
+  "lcsc": "C7420333",
+  "mfr": "BAT54S",
+  "package": "SOT-23",
+  "stock": 1074536,
+  "type": "pref"
+ },
+ "BOOT": {
+  "desc": "-30℃~+85℃ 1.5mm 1.6N 100,000 cycles 12V 5.1mm 5.1mm 50mA Gold No Round Button SPST Surface",
+  "lcsc": "C318884",
+  "mfr": "TS-1187A-B-A-B",
+  "package": "SMD-4P,5.1x5.1mm",
+  "stock": 296384,
+  "type": "basic"
+ },
+ "BSS84": {
+  "desc": "-55℃~+150℃ 1 P-Channel 10pF 10Ω@5V 130mA 225mW 2V 30pF 50V 5pF 6nC P-Channel SOT-23 MOSFET",
+  "lcsc": "C8492",
+  "mfr": "LBSS84LT1G",
+  "package": "SOT-23",
+  "stock": 224992,
+  "type": "pref"
+ },
+ "BTN8982TA": {
+  "desc": "-40℃~+150℃ 1 50A 8V~18V 欠压锁定、Overcurrent Protection、Over temperature protection、锁存保护、Short",
+  "lcsc": "C74175",
+  "mfr": "BTN8982TA",
+  "package": "TO-263-7",
+  "stock": 3562,
+  "type": "ext"
+ },
+ "BZT52C15": {
+  "desc": "",
+  "lcsc": "C19077412",
+  "mfr": "BZT52C15",
+  "package": "SOD-123",
+  "stock": 643803,
+  "type": "pref"
+ },
+ "CPC1117N": {
+  "desc": "-40℃~+85℃ 1 Set Normally Closed: 1B (SPST-NC) 1.2V 1.55ms 1.5kV 150mA 1mA 316us 400mW 5Ω 6",
+  "lcsc": "C150424",
+  "mfr": "CPC1117NTR",
+  "package": "SOP-4-2.54mm",
+  "stock": 1980,
+  "type": "ext"
+ },
+ "DMN6075S": {
+  "desc": "-55℃~+150℃ 1 N-channel 12.3nC@10V 120mΩ@4.5V 2.5A 24.6pF 32.6pF 3V 606pF 60V 700mW N-Chann",
+  "lcsc": "C155242",
+  "mfr": "DMN6075S-7",
+  "package": "SOT-23",
+  "stock": 9012,
+  "type": "ext"
+ },
+ "FDD4685": {
+  "desc": "-55℃~+150℃ 1 P-Channel 2.38nF 35mΩ@4.5V 3V 40A 40V 69W P-Channel DPAK(TO-252) MOSFETs ROHS",
+  "lcsc": "C258227",
+  "mfr": "FDD4685",
+  "package": "DPAK(TO-252)",
+  "stock": 2842,
+  "type": "ext"
+ },
+ "INA226AIDGSR": {
+  "desc": "-40℃~+125℃ 0.1uV/℃ 0V~36V 100pA 140dB 2.5uV 2.7V~5.5V 330uA High-side detection、Low-side d",
+  "lcsc": "C49851",
+  "mfr": "INA226AIDGSR",
+  "package": "VSSOP-10",
+  "stock": 41718,
+  "type": "ext"
+ },
+ "LED green|LED_0603_1608Metric": {
+  "desc": "-40℃~+85℃ 120° 2.6V~2.9V 230mcd 30mA 517nm 520nm~525nm 90mW Discrete Diode Emerald Green 0",
+  "lcsc": "C7496818",
+  "mfr": "F.0603.00025/P2-0603G1TS2-06T-002",
+  "package": "0603",
+  "stock": 3387894,
+  "type": "ext"
+ },
+ "LM5164DDAR": {
+  "desc": "-40℃~+150℃@(TJ) 1 10.5uA 1A 1MHz 6V~100V Adjustable Buck Buck Built-in Yes SO-8-EP DC-DC C",
+  "lcsc": "C477928",
+  "mfr": "LM5164DDAR",
+  "package": "SO-8-EP",
+  "stock": 10908,
+  "type": "ext"
+ },
+ "LSM6DSOX": {
+  "desc": "",
+  "lcsc": "C481766",
+  "mfr": "LSM6DSOXTR",
+  "package": "LGA-14",
+  "stock": 2512,
+  "type": "ext"
+ },
+ "LTV-357T": {
+  "desc": "-55℃~+110℃ 1 1.2V 170mW 200mV@20mA,1mA 3.75kV 35V 3us 4us 50% 50mA 50mA 600% 6V DC Phototr",
+  "lcsc": "C119091",
+  "mfr": "LTV-357T-C",
+  "package": "SOP-4-2.54mm",
+  "stock": 301203,
+  "type": "ext"
+ },
+ "MCP23017-E/SO": {
+  "desc": "-40℃~+85℃ 1.7MHz 1.8V~5.5V 16 1uA 600mV 8 8mA I2C Interrupt Output Reset function、Cascade ",
+  "lcsc": "C47023",
+  "mfr": "MCP23017-E/SO",
+  "package": "SOIC-28-300mil",
+  "stock": 3740,
+  "type": "ext"
+ },
+ "MCP2518FD": {
+  "desc": "-40℃~+125℃ 10uA 2.7V~5.5V 20mA 8Mbps CAN FD Controller SPI VDFN-14-EP(3x4.5) CAN Controlle",
+  "lcsc": "C621395",
+  "mfr": "MCP2518FDT-E/QBB",
+  "package": "VDFN-14-EP(3x4.5)",
+  "stock": 5669,
+  "type": "ext"
+ },
+ "NUP2105L": {
+  "desc": "-55℃~+150℃ 100nA 2 24V 30pF 32V 350W@8/20us 44V 8A@8/20us Bidirectional IEC 61000-4-2、IEC ",
+  "lcsc": "C14486",
+  "mfr": "NUP2105LT1G",
+  "package": "SOT-23",
+  "stock": 239661,
+  "type": "ext"
+ },
+ "RESET": {
+  "desc": "-30℃~+85℃ 1.5mm 1.6N 100,000 cycles 12V 5.1mm 5.1mm 50mA Gold No Round Button SPST Surface",
+  "lcsc": "C318884",
+  "mfr": "TS-1187A-B-A-B",
+  "package": "SMD-4P,5.1x5.1mm",
+  "stock": 296384,
+  "type": "basic"
+ },
+ "SMAJ15CA": {
+  "desc": "",
+  "lcsc": "C19077536",
+  "mfr": "SMAJ15CA",
+  "package": "DO-214AC(SMA)",
+  "stock": 377300,
+  "type": "pref"
+ },
+ "SMAJ24CA": {
+  "desc": "",
+  "lcsc": "C19077542",
+  "mfr": "SMAJ24CA",
+  "package": "DO-214AC(SMA)",
+  "stock": 159202,
+  "type": "pref"
+ },
+ "SMCJ22A": {
+  "desc": "1.5kW@10/1000us 1uA 22V 24.4V 35.5V 42.3A TVS Unidirectional SMC(DO-214AB) ESD and Surge P",
+  "lcsc": "C383717",
+  "mfr": "SMCJ22A",
+  "package": "SMC(DO-214AB)",
+  "stock": 3433,
+  "type": "ext"
+ },
+ "SN65HVD230": {
+  "desc": "-40℃~+85℃ 1 17mA 1Mbps 370uA 3V~3.6V CAN Transceiver Low-power mode、Wake-up function、ESD p",
+  "lcsc": "C12084",
+  "mfr": "SN65HVD230DR",
+  "package": "SOIC-8",
+  "stock": 200046,
+  "type": "pref"
+ },
+ "TLV3201AIDBV": {
+  "desc": "-40℃~+125℃ 1 10uV/℃ 1mV 1mV 1pA 2.7V~5.5V 2.9ns 40ns 40uA 50pA 70dB CMOS Push-pull Rail-to",
+  "lcsc": "C105188",
+  "mfr": "TLV3201AIDBVR",
+  "package": "SOT-23-5",
+  "stock": 3668,
+  "type": "ext"
+ },
+ "TYPE-C-31-M-12": {
+  "desc": "-30℃~+80℃ 1 10,000 cycles 16P 20V 5A 7.35mm Female Surface Mount, Right Angle Type-C SMD U",
+  "lcsc": "C165948",
+  "mfr": "TYPE-C-31-M-12",
+  "package": "SMD",
+  "stock": 367975,
+  "type": "ext"
+ },
+ "USBLC6-2SC6": {
+  "desc": "-40℃~+125℃ 150nA 17V 2 3.5pF 5.25V 5A 6V ESD IEC 61000-4-2 Unidirectional SOT-23-6L ESD an",
+  "lcsc": "C7519",
+  "mfr": "USBLC6-2SC6",
+  "package": "SOT-23-6L",
+  "stock": 32269,
+  "type": "ext"
+ }
+}

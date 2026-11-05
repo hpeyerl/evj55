@@ -983,92 +983,6 @@
             (effects
               (font
                 (size 1.27 1.27)))))))
-    (symbol "power:GND"
-      (power global)
-      (pin_numbers
-        (hide yes))
-      (pin_names
-        (offset 0)
-        (hide yes))
-      (exclude_from_sim no)
-      (in_bom yes)
-      (on_board yes)
-      (in_pos_files yes)
-      (duplicate_pin_numbers_are_jumpers no)
-      (property "Reference" "#PWR"
-        (at 0 -6.35 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (hide yes)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "Value" "GND"
-        (at 0 -3.81 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "Footprint" ""
-        (at 0 0 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (hide yes)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "Datasheet" ""
-        (at 0 0 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (hide yes)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-        (at 0 0 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (hide yes)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "ki_keywords" "global power"
-        (at 0 0 0)
-        (show_name no)
-        (do_not_autoplace no)
-        (hide yes)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (symbol "GND_0_1"
-        (polyline
-          (pts
-            (xy 0 0)
-            (xy 0 -1.27)
-            (xy 1.27 -1.27)
-            (xy 0 -2.54)
-            (xy -1.27 -1.27)
-            (xy 0 -1.27))
-          (stroke
-            (width 0)
-            (type default))
-          (fill
-            (type none))))
-      (symbol "GND_1_1"
-        (pin power_in line
-          (at 0 0 270)
-          (length 0)
-          (name ""
-            (effects
-              (font
-                (size 1.27 1.27))))
-          (number "1"
-            (effects
-              (font
-                (size 1.27 1.27))))))
-      (embedded_fonts no))
     (symbol "power:+3V3"
       (power global)
       (pin_numbers
@@ -1168,6 +1082,92 @@
             (effects
               (font
                 (size 1.27 1.27))))))
+      (embedded_fonts no))
+    (symbol "power:GND"
+      (power global)
+      (pin_numbers
+        (hide yes))
+      (pin_names
+        (offset 0)
+        (hide yes))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (in_pos_files yes)
+      (duplicate_pin_numbers_are_jumpers no)
+      (property "Reference" "#PWR"
+        (at 0 -6.35 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "GND"
+        (at 0 -3.81 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Datasheet" ""
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "ki_keywords" "global power"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (symbol "GND_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 -1.27)
+            (xy 1.27 -1.27)
+            (xy 0 -2.54)
+            (xy -1.27 -1.27)
+            (xy 0 -1.27))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "GND_1_1"
+        (pin power_in line
+          (at 0 0 270)
+          (length 0)
+          (name ""
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))
       (embedded_fonts no)))
   (symbol
     (lib_id "Device:D_TVS")
@@ -1202,6 +1202,12 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "MPN" "SMAJ15CA"
+      (at 52.07 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C19077536"
       (at 52.07 62.23 0)
       (effects
         (font
@@ -1314,6 +1320,12 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C81598"
+      (at 105.41 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "b1ebf739-9102-5bdd-a45d-5339bf71f90b"))
     (pin "2"
@@ -1383,6 +1395,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 156.21 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C204367"
+      (at 156.21 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "CR0805-FX-2741ELF"
       (at 156.21 66.04 0)
       (effects
         (font
@@ -1488,6 +1512,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C17384"
+      (at 203.2 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0805W8F1301T5E"
+      (at 203.2 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "f986d41d-71ed-5182-884d-573b4510df4c"))
     (pin "2"
@@ -1562,6 +1598,12 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "MPN" "CPC1117NTR"
+      (at 257.81 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C150424"
       (at 257.81 66.04 0)
       (effects
         (font
@@ -1730,6 +1772,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C23138"
+      (at 312.42 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF3300T5E"
+      (at 312.42 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "488d1506-505f-5def-abfc-662faa0fa934"))
     (pin "2"
@@ -1804,6 +1858,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C25811"
+      (at 49.53 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF2003T5E"
+      (at 49.53 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "8bc86866-c07d-5774-9890-3fd6adc3732b"))
     (pin "2"
@@ -1873,6 +1939,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 96.52 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C23058"
+      (at 96.52 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF4532T5E"
       (at 96.52 101.6 0)
       (effects
         (font
@@ -1978,6 +2056,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C23082"
+      (at 144.78 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF5762T5E"
+      (at 144.78 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "75c0266f-47ef-5e9a-ab41-8f873a64c4b4"))
     (pin "2"
@@ -2073,6 +2163,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 191.77 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C14858"
+      (at 191.77 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "CL10C101JB8NNNC"
       (at 191.77 101.6 0)
       (effects
         (font
@@ -2178,6 +2280,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C25804"
+      (at 238.76 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF1002T5E"
+      (at 238.76 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "11a4b78d-69f1-58c9-81cc-4b467e61be94"))
     (pin "2"
@@ -2278,6 +2392,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C25804"
+      (at 285.75 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF1002T5E"
+      (at 285.75 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "a0618bd0-45ba-57d6-8f2a-ab6c295a5082"))
     (pin "2"
@@ -2373,6 +2499,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 332.74 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C14663"
+      (at 332.74 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "CC0603KRX7R9BB104"
       (at 332.74 101.6 0)
       (effects
         (font
@@ -2479,6 +2617,12 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "MPN" "TLV3201AIDBVR"
+      (at 384.81 104.14 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C105188"
       (at 384.81 104.14 0)
       (effects
         (font
@@ -2666,6 +2810,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C22935"
+      (at 440.69 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF1004T5E"
+      (at 440.69 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "87872ae3-1350-5d8d-bd70-5db8c856981b"))
     (pin "2"
@@ -2735,6 +2891,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 487.68 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C14663"
+      (at 487.68 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "CC0603KRX7R9BB104"
       (at 487.68 101.6 0)
       (effects
         (font
@@ -2867,6 +3035,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C21190"
+      (at 533.4 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF1001T5E"
+      (at 533.4 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "531c62e9-d039-5fdc-b628-271eb4205472"))
     (pin "2"
@@ -2936,6 +3116,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 48.26 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C1588"
+      (at 48.26 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "CL10B102KB8NNNC"
       (at 48.26 134.62 0)
       (effects
         (font
@@ -3048,6 +3240,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C17477"
+      (at 95.25 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0805W8F0000T5E"
+      (at 95.25 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "65be1e62-4b1c-5f69-a9b9-1ea76512b180"))
     (pin "2"
@@ -3155,6 +3359,12 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C19077536"
+      (at 52.07 166.37 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "20236e60-848f-5581-af25-c60d5b346113"))
     (pin "2"
@@ -3251,6 +3461,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 102.87 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C23162"
+      (at 102.87 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF4701T5E"
       (at 102.87 170.18 0)
       (effects
         (font
@@ -3357,6 +3579,18 @@
         (font
           (size 1.27 1.27))
         (justify left) hide))
+    (property "LCSC" "C21190"
+      (at 149.86 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603WAF1001T5E"
+      (at 149.86 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
     (pin "1"
       (uuid "d0d77652-94d8-57b8-8dfd-d08aa343a14d"))
     (pin "2"
@@ -3427,6 +3661,18 @@
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
+      (at 196.85 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "LCSC" "C57112"
+      (at 196.85 170.18 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "MPN" "0603B103K500NT"
       (at 196.85 170.18 0)
       (effects
         (font
