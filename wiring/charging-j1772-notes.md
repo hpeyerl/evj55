@@ -196,7 +196,7 @@ So the vehicle wakes AFTER authorisation, and no vehicle-side "wait for AC" time
 - **Gap:** the Elcon setpoint uses `BMS_ChargeLim` only (`ElconCharger.cpp:72`); it ignores
   `PilotLim` / `Pwrspnt`. Throttling the Dilong to the station limit needs an hp_dev patch
   (e.g. HV current = min(BMS_ChargeLim, Pwrspnt / udc)).
-- Hardware: ECU carrier, AVC2 role (`evj55_contexts/ECU_CARRIER_CONTEXT.md`).
+- Hardware: chassis_ecu board, J1772 section (`evj55_contexts/CHASSIS_ECU_CONTEXT.md`).
 
 ## BMS cell voltage & SoC during charge (for the BMS + dashboard code)
 Q: if the cells read the *charging* voltage, how does the BMS know real cell voltage / SoC?

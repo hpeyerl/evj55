@@ -28,7 +28,7 @@ running config.
 - [ ] **`ChgLck` behavior** - auto-term sets it, clears only in MOD_RUN -> no parked top-up. Decide if
       the regular-EV maintenance loop is wanted (firmware feature).
 - [ ] **CP handshake** - home resistor-spoof now (2.74k + 1.3k/diode for state C) vs ESP32 CP reader
-      later (the AVC2 role on the universal carrier board, see evj55_contexts/ECU_CARRIER_CONTEXT.md).
+      later (the AVC2 role on the universal carrier board, see evj55_contexts/CHASSIS_ECU_CONTEXT.md).
 - [x] **DCDC not CAN-enabled** - CONFIRMED 2026-10-19 (firmware doesn't CAN-enable the DCDC, so the
       hardware S-gate on HvActive is sufficient).
 
