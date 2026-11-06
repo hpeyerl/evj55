@@ -356,7 +356,7 @@ def j1772_sheet(b):
            'CP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\n'
            'load on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\n'
            'Same node -> ADS1115 AIN0 for the high level (+12 / +9 / +6 V = state A / B / C).\n'
-           'PP: fit only if this board owns PP (else PP stays on the Zombie GPA).  4.7k pull-up to 3V3:\n'
+           'PP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\n'
            'open 3.3 V, plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ADS1115 AIN1.',
            20, 15)
     s.row('Pilot state circuit')
@@ -382,11 +382,11 @@ def j1772_sheet(b):
     C(s, 'C303', '1nF', 'CP_LVL', 'GND')
     R(s, 'R310', '0R', 'CP_GND', 'GND', 'Resistor_SMD:R_0805_2012Metric',
       fields={'Note': 'CP return to the inlet PE'})
-    s.row('PP (fit only if this board owns PP)')
-    s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA', dnp=True)
-    R(s, 'R311', '4.7k', '+3V3', 'PP', dnp=True)
-    R(s, 'R312', '1k', 'PP', 'PP_SENSE', dnp=True)
-    C(s, 'C304', '10nF', 'PP_SENSE', 'GND', dnp=True)
+    s.row('PP read')
+    s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA')
+    R(s, 'R311', '4.7k', '+3V3', 'PP')
+    R(s, 'R312', '1k', 'PP', 'PP_SENSE')
+    C(s, 'C304', '10nF', 'PP_SENSE', 'GND')
 
 
 def sensor_sheet(b):

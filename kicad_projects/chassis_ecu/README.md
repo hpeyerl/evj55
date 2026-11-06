@@ -21,17 +21,18 @@ name. Layout is one functional block per row.
   Preference: in stock, JLC basic > preferred > extended.
 - `gen/bom.py` writes `chassis_ecu_bom_jlc.csv` (JLCPCB assembly format).
 - Not assembled by JLC: U2 ESP32 module (hand-solder; N8, or N4 = LCSC C2913197), connectors,
-  solder jumpers, test points, DNP parts (PP circuit).
+  solder jumpers, test points.
 - 69 BOM lines: 30 basic, 6 preferred, 33 extended. Low JLC stock (< 5000) on the crystal,
   BTN8982TA, CPC1117N, FDD4685, LSM6DSOX, MCP23017, SMCJ22A, TLV3201 - recheck at order time.
 
 ## Status
 - Drawn (0 ERC errors, netlist self-check OK): Power, MCU, CAN, IO (MCP23017, 6 opto inputs,
   4 light outputs, EPB button + LEDs, status LEDs), Motors (EPB 2x H-bridge, pawl high-side, all
-  BTN8982TA), J1772 (CP state + read, PP option), Sensors (ADS1115, LSM6DSO, INA226), Connector.
+  BTN8982TA), J1772 (CP state + read, PP read), Sensors (ADS1115, LSM6DSO, INA226), Connector.
 - Connector pin numbers are PROVISIONAL until the 32-pin header drawing arrives.
 - 4 ERC warnings: the SparkFun LSM6DSOX symbol types its strap pins bidirectional (benign).
-- Design stall current 20 A.  Open: PP ownership, connector drawing.
+- Design stall current 20 A.  PP is read on this board
+  (Zombie `interface=CPC`).  Open: connector drawing.
 
 ## ESP32-S3 pin map
 | GPIO | Net | GPIO | Net |

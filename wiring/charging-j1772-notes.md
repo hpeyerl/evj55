@@ -42,7 +42,7 @@ Type-1 pinout:
 | 2 | **L2/N** (AC line/neutral) | large | Dilong ACIN **C (ACN)** |
 | 3 | **PE** (protective earth) | large | Dilong ACIN **B (PE)** / HV-chassis ground |
 | 4 | **CP** (control pilot) | small | CP spoof + Zombie (see CP section) |
-| 5 | **PP** (proximity pilot) | small | Zombie PP analog input (see PP section) |
+| 5 | **PP** (proximity pilot) | small | chassis_ecu PP read; plug state to Zombie over CAN (CPC) |
 
 - The three large contacts = AC/PE; the two small contacts = CP/PP signal.
 - CP / PP do NOT land on the Dilong ACIN connector - signal side, handled separately (CP/PP sections below).
@@ -80,11 +80,11 @@ precharge resistor**, loading it. Fix: split S from T.
 Getting a pack to actually charge requires all three, and they're independent:
 
 1. **EVSE handshake (CP)** -> makes the wall/station *deliver AC*.
-2. **Plug detect (PP)** -> tells ZombieVerter a plug is in, so it enters charge mode.
+2. **Plug detect (PP)** -> chassis_ecu reads it and reports plug + ready to ZombieVerter (CPC 0x357).
 3. **Charger command (Elcon CAN)** -> tells the Dilong to actually push current.
 
 **The Dilong does NONE of #1 or #2 - it leaves CP and PP unconnected (no pilot intelligence).**
-So you must supply the CP handshake and route PP to Zombie yourself. Skipping #1 is the classic
+So you must supply the CP handshake and plug detect yourself. Skipping #1 is the classic
 trap: you can fool Zombie into "charge mode," but with no CP handshake the EVSE never closes its
 contactor -> no AC -> **pack voltage never rises** even though everything *looks* like it's charging.
 
@@ -112,9 +112,11 @@ car to comply*. Draw more and you trip the station's breaker.
 ## ZombieVerter side (from Stm32-vcu source)
 - **PP input:** read via `IOMatrix::PILOT_PROX`, assigned to **GP Analog 1 (conn pin 9, GPIOC2)** or
   **GP Analog 2 (conn pin 8, GPIOC3)** by setting **`GPA1Func` / `GPA2Func` = PILOT_PROX**
-  (`stm32_vcu.cpp:248`). Analog, because PP is resistor-coded.
+  (`stm32_vcu.cpp:248`). Analog, because PP is resistor-coded. **Not used on this truck** (PP is on
+  the chassis_ecu, `interface=CPC`); no Zombie GPA is set to PILOT_PROX.
 - **Charge trigger** (`stm32_vcu.cpp:255,266`): `RunChg=true` when `ppValue <= ppThresh` (plug
-  detected) **and** `ChgSet==1` **and** `!ChgLck`. Then `chargeMode=true` when
+  detected) **and** `ChgSet==1` **and** `!ChgLck`. Without PILOT_PROX: `RunChg=true` when
+  `Chgctrl=0` (Enable, `ChgSet` internally) and `!ChgLck` (line 244). Then `chargeMode=true` when
   `ControlCharge(RunChg, ACrequest)` is true and not in RUN.
 - **Charger select:** `chargemodes` param (`param_prj.h:367`), **Elcon = 6**. **Set it and `cmd
   save`** so it persists - that kills "select Elcon every time."
@@ -127,7 +129,8 @@ car to comply*. Draw more and you trip the station's breaker.
   boots into this logic.
 - ***Charge termination (-> opens HV contactors).** MOD_CHARGE->MOD_OFF when `chargeMode` goes false
   (`stm32_vcu.cpp:692`) <- `RunChg`=false, which falls in **three** places, all -> contactors open:
-  1. **Unplug** - `ppValue > ppThresh` (line 259)
+  1. **Unplug** - CPC: chassis_ecu drops 0x357 status from 0x03 -> `ACrequest` false ->
+     `ControlCharge` false (`ElconCharger.cpp:103`). (PP-on-Zombie path: `ppValue > ppThresh`, line 259.)
   2. **Voltage term** - `udc >= Voltspnt && idc <= IdcTerm` (line 295) -> also sets `ChgLck`
   3. **BMS shutdown** - `selectedBMS->MaxChargeCurrent()==0` (line 301) -> also sets `ChgLck`
   - So the **BMS CAN end a charge** - but only if it reports **exactly 0** *and* Zombie's configured
@@ -152,12 +155,12 @@ The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
   the CP PWM duty and throttles the Dilong to the station limit. ~$15, open-source designs exist.
   **Since public is coming soon, building this from the start (it does home too) likely beats a
   throwaway resistor spoof.**
-- **Both cases:** wire inlet **PROX -> Zombie PP analog input**; set **`chargemodes=Elcon`,
-  `ChgSet=1`, saved.**
+- **Settings:** inlet **PROX -> chassis_ecu**; set **`interface=CPC`, `chargemodes=Elcon`,
+  `Chgctrl=0` (Enable), saved.**
 
 ### Expected auto-charge sequence
 plug in -> CP circuit signals state C -> EVSE delivers AC -> Dilong pin B goes hot -> wakes Zombie ->
-Zombie sees PP + Elcon-saved -> commands Dilong over `0x1806E5F4` -> current flows (capped by
+chassis_ecu sends 0x357 ready (plug in, status 0x03) -> Zombie commands Dilong over `0x1806E5F4` -> current flows (capped by
 `BMS_ChargeLim`, and by CP-advertised limit once the public reader exists).
 
 ## Wake ordering - requirements
@@ -193,6 +196,9 @@ So the vehicle wakes AFTER authorisation, and no vehicle-side "wait for AC" time
     `Pwrspnt = ChgAcVolt x ACLimit x ChgEff%`.
   - `ACRequest` = true only while status == 0x03.
   - Zombie TX **0x358** every 400 ms: byte0 = 0x01 allow charge / 0x02 stop.
+  - No RX timeout in `CPC.cpp`: if the chassis_ecu goes silent, the last 0x357 status holds.
+    Charge still ends on BMS limit 0 / `Voltspnt`, or when AC drops.
+- **Chosen: CPC** (`interface=3`, `Chgctrl=0`). The chassis_ecu owns CP + PP.
 - **Gap:** the Elcon setpoint uses `BMS_ChargeLim` only (`ElconCharger.cpp:72`); it ignores
   `PilotLim` / `Pwrspnt`. Throttling the Dilong to the station limit needs an hp_dev patch
   (e.g. HV current = min(BMS_ChargeLim, Pwrspnt / udc)).
@@ -232,9 +238,9 @@ intervention required every charge. Two issues:
   BMS/CM3 automation (command charge-end -> contactors open) - bench investigation needed.
 
 ## Open / to-verify
-- **Auto-charge-on-plug vs manual gate:** with Elcon saved + PP wired, *any* plug-in auto-charges.
-  If that's unwanted sometimes, `ChgSet` (or leaving Elcon unset) is the manual interlock - a
-  possible reason to NOT save Elcon permanently.
+- **Auto-charge-on-plug vs manual gate:** with `Chgctrl=0` + Elcon saved, *any* plug-in where the
+  chassis_ecu reports ready auto-charges. Manual interlocks: `Chgctrl=1` (Disable), or the
+  chassis_ecu withholding ready (and holding S2 open = state B).
 - Elcon TX frame sends uninitialized bytes when `ChRun==false` (firmware quirk; harmless-ish).
 
 ## Sources
