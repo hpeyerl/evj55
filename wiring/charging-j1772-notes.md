@@ -155,8 +155,10 @@ The AVC2 = CP handshake + PP/latch + a relay. All DIY-able:
   the CP PWM duty and throttles the Dilong to the station limit. ~$15, open-source designs exist.
   **Since public is coming soon, building this from the start (it does home too) likely beats a
   throwaway resistor spoof.**
-- **Settings:** inlet **PROX -> chassis_ecu**; set **`interface=CPC`, `chargemodes=Elcon`,
-  `Chgctrl=0` (Enable), saved.**
+- **Settings, interim (resistor spoof):** inlet **PROX -> Zombie GPA1 (PILOT_PROX)**;
+  `interface=Unused`, `chargemodes=Elcon`, `Chgctrl=1`, saved.
+- **Settings, with the chassis_ecu:** inlet **PROX -> chassis_ecu**; `interface=CPC`,
+  `chargemodes=Elcon`, `Chgctrl=0` (Enable), PILOT_PROX removed, saved. Checklist: `ZOMBIE_TODO.md`.
 
 ### Expected auto-charge sequence
 plug in -> CP circuit signals state C -> EVSE delivers AC -> Dilong pin B goes hot -> wakes Zombie ->

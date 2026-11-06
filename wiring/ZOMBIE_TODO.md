@@ -12,15 +12,20 @@ running config.
 
 ## IOMatrix / IO pin assignments
 - [ ] **`PWM3 = HvActive`** (func 15) - gates the Dilong DCDC enable (S) on HV-active. (powerdist s3/s4)
-- [ ] **PP input: `GPA1Func = PILOT_PROX`** - J1772 proximity on GP Analog 1 (conn pin 9, GPIOC2).
-      (charging-j1772-notes "ZombieVerter side")
+- [ ] **PP input (interim only, until the chassis_ecu is installed): `GPA1Func = PILOT_PROX`** -
+      J1772 proximity on GP Analog 1 (conn pin 9, GPIOC2). **Remove it (GPA1Func = none) when the
+      chassis_ecu goes in** - PP then moves to the chassis_ecu. (charging-j1772-notes)
 - [ ] **Inverter-enable output** - pick the Zombie low-side output that drives the inverter-enable relay
       coil (MR1 K=coil-low). Not yet assigned. (BENCH_TODO / powerdist s7)
 - Already assigned (reference): CoolingFan=PWM1, BrakeLight=PWM2, CoolantPump=GP Out 3,
   NegContactor=GP Out 2, oil-pump PWM=pin 30, SL1/SL2=trans solenoids. GP Out 1 abandoned.
 
 ## Charging
-- [ ] **`chargemodes = Elcon` (6), `ChgSet = 1`, SAVED.** (charging-j1772-notes "DIY plan")
+- [ ] **`chargemodes = Elcon` (6), SAVED.**
+- [ ] **Interim (resistor spoof + PP on Zombie): `interface = Unused` (0), `Chgctrl = 1`, SAVED.**
+- [ ] **When the chassis_ecu goes in: `interface = CPC` (3), `Chgctrl = 0` (Enable), PILOT_PROX
+      removed, SAVED.** The chassis_ecu then gates charging via 0x357 status. (charging-j1772-notes
+      "Zombie charge-interface")
 - [ ] **`Voltspnt` = target charge voltage** (per-session SoC-target lever; CM3 may set it).
 - [ ] **Verify `selectedBMS` receives the BMS charge limit over CAN** - a low-but-nonzero limit with
       `udc < Voltspnt` fires neither voltage-term nor BMS-shutdown -> "contactors stay closed / trickle
@@ -29,6 +34,8 @@ running config.
       the regular-EV maintenance loop is wanted (firmware feature).
 - [ ] **CP handshake** - home resistor-spoof now (2.74k + 1.3k/diode for state C) vs ESP32 CP reader
       later (the AVC2 role on the universal carrier board, see evj55_contexts/CHASSIS_ECU_CONTEXT.md).
+- [ ] **M5Dial must stop sending 0x312** if the right stalk (via chassis_ecu) takes over gear select.
+      (evj55_contexts/DASH_CONTROLS_CONTEXT.md)
 - [x] **DCDC not CAN-enabled** - CONFIRMED 2026-10-19 (firmware doesn't CAN-enable the DCDC, so the
       hardware S-gate on HvActive is sufficient).
 
@@ -48,3 +55,13 @@ running config.
 - [ ] **Which SDO param is the charge target/threshold?** (confirm via oic / CAN map)
 - [ ] **Which param is regen?** (confirm via oic)
       (both: evj55_contexts/REMOTE_TELEMETRY_CONTEXT.md)
+
+## Firmware patches (hp_dev branch of Stm32-vcu)
+- [ ] **Elcon throttle to the station limit** - Elcon setpoint uses `BMS_ChargeLim` only
+      (`ElconCharger.cpp:72`); add e.g. HV current = min(BMS_ChargeLim, Pwrspnt / udc).
+      Needed for public charging with the chassis_ecu. (charging-j1772-notes)
+- [ ] **CPC 0x357 RX timeout** - `CPC.cpp` latches the last status if the chassis_ecu goes silent;
+      add a timeout that drops ACrequest. (charging-j1772-notes)
+- [ ] **Cruise buttons** - only the Subaru vehicle class reads cruise input; using the cruise stalk
+      needs cruise state over CAN from the chassis_ecu (or the Subaru class). Undecided.
+      (evj55_contexts/DASH_CONTROLS_CONTEXT.md)
