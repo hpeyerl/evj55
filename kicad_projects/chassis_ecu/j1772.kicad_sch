@@ -1255,7 +1255,7 @@
     (on_board yes)
     (dnp no)
     (uuid "a107bc29-a1a5-5bbe-978d-7599ddf86566")
-    (property "Reference" "#PWR138"
+    (property "Reference" "#PWR093"
       (at 58.42 62.23 0)
       (effects
         (font
@@ -1280,7 +1280,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR138")
+          (reference "#PWR093")
           (unit 1)))))
   (symbol
     (lib_id "Device:D")
@@ -1453,7 +1453,7 @@
     (on_board yes)
     (dnp no)
     (uuid "499b0061-7718-5c1b-97b5-c83f729a5156")
-    (property "Reference" "#PWR139"
+    (property "Reference" "#PWR094"
       (at 156.21 72.39 0)
       (effects
         (font
@@ -1478,7 +1478,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR139")
+          (reference "#PWR094")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -1654,7 +1654,7 @@
     (on_board yes)
     (dnp no)
     (uuid "520e2536-710e-5f2a-9174-473990305b80")
-    (property "Reference" "#PWR140"
+    (property "Reference" "#PWR095"
       (at 247.65 68.58 0)
       (effects
         (font
@@ -1679,7 +1679,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR140")
+          (reference "#PWR095")
           (unit 1)))))
   (wire
     (pts
@@ -1713,7 +1713,7 @@
     (on_board yes)
     (dnp no)
     (uuid "05b2ee42-d085-5fd4-81a4-b31402a03dfc")
-    (property "Reference" "#PWR141"
+    (property "Reference" "#PWR096"
       (at 267.97 63.5 0)
       (effects
         (font
@@ -1738,7 +1738,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR141")
+          (reference "#PWR096")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -1981,7 +1981,7 @@
     (on_board yes)
     (dnp no)
     (uuid "94acc997-9bfb-582f-98f1-b7c4e88640d7")
-    (property "Reference" "#PWR142"
+    (property "Reference" "#PWR097"
       (at 96.52 95.25 0)
       (effects
         (font
@@ -2006,7 +2006,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR142")
+          (reference "#PWR097")
           (unit 1)))))
   (wire
     (pts
@@ -2109,7 +2109,7 @@
     (on_board yes)
     (dnp no)
     (uuid "c1de68d0-74c0-52b7-9f04-a47b22c6e867")
-    (property "Reference" "#PWR143"
+    (property "Reference" "#PWR098"
       (at 144.78 107.95 0)
       (effects
         (font
@@ -2134,7 +2134,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR143")
+          (reference "#PWR098")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -2221,7 +2221,7 @@
     (on_board yes)
     (dnp no)
     (uuid "c102a28a-9ed6-5dbc-9b87-676cd1a8ec62")
-    (property "Reference" "#PWR144"
+    (property "Reference" "#PWR099"
       (at 191.77 107.95 0)
       (effects
         (font
@@ -2246,7 +2246,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR144")
+          (reference "#PWR099")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -2317,7 +2317,7 @@
     (on_board yes)
     (dnp no)
     (uuid "f977d05f-8254-5a8a-89a0-f48706d73c7c")
-    (property "Reference" "#PWR145"
+    (property "Reference" "#PWR100"
       (at 238.76 95.25 0)
       (effects
         (font
@@ -2342,7 +2342,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR145")
+          (reference "#PWR100")
           (unit 1)))))
   (wire
     (pts
@@ -2445,7 +2445,7 @@
     (on_board yes)
     (dnp no)
     (uuid "724ed87f-3637-585f-bf28-49c5092afaa9")
-    (property "Reference" "#PWR146"
+    (property "Reference" "#PWR101"
       (at 285.75 107.95 0)
       (effects
         (font
@@ -2470,7 +2470,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR146")
+          (reference "#PWR101")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -2557,7 +2557,7 @@
     (on_board yes)
     (dnp no)
     (uuid "13205ad2-448f-510e-afdd-0964614e3635")
-    (property "Reference" "#PWR147"
+    (property "Reference" "#PWR102"
       (at 332.74 107.95 0)
       (effects
         (font
@@ -2582,7 +2582,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR147")
+          (reference "#PWR102")
           (unit 1)))))
   (symbol
     (lib_id "PCM_Analog_Comparator_AKL:TLV3201AIDBV")
@@ -2676,7 +2676,7 @@
     (on_board yes)
     (dnp no)
     (uuid "2f9f6993-d389-5bb5-a641-45dccecd3ee1")
-    (property "Reference" "#PWR148"
+    (property "Reference" "#PWR103"
       (at 384.81 113.03 0)
       (effects
         (font
@@ -2701,7 +2701,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR148")
+          (reference "#PWR103")
           (unit 1)))))
   (wire
     (pts
@@ -2751,7 +2751,7 @@
     (on_board yes)
     (dnp no)
     (uuid "32e016f4-0735-5bca-9a64-4f4f908f641a")
-    (property "Reference" "#PWR149"
+    (property "Reference" "#PWR104"
       (at 384.81 95.25 0)
       (effects
         (font
@@ -2776,7 +2776,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR149")
+          (reference "#PWR104")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -2933,7 +2933,7 @@
     (on_board yes)
     (dnp no)
     (uuid "715b52f9-0b09-500e-b66c-68aa08a354ce")
-    (property "Reference" "#PWR150"
+    (property "Reference" "#PWR105"
       (at 487.68 95.25 0)
       (effects
         (font
@@ -2958,7 +2958,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR150")
+          (reference "#PWR105")
           (unit 1)))))
   (wire
     (pts
@@ -2976,7 +2976,7 @@
     (on_board yes)
     (dnp no)
     (uuid "fcced9a2-10ca-5521-b6d8-a2a5758bc5bf")
-    (property "Reference" "#PWR151"
+    (property "Reference" "#PWR106"
       (at 487.68 107.95 0)
       (effects
         (font
@@ -3001,7 +3001,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR151")
+          (reference "#PWR106")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3175,7 +3175,7 @@
     (on_board yes)
     (dnp no)
     (uuid "c37cf279-9284-5450-abb8-4165bd275abc")
-    (property "Reference" "#PWR152"
+    (property "Reference" "#PWR107"
       (at 48.26 140.97 0)
       (effects
         (font
@@ -3200,7 +3200,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR152")
+          (reference "#PWR107")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3294,7 +3294,7 @@
     (on_board yes)
     (dnp no)
     (uuid "58039c78-e3f3-5473-9050-81e2ddf949ff")
-    (property "Reference" "#PWR153"
+    (property "Reference" "#PWR108"
       (at 95.25 140.97 0)
       (effects
         (font
@@ -3319,7 +3319,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR153")
+          (reference "#PWR108")
           (unit 1)))))
   (symbol
     (lib_id "Device:D_TVS")
@@ -3407,7 +3407,7 @@
     (on_board yes)
     (dnp no)
     (uuid "3a9bfbb0-05eb-5a3a-915b-7ea6fc912d05")
-    (property "Reference" "#PWR154"
+    (property "Reference" "#PWR109"
       (at 58.42 166.37 0)
       (effects
         (font
@@ -3432,7 +3432,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR154")
+          (reference "#PWR109")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3503,7 +3503,7 @@
     (on_board yes)
     (dnp no)
     (uuid "8bd70caf-4a59-5e87-83e3-86ee46c5786e")
-    (property "Reference" "#PWR155"
+    (property "Reference" "#PWR110"
       (at 102.87 163.83 0)
       (effects
         (font
@@ -3528,7 +3528,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR155")
+          (reference "#PWR110")
           (unit 1)))))
   (wire
     (pts
@@ -3720,7 +3720,7 @@
     (on_board yes)
     (dnp no)
     (uuid "5dc5135c-1640-55d1-8657-d2a6b633ce1b")
-    (property "Reference" "#PWR156"
+    (property "Reference" "#PWR111"
       (at 196.85 176.53 0)
       (effects
         (font
@@ -3745,7 +3745,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-          (reference "#PWR156")
+          (reference "#PWR111")
           (unit 1)))))
   (text "Pilot state circuit"
     (at 25.4 44.45 0)
@@ -3768,7 +3768,7 @@
         (size 2.54 2.54) bold)
       (justify left top))
     (uuid "7f1bf3c4-bb40-57e4-a55f-558a0e2e5a2e"))
-  (text "Car-side pilot.  CP -> diode -> 2.74k to GND (state B, always) ; 1.3k via K1 to GND (state C).\nK1 = CPC1117N, form-B (CLOSED when unpowered): a dead board presents state C, so the EVSE delivers\nAC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\nCP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\nload on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\nSame node -> ADS1115 AIN0 for the high level (+12 / +9 / +6 V = state A / B / C).\nPP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\nopen 3.3 V, plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ADS1115 AIN1."
+  (text "Car-side pilot.  CP -> diode -> 2.74k to GND (state B, always) ; 1.3k via K1 to GND (state C).\nK1 = CPC1117N, form-B (CLOSED when unpowered): a dead board presents state C, so the EVSE delivers\nAC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\nCP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\nload on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\nCP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C).\nPP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\nopen 3.3 V (ADC full scale), plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ESP32 ADC1 IO2."
     (at 20 15 0)
     (effects
       (font

@@ -558,5 +558,13 @@
   "package": "SOT-23-6L",
   "stock": 32269,
   "type": "ext"
+ },
+ "22k|R_0603_1608Metric": {
+  "desc": "22kOhm 1% 0603 thick film",
+  "lcsc": "C31850",
+  "mfr": "0603WAF2202T5E",
+  "package": "0603",
+  "stock": 680300,
+  "type": "basic"
  }
 }

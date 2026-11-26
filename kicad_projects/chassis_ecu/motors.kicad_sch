@@ -1576,7 +1576,7 @@
     (on_board yes)
     (dnp no)
     (uuid "dac98299-4f1e-5874-b2d0-f109ab75259b")
-    (property "Reference" "#PWR127"
+    (property "Reference" "#PWR082"
       (at 58.42 55.88 0)
       (effects
         (font
@@ -1601,7 +1601,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR127")
+          (reference "#PWR082")
           (unit 1)))))
   (symbol
     (lib_id "Device:C_Polarized")
@@ -1689,7 +1689,7 @@
     (on_board yes)
     (dnp no)
     (uuid "7a2f1682-64b5-5dfb-a8b5-8427efa26e2b")
-    (property "Reference" "#PWR128"
+    (property "Reference" "#PWR083"
       (at 104.14 66.04 0)
       (effects
         (font
@@ -1714,7 +1714,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR128")
+          (reference "#PWR083")
           (unit 1)))))
   (symbol
     (lib_id "Power_Management:BTN8982TA")
@@ -1797,7 +1797,7 @@
     (on_board yes)
     (dnp no)
     (uuid "f81571eb-0773-5f49-853c-ceb8c7f86df3")
-    (property "Reference" "#PWR129"
+    (property "Reference" "#PWR084"
       (at 162.56 78.74 0)
       (effects
         (font
@@ -1822,7 +1822,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR129")
+          (reference "#PWR084")
           (unit 1)))))
   (wire
     (pts
@@ -2196,7 +2196,7 @@
     (on_board yes)
     (dnp no)
     (uuid "ad53d87a-37eb-54cb-824f-426712d5b4b7")
-    (property "Reference" "#PWR130"
+    (property "Reference" "#PWR085"
       (at 309.88 66.04 0)
       (effects
         (font
@@ -2221,7 +2221,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR130")
+          (reference "#PWR085")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -2309,7 +2309,7 @@
     (on_board yes)
     (dnp no)
     (uuid "a81f1c1f-7fab-566a-9fd9-6295ed00a18d")
-    (property "Reference" "#PWR131"
+    (property "Reference" "#PWR086"
       (at 355.6 66.04 0)
       (effects
         (font
@@ -2334,7 +2334,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR131")
+          (reference "#PWR086")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -2422,7 +2422,7 @@
     (on_board yes)
     (dnp no)
     (uuid "5b5756e5-2d93-53a1-9b48-c2e17c1ae377")
-    (property "Reference" "#PWR132"
+    (property "Reference" "#PWR087"
       (at 401.32 66.04 0)
       (effects
         (font
@@ -2447,7 +2447,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR132")
+          (reference "#PWR087")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -2534,7 +2534,7 @@
     (on_board yes)
     (dnp no)
     (uuid "d1ded7d8-a409-55ea-9376-c59abfcbb774")
-    (property "Reference" "#PWR133"
+    (property "Reference" "#PWR088"
       (at 448.31 66.04 0)
       (effects
         (font
@@ -2559,7 +2559,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR133")
+          (reference "#PWR088")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -2646,7 +2646,7 @@
     (on_board yes)
     (dnp no)
     (uuid "0f54565f-1d59-514f-a00e-94458cded2ca")
-    (property "Reference" "#PWR134"
+    (property "Reference" "#PWR089"
       (at 495.3 66.04 0)
       (effects
         (font
@@ -2671,7 +2671,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR134")
+          (reference "#PWR089")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -2845,7 +2845,7 @@
     (on_board yes)
     (dnp no)
     (uuid "e9520c63-8363-5d34-bd13-74d6a48b5c52")
-    (property "Reference" "#PWR135"
+    (property "Reference" "#PWR090"
       (at 96.52 106.68 0)
       (effects
         (font
@@ -2870,7 +2870,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR135")
+          (reference "#PWR090")
           (unit 1)))))
   (symbol
     (lib_id "Diode:BAT54S")
@@ -2943,7 +2943,7 @@
     (on_board yes)
     (dnp no)
     (uuid "f05a20a4-675a-56e6-9098-f858de9e4b78")
-    (property "Reference" "#PWR136"
+    (property "Reference" "#PWR091"
       (at 139.7 96.52 0)
       (effects
         (font
@@ -2968,7 +2968,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR136")
+          (reference "#PWR091")
           (unit 1)))))
   (wire
     (pts
@@ -2986,7 +2986,7 @@
     (on_board yes)
     (dnp no)
     (uuid "38b6f28f-96e5-5827-b617-2cd9cd33f3ba")
-    (property "Reference" "#PWR137"
+    (property "Reference" "#PWR092"
       (at 160.02 96.52 0)
       (effects
         (font
@@ -3011,7 +3011,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/82763b82-a400-5b64-9267-b1ab8822ae03"
-          (reference "#PWR137")
+          (reference "#PWR092")
           (unit 1)))))
   (wire
     (pts

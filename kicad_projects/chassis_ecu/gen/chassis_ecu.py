@@ -6,7 +6,6 @@ C0603 = 'Capacitor_SMD:C_0603_1608Metric'
 C1206 = 'Capacitor_SMD:C_1206_3216Metric'
 C1210 = 'Capacitor_SMD:C_1210_3225Metric'
 SOT23 = 'Package_TO_SOT_SMD:SOT-23'
-BTN = 'Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A'
 
 
 def R(s, ref, val, a, b, fp=R0603, **k):
@@ -27,12 +26,12 @@ MPN = {
     'LM5164DDAR': 'LM5164DDAR', 'FDD4685': 'FDD4685', 'SMAJ33CA': 'SMAJ33CA', 'BZT52C15': 'BZT52C15',
     'BAT54S': 'BAT54S', 'ESP32-S3-WROOM-1-N8': 'ESP32-S3-WROOM-1-N8', 'USBLC6-2SC6': 'USBLC6-2SC6',
     'SN65HVD230': 'SN65HVD230DR', 'NUP2105L': 'NUP2105LT1G', 'MCP2518FD': 'MCP2518FDT-E/QBB',
-    '40MHz 12pF': '7B040000M01', 'MCP23017-E/SS': 'MCP23017-E/SS', 'LTV-357T': 'LTV-357T',
+    'LTV-357T': 'LTV-357T',
     '1N4148W': '1N4148W', 'DMN6075S': 'DMN6075S-7', 'B5819W': 'B5819W', '2N7002': '2N7002',
     'AO3401A': 'AO3401A', 'BTN8982TA': 'BTN8982TA', 'SMCJ22A': 'SMCJ22A', 'SMAJ15CA': 'SMAJ15CA',
-    'CPC1117N': 'CPC1117NTR', 'TLV3201AIDBV': 'TLV3201AIDBVR', 'ADS1115IDGS': 'ADS1115IDGSR',
+    'CPC1117N': 'CPC1117NTR', 'TLV3201AIDBV': 'TLV3201AIDBVR',
     'LSM6DSOX': 'LSM6DSOXTR', 'SMAJ24CA': 'SMAJ24CA',
-    'BSS84': 'LBSS84LT1G', 'MCP23017-E/SO': 'MCP23017-E/SO', 'TYPE-C-31-M-12': 'TYPE-C-31-M-12',
+    'BSS84': 'LBSS84LT1G', 'TYPE-C-31-M-12': 'TYPE-C-31-M-12',
     '22uH 2.2A': 'FNR6045S220MT', '1A 63V': '0466001.NRHF', 'LTV-357T': 'LTV-357T-C',
 }
 # LCSC numbers: gen/lcsc_parts.json, written by jlc_select.py from the jlcparts database
@@ -104,30 +103,36 @@ def build():
            'Strapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\n'
            'USB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\n'
            'runs from 12V, so bench programming needs the 12V supply.\n'
-           'ADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.  ANA1/ANA2 (IO4/IO5) go to test pads.\n'
-           'Spare (unconnected): IO1 / IO2 / IO8 / IO9 (ADC1), IO35-IO40.',
+           'ADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.\n'
+           'ADC1: IO1 CP_LVL, IO2 PP_SENSE, IO4/5/10 ANA1-3 (J10), IO6 PAWL_IS, IO7 VSENSE_12V, IO8/9 AIN1/2.\n'
+           'Opto inputs IO35-38 (active-low), PAWL_INH IO39, status LEDs IO40 / IO21, J10 GPIO IO11 / IO12.\n'
+           'BOOT / RESET = solder-jumper pads (short with tweezers); USB auto-reset covers normal flashing.\n'
+           'Spare (unconnected): IO13, IO14.',
            20, 15)
     s.row('ESP32-S3 module')
     s.add('U2', 'RF_Module:ESP32-S3-WROOM-1', 'ESP32-S3-WROOM-1-N4', {
         'GND': 'GND', '3V3': '+3V3', 'EN': 'ESP_EN', 'IO0': 'ESP_BOOT',
-        'IO4': 'ANA1', 'IO5': 'ANA2', 'IO6': 'PAWL_IS',
-        'IO7': 'VSENSE_12V', 'IO47': 'IMU_INT1',
-        'IO10': 'IOX_INT', 'IO11': 'SPI_MOSI', 'IO12': 'SPI_SCK', 'IO13': 'SPI_MISO',
-        'IO14': 'CAN2_CS', 'IO21': 'CAN2_INT', 'IO15': 'I2C_SDA', 'IO16': 'I2C_SCL',
+        'IO1': 'CP_LVL', 'IO2': 'PP_SENSE', 'IO4': 'ANA1', 'IO5': 'ANA2', 'IO6': 'PAWL_IS',
+        'IO7': 'VSENSE_12V', 'IO8': 'AIN1_ADC', 'IO9': 'AIN2_ADC', 'IO10': 'ANA3', 'IO47': 'IMU_INT1',
+        'IO11': 'EXP_GPIO1', 'IO12': 'EXP_GPIO2', 'IO21': 'LED_STAT2',
+        'IO15': 'I2C_SDA', 'IO16': 'I2C_SCL',
+        'IO35': 'OPTO_IN1', 'IO36': 'OPTO_IN2', 'IO37': 'OPTO_IN3', 'IO38': 'OPTO_IN4',
+        'IO39': 'PAWL_INH', 'IO40': 'LED_STAT1',
         'IO17': 'CAN1_TXD', 'IO18': 'CAN1_RXD',
         'IO41': 'CP_DUTY', 'IO42': 'CP_S2_OPEN', 'IO48': 'PAWL_DRV',
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
-    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO1', 'IO2', 'IO8', 'IO9',
-        'IO35', 'IO36', 'IO37', 'IO38', 'IO39', 'IO40'],
+    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO13', 'IO14'],
         fields={'LCSC': 'C2913197'})
     s.row('Decoupling, reset, boot, I2C pull-ups')
     C(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', C1206)
     C(s, 'C11', '100nF', '+3V3', 'GND')
     R(s, 'R10', '10k', '+3V3', 'ESP_EN')
     C(s, 'C12', '1uF', 'ESP_EN', 'GND')
-    s.add('SW1', 'Switch:SW_Push', 'RESET', {'1': 'ESP_EN', '2': 'GND'}, BTN)
+    s.add('JP3', 'Jumper:SolderJumper_2_Open', 'RESET', {'A': 'ESP_EN', 'B': 'GND'},
+          'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm')
     R(s, 'R11', '10k', '+3V3', 'ESP_BOOT')
-    s.add('SW2', 'Switch:SW_Push', 'BOOT', {'1': 'ESP_BOOT', '2': 'GND'}, BTN)
+    s.add('JP4', 'Jumper:SolderJumper_2_Open', 'BOOT', {'A': 'ESP_BOOT', 'B': 'GND'},
+          'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm')
     R(s, 'R12', '4.7k', '+3V3', 'I2C_SDA')
     R(s, 'R13', '4.7k', '+3V3', 'I2C_SCL')
     s.row('USB-C (data only) and debug UART')
@@ -147,9 +152,8 @@ def build():
 
     # --- CAN --------------------------------------------------------------------
     s = b.sheet('CAN', 'can.kicad_sch')
-    s.note('CAN1 = native TWAI (vehicle bus).  CAN2 = MCP2518FD on SPI (CAN-FD capable).\n'
-           'Rs tied to GND = high-speed mode.  120R terminators on solder jumpers, default OPEN (mid-bus).\n'
-           'Y1: 40 MHz, CL 12 pF (7B040000M01) -> C16/C17 = 2 x (12 - ~3 pF stray) = 18 pF.',
+    s.note('CAN1 = native TWAI (vehicle bus), in + out pins on J20 (daisy chain).\n'
+           'Rs tied to GND = high-speed mode.  120R terminator on a solder jumper, default OPEN (mid-bus).',
            20, 15)
     s.row('CAN1: native TWAI, vehicle bus')
     s.add('U4', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230',
@@ -161,30 +165,6 @@ def build():
           'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm')
     R(s, 'R16', '120R', 'CAN1_TERM', 'CAN1_L', 'Resistor_SMD:R_1206_3216Metric')
 
-    s.row('CAN2: MCP2518FD on SPI')
-    s.add('U5', 'Interface_CAN_LIN:MCP2518FD-xQBB', 'MCP2518FD',
-          {'VDD': '+3V3', 'VSS': 'GND', 'OSC1': 'CAN2_OSC1', 'OSC2': 'CAN2_OSC2',
-           '~{INT}': 'CAN2_INT', 'TXCAN': 'CAN2_TXD', 'RXCAN': 'CAN2_RXD',
-           '~{CS}': 'CAN2_CS', 'SCK': 'SPI_SCK', 'SDI': 'SPI_MOSI', 'SDO': 'SPI_MISO'},
-          'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm',
-          nc=['CLKO/SOF', '~{INT0}/GPIO0/XSTBY', '~{INT1}/GPIO1'])
-    C(s, 'C14', '100nF', '+3V3', 'GND')
-    C(s, 'C15', '1uF', '+3V3', 'GND')
-    R(s, 'R17', '10k', '+3V3', 'CAN2_INT')
-    R(s, 'R18', '10k', '+3V3', 'CAN2_CS')
-    s.add('Y1', 'Device:Crystal_GND24', '40MHz 12pF', {'1': 'CAN2_OSC1', '3': 'CAN2_OSC2', 'G': 'GND'},
-          'Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm')
-    C(s, 'C16', '18pF', 'CAN2_OSC1', 'GND')
-    C(s, 'C17', '18pF', 'CAN2_OSC2', 'GND')
-    s.row('CAN2 transceiver')
-    s.add('U6', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230',
-          {'D': 'CAN2_TXD', 'R': 'CAN2_RXD', 'VCC': '+3V3', 'GND': 'GND', 'Rs': 'GND',
-           'CANH': 'CAN2_H', 'CANL': 'CAN2_L'}, 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', nc=['Vref'])
-    C(s, 'C18', '100nF', '+3V3', 'GND')
-    s.add('D5', 'Power_Protection:NUP2105L', 'NUP2105L', {'1': 'CAN2_H', '2': 'CAN2_L', '3': 'GND'}, SOT23)
-    s.add('JP2', 'Jumper:SolderJumper_2_Open', 'CAN2 TERM', {'A': 'CAN2_H', 'B': 'CAN2_TERM'},
-          'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm')
-    R(s, 'R19', '120R', 'CAN2_TERM', 'CAN2_L', 'Resistor_SMD:R_1206_3216Metric')
     io_sheet(b)
     motor_sheet(b)
     j1772_sheet(b)
@@ -206,54 +186,26 @@ def build():
 
 def opto_in(s, n, net, rser):
     """12V-active input: series R -> opto LED (reverse diode across it) -> GND.
-    Collector pulled up to 3V3 = ACTIVE-LOW at the expander."""
+    Collector pulled up to 3V3 = ACTIVE-LOW at the GPIO."""
     s.add('R%d' % (100 + n), 'Device:R', rser, {'1': net, '2': 'OPTO%d_A' % n},
           'Resistor_SMD:R_0805_2012Metric')
     s.add('D%d' % (100 + n), 'Device:D', '1N4148W', {'K': 'OPTO%d_A' % n, 'A': 'GND'}, 'Diode_SMD:D_SOD-123')
     s.add('U%d' % (100 + n), 'Isolator:PC817', 'LTV-357T', {'1': 'OPTO%d_A' % n, '2': 'GND',
-          '3': 'GND', '4': 'IOX_IN%d' % n}, 'Package_SO:SO-4_4.4x3.6mm_P2.54mm')
-    R(s, 'R%d' % (110 + n), '10k', '+3V3', 'IOX_IN%d' % n)
-    C(s, 'C%d' % (100 + n), '10nF', 'IOX_IN%d' % n, 'GND')
-
-
-def lowside_out(s, n):
-    """Light low-side output (small relay / LED / lamp), flyback to +12V_LOGIC."""
-    R(s, 'R%d' % (120 + n), '100R', 'IOX_OUT%d' % n, 'OUT%d_G' % n)
-    R(s, 'R%d' % (130 + n), '100k', 'OUT%d_G' % n, 'GND')
-    s.add('Q%d' % (100 + n), 'Transistor_FET:DMN6075S', 'DMN6075S',
-          {'G': 'OUT%d_G' % n, 'S': 'GND', 'D': 'OUT%d' % n})
-    s.add('D%d' % (110 + n), 'Device:D_Schottky', 'B5819W', {'K': '+12V_LOGIC', 'A': 'OUT%d' % n},
-          'Diode_SMD:D_SOD-123')
+          '3': 'GND', '4': 'OPTO_IN%d' % n}, 'Package_SO:SO-4_4.4x3.6mm_P2.54mm')
+    R(s, 'R%d' % (110 + n), '10k', '+3V3', 'OPTO_IN%d' % n)
+    C(s, 'C%d' % (100 + n), '10nF', 'OPTO_IN%d' % n, 'GND')
 
 
 def io_sheet(b):
     s = b.sheet('IO', 'io.kicad_sch')
-    s.paper = 'A1'
-    s.note('MCP23017 at 0x20 (A2..A0 = GND).  GPA7 / GPB7 are OUTPUT-only on current silicon -> status LEDs.\n'
-           'GPA0-5 = opto inputs (ACTIVE-LOW), GPB0-3 = light outputs, GPB6 = PAWL_INH,\n'
-           'GPA6 / GPB4 / GPB5 spare.  INTA -> IOX_INT (configure open-drain, mirrored).\n'
+    s.note('Opto inputs -> native GPIO IO35-38, ACTIVE-LOW (collector pulled up to 3V3).\n'
            'Opto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\n'
-           'Light outputs: DMN6075S 60V low-side, B5819W flyback to +12V_LOGIC.',
+           'J10 (DNP) expansion: I2C, ANA1-3 (raw ESP32 ADC1, 0-3.1 V), 2 GPIO.',
            20, 15)
-    s.row('MCP23017 I/O expander')
-    s.add('U10', 'Interface_Expansion:MCP23017x-x-SO', 'MCP23017-E/SO', {
-        'V_{DD}': '+3V3', 'V_{SS}': 'GND', 'SCK': 'I2C_SCL', 'SDA': 'I2C_SDA',
-        'A0': 'GND', 'A1': 'GND', 'A2': 'GND', '~{RESET}': 'IOX_RST', 'INTA': 'IOX_INT',
-        'GPA0': 'IOX_IN1', 'GPA1': 'IOX_IN2', 'GPA2': 'IOX_IN3', 'GPA3': 'IOX_IN4',
-        'GPA4': 'IOX_IN5', 'GPA5': 'IOX_IN6', 'GPA7': 'LED_STAT1',
-        'GPB0': 'IOX_OUT1', 'GPB1': 'IOX_OUT2', 'GPB2': 'IOX_OUT3', 'GPB3': 'IOX_OUT4',
-        'GPB6': 'PAWL_INH', 'GPB7': 'LED_STAT2',
-    }, 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', nc=['INTB', 'GPA6', 'GPB4', 'GPB5'])
-    C(s, 'C110', '100nF', '+3V3', 'GND')
-    R(s, 'R160', '10k', '+3V3', 'IOX_RST')
-    R(s, 'R161', '10k', '+3V3', 'IOX_INT')
     s.row('Opto inputs (12V active)')
     for n, (net, rr) in enumerate([('IN_P_SENSE', '4.7k'), ('IN_BRAKE', '2.2k'), ('IN_WELD1', '2.2k'),
-                                   ('IN_WELD2', '2.2k'), ('IN5', '2.2k'), ('IN6', '2.2k')], 1):
+                                   ('IN_WELD2', '2.2k')], 1):
         opto_in(s, n, net, rr)
-    s.row('Light low-side outputs')
-    for n in range(1, 5):
-        lowside_out(s, n)
     s.row('Status LEDs')
     R(s, 'R164', '1k', '+3V3', 'LED_PWR_A')
     s.add('D121', 'Device:LED', 'LED green', {'A': 'LED_PWR_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
@@ -261,10 +213,10 @@ def io_sheet(b):
     s.add('D122', 'Device:LED', 'LED green', {'A': 'LED1_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
     R(s, 'R166', '1k', 'LED_STAT2', 'LED2_A')
     s.add('D123', 'Device:LED', 'LED green', {'A': 'LED2_A', 'K': 'GND'}, 'LED_SMD:LED_0603_1608Metric')
-    s.row('Expansion header (DNP): spare I/O not on the main connector')
+    s.row('Expansion header (DNP)')
     s.add('J10', 'Connector_Generic:Conn_01x10', 'EXP', {
-        '1': 'GND', '2': '+3V3', '3': 'I2C_SDA', '4': 'I2C_SCL', '5': 'IN5', '6': 'IN6',
-        '7': 'OUT1', '8': 'OUT2', '9': 'OUT3', '10': 'OUT4'},
+        '1': 'GND', '2': '+3V3', '3': 'I2C_SDA', '4': 'I2C_SCL', '5': 'ANA1', '6': 'ANA2',
+        '7': 'ANA3', '8': 'EXP_GPIO1', '9': 'EXP_GPIO2', '10': 'GND'},
         'Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical', dnp=True)
 
 
@@ -316,9 +268,9 @@ def j1772_sheet(b):
            'AC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\n'
            'CP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\n'
            'load on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\n'
-           'Same node -> ADS1115 AIN0 for the high level (+12 / +9 / +6 V = state A / B / C).\n'
+           'CP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C).\n'
            'PP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\n'
-           'open 3.3 V, plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ADS1115 AIN1.',
+           'open 3.3 V (ADC full scale), plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ESP32 ADC1 IO2.',
            20, 15)
     s.row('Pilot state circuit')
     s.add('D300', 'Device:D_TVS', 'SMAJ15CA', {'1': 'CP', '2': 'GND'}, 'Diode_SMD:D_SMA')
@@ -350,19 +302,21 @@ def j1772_sheet(b):
     C(s, 'C304', '10nF', 'PP_SENSE', 'GND')
 
 
+def ain(s, n):
+    """12V-tolerant analog input: 100k / 22k (15 V -> 2.7 V), 100nF, BAT54S clamp."""
+    R(s, 'R%d' % (410 + n), '100k', 'AIN%d' % n, 'AIN%d_ADC' % n)
+    R(s, 'R%d' % (420 + n), '22k', 'AIN%d_ADC' % n, 'GND')
+    C(s, 'C%d' % (410 + n), '100nF', 'AIN%d_ADC' % n, 'GND')
+    s.add('D%d' % (410 + n), 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'AIN%d_ADC' % n}, SOT23)
+
+
 def sensor_sheet(b):
     s = b.sheet('Sensors', 'sensors.kicad_sch')
-    s.note('I2C bus (IO15 SDA / IO16 SCL, 4.7k pull-ups on sheet MCU):\n'
-           '  0x20 MCP23017, 0x48 ADS1115 (ADDR = GND), 0x6A LSM6DSO (SA0 = GND).\n'
-           'ADS1115: AIN0 CP level, AIN1 PP, AIN2 / AIN3 spare analog (ANA3 / ANA4).\n'
+    s.note('I2C bus (IO15 SDA / IO16 SCL, 4.7k pull-ups on sheet MCU): 0x6A LSM6DSO (SA0 = GND).\n'
            'LSM6DSO: I2C mode (CS = 3V3); aux SPI pins unused (SDx / SCx to GND).  INT1 -> IO47.\n'
-           'Mount the board square to the vehicle axes.',
+           'Mount the board square to the vehicle axes.\n'
+           'AIN1 / AIN2 (J20): 0-15 V -> 0-2.7 V into ESP32 ADC1 (IO8 / IO9), 122k input load.',
            20, 15)
-    s.row('ADS1115 16-bit ADC')
-    s.add('U40', 'Analog_ADC:ADS1115IDGS', 'ADS1115IDGS',
-          {'VDD': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL', 'ADDR': 'GND',
-           'AIN0': 'CP_LVL', 'AIN1': 'PP_SENSE', 'AIN2': 'ANA3', 'AIN3': 'ANA4'}, nc=['ALERT/RDY'])
-    C(s, 'C400', '100nF', '+3V3', 'GND')
     s.row('LSM6DSO IMU')
     s.add('U41', 'PCM_SparkFun-Sensor:LSM6DSOX', 'LSM6DSOX',
           {'VDD': '+3V3', 'VDDIO': '+3V3', 'GND': 'GND', 'SDA': 'I2C_SDA', 'SCL': 'I2C_SCL',
@@ -370,20 +324,24 @@ def sensor_sheet(b):
           nc=['INT2', 'OCS_Aux', 'SDO_Aux'])
     C(s, 'C401', '100nF', '+3V3', 'GND')
     C(s, 'C402', '100nF', '+3V3', 'GND')
+    s.row('Analog inputs (12V-tolerant)')
+    ain(s, 1)
+    ain(s, 2)
 
 
 def connector_sheet(b):
     s = b.sheet('Connector', 'connector.kicad_sch')
     s.note('Main connector: Aptiv/FCI HCCPHPE24BKA90F (24-way 90 deg header, key A), mates 211PC249S0005.\n'
            'Columns 1 and 8 (A1-C1, A8-C8) = large high-current cavities.  Footprint: lib/ (gen/make_lib.py).\n'
-           'Pawl feed and lead doubled on the large pins.  Pins marked NC: spare.',
+           'Pawl feed and lead doubled on the large pins.  CAN1 in (A3/A4) and out (A5/A6) joined on the board.\n'
+           'Pins marked NC: spare.',
            20, 15)
     s.row('Main connector')
     pins = {
         'A1': 'PAWL_12V', 'B1': 'PAWL_12V', 'C1': 'GND',
         'A8': 'MOT_OUT', 'B8': 'MOT_OUT', 'C8': 'GND',
-        'A2': 'VIN_12V', 'A3': 'CAN1_H', 'A4': 'CAN1_L', 'A5': 'CAN2_H', 'A6': 'CAN2_L', 'A7': 'GND',
-        'B2': 'IN_P_SENSE', 'B3': 'IN_BRAKE', 'B4': 'IN_WELD1', 'B5': 'IN_WELD2',
+        'A2': 'VIN_12V', 'A3': 'CAN1_H', 'A4': 'CAN1_L', 'A5': 'CAN1_H', 'A6': 'CAN1_L', 'A7': 'GND',
+        'B2': 'IN_P_SENSE', 'B3': 'IN_BRAKE', 'B4': 'IN_WELD1', 'B5': 'IN_WELD2', 'B6': 'AIN1', 'B7': 'AIN2',
         'C2': 'CP', 'C3': 'CP_GND', 'C4': 'PP',
     }
     allp = ['%s%d' % (r, c) for r in 'ABC' for c in range(1, 9)]
@@ -394,6 +352,3 @@ def connector_sheet(b):
     for i in range(1, 5):
         s.add('H%d' % i, 'Mechanical:MountingHole', 'MountingHole', {}, 'MountingHole:MountingHole_3.2mm_M3',
               fields={'JLC': 'not a part'})
-    s.row('Spare analog (test pads until a connector pin is free)')
-    for i, n in enumerate(['ANA1', 'ANA2', 'ANA3', 'ANA4'], 1):
-        s.add('TP%d' % i, 'Connector:TestPoint', n, {'1': n}, 'TestPoint:TestPoint_Pad_1.5x1.5mm')
