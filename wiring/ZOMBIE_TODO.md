@@ -23,7 +23,7 @@ running config.
 ## Charging
 - [ ] **`chargemodes = Elcon` (6), SAVED.**
 - [ ] **Interim (resistor spoof + PP on Zombie): `interface = Unused` (0), `Chgctrl = 1`, SAVED.**
-- [ ] **When the chassis_ecu goes in: `interface = CPC` (3), `Chgctrl = 0` (Enable), PILOT_PROX
+- [ ] **When the chassis_ecu goes in: `interface = CPC` (3), `LimCan = 0` (CAN1, where the chassis_ecu is), `Chgctrl = 0` (Enable), PILOT_PROX
       removed, SAVED.** The chassis_ecu then gates charging via 0x357 status. (charging-j1772-notes
       "Zombie charge-interface")
 - [ ] **`Voltspnt` = target charge voltage** (per-session SoC-target lever; CM3 may set it).
