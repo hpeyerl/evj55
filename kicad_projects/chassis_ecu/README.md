@@ -28,9 +28,10 @@ antenna keep-out, not used here) and the paired case holes H1/H2, H3/H4 overlap.
   the concatenated parts start with a 4-byte split marker) and writes `gen/lcsc_parts.json`.
   Preference: in stock, JLC basic > preferred > extended.
 - `gen/bom.py` writes `chassis_ecu_bom_jlc.csv` (JLCPCB assembly format).
-- Not assembled by JLC: U2 ESP32 module (hand-solder; N8, or N4 = LCSC C2913197), connectors (J20 = through-hole),
+- U2 = ESP32-S3-WROOM-1-N4 (LCSC C2913197), JLC-assembled; 4 MB = 2 x ~1.9 MB OTA slots (min_spiffs).
+  Not assembled by JLC: connectors (J20 = through-hole),
   solder jumpers, test points.
-- 63 BOM lines, 151 placements. Low JLC stock (< 5000) on the crystal,
+- 64 BOM lines, 152 placements. Low JLC stock (< 5000) on the crystal,
   BTN8982TA, CPC1117N, FDD4685, LSM6DSOX, MCP23017, SMCJ22A, TLV3201 - recheck at order time.
 
 ## Status

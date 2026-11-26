@@ -98,7 +98,8 @@ def build():
 
     # --- MCU --------------------------------------------------------------------
     s = b.sheet('MCU', 'mcu.kicad_sch')
-    s.note('ESP32-S3-WROOM-1-N8 (plastic case, PCB antenna) or -1U-N8 (metal case, u.FL).\n'
+    s.note('ESP32-S3-WROOM-1-N4 (4 MB flash, no PSRAM; PCB antenna).  JLC-assembled (bottom GND pad).\n'
+           '4 MB = 2 x ~1.9 MB OTA slots (min_spiffs).  -1-N8 is a drop-in if more flash is ever needed.\n'
            'Same pad pattern; the -1 footprint outline covers both.  Keep the antenna end clear of copper.\n'
            'Strapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\n'
            'USB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\n'
@@ -107,7 +108,7 @@ def build():
            'Spare (unconnected): IO1 / IO2 / IO8 / IO9 (ADC1), IO35-IO40.',
            20, 15)
     s.row('ESP32-S3 module')
-    s.add('U2', 'RF_Module:ESP32-S3-WROOM-1', 'ESP32-S3-WROOM-1-N8', {
+    s.add('U2', 'RF_Module:ESP32-S3-WROOM-1', 'ESP32-S3-WROOM-1-N4', {
         'GND': 'GND', '3V3': '+3V3', 'EN': 'ESP_EN', 'IO0': 'ESP_BOOT',
         'IO4': 'ANA1', 'IO5': 'ANA2', 'IO6': 'PAWL_IS',
         'IO7': 'VSENSE_12V', 'IO47': 'IMU_INT1',
@@ -118,7 +119,7 @@ def build():
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
     }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO1', 'IO2', 'IO8', 'IO9',
         'IO35', 'IO36', 'IO37', 'IO38', 'IO39', 'IO40'],
-        fields={'JLC': 'not assembled - hand-solder (N8, or N4 = LCSC C2913197)'})
+        fields={'LCSC': 'C2913197'})
     s.row('Decoupling, reset, boot, I2C pull-ups')
     C(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', C1206)
     C(s, 'C11', '100nF', '+3V3', 'GND')
