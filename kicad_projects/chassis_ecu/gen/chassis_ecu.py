@@ -389,6 +389,10 @@ def connector_sheet(b):
     s.add('J20', 'chassis_ecu:FCI_HCCPHPE24BKA90F', 'HCCPHPE24BKA90F', pins,
           'chassis_ecu:FCI_HCCPHPE24BKA90F', nc=[p for p in allp if p not in pins],
           fields={'JLC': 'not assembled - hand-solder (through-hole)'})
+    s.row('Case mounting holes (3.2 mm: fits M3 / ST2.9 / smaller; case drawing shows 2.5 mm bosses)')
+    for i in range(1, 5):
+        s.add('H%d' % i, 'Mechanical:MountingHole', 'MountingHole', {}, 'MountingHole:MountingHole_3.2mm_M3',
+              fields={'JLC': 'not a part'})
     s.row('Spare analog (test pads until a connector pin is free)')
     for i, n in enumerate(['ANA1', 'ANA2', 'ANA3', 'ANA4'], 1):
         s.add('TP%d' % i, 'Connector:TestPoint', n, {'1': n}, 'TestPoint:TestPoint_Pad_1.5x1.5mm')

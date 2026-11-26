@@ -538,6 +538,78 @@
               (font
                 (size 1.27 1.27))))))
       (embedded_fonts no))
+    (symbol "Mechanical:MountingHole"
+      (pin_names
+        (offset 1.016))
+      (exclude_from_sim no)
+      (in_bom no)
+      (on_board yes)
+      (in_pos_files yes)
+      (duplicate_pin_numbers_are_jumpers no)
+      (property "Reference" "H"
+        (at 0 5.08 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "MountingHole"
+        (at 0 3.175 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Datasheet" ""
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Description" "Mounting Hole without connection"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "ki_keywords" "mounting hole"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "ki_fp_filters" "MountingHole*"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (symbol "MountingHole_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 1.27)
+            (type default))
+          (fill
+            (type none))))
+      (embedded_fonts no))
     (symbol "Connector:TestPoint"
       (pin_numbers
         (hide yes))
@@ -1219,33 +1291,205 @@
           (reference "#PWR176")
           (unit 1)))))
   (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 50.8 138.43 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e35fc4e3-f80a-57b5-ab70-f1e7665e8fbd")
+    (property "Reference" "H1"
+      (at 48.26 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MountingHole"
+      (at 48.26 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 50.8 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 50.8 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "JLC" "not a part"
+      (at 50.8 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
+          (reference "H1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 101.6 138.43 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "85f195c4-5546-53af-8ddf-2573f6c450a4")
+    (property "Reference" "H2"
+      (at 99.06 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MountingHole"
+      (at 99.06 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 101.6 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 101.6 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "JLC" "not a part"
+      (at 101.6 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
+          (reference "H2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 152.4 138.43 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "80fd21df-a9f1-50c8-aedd-4294be22767c")
+    (property "Reference" "H3"
+      (at 149.86 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MountingHole"
+      (at 149.86 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 152.4 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 152.4 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "JLC" "not a part"
+      (at 152.4 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
+          (reference "H3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 203.2 138.43 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ed65d000-70d2-5e43-a5f4-caee73bc2419")
+    (property "Reference" "H4"
+      (at 200.66 134.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MountingHole"
+      (at 200.66 142.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 203.2 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 203.2 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "JLC" "not a part"
+      (at 203.2 138.43 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "chassis_ecu"
+        (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
+          (reference "H4")
+          (unit 1)))))
+  (symbol
     (lib_id "Connector:TestPoint")
-    (at 48.26 135.89 0)
+    (at 48.26 168.91 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "437d96f3-ee29-590a-bcc9-d2ac822c39fa")
     (property "Reference" "TP1"
-      (at 48.26 134.62 0)
+      (at 48.26 167.64 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "ANA1"
-      (at 48.26 137.16 0)
+      (at 48.26 170.18 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-      (at 48.26 135.89 0)
+      (at 48.26 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 48.26 135.89 0)
+      (at 48.26 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -1259,15 +1503,15 @@
           (unit 1)))))
   (wire
     (pts
-      (xy 48.26 135.89)
-      (xy 48.26 138.43))
+      (xy 48.26 168.91)
+      (xy 48.26 171.45))
     (stroke
       (width 0)
       (type default))
     (uuid "439fc280-c1a6-5e89-92d7-063f342d7293"))
   (global_label "ANA1"
     (shape passive)
-    (at 48.26 138.43 270)
+    (at 48.26 171.45 270)
     (fields_autoplaced yes)
     (effects
       (font
@@ -1276,32 +1520,32 @@
     (uuid "ad7e5321-aa2a-5439-a9fb-77e99df968ee"))
   (symbol
     (lib_id "Connector:TestPoint")
-    (at 93.98 135.89 0)
+    (at 93.98 168.91 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "2296fbd1-a8df-5735-80b8-793760316d88")
     (property "Reference" "TP2"
-      (at 93.98 134.62 0)
+      (at 93.98 167.64 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "ANA2"
-      (at 93.98 137.16 0)
+      (at 93.98 170.18 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-      (at 93.98 135.89 0)
+      (at 93.98 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 93.98 135.89 0)
+      (at 93.98 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -1315,15 +1559,15 @@
           (unit 1)))))
   (wire
     (pts
-      (xy 93.98 135.89)
-      (xy 93.98 138.43))
+      (xy 93.98 168.91)
+      (xy 93.98 171.45))
     (stroke
       (width 0)
       (type default))
     (uuid "6ee3f8a4-0729-5f65-a970-dee3d00794c6"))
   (global_label "ANA2"
     (shape passive)
-    (at 93.98 138.43 270)
+    (at 93.98 171.45 270)
     (fields_autoplaced yes)
     (effects
       (font
@@ -1332,32 +1576,32 @@
     (uuid "c2c9c5d5-958e-5800-bb36-6a6ee4a670ce"))
   (symbol
     (lib_id "Connector:TestPoint")
-    (at 139.7 135.89 0)
+    (at 139.7 168.91 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "9513f204-d337-58e2-af48-e2ef3e8be99b")
     (property "Reference" "TP3"
-      (at 139.7 134.62 0)
+      (at 139.7 167.64 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "ANA3"
-      (at 139.7 137.16 0)
+      (at 139.7 170.18 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-      (at 139.7 135.89 0)
+      (at 139.7 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 139.7 135.89 0)
+      (at 139.7 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -1371,15 +1615,15 @@
           (unit 1)))))
   (wire
     (pts
-      (xy 139.7 135.89)
-      (xy 139.7 138.43))
+      (xy 139.7 168.91)
+      (xy 139.7 171.45))
     (stroke
       (width 0)
       (type default))
     (uuid "8a7f9aad-8ce1-50a6-a5f3-b08dc0ef83f9"))
   (global_label "ANA3"
     (shape passive)
-    (at 139.7 138.43 270)
+    (at 139.7 171.45 270)
     (fields_autoplaced yes)
     (effects
       (font
@@ -1388,32 +1632,32 @@
     (uuid "8bfe7d98-1c08-54e7-8822-86cdc5d4d240"))
   (symbol
     (lib_id "Connector:TestPoint")
-    (at 185.42 135.89 0)
+    (at 185.42 168.91 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "e3b9a095-1616-5710-84a6-939a7c7ba9e8")
     (property "Reference" "TP4"
-      (at 185.42 134.62 0)
+      (at 185.42 167.64 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "ANA4"
-      (at 185.42 137.16 0)
+      (at 185.42 170.18 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-      (at 185.42 135.89 0)
+      (at 185.42 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 185.42 135.89 0)
+      (at 185.42 168.91 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -1427,15 +1671,15 @@
           (unit 1)))))
   (wire
     (pts
-      (xy 185.42 135.89)
-      (xy 185.42 138.43))
+      (xy 185.42 168.91)
+      (xy 185.42 171.45))
     (stroke
       (width 0)
       (type default))
     (uuid "ac1e0d0c-edf3-5719-b533-e78ab06a07ab"))
   (global_label "ANA4"
     (shape passive)
-    (at 185.42 138.43 270)
+    (at 185.42 171.45 270)
     (fields_autoplaced yes)
     (effects
       (font
@@ -1449,13 +1693,20 @@
         (size 2.54 2.54) bold)
       (justify left top))
     (uuid "e745ccb8-3579-557f-8ed8-904a4a66793b"))
-  (text "Spare analog (test pads until a connector pin is free)"
+  (text "Case mounting holes (3.2 mm: fits M3 / ST2.9 / smaller; case drawing shows 2.5 mm bosses)"
     (at 25.4 118.11 0)
     (effects
       (font
         (size 2.54 2.54) bold)
       (justify left top))
     (uuid "848eb2f4-14ca-5d5b-b9b2-60e0f37a1783"))
+  (text "Spare analog (test pads until a connector pin is free)"
+    (at 25.4 151.13 0)
+    (effects
+      (font
+        (size 2.54 2.54) bold)
+      (justify left top))
+    (uuid "ca27120e-421e-5f45-a3fc-2b630af89ad8"))
   (text "Main connector: Aptiv/FCI HCCPHPE24BKA90F (24-way 90 deg header, key A), mates 211PC249S0005.\nColumns 1 and 8 (A1-C1, A8-C8) = large high-current cavities.  Footprint: lib/ (gen/make_lib.py).\nPawl feed and lead doubled on the large pins.  Pins marked NC: spare."
     (at 20 15 0)
     (effects

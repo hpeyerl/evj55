@@ -14,6 +14,14 @@ libraries and `pcbnew` are installed there.
 Every pin is drawn as a short stub with a net label (or power symbol); connectivity is by label
 name. Layout is one functional block per row.
 
+## PCB
+`chassis_ecu.kicad_pcb` was created once by `gen/make_pcb.py`: 82 x 101 mm outline (3 mm corners,
+J20 key notch), 4 layers, J20 centred on the top edge, ESP32 antenna flush with the bottom edge
+(copper keep-out under it), case holes, first-pass block placement (tall parts in the top third).
+The script refuses to overwrite an existing board (`--force` discards it). From here: edit in KiCad,
+"Update PCB from Schematic" after schematic changes. Expected DRC items: U2 courtyard (on-board
+antenna keep-out, not used here) and the paired case holes H1/H2, H3/H4 overlap.
+
 ## Parts / BOM
 - `gen/jlc_select.py <cache.sqlite3>` picks LCSC parts from the jlcparts database
   (yaqwsx.github.io/jlcparts/data/cache.zip + cache.z01..z05, a split zip of one 2.1 GB sqlite file;
@@ -38,7 +46,7 @@ name. Layout is one functional block per row.
 - 3D model: vendor STEP is not redistributable; put `HCCPHPE24BKA90F.stp` in `lib/3d/` (git-ignored).
 - 4 ERC warnings: the SparkFun LSM6DSOX symbol types its strap pins bidirectional (benign).
 - Design stall current 20 A.  PP is read on this board
-  (Zombie `interface=CPC`).  Open: physical check of the J20 footprint.
+  (Zombie `interface=CPC`).  Open: physical check of the J20 footprint; routing.
 
 ## ESP32-S3 pin map
 | GPIO | Net | GPIO | Net |
