@@ -997,7 +997,7 @@
     (on_board yes)
     (dnp no)
     (uuid "62962014-59e4-5ba6-8085-0076812c8612")
-    (property "Reference" "#PWR227"
+    (property "Reference" "#PWR174"
       (at 45.72 50.8 0)
       (effects
         (font
@@ -1022,7 +1022,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-          (reference "#PWR227")
+          (reference "#PWR174")
           (unit 1)))))
   (wire
     (pts
@@ -1040,7 +1040,7 @@
     (on_board yes)
     (dnp no)
     (uuid "ba1c0296-9475-5101-8815-5f84e9c8d3de")
-    (property "Reference" "#PWR228"
+    (property "Reference" "#PWR175"
       (at 45.72 53.34 0)
       (effects
         (font
@@ -1065,178 +1065,38 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-          (reference "#PWR228")
+          (reference "#PWR175")
           (unit 1)))))
-  (wire
-    (pts
-      (xy 48.26 55.88)
-      (xy 45.72 55.88))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "de9b4098-b570-548a-b3b1-d3e300e383e7"))
-  (global_label "EPB_12V"
-    (shape passive)
-    (at 45.72 55.88 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "07bbe820-dc03-55df-90d2-65bd37e25983"))
-  (wire
-    (pts
-      (xy 48.26 58.42)
-      (xy 45.72 58.42))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "46ed8dcb-405e-53a9-b87c-e64b747b5221"))
-  (global_label "EPB_12V"
-    (shape passive)
-    (at 45.72 58.42 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "409b5170-5c05-5b40-b40a-5acb379e10a7"))
-  (wire
-    (pts
-      (xy 48.26 60.96)
-      (xy 45.72 60.96))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "42a02abe-6101-59fa-9c0e-95c91a6be0b0"))
-  (global_label "CAL_L_A"
-    (shape passive)
-    (at 45.72 60.96 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "8a07f0ce-70e0-5933-ac74-4743064a0f29"))
-  (wire
-    (pts
-      (xy 48.26 63.5)
-      (xy 45.72 63.5))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "036cf852-d619-5aa3-acd8-9d45968ac051"))
-  (global_label "CAL_L_A"
-    (shape passive)
-    (at 45.72 63.5 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "45f43d72-e73e-5e8c-b0ea-1f68f74df31e"))
-  (wire
-    (pts
-      (xy 48.26 66.04)
-      (xy 45.72 66.04))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "f84e2586-023a-5d08-8508-d82ac503c5d0"))
-  (global_label "CAL_L_B"
-    (shape passive)
-    (at 45.72 66.04 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "5c268104-0845-5e8e-b680-9a343cc615b0"))
-  (wire
-    (pts
-      (xy 48.26 68.58)
-      (xy 45.72 68.58))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "b6d5835e-102d-54e7-8c52-2a90d93b3c2e"))
-  (global_label "CAL_L_B"
-    (shape passive)
-    (at 45.72 68.58 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "0635d3e1-d0b9-5456-be96-045de5c6231f"))
-  (wire
-    (pts
-      (xy 48.26 71.12)
-      (xy 45.72 71.12))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "9162575b-c785-5153-9846-16f04c6074f6"))
-  (global_label "CAL_R_A"
-    (shape passive)
-    (at 45.72 71.12 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "b6b8de11-7e16-56df-93de-38d4bd5bdde7"))
-  (wire
-    (pts
-      (xy 48.26 73.66)
-      (xy 45.72 73.66))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "138d7f01-de8b-5c64-b854-6784442916f3"))
-  (global_label "CAL_R_A"
-    (shape passive)
-    (at 45.72 73.66 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "deef7883-69de-51e3-b237-baf228bdd456"))
-  (wire
-    (pts
-      (xy 48.26 76.2)
-      (xy 45.72 76.2))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "e5c8db9b-ef19-581a-824d-6546e200528e"))
-  (global_label "CAL_R_B"
-    (shape passive)
-    (at 45.72 76.2 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "8cdabcbe-74e4-5035-b194-a979955a7543"))
-  (wire
-    (pts
-      (xy 48.26 78.74)
-      (xy 45.72 78.74))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "660a6464-62a4-506f-ac5b-c50c8225f9a5"))
-  (global_label "CAL_R_B"
-    (shape passive)
-    (at 45.72 78.74 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "54ab393f-d604-5fe6-9a89-1ec12e8ca804"))
+  (no_connect
+    (at 48.26 55.88)
+    (uuid "ac740f83-1658-5ed5-a7f2-d5b93a1982b0"))
+  (no_connect
+    (at 48.26 58.42)
+    (uuid "4a3e10dc-2291-59ad-916d-5f7d25c58887"))
+  (no_connect
+    (at 48.26 60.96)
+    (uuid "bac4f1e3-9639-5bc8-945b-81537f110eea"))
+  (no_connect
+    (at 48.26 63.5)
+    (uuid "cf304799-241a-5a43-94ec-f1f3fde20b43"))
+  (no_connect
+    (at 48.26 66.04)
+    (uuid "1c476b53-fd06-51c4-b561-0e1b279484a5"))
+  (no_connect
+    (at 48.26 68.58)
+    (uuid "84ec8b85-a16e-5ba0-ac0a-b9856222b937"))
+  (no_connect
+    (at 48.26 71.12)
+    (uuid "d2719159-dc06-5fd5-843a-42fd341d391d"))
+  (no_connect
+    (at 48.26 73.66)
+    (uuid "f3991393-f86f-5055-9c8c-2db7f9119fe1"))
+  (no_connect
+    (at 48.26 76.2)
+    (uuid "99b6924d-9bd7-52a6-95f6-d1984db5bfc5"))
+  (no_connect
+    (at 48.26 78.74)
+    (uuid "4d90cf18-6116-5816-ae7f-acf1b7e2384a"))
   (wire
     (pts
       (xy 48.26 81.28)
@@ -1492,57 +1352,15 @@
         (size 1.27 1.27))
       (justify right))
     (uuid "dc3d9da1-8d20-581e-8022-0bdc8c91264d"))
-  (wire
-    (pts
-      (xy 48.26 119.38)
-      (xy 45.72 119.38))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "dd909dbe-c9bc-55ea-97c5-5b85c8130680"))
-  (global_label "EPB_BTN"
-    (shape passive)
-    (at 45.72 119.38 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "4a87551d-373d-5ce9-ad68-0d4764b01210"))
-  (wire
-    (pts
-      (xy 48.26 121.92)
-      (xy 45.72 121.92))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "df875541-1583-5c4a-96f3-92dbbebc08bb"))
-  (global_label "EPB_LED_G"
-    (shape passive)
-    (at 45.72 121.92 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "f80159ea-5967-5034-b45f-8ec601b12547"))
-  (wire
-    (pts
-      (xy 48.26 124.46)
-      (xy 45.72 124.46))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "dd4dc3da-da31-5180-888d-3a5397b51668"))
-  (global_label "EPB_LED_R"
-    (shape passive)
-    (at 45.72 124.46 180)
-    (fields_autoplaced yes)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right))
-    (uuid "6089aa23-6bea-5063-b14e-5a3f221565b6"))
+  (no_connect
+    (at 48.26 119.38)
+    (uuid "6ab3529f-ba57-582d-bc85-36c1f04588be"))
+  (no_connect
+    (at 48.26 121.92)
+    (uuid "5db08f65-4745-55b9-9a5a-aeca6a83daac"))
+  (no_connect
+    (at 48.26 124.46)
+    (uuid "bd88f822-040d-558d-b076-4a4cd5b1b836"))
   (wire
     (pts
       (xy 48.26 127)
@@ -1559,7 +1377,7 @@
     (on_board yes)
     (dnp no)
     (uuid "84be502a-6e75-5c83-9a9c-86261a90ea53")
-    (property "Reference" "#PWR229"
+    (property "Reference" "#PWR176"
       (at 45.72 127 0)
       (effects
         (font
@@ -1584,7 +1402,7 @@
     (instances
       (project "chassis_ecu"
         (path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-          (reference "#PWR229")
+          (reference "#PWR176")
           (unit 1)))))
   (symbol
     (lib_id "Connector:TestPoint")
@@ -1824,7 +1642,7 @@
         (size 2.54 2.54) bold)
       (justify left top))
     (uuid "848eb2f4-14ca-5d5b-b9b2-60e0f37a1783"))
-  (text "32-pin ECU header.  PIN NUMBERS ARE PROVISIONAL until the header drawing arrives.\nHeavy nets doubled (GND, EPB_12V, caliper and pawl leads); per-pin current rating TBD.\nH-bridge current returns through the board GND pins (not at the motor) -> GND x3."
+  (text "32-pin ECU header.  PIN NUMBERS ARE PROVISIONAL until the header drawing arrives.\nHeavy nets doubled (GND, pawl feed and lead); per-pin current rating TBD.\nPins marked NC: spare."
     (at 20 15 0)
     (effects
       (font
