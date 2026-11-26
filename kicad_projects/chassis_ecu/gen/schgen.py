@@ -16,6 +16,7 @@ STUB = 2.54
 GRID = 1.27
 LIB_DIRS = [
     '/usr/share/kicad/symbols',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'),
 ]
 PCM_DIR = os.path.expanduser('~/.local/share/kicad/10.0/3rdparty/symbols')
 POWER_NETS = {

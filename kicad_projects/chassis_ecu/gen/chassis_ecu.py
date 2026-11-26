@@ -373,18 +373,22 @@ def sensor_sheet(b):
 
 def connector_sheet(b):
     s = b.sheet('Connector', 'connector.kicad_sch')
-    s.note('32-pin ECU header.  PIN NUMBERS ARE PROVISIONAL until the header drawing arrives.\n'
-           'Heavy nets doubled (GND, pawl feed and lead); per-pin current rating TBD.\n'
-           'Pins marked NC: spare.',
+    s.note('Main connector: Aptiv/FCI HCCPHPE24BKA90F (24-way 90 deg header, key A), mates 211PC249S0005.\n'
+           'Columns 1 and 8 (A1-C1, A8-C8) = large high-current cavities.  Footprint: lib/ (gen/make_lib.py).\n'
+           'Pawl feed and lead doubled on the large pins.  Pins marked NC: spare.',
            20, 15)
     s.row('Main connector')
-    pins = ['VIN_12V', 'GND', 'GND', None, None, None, None, None, None,
-            None, None, None, None, 'PAWL_12V', 'PAWL_12V', 'MOT_OUT', 'MOT_OUT',
-            'CAN1_H', 'CAN1_L', 'CAN2_H', 'CAN2_L', 'IN_P_SENSE', 'IN_BRAKE', 'IN_WELD1', 'IN_WELD2',
-            'CP', 'CP_GND', 'PP', None, None, None, 'GND']
-    s.add('J20', 'Connector_Generic:Conn_01x32', '32-pin ECU header',
-          {str(i + 1): n for i, n in enumerate(pins) if n},
-          nc=[str(i + 1) for i, n in enumerate(pins) if not n])
+    pins = {
+        'A1': 'PAWL_12V', 'B1': 'PAWL_12V', 'C1': 'GND',
+        'A8': 'MOT_OUT', 'B8': 'MOT_OUT', 'C8': 'GND',
+        'A2': 'VIN_12V', 'A3': 'CAN1_H', 'A4': 'CAN1_L', 'A5': 'CAN2_H', 'A6': 'CAN2_L', 'A7': 'GND',
+        'B2': 'IN_P_SENSE', 'B3': 'IN_BRAKE', 'B4': 'IN_WELD1', 'B5': 'IN_WELD2',
+        'C2': 'CP', 'C3': 'CP_GND', 'C4': 'PP',
+    }
+    allp = ['%s%d' % (r, c) for r in 'ABC' for c in range(1, 9)]
+    s.add('J20', 'chassis_ecu:FCI_HCCPHPE24BKA90F', 'HCCPHPE24BKA90F', pins,
+          'chassis_ecu:FCI_HCCPHPE24BKA90F', nc=[p for p in allp if p not in pins],
+          fields={'JLC': 'not assembled - hand-solder (through-hole)'})
     s.row('Spare analog (test pads until a connector pin is free)')
     for i, n in enumerate(['ANA1', 'ANA2', 'ANA3', 'ANA4'], 1):
         s.add('TP%d' % i, 'Connector:TestPoint', n, {'1': n}, 'TestPoint:TestPoint_Pad_1.5x1.5mm')

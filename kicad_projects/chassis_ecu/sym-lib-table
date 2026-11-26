@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "chassis_ecu")(type "KiCad")(uri "${KIPRJMOD}/lib/chassis_ecu.kicad_sym")(options "")(descr "project-local"))
+)
