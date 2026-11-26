@@ -1,6 +1,6 @@
 # chassis_ecu
 
-ESP32-S3 + 2x CAN board for the parking pawl, J1772 pilot and contactor-weld sense.
+ESP32-S3 CAN board for the parking pawl, J1772 pilot and contactor-weld sense.
 The EPB stays on the Revus controller. Spec: `evj55_contexts/CHASSIS_ECU_CONTEXT.md`.
 
 The schematic is generated. Edit `gen/chassis_ecu.py`, then:
