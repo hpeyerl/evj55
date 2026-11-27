@@ -3680,7 +3680,7 @@
 		(dnp no)
 		(uuid "0117f6e6-bde9-5247-b692-8717e9e17f2f")
 		(property "Reference" "R5"
-			(at 267.97 91.44 0)
+			(at 269.24 91.44 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3691,7 +3691,7 @@
 			)
 		)
 		(property "Value" "124k"
-			(at 267.97 93.98 0)
+			(at 269.24 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3966,7 +3966,7 @@
 		(dnp no)
 		(uuid "17b2aee2-ea38-5064-86e2-04d4ccbb5e78")
 		(property "Reference" "C2"
-			(at 133.35 71.12 0)
+			(at 134.62 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3977,7 +3977,7 @@
 			)
 		)
 		(property "Value" "2.2uF 100V X7R"
-			(at 133.35 73.66 0)
+			(at 134.62 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4931,7 +4931,7 @@
 		(dnp no)
 		(uuid "578f5150-f2dc-5d77-b36d-6f550e34c7c9")
 		(property "Reference" "C6"
-			(at 250.19 91.44 0)
+			(at 251.46 91.44 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4942,7 +4942,7 @@
 			)
 		)
 		(property "Value" "100pF"
-			(at 250.19 93.98 0)
+			(at 251.46 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5143,25 +5143,25 @@
 		(dnp no)
 		(uuid "5fc2e5a1-4a27-5f8c-a33d-dc9018e629b6")
 		(property "Reference" "C9"
-			(at 107.95 121.92 0)
+			(at 100.33 121.92 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "100nF"
-			(at 107.95 124.46 0)
+			(at 100.33 124.46 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
@@ -5401,7 +5401,7 @@
 		(dnp no)
 		(uuid "6c603af1-439b-56c2-b02e-a1826214d950")
 		(property "Reference" "R9"
-			(at 92.71 121.92 0)
+			(at 93.98 121.92 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5412,7 +5412,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 92.71 124.46 0)
+			(at 93.98 124.46 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5985,25 +5985,25 @@
 		(dnp no)
 		(uuid "79f0a5ac-0f5a-545b-8462-a4ab099ade2c")
 		(property "Reference" "R4"
-			(at 209.55 83.82 0)
+			(at 201.93 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "27.4k"
-			(at 209.55 86.36 0)
+			(at 201.93 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
@@ -6091,7 +6091,7 @@
 		(dnp no)
 		(uuid "7c29e7d2-d934-5af6-9125-64d1278d8eb8")
 		(property "Reference" "R8"
-			(at 92.71 109.22 0)
+			(at 93.98 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6102,7 +6102,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 92.71 111.76 0)
+			(at 93.98 111.76 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6452,7 +6452,7 @@
 		(dnp no)
 		(uuid "94b4a48a-8fbd-5566-b4b8-efab9a1d2bb9")
 		(property "Reference" "C3"
-			(at 156.21 71.12 0)
+			(at 157.48 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6463,7 +6463,7 @@
 			)
 		)
 		(property "Value" "2.2uF 100V X7R"
-			(at 156.21 73.66 0)
+			(at 157.48 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6710,7 +6710,7 @@
 		(dnp no)
 		(uuid "a7cf1615-2998-5ccf-a878-48d1436078a2")
 		(property "Reference" "C5"
-			(at 283.21 91.44 0)
+			(at 284.48 91.44 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6721,7 +6721,7 @@
 			)
 		)
 		(property "Value" "3.3nF"
-			(at 283.21 93.98 0)
+			(at 284.48 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6816,7 +6816,7 @@
 		(dnp no)
 		(uuid "b0333ea2-30b4-54a8-a53b-f5a011d30973")
 		(property "Reference" "R7"
-			(at 240.03 119.38 0)
+			(at 241.3 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6827,7 +6827,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 240.03 121.92 0)
+			(at 241.3 121.92 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6922,7 +6922,7 @@
 		(dnp no)
 		(uuid "c00c8ec0-f2df-58b2-869a-f81c8d9016de")
 		(property "Reference" "R3"
-			(at 186.69 83.82 0)
+			(at 187.96 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6933,7 +6933,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 186.69 86.36 0)
+			(at 187.96 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7256,7 +7256,7 @@
 		(dnp no)
 		(uuid "cdd0af64-3469-5ac7-a801-a2cbe6eca4b3")
 		(property "Reference" "C7"
-			(at 300.99 81.28 0)
+			(at 302.26 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7267,7 +7267,7 @@
 			)
 		)
 		(property "Value" "22uF 10V X7R"
-			(at 300.99 83.82 0)
+			(at 302.26 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7362,7 +7362,7 @@
 		(dnp no)
 		(uuid "d00c0419-e8d4-5b9e-9dac-7d0e54555293")
 		(property "Reference" "C8"
-			(at 321.31 81.28 0)
+			(at 322.58 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7373,7 +7373,7 @@
 			)
 		)
 		(property "Value" "22uF 10V X7R"
-			(at 321.31 83.82 0)
+			(at 322.58 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7468,7 +7468,7 @@
 		(dnp no)
 		(uuid "d1774e26-8041-5255-8694-342b6b62a9a8")
 		(property "Reference" "C1"
-			(at 118.11 71.12 0)
+			(at 119.38 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7479,7 +7479,7 @@
 			)
 		)
 		(property "Value" "47uF 63V"
-			(at 118.11 73.66 0)
+			(at 119.38 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7650,7 +7650,7 @@
 		(dnp no)
 		(uuid "ddfb6f11-b12e-5000-94e7-09a406d628fc")
 		(property "Reference" "C4"
-			(at 250.19 63.5 0)
+			(at 251.46 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7661,7 +7661,7 @@
 			)
 		)
 		(property "Value" "2.2nF 50V X7R"
-			(at 250.19 66.04 0)
+			(at 251.46 66.04 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7756,7 +7756,7 @@
 		(dnp no)
 		(uuid "e4e5f75f-8548-5bdc-aed3-a899b4481e65")
 		(property "Reference" "D2"
-			(at 100.33 71.12 90)
+			(at 101.6 71.12 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7767,7 +7767,7 @@
 			)
 		)
 		(property "Value" "BZT52C15"
-			(at 100.33 73.66 90)
+			(at 101.6 73.66 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8120,7 +8120,7 @@
 		(dnp no)
 		(uuid "f7a47de2-9a71-50fd-b22c-161853b61982")
 		(property "Reference" "D1"
-			(at 62.23 71.12 90)
+			(at 63.5 71.12 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8131,7 +8131,7 @@
 			)
 		)
 		(property "Value" "SMAJ24CA"
-			(at 62.23 73.66 90)
+			(at 63.5 73.66 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

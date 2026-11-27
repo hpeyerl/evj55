@@ -361,7 +361,7 @@ class Board:
                 at = [Sym('at'), sx, snap(sy - (8.89 if i == 0 else 6.35)), rot % 180]
             elif vert:
                 # ref above value, right of the body
-                at = [Sym('at'), snap(max(box[2], sx + 2.54) + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
+                at = [Sym('at'), snap(max(box[2], sx + 3.81) + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
             else:
                 # ref above the body, value below
                 at = [Sym('at'), sx, snap(min(box[1], sy - 1.27) - 1.27 if i == 0 else max(box[3], sy + 1.27) + 1.905), rot % 180]
@@ -430,7 +430,7 @@ class Board:
             props = [x for x in sym if head(x) == 'property' and x[1] in ('Reference', 'Value')]
             if box[3] - box[1] <= box[2] - box[0]:
                 continue
-            right = max(box[2], sx + 2.54) + 1.27
+            right = max(box[2], sx + 3.81) + 1.27
             if not busy(right - 0.6, right + 8.0, sy - 2.54, sy + 2.54):
                 continue
             left = min(box[0], sx - 2.54) - 1.27
@@ -581,6 +581,40 @@ class Board:
                 if x0 < box[2] and box[0] < x1 and y0 < box[3] and box[1] < y1:
                     return False
             return True
+
+        # several same-side pins of one part on one supply: a short bus, one symbol at its end
+        byside = {}
+        for c in power:
+            if c['d'][1] == 0:
+                byside.setdefault((c['net'], c['tag'][1], c['d']), []).append(c)
+        for (net, ref, d), grp in sorted(byside.items()):
+            if len(grp) < 2:
+                continue
+            grp.sort(key=lambda c: c['end'][1])
+            down = net == 'GND'
+            done = False
+            for k in range(1, 6):
+                bx = snap(grp[0]['end'][0] + d[0] * STUB * k)
+                legs = [(c['end'], (bx, c['end'][1])) for c in grp]
+                y0, y1 = grp[0]['end'][1], grp[-1]['end'][1]
+                tip = (bx, snap((y1 + STUB) if down else (y0 - STUB)))
+                ys = [c['end'][1] for c in grp]
+                legs += [((bx, ya), (bx, yb)) for ya, yb in zip(ys, ys[1:]) if ya != yb]
+                legs += [((bx, y1) if down else (bx, y0), tip)]
+                if all(clean(u, v, net) and not hits_body(u, v) for u, v in legs) and \
+                        roomy(psym_box(tip, (0, 1) if down else (0, -1)), net):
+                    done = True
+                    break
+            if not done:
+                continue
+            for u, v in legs:
+                out.append(self._wire(u, v, grp[0]['tag'] + ('bus', u, v)))
+                segs.append([u, v, net, 'w'])
+                for pq in (u, v):
+                    pts.setdefault(pq, set()).add(net)
+            out += self._power(net, tip[0], tip[1], 0, 1 if down else -1, path, grp[0]['tag'])
+            boxes.append(psym_box(tip, (0, 1) if down else (0, -1)))
+            power = [c for c in power if c not in grp]
 
         # GND always hangs down, supplies always point up: jog the wire if the pin faces elsewhere
         for c in power:

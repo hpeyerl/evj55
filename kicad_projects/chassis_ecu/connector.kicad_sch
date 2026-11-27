@@ -1020,6 +1020,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "3.2 mm holes: fit M3 / ST2.9 / smaller screws; the case bosses are 2.5 mm."
+		(exclude_from_sim no)
+		(at 190.5 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "2356efb8-f07b-59ef-8fae-9cfb554f793b")
+	)
 	(text "Main connector: Aptiv/FCI HCCPHPE24BKA90F (24-way 90 deg header, key A), mates 211PC249S0005.\nColumns 1 and 8 (A1-C1, A8-C8) = large high-current cavities.  Footprint: lib/ (gen/make_lib.py).\nPawl feed and lead doubled on the large pins.  CAN1 in (A3/A4) and out (A5/A6) joined on the board.\nPins marked NC: spare."
 		(exclude_from_sim no)
 		(at 20 15 0)
@@ -1031,7 +1042,7 @@
 		)
 		(uuid "53bf0163-e62c-5efd-90b4-aec27ae561a8")
 	)
-	(text "Case mounting holes (3.2 mm: fits M3 / ST2.9 / smaller; case bosses 2.5 mm)"
+	(text "Case mounting holes"
 		(exclude_from_sim no)
 		(at 190.5 58.42 0)
 		(effects
@@ -1762,7 +1773,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "2a87c1e1-0d3d-5315-a0fa-13a2ceb56352")
-		(property "Reference" "#PWR127"
+		(property "Reference" "#PWR123"
 			(at 119.38 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -1821,7 +1832,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR127")
+					(reference "#PWR123")
 					(unit 1)
 				)
 			)
@@ -1838,7 +1849,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "48a4a025-22df-55b1-ba11-f040ba9a030f")
-		(property "Reference" "#PWR128"
+		(property "Reference" "#PWR124"
 			(at 129.54 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -1897,7 +1908,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR128")
+					(reference "#PWR124")
 					(unit 1)
 				)
 			)
@@ -1914,7 +1925,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5b6adf35-aa8c-5eeb-a73f-de6ac1ec105f")
-		(property "Reference" "#PWR126"
+		(property "Reference" "#PWR122"
 			(at 114.3 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -1973,7 +1984,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR126")
+					(reference "#PWR122")
 					(unit 1)
 				)
 			)
@@ -1991,7 +2002,7 @@
 		(dnp no)
 		(uuid "7555eb9f-c072-518a-a530-d51426e8ec66")
 		(property "Reference" "J20"
-			(at 143.51 113.03 0)
+			(at 144.78 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2002,7 +2013,7 @@
 			)
 		)
 		(property "Value" "HCCPHPE24BKA90F"
-			(at 143.51 115.57 0)
+			(at 144.78 115.57 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2141,7 +2152,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 241.3 76.2 0)
+		(at 248.92 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2151,7 +2162,7 @@
 		(dnp no)
 		(uuid "80fd21df-a9f1-50c8-aedd-4294be22767c")
 		(property "Reference" "H3"
-			(at 245.11 74.93 0)
+			(at 254 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2162,7 +2173,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 245.11 77.47 0)
+			(at 254 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2173,7 +2184,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 241.3 76.2 0)
+			(at 248.92 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2185,7 +2196,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 241.3 76.2 0)
+			(at 248.92 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2197,7 +2208,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 241.3 76.2 0)
+			(at 248.92 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2207,7 +2218,7 @@
 			)
 		)
 		(property "JLC" "not a part"
-			(at 241.3 76.2 0)
+			(at 248.92 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2229,7 +2240,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 226.06 76.2 0)
+		(at 223.52 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2239,7 +2250,7 @@
 		(dnp no)
 		(uuid "85f195c4-5546-53af-8ddf-2573f6c450a4")
 		(property "Reference" "H2"
-			(at 229.87 74.93 0)
+			(at 228.6 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2250,7 +2261,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 229.87 77.47 0)
+			(at 228.6 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2261,7 +2272,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 226.06 76.2 0)
+			(at 223.52 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2273,7 +2284,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 226.06 76.2 0)
+			(at 223.52 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2285,7 +2296,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 226.06 76.2 0)
+			(at 223.52 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2295,7 +2306,7 @@
 			)
 		)
 		(property "JLC" "not a part"
-			(at 226.06 76.2 0)
+			(at 223.52 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2317,7 +2328,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 210.82 76.2 0)
+		(at 198.12 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2327,7 +2338,7 @@
 		(dnp no)
 		(uuid "e35fc4e3-f80a-57b5-ab70-f1e7665e8fbd")
 		(property "Reference" "H1"
-			(at 214.63 74.93 0)
+			(at 203.2 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2338,7 +2349,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 214.63 77.47 0)
+			(at 203.2 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2349,7 +2360,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 210.82 76.2 0)
+			(at 198.12 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2361,7 +2372,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 210.82 76.2 0)
+			(at 198.12 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2373,7 +2384,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 210.82 76.2 0)
+			(at 198.12 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2383,7 +2394,7 @@
 			)
 		)
 		(property "JLC" "not a part"
-			(at 210.82 76.2 0)
+			(at 198.12 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2405,7 +2416,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 256.54 76.2 0)
+		(at 274.32 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2415,7 +2426,7 @@
 		(dnp no)
 		(uuid "ed65d000-70d2-5e43-a5f4-caee73bc2419")
 		(property "Reference" "H4"
-			(at 256.54 72.39 0)
+			(at 274.32 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2425,7 +2436,7 @@
 			)
 		)
 		(property "Value" "MountingHole"
-			(at 256.54 81.28 0)
+			(at 274.32 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2435,7 +2446,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 256.54 76.2 0)
+			(at 274.32 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2446,7 +2457,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 256.54 76.2 0)
+			(at 274.32 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2457,7 +2468,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 256.54 76.2 0)
+			(at 274.32 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2467,7 +2478,7 @@
 			)
 		)
 		(property "JLC" "not a part"
-			(at 256.54 76.2 0)
+			(at 274.32 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

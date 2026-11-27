@@ -292,8 +292,8 @@ def half_bridge(s, ref, n, vs, out, inp, inh, isn, at):
     s.add(ref, 'Power_Management:BTN8982TA', 'BTN8982TA',
           {'1': 'GND', '2': 'BR%d_IN' % n, '3': 'BR%d_INH' % n, '4': out, '8': out,
            '5': 'BR%d_SR' % n, '6': isn, '7': vs}, at=at)
-    s.tap(inh, x - 38.1, y - 10.16)
-    RH(s, 'R%d' % (210 + n), '1k', inh, 'BR%d_INH' % n, (x - 30.48, y - 10.16))
+    s.tap(inh, x - 38.1, y - 12.7)
+    RH(s, 'R%d' % (210 + n), '1k', inh, 'BR%d_INH' % n, (x - 30.48, y - 12.7))
     s.tap(inp, x - 38.1, y - 2.54)
     RH(s, 'R%d' % (200 + n), '1k', inp, 'BR%d_IN' % n, (x - 30.48, y - 2.54))
     RV(s, 'R%d' % (220 + n), '5.1k', 'BR%d_SR' % n, 'GND', (x - 15.24, y + 10.16))
@@ -306,12 +306,12 @@ def is_sense(s, n, raw, adc, x, y):
     """IS -> 1k + 1nF (19.5 mV/A typ per chip at 1k, dkILIS 14k..25k), then 4.7k +
     BAT54S clamp: fault current 4-6.5 mA would put ~6.5 V on 1k.  x, y = IS pin stub end."""
     RV(s, 'R%d' % (230 + n), '1k', raw, 'GND', (x - 12.7, y))
-    CV(s, 'C%d' % (220 + n), '1nF', raw, 'GND', (x - 22.86, y))
-    RHr(s, 'R%d' % (240 + n), '4.7k', raw, adc, (x - 33.02, y))
-    CV(s, 'C%d' % (230 + n), '10nF', adc, 'GND', (x - 53.34, y))
+    CV(s, 'C%d' % (220 + n), '1nF', raw, 'GND', (x - 33.02, y))
+    RHr(s, 'R%d' % (240 + n), '4.7k', raw, adc, (x - 43.18, y))
+    CV(s, 'C%d' % (230 + n), '10nF', adc, 'GND', (x - 63.5, y))
     put(s, 'D%d' % (200 + n), 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': adc}, SOT23,
-        '3', (x - 66.04, y + 5.08), 0, True)
-    s.tap(adc, x - 76.2, y)
+        '3', (x - 86.36, y + 5.08), 0, True)
+    s.tap(adc, x - 99.06, y)
 
 
 def motor_sheet(b):
@@ -332,7 +332,6 @@ def motor_sheet(b):
     put(s, 'C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'},
         'Capacitor_SMD:CP_Elec_8x10.5', '1', (180.34, y))
     half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW', (149.86, 72.39))
-    s.head('Pawl current sense', 30.48, 93.98)
     is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS', 139.7, 74.93)
 
 
@@ -414,7 +413,7 @@ def sensor_sheet(b):
            '~{CS}': '+3V3', 'SDO/SA0': 'GND', 'SDx': 'GND', 'SCx': 'GND', 'INT1': 'IMU_INT1'},
           nc=['INT2', 'OCS_Aux', 'SDO_Aux'], at=(101.6, 76.2))
     CV(s, 'C401', '100nF', '+3V3', 'GND', (50.8, 55.88))
-    CV(s, 'C402', '100nF', '+3V3', 'GND', (60.96, 55.88))
+    CV(s, 'C402', '100nF', '+3V3', 'GND', (66.04, 55.88))
     s.head('Analog inputs (12V-tolerant)', 30.48, 106.68)
     ain(s, 1, 45.72, 124.46)
     ain(s, 2, 45.72, 154.94)
@@ -445,7 +444,8 @@ def connector_sheet(b):
     for k, (pin, net) in enumerate(sorted(pins.items(), key=lambda kv: allp.index(kv[0]))):
         if net != 'GND':
             s.tap(net, cx - 7.62, cy - 27.94 + 2.54 * allp.index(pin))
-    s.head('Case mounting holes (3.2 mm: fits M3 / ST2.9 / smaller; case bosses 2.5 mm)', 190.5, 58.42)
+    s.head('Case mounting holes', 190.5, 58.42)
+    s.note('3.2 mm holes: fit M3 / ST2.9 / smaller screws; the case bosses are 2.5 mm.', 190.5, 66.04)
     for i in range(1, 5):
         s.add('H%d' % i, 'Mechanical:MountingHole', 'MountingHole', {}, 'MountingHole:MountingHole_3.2mm_M3',
-              fields={'JLC': 'not a part'}, at=(195.58 + 15.24 * i, 76.2))
+              fields={'JLC': 'not a part'}, at=(172.72 + 25.4 * i, 81.28))
