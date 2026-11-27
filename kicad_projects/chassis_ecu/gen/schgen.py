@@ -231,6 +231,7 @@ class Board:
         libs = {}
         items = []
         conns = []                      # pins of hand-placed parts, wired after placement
+        placed = []                     # (symbol, body box, x, y) of hand-placed parts
         boxes = []                      # symbol bodies of hand-placed parts
         # simple row packing for parts without at=
         lines = sum(t.count('\n') + 1 for t, _, _ in s.notes)
@@ -255,6 +256,7 @@ class Board:
                 items += syms
                 conns += cs
                 boxes.append(box)
+                placed.append((syms[0], box, sx, sy))
                 continue
             bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
             w = (bx1 - bx0) + 2 * 22.86
@@ -274,6 +276,7 @@ class Board:
             conns.append({'net': net, 'pin': (x, y), 'end': (x, y), 'd': d, 'tap': True,
                           'tag': (s.filename, 'tap', i)})
         items += self._route(conns, boxes, path, s)
+        self._text_side(placed)
         for i, (t, x, y) in enumerate(heads):
             items.append([Sym('text'), t, [Sym('at'), x, y, 0],
                           [Sym('effects'), [Sym('font'), [Sym('size'), 2.54, 2.54], Sym('bold')],
@@ -383,6 +386,31 @@ class Board:
             raise ValueError('%s: net map names unknown pins %s' % (p.ref, sorted(missing)))
         return out, conns, box
 
+    def _text_side(self, placed):
+        """Ref/value of a vertical part go on whichever side has no wires next to it."""
+        def busy(x0, x1, y0, y1):
+            for (u, v, n, _) in self._segs:
+                if (max(min(u[0], v[0]), x0) <= min(max(u[0], v[0]), x1) and
+                        max(min(u[1], v[1]), y0) <= min(max(u[1], v[1]), y1)):
+                    return True
+            return False
+        for sym, box, sx, sy in placed:
+            props = [x for x in sym if head(x) == 'property' and x[1] in ('Reference', 'Value')]
+            if box[3] - box[1] <= box[2] - box[0]:
+                continue
+            right = max(box[2], sx + 1.27) + 1.27
+            if not busy(right - 0.6, right + 8.0, sy - 2.54, sy + 2.54):
+                continue
+            left = min(box[0], sx - 1.27) - 1.27
+            if busy(left - 8.0, left + 0.6, sy - 2.54, sy + 2.54):
+                continue
+            for pr in props:
+                at = find(pr, 'at')
+                at[1] = snap(left)
+                eff = find(pr, 'effects')
+                for j in find(eff, 'justify')[1:2]:
+                    find(eff, 'justify')[1] = Sym('right')
+
     @staticmethod
     def _wire(a, b, tag):
         return [Sym('wire'), [Sym('pts'), [Sym('xy'), a[0], a[1]], [Sym('xy'), b[0], b[1]]],
@@ -458,6 +486,26 @@ class Board:
                     return True
             return False
 
+        def psym_box(q, up):
+            # symbol plus its value text
+            return (q[0] - 1.905, min(q[1], q[1] + up[1] * 5.08) - 0.5,
+                    q[0] + 1.905, max(q[1], q[1] + up[1] * 5.08) + 0.5)
+
+        def free(box, net):
+            x0, y0, x1, y1 = box
+            for q, ns in pts.items():
+                if ns - {net} and x0 <= q[0] <= x1 and y0 <= q[1] <= y1:
+                    return False
+            for (u, v, n, _) in segs:
+                if n != net and hits_box(u, v, box):
+                    return False
+            return True
+
+        def hits_box(a, b, box):
+            x0, y0, x1, y1 = box
+            return (max(min(a[0], b[0]), x0) <= min(max(a[0], b[0]), x1) and
+                    max(min(a[1], b[1]), y0) <= min(max(a[1], b[1]), y1))
+
         def dist(a, b):
             return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
@@ -480,7 +528,10 @@ class Board:
                         a = (snap(e[0] + sd[0] * STUB * n), e[1])
                         b = (a[0], snap(a[1] + up[1] * STUB))
                         opts.append([(u, v) for u, v in ((e, a), (a, b)) if u != v])
-                legs = next((o for o in opts if all(clean(u, v, net) for u, v in o)), None)
+                legs = next((o for o in opts if all(clean(u, v, net) for u, v in o)
+                             and free(psym_box(o[-1][1], up), net)), None)
+                if legs is None:
+                    legs = next((o for o in opts if all(clean(u, v, net) for u, v in o)), None)
                 if legs is None:
                     raise ValueError('%s pin %s: no room to turn %s upright' % (c['tag'][1], c['tag'][2], net))
             q = legs[-1][1] if legs else e
@@ -491,6 +542,7 @@ class Board:
                     pts.setdefault(pq, set()).add(net)
             pts.setdefault(q, set()).add(net)
             out += self._power(net, q[0], q[1], up[0], up[1], path, c['tag'])
+            boxes.append(psym_box(q, up))
         for net in sorted(bynet, key=lambda n: (-len(bynet[n]), n)):
             cs = bynet[net]
             taps = [c for c in cs if c.get('tap')]
@@ -561,6 +613,7 @@ class Board:
                                 [Sym('uuid'), uid(*root['tag'], 'l')]])
             for c in alone:
                 out += self._end(c, c['end'], c['d'], path)
+        self._segs = segs
         for k, (u, v, net) in enumerate(wires):
             out.append(self._wire(u, v, (s.filename, 'route', net, u, v)))
         # junction dots where three or more wire ends meet
