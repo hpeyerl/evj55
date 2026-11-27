@@ -21,6 +21,8 @@ running config.
   NegContactor=GP Out 2, oil-pump PWM=pin 30, SL1/SL2=trans solenoids. GP Out 1 abandoned.
 
 ## Charging
+- [ ] **`BMSCan = 0` (CAN1, where the BMS is), SAVED.** SimpBMS listens for 0x351/0x373 on BMSCan
+      only; on the wrong bus the BMS is invalid and the charge current limit is 0.
 - [ ] **`chargemodes = Elcon` (6), SAVED.**
 - [ ] **Interim (resistor spoof + PP on Zombie): `interface = Unused` (0), `Chgctrl = 1`, SAVED.**
 - [ ] **When the chassis_ecu goes in: `interface = CPC` (3), `LimCan = 0` (CAN1, where the chassis_ecu is), `Chgctrl = 0` (Enable), PILOT_PROX
