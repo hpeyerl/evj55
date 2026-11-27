@@ -25,6 +25,9 @@ def main():
     if not os.path.exists(pro):
         with open(pro, 'w') as f:
             f.write('{}\n')
+    # write in the current KiCad format so a save in KiCad does not rewrite every line
+    for f in [ROOT] + [os.path.join(OUT, sh.filename) for sh in board.sheets]:
+        subprocess.run(['kicad-cli', 'sch', 'upgrade', f], check=True, capture_output=True)
     erc = os.path.join(HERE, 'erc.rpt')
     subprocess.run(['kicad-cli', 'sch', 'erc', '-o', erc, ROOT], check=True, capture_output=True)
     rpt = open(erc).read()

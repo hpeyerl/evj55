@@ -272,34 +272,46 @@ def j1772_sheet(b):
            'PP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\n'
            'open 3.3 V (ADC full scale), plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ESP32 ADC1 IO2.',
            20, 15)
-    s.row('Pilot state circuit')
-    s.add('D300', 'Device:D_TVS', 'SMAJ15CA', {'1': 'CP', '2': 'GND'}, 'Diode_SMD:D_SMA')
-    s.add('D301', 'Device:D', '1N4148W', {'A': 'CP', 'K': 'CP_D'}, 'Diode_SMD:D_SOD-123')
-    R(s, 'R300', '2.74k 1%', 'CP_D', 'GND', 'Resistor_SMD:R_0805_2012Metric')
-    R(s, 'R301', '1.3k 1%', 'CP_D', 'CP_S2', 'Resistor_SMD:R_0805_2012Metric')
-    s.add('K1', 'Relay_SolidState:CPC1117N', 'CPC1117N', {'1': 'K1_LED', '2': 'GND', '3': 'CP_S2', '4': 'GND'})
-    R(s, 'R302', '330R', 'CP_S2_OPEN', 'K1_LED')
-    s.row('CP read: level shift, comparator, ADC')
-    R(s, 'R303', '200k', 'CP', 'CP_SENSE')
-    R(s, 'R304', '45.3k', '+3V3', 'CP_SENSE')
-    R(s, 'R305', '57.6k', 'CP_SENSE', 'GND')
-    C(s, 'C300', '100pF', 'CP_SENSE', 'GND')
-    R(s, 'R306', '10k', '+3V3', 'CP_REF')
-    R(s, 'R307', '10k', 'CP_REF', 'GND')
-    C(s, 'C301', '100nF', 'CP_REF', 'GND')
-    s.add('U30', 'PCM_Analog_Comparator_AKL:TLV3201AIDBV', 'TLV3201AIDBV',
-          {'1': 'CP_DUTY', '2': 'GND', '3': 'CP_SENSE', '4': 'CP_REF', '5': '+3V3'})
-    R(s, 'R308', '1M', 'CP_DUTY', 'CP_SENSE')
-    C(s, 'C302', '100nF', '+3V3', 'GND')
-    R(s, 'R309', '1k', 'CP_SENSE', 'CP_LVL')
-    C(s, 'C303', '1nF', 'CP_LVL', 'GND')
-    R(s, 'R310', '0R', 'CP_GND', 'GND', 'Resistor_SMD:R_0805_2012Metric',
+    s.paper = 'A3'
+    s.head('Pilot: vehicle-side state resistors', 30.48, 43.18)
+    s.tap('CP', 38.1, 57.15)
+    s.add('D300', 'Device:D_TVS', 'SMAJ15CA', {'1': 'CP', '2': 'GND'}, 'Diode_SMD:D_SMA',
+          at=(50.8, 60.96), rot=270)
+    s.add('D301', 'Device:D', '1N4148W', {'A': 'CP', 'K': 'CP_D'}, 'Diode_SMD:D_SOD-123',
+          at=(66.04, 57.15), rot=180)
+    R(s, 'R300', '2.74k 1%', 'CP_D', 'GND', 'Resistor_SMD:R_0805_2012Metric', at=(78.74, 63.5))
+    R(s, 'R301', '1.3k 1%', 'CP_D', 'CP_S2', 'Resistor_SMD:R_0805_2012Metric', at=(91.44, 63.5))
+    s.add('K1', 'Relay_SolidState:CPC1117N', 'CPC1117N', {'1': 'K1_LED', '2': 'GND', '3': 'CP_S2', '4': 'GND'},
+          at=(109.22, 76.2), rot=180)
+    R(s, 'R302', '330R', 'CP_S2_OPEN', 'K1_LED', at=(129.54, 86.36), rot=270)
+    R(s, 'R310', '0R', 'CP_GND', 'GND', 'Resistor_SMD:R_0805_2012Metric', at=(160.02, 63.5),
       fields={'Note': 'CP return to the inlet PE'})
-    s.row('PP read')
-    s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA')
-    R(s, 'R311', '4.7k', '+3V3', 'PP')
-    R(s, 'R312', '1k', 'PP', 'PP_SENSE')
-    C(s, 'C304', '10nF', 'PP_SENSE', 'GND')
+
+    s.head('CP read: level shift, comparator, ADC', 30.48, 91.44)
+    R(s, 'R303', '200k', 'CP', 'CP_SENSE', at=(53.34, 106.68), rot=90)
+    R(s, 'R304', '45.3k', '+3V3', 'CP_SENSE', at=(63.5, 100.33))
+    R(s, 'R305', '57.6k', 'CP_SENSE', 'GND', at=(68.58, 113.03))
+    C(s, 'C300', '100pF', 'CP_SENSE', 'GND', at=(78.74, 113.03))
+    R(s, 'R309', '1k', 'CP_SENSE', 'CP_LVL', at=(88.9, 113.03))
+    C(s, 'C303', '1nF', 'CP_LVL', 'GND', at=(88.9, 133.35))
+    s.tap('CP_LVL', 60.96, 124.46)
+    s.add('U30', 'PCM_Analog_Comparator_AKL:TLV3201AIDBV', 'TLV3201AIDBV',
+          {'1': 'CP_DUTY', '2': 'GND', '3': 'CP_SENSE', '4': 'CP_REF', '5': '+3V3'}, at=(116.84, 109.22))
+    R(s, 'R308', '1M', 'CP_DUTY', 'CP_SENSE', at=(114.3, 88.9), rot=270)
+    s.tap('CP_DUTY', 138.43, 109.22, (1, 0))
+    R(s, 'R306', '10k', '+3V3', 'CP_REF', at=(101.6, 130.81))
+    R(s, 'R307', '10k', 'CP_REF', 'GND', at=(106.68, 143.51))
+    C(s, 'C301', '100nF', 'CP_REF', 'GND', at=(116.84, 143.51))
+    C(s, 'C302', '100nF', '+3V3', 'GND', at=(160.02, 109.22))
+
+    s.head('PP read', 30.48, 160.02)
+    s.tap('PP', 38.1, 175.26)
+    s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA',
+          at=(50.8, 179.07), rot=270)
+    R(s, 'R311', '4.7k', '+3V3', 'PP', at=(60.96, 168.91))
+    R(s, 'R312', '1k', 'PP', 'PP_SENSE', at=(73.66, 175.26), rot=90)
+    C(s, 'C304', '10nF', 'PP_SENSE', 'GND', at=(86.36, 181.61))
+    s.tap('PP_SENSE', 96.52, 175.26, (1, 0))
 
 
 def ain(s, n):
