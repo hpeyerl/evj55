@@ -132,6 +132,10 @@ def build():
     put(s, 'D3', 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'VSENSE_12V'}, SOT23,
         '3', (137.16, 116.84), 0, True)
 
+    s.head('Scope / logic-analyser ground', 91.44, 142.24)
+    s.add('TP1', 'Connector:TestPoint', 'GND', {'1': 'GND'}, 'TestPoint:TestPoint_Keystone_5000-5004_Miniature',
+          fields={'MPN': 'Keystone 5001 (black)', 'JLC': 'not assembled - hand-solder (through-hole)',
+                  'Note': 'silkscreen GND next to it'}, at=anchor('Connector:TestPoint', '1', (101.6, 157.48)))
     s.head('Power flags', 30.48, 142.24)
     flag(s, '#FLG02', '+3V3', at=anchor('power:PWR_FLAG', '1', (40.64, 157.48)))
     flag(s, '#FLG03', 'GND', at=anchor('power:PWR_FLAG', '1', (58.42, 157.48)))
