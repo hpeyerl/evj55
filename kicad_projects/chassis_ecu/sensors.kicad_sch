@@ -3005,7 +3005,7 @@
 		(dnp no)
 		(uuid "3a8fbb80-82a3-5527-be00-1daa890abd52")
 		(property "Reference" "D411"
-			(at 99.06 130.81 0)
+			(at 99.06 140.97 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3015,7 +3015,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 99.06 139.7 0)
+			(at 99.06 143.51 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3595,7 +3595,7 @@
 		(dnp no)
 		(uuid "9814e437-7be3-59e6-82c5-a793e8bbc275")
 		(property "Reference" "D412"
-			(at 99.06 161.29 0)
+			(at 99.06 171.45 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3605,7 +3605,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 99.06 170.18 0)
+			(at 99.06 173.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

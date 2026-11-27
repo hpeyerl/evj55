@@ -3519,7 +3519,7 @@
 		(dnp no)
 		(uuid "70bea508-1247-5e75-8b61-b70f769908e0")
 		(property "Reference" "D205"
-			(at 53.34 81.28 0)
+			(at 53.34 91.44 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3529,7 +3529,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 53.34 91.44 0)
+			(at 53.34 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4004,7 +4004,7 @@
 		(dnp no)
 		(uuid "a0d9a849-e666-5617-bd6b-7331d51fda0a")
 		(property "Reference" "#FLG05"
-			(at 147.32 43.18 0)
+			(at 147.32 39.37 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4014,7 +4014,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 147.32 48.26 0)
+			(at 147.32 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4953,7 +4953,7 @@
 		(dnp no)
 		(uuid "f386a6d8-c083-57f0-a74f-0cbad926ee74")
 		(property "Reference" "U24"
-			(at 158.75 71.12 0)
+			(at 158.75 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4964,7 +4964,7 @@
 			)
 		)
 		(property "Value" "BTN8982TA"
-			(at 158.75 73.66 0)
+			(at 158.75 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

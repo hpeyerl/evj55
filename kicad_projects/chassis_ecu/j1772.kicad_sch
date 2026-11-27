@@ -1791,16 +1791,6 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 68.58) (xy 91.44 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "088b0a74-ca9c-57ba-b558-a962d4d85cb7")
-	)
-	(wire
-		(pts
 			(xy 118.11 111.76) (xy 115.57 111.76)
 		)
 		(stroke
@@ -2201,6 +2191,16 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 68.58) (xy 99.06 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99428af5-562a-571a-b476-0132ba544e5e")
+	)
+	(wire
+		(pts
 			(xy 71.12 127) (xy 71.12 124.46)
 		)
 		(stroke
@@ -2338,6 +2338,16 @@
 			(type default)
 		)
 		(uuid "b8c769ee-53b4-5e08-b2e1-38149e87aa29")
+	)
+	(wire
+		(pts
+			(xy 99.06 69.85) (xy 91.44 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "baef9ecb-48f4-5017-811b-a4438c7b0fca")
 	)
 	(wire
 		(pts
@@ -2551,16 +2561,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 68.58) (xy 91.44 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb582d8c-3259-5d28-993d-92ebd0fd9672")
-	)
-	(wire
-		(pts
 			(xy 67.31 175.26) (xy 60.96 175.26)
 		)
 		(stroke
@@ -2650,7 +2650,7 @@
 		(uuid "4f702192-0749-57f1-a072-03bca5ecb2f4")
 	)
 	(label "CP_S2"
-		(at 92.71 68.58 0)
+		(at 92.71 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3302,23 +3302,25 @@
 		(dnp no)
 		(uuid "290aac10-e9dd-50cf-86cd-491864d3e3c8")
 		(property "Reference" "U30"
-			(at 124.46 101.6 0)
+			(at 134.62 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "TLV3201AIDBV"
-			(at 124.46 116.84 0)
+			(at 134.62 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "PCM_Package_TO_SOT_SMD_AKL:SOT-23-5"
@@ -3330,6 +3332,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Datasheet" ""
@@ -3341,6 +3344,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Description" ""
@@ -3362,6 +3366,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "LCSC" "C105188"
@@ -3373,6 +3378,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(pin "1"

@@ -128,12 +128,12 @@ def build():
     s.tap('VSENSE_12V', 73.66, 116.84)
     RV(s, 'R8', '100k', '+12V_LOGIC', 'VSENSE_12V', (88.9, 104.14))
     RV(s, 'R9', '10k', 'VSENSE_12V', 'GND', (88.9, 116.84))
-    CV(s, 'C9', '100nF', 'VSENSE_12V', 'GND', (104.14, 116.84))
+    CV(s, 'C9', '100nF', 'VSENSE_12V', 'GND', (109.22, 116.84))
     put(s, 'D3', 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'VSENSE_12V'}, SOT23,
-        '3', (129.54, 116.84), 0, True)
+        '3', (137.16, 116.84), 0, True)
 
     s.head('Power flags', 30.48, 142.24)
-    flag(s, '#FLG02', '+3V3', at=anchor('power:PWR_FLAG', '1', (40.64, 160.02), 180), rot=180)
+    flag(s, '#FLG02', '+3V3', at=anchor('power:PWR_FLAG', '1', (40.64, 157.48)))
     flag(s, '#FLG03', 'GND', at=anchor('power:PWR_FLAG', '1', (58.42, 157.48)))
 
     # --- MCU --------------------------------------------------------------------
@@ -164,7 +164,7 @@ def build():
         'IO41': 'CP_DUTY', 'IO42': 'CP_S2_OPEN', 'IO48': 'PAWL_DRV',
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
     }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO13', 'IO14'],
-        fields={'LCSC': 'C2913197'}, at=(165.1, 127.0))
+        fields={'LCSC': 'C2913197'}, at=(165.1, 127.0), text='below-left')
     CV(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', (172.72, 66.04), C1206)
     CV(s, 'C11', '100nF', '+3V3', 'GND', (154.94, 66.04))
     s.tap('I2C_SDA', 147.32, 147.32)
@@ -174,10 +174,10 @@ def build():
     RV(s, 'R10', '10k', '+3V3', 'ESP_EN', (139.7, 73.66))
     CV(s, 'C12', '1uF', 'ESP_EN', 'GND', (127.0, 86.36))
     put(s, 'JP3', 'Jumper:SolderJumper_2_Open', 'RESET', {'A': 'ESP_EN', 'B': 'GND'},
-        'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 'A', (111.76, 86.36), 270)
-    RV(s, 'R11', '10k', '+3V3', 'ESP_BOOT', (101.6, 96.52))
+        'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 'A', (106.68, 86.36), 270)
+    RV(s, 'R11', '10k', '+3V3', 'ESP_BOOT', (96.52, 96.52))
     put(s, 'JP4', 'Jumper:SolderJumper_2_Open', 'BOOT', {'A': 'ESP_BOOT', 'B': 'GND'},
-        'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 'A', (88.9, 109.22), 270)
+        'Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm', 'A', (83.82, 109.22), 270)
 
     s.head('I2C pull-ups', 91.44, 152.4)
     RV(s, 'R12', '4.7k', '+3V3', 'I2C_SDA', (114.3, 167.64))
@@ -190,9 +190,9 @@ def build():
           {'GND': 'GND', 'VBUS': 'USB_VBUS', 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM', 'SHIELD': 'GND'},
           'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12',
-          nc=['SBU1', 'SBU2'], at=(254.0, 71.12), rot=270, mirror='y')
-    RHr(s, 'R14', '5.1k', 'USB_CC1', 'GND', (243.84, 93.98))
-    RHr(s, 'R15', '5.1k', 'USB_CC2', 'GND', (246.38, 101.6))
+          nc=['SBU1', 'SBU2'], at=(254.0, 76.2), rot=270, mirror='y')
+    RHr(s, 'R14', '5.1k', 'USB_CC1', 'GND', (243.84, 99.06))
+    RHr(s, 'R15', '5.1k', 'USB_CC2', 'GND', (246.38, 106.68))
     put(s, 'U3', 'Power_Protection:USBLC6-2SC6', 'USBLC6-2SC6',
         {'1': 'USB_DM', '6': 'USB_DM', '3': 'USB_DP', '4': 'USB_DP', '5': 'USB_VBUS', '2': 'GND'},
         'Package_TO_SOT_SMD:SOT-23-6', '1', (208.28, 114.3))

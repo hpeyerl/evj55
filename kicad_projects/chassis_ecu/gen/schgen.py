@@ -151,7 +151,7 @@ class Part:
         self.rot = rot                  # degrees CCW, used with at=
         self.at = at                    # (x, y) sheet mm: hand-placed, nets drawn as wires
         self.mirror = mirror            # flip top-bottom (KiCad 'mirror x'), after rotation
-        self.text = text                # 'above': ref + value stacked above the body
+        self.text = text                # force ref/value: 'above' (clears a round body) or 'below-left'
 
 
 class Sheet:
@@ -272,7 +272,7 @@ class Board:
                 items += syms
                 conns += cs
                 boxes.append(box)
-                placed.append((syms[0], box, sx, sy, p.text))
+                placed.append((syms[0], box, sx, sy, p.text or (None if self._last_place == 'right' else 'fixed')))
                 continue
             bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
             w = (bx1 - bx0) + 2 * 22.86
@@ -341,13 +341,27 @@ class Board:
         bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
         mir = p.mirror if p.at is not None else False
         cs = [self._xf(bx0, -by0, rot, mir), self._xf(bx1, -by1, rot, mir)]
-        box = (sx + min(c[0] for c in cs), sy + min(c[1] for c in cs),
-               sx + max(c[0] for c in cs), sy + max(c[1] for c in cs))
+        box = (sx + min(min(c[0] for c in cs), -1.27), sy + min(min(c[1] for c in cs), -1.27),
+               sx + max(max(c[0] for c in cs), 1.27), sy + max(max(c[1] for c in cs), 1.27))
         sym = [Sym('symbol'), [Sym('lib_id'), p.lib_id], [Sym('at'), sx, sy, rot]] + \
               ([[Sym('mirror'), Sym('y' if mir == 'y' else 'x')]] if mir else []) + [
                [Sym('unit'), p.unit], [Sym('in_bom'), Sym('yes')], [Sym('on_board'), Sym('yes')],
                [Sym('dnp'), Sym('yes' if p.dnp else 'no')], [Sym('uuid'), uid(s.filename, p.ref, p.unit)]]
         vert = box[3] - box[1] > box[2] - box[0]
+        sides = set()
+        for pin in pins:
+            r = (pin['rot'] + rot) % 360
+            d = {0: (-1, 0), 180: (1, 0), 90: (0, 1), 270: (0, -1)}[r]
+            sides.add((d[0], -d[1]) if mir and mir != 'y' else ((-d[0], d[1]) if mir == 'y' else d))
+        place = p.text
+        if p.at is not None and not place:
+            if vert:
+                place = 'right' if (1, 0) not in sides else 'left' if (-1, 0) not in sides \
+                    else 'above' if (0, -1) not in sides else 'corner'
+            else:
+                top, bot = (0, -1) in sides, (0, 1) in sides
+                place = 'split' if not (top or bot) else 'above' if not top else 'below' if not bot \
+                    else 'right' if (1, 0) not in sides else 'left' if (-1, 0) not in sides else 'corner'
         for i, (k, v) in enumerate(props):
             hide = i >= 2
             if p.at is None:
@@ -359,6 +373,18 @@ class Board:
                     at = [Sym('at'), sx, sy, 0]
             elif p.text == 'above':
                 at = [Sym('at'), sx, snap(sy - (8.89 if i == 0 else 6.35)), rot % 180]
+            elif place == 'above':
+                at = [Sym('at'), sx, snap(box[1] - (5.08 if i == 0 else 2.54)), rot % 180]
+            elif place == 'below':
+                at = [Sym('at'), sx, snap(box[3] + (2.54 if i == 0 else 5.08)), rot % 180]
+            elif place == 'left':
+                at = [Sym('at'), snap(min(box[0], sx - 3.81) - 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
+            elif place == 'below-left':
+                at = [Sym('at'), snap(box[0] - 1.27), snap(box[3] + (2.54 if i == 0 else 5.08)), rot % 180]
+            elif place == 'corner':
+                at = [Sym('at'), snap(box[2] + 1.27), snap(box[1] - (3.81 if i == 0 else 1.27)), rot % 180]
+            elif place == 'right' and not vert:
+                at = [Sym('at'), snap(box[2] + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
             elif vert:
                 # ref above value, right of the body
                 at = [Sym('at'), snap(max(box[2], sx + 3.81) + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
@@ -367,8 +393,9 @@ class Board:
                 at = [Sym('at'), sx, snap(min(box[1], sy - 1.27) - 1.27 if i == 0 else max(box[3], sy + 1.27) + 1.905), rot % 180]
             if i >= 2:
                 at = [Sym('at'), sx, sy, rot % 180]
-            jl = Sym('right') if (p.at is not None and rot % 360 == 180) else Sym('left')
-            just = [Sym('justify'), jl] if (p.at is None or (vert and not p.text)) else []
+            side_l = place in ('left', 'below-left')
+            jl = Sym('right') if (p.at is not None and (rot % 360 == 180) != side_l) else Sym('left')
+            just = [Sym('justify'), jl] if (p.at is None or place in ('left', 'right', 'corner', 'below-left')) else []
             eff = [Sym('effects'), [Sym('font'), [Sym('size'), 1.27, 1.27]]] + ([just] if just else [])
             if hide:
                 eff.append(Sym('hide'))
@@ -382,6 +409,7 @@ class Board:
         sym.append([Sym('instances'), [Sym('project'), PROJECT,
                                        [Sym('path'), path, [Sym('reference'), p.ref], [Sym('unit'), p.unit]]]])
         out.append(sym)
+        self._last_place = place
 
         conns = []
         used = set()
@@ -501,7 +529,16 @@ class Board:
                     min(a[1], b[1]) - 1e-6 <= q[1] <= max(a[1], b[1]) + 1e-6 and
                     abs((b[0] - a[0]) * (q[1] - a[1]) - (b[1] - a[1]) * (q[0] - a[0])) < 1e-6)
 
+        pins = {c['pin'] for c in conns if not c.get('tap')}
+
         def clean(a, b, net):
+            for q in pins:
+                if on(q, a, b):
+                    return False
+            for (u, v, n, k) in segs:
+                if k == 'stub' and (on(u, a, b) and u != a and u != b or on(v, a, b) and v != a and v != b
+                                    or on(a, u, v) and a != v or on(b, u, v) and b != v):
+                    return False
             for q, ns in pts.items():
                 if ns - {net} and on(q, a, b):
                     return False
@@ -742,7 +779,13 @@ class Board:
                                  [Sym('justify'), Sym('left'), Sym('bottom')]],
                                 [Sym('uuid'), uid(*root['tag'], 'l')]])
             for c in alone:
-                out += self._end(c, c['end'], c['d'], path)
+                if net in self.global_nets:
+                    out += self._end(c, c['end'], c['d'], path)
+                else:
+                    out.append([Sym('label'), net, [Sym('at'), c['end'][0], c['end'][1], 0 if c['d'][1] == 0 else 90],
+                                [Sym('effects'), [Sym('font'), [Sym('size'), 1.27, 1.27]],
+                                 [Sym('justify'), Sym('right' if c['d'][0] < 0 or c['d'][1] > 0 else 'left'), Sym('bottom')]],
+                                [Sym('uuid'), uid(*c['tag'], 'l')]])
         self._segs = segs
         for k, (u, v, net) in enumerate(wires):
             out.append(self._wire(u, v, (s.filename, 'route', net, u, v)))

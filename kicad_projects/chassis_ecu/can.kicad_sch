@@ -1982,23 +1982,25 @@
 		(dnp no)
 		(uuid "8936bfa7-8bf9-538d-a351-1b0ee5f3e441")
 		(property "Reference" "U4"
-			(at 88.9 67.31 0)
+			(at 100.33 64.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "SN65HVD230"
-			(at 88.9 88.9 0)
+			(at 100.33 67.31 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
@@ -2010,6 +2012,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Datasheet" ""
@@ -2021,6 +2024,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Description" ""
@@ -2042,6 +2046,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "LCSC" "C12084"
@@ -2053,6 +2058,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(pin "1"

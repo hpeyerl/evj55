@@ -4855,7 +4855,7 @@
 		(dnp yes)
 		(uuid "551db894-6372-5dda-93cf-fae1a02dc010")
 		(property "Reference" "J10"
-			(at 101.6 199.39 90)
+			(at 101.6 209.55 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4865,7 +4865,7 @@
 			)
 		)
 		(property "Value" "EXP"
-			(at 101.6 208.28 90)
+			(at 101.6 212.09 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
