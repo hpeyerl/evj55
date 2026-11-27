@@ -122,11 +122,25 @@ def sym_bbox(libsym, unit=1):
     return (min(xs), -max(ys), max(xs), -min(ys))   # schematic coords (y down)
 
 
+def anchor(lib_id, pin, pt, rot=0, mirror=False, unit=1):
+    """Symbol position that puts the end of pin's stub at pt."""
+    for p in sym_pins(lib_symbol(lib_id), unit):
+        if pin in (p['number'], p['name']):
+            ox, oy = Board._xf(p['x'], p['y'], rot, mirror)
+            dx, dy = {0: (-1, 0), 180: (1, 0), 90: (0, 1), 270: (0, -1)}[(p['rot'] + rot) % 360]
+            if mirror == 'y':
+                dx = -dx
+            elif mirror:
+                dy = -dy
+            return (snap(pt[0] - ox - dx * STUB), snap(pt[1] - oy - dy * STUB))
+    raise KeyError('%s has no pin %s' % (lib_id, pin))
+
+
 # --- schematic model ----------------------------------------------------------
 
 class Part:
     def __init__(self, ref, lib_id, value, nets, footprint='', unit=1,
-                 fields=None, dnp=False, nc=(), rot=0, at=None):
+                 fields=None, dnp=False, nc=(), rot=0, at=None, mirror=False, text=None):
         self.ref, self.lib_id, self.value = ref, lib_id, value
         self.nets = dict(nets)          # pin number or name -> net
         self.footprint = footprint
@@ -136,6 +150,8 @@ class Part:
         self.nc = set(nc)               # pin numbers/names left unconnected
         self.rot = rot                  # degrees CCW, used with at=
         self.at = at                    # (x, y) sheet mm: hand-placed, nets drawn as wires
+        self.mirror = mirror            # flip top-bottom (KiCad 'mirror x'), after rotation
+        self.text = text                # 'above': ref + value stacked above the body
 
 
 class Sheet:
@@ -256,7 +272,7 @@ class Board:
                 items += syms
                 conns += cs
                 boxes.append(box)
-                placed.append((syms[0], box, sx, sy))
+                placed.append((syms[0], box, sx, sy, p.text))
                 continue
             bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
             w = (bx1 - bx0) + 2 * 22.86
@@ -302,11 +318,14 @@ class Board:
     _pwr_libs = set()
 
     @staticmethod
-    def _xf(x, y, rot):
+    def _xf(x, y, rot, mirror=False):
         """Library point (y up) -> sheet offset (y down) for a symbol rotated rot deg CCW."""
         vx, vy = x, -y
         c, sn = {0: (1, 0), 90: (0, 1), 180: (-1, 0), 270: (0, -1)}[rot % 360]
-        return vx * c + vy * sn, -vx * sn + vy * c
+        ox, oy = vx * c + vy * sn, -vx * sn + vy * c
+        if mirror == 'y':
+            return (-ox, oy)
+        return (ox, -oy) if mirror else (ox, oy)
 
     def _place(self, p, ls, sx, sy, path, s):
         """Symbol s-expr, pin connection records, and body box (sheet coords)."""
@@ -320,10 +339,12 @@ class Board:
         props = [('Reference', p.ref), ('Value', p.value), ('Footprint', fp),
                  ('Datasheet', '~')] + list(p.fields.items())
         bx0, by0, bx1, by1 = sym_bbox(ls, p.unit)
-        cs = [self._xf(bx0, -by0, rot), self._xf(bx1, -by1, rot)]
+        mir = p.mirror if p.at is not None else False
+        cs = [self._xf(bx0, -by0, rot, mir), self._xf(bx1, -by1, rot, mir)]
         box = (sx + min(c[0] for c in cs), sy + min(c[1] for c in cs),
                sx + max(c[0] for c in cs), sy + max(c[1] for c in cs))
-        sym = [Sym('symbol'), [Sym('lib_id'), p.lib_id], [Sym('at'), sx, sy, rot],
+        sym = [Sym('symbol'), [Sym('lib_id'), p.lib_id], [Sym('at'), sx, sy, rot]] + \
+              ([[Sym('mirror'), Sym('y' if mir == 'y' else 'x')]] if mir else []) + [
                [Sym('unit'), p.unit], [Sym('in_bom'), Sym('yes')], [Sym('on_board'), Sym('yes')],
                [Sym('dnp'), Sym('yes' if p.dnp else 'no')], [Sym('uuid'), uid(s.filename, p.ref, p.unit)]]
         vert = box[3] - box[1] > box[2] - box[0]
@@ -336,15 +357,18 @@ class Board:
                     at = [Sym('at'), snap(sx + bx0), snap(sy + by1 + 1.27), 0]
                 else:
                     at = [Sym('at'), sx, sy, 0]
+            elif p.text == 'above':
+                at = [Sym('at'), sx, snap(sy - (8.89 if i == 0 else 6.35)), rot % 180]
             elif vert:
                 # ref above value, right of the body
-                at = [Sym('at'), snap(max(box[2], sx + 1.27) + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
+                at = [Sym('at'), snap(max(box[2], sx + 2.54) + 1.27), snap(sy + (-1.27 if i == 0 else 1.27)), rot % 180]
             else:
                 # ref above the body, value below
                 at = [Sym('at'), sx, snap(min(box[1], sy - 1.27) - 1.27 if i == 0 else max(box[3], sy + 1.27) + 1.905), rot % 180]
             if i >= 2:
                 at = [Sym('at'), sx, sy, rot % 180]
-            just = [Sym('justify'), Sym('left')] if (p.at is None or vert) else []
+            jl = Sym('right') if (p.at is not None and rot % 360 == 180) else Sym('left')
+            just = [Sym('justify'), jl] if (p.at is None or (vert and not p.text)) else []
             eff = [Sym('effects'), [Sym('font'), [Sym('size'), 1.27, 1.27]]] + ([just] if just else [])
             if hide:
                 eff.append(Sym('hide'))
@@ -367,7 +391,7 @@ class Board:
                 if k in p.nets:
                     key = k
                     break
-            ox, oy = self._xf(pin['x'], pin['y'], rot)
+            ox, oy = self._xf(pin['x'], pin['y'], rot, mir)
             px, py = snap(sx + ox), snap(sy + oy)
             if key is None:
                 if pin['number'] in p.nc or pin['name'] in p.nc or pin['type'] == 'no_connect':
@@ -378,6 +402,12 @@ class Board:
             used.add(key)
             # stub points away from the body: opposite of the pin direction
             dx, dy = {0: (-1, 0), 180: (1, 0), 90: (0, 1), 270: (0, -1)}[(pin['rot'] + rot) % 360]
+            if mir == 'y':
+                dx = -dx
+            elif mir:
+                dy = -dy
+            if any(c['pin'] == (px, py) for c in conns):
+                continue                # stacked pins (several GND on one point)
             conns.append({'net': p.nets[key], 'pin': (px, py), 'd': (dx, dy),
                           'end': (snap(px + dx * STUB), snap(py + dy * STUB)),
                           'tag': (s.filename, p.ref, pin['number'])})
@@ -394,22 +424,24 @@ class Board:
                         max(min(u[1], v[1]), y0) <= min(max(u[1], v[1]), y1)):
                     return True
             return False
-        for sym, box, sx, sy in placed:
+        for sym, box, sx, sy, txt in placed:
+            if txt:
+                continue
             props = [x for x in sym if head(x) == 'property' and x[1] in ('Reference', 'Value')]
             if box[3] - box[1] <= box[2] - box[0]:
                 continue
-            right = max(box[2], sx + 1.27) + 1.27
+            right = max(box[2], sx + 2.54) + 1.27
             if not busy(right - 0.6, right + 8.0, sy - 2.54, sy + 2.54):
                 continue
-            left = min(box[0], sx - 1.27) - 1.27
+            left = min(box[0], sx - 2.54) - 1.27
             if busy(left - 8.0, left + 0.6, sy - 2.54, sy + 2.54):
                 continue
+            flip = find(sym, 'at')[3] % 360 == 180
             for pr in props:
                 at = find(pr, 'at')
                 at[1] = snap(left)
                 eff = find(pr, 'effects')
-                for j in find(eff, 'justify')[1:2]:
-                    find(eff, 'justify')[1] = Sym('right')
+                find(eff, 'justify')[1] = Sym('left' if flip else 'right')
 
     @staticmethod
     def _wire(a, b, tag):
@@ -506,6 +538,20 @@ class Board:
             return (max(min(a[0], b[0]), x0) <= min(max(a[0], b[0]), x1) and
                     max(min(a[1], b[1]), y0) <= min(max(a[1], b[1]), y1))
 
+        def shapes(e, q):
+            # L both ways, then Z (H-V-H and V-H-V) with the jog anywhere on the grid between
+            yield [e, (q[0], e[1]), q]
+            yield [e, (e[0], q[1]), q]
+            for lo, hi, k in ((e[0], q[0], 0), (e[1], q[1], 1)):
+                a, b = min(lo, hi), max(lo, hi)
+                m = snap(a + 2.54)
+                while m < b - 1e-6:
+                    if k == 0:
+                        yield [e, (m, e[1]), (m, q[1]), q]
+                    else:
+                        yield [e, (e[0], m), (q[0], m), q]
+                    m = snap(m + 2.54)
+
         def dist(a, b):
             return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
@@ -514,6 +560,28 @@ class Board:
                     snap(min(max(q[1], min(a[1], b[1])), max(a[1], b[1]))))
 
         wires = []                      # [a, b, net], routed
+        # label text: keep power symbols and wires off it
+        def lbox(pt, d, net):
+            n = 1.05 * len(net) + (3.5 if net in self.global_nets else 1.0)
+            x, y = pt
+            return {(-1, 0): (x - n, y - 1.2, x, y + 1.2), (1, 0): (x, y - 1.2, x + n, y + 1.2),
+                    (0, -1): (x - 1.2, y - n, x + 1.2, y), (0, 1): (x - 1.2, y, x + 1.2, y + n)}[d]
+        lboxes = []
+        for net, cs in bynet.items():
+            for c in cs:
+                if c.get('tap') or len(cs) == 1:
+                    lboxes.append(lbox(c['end'], c['d'], net))
+        bodies = list(boxes)
+        boxes += lboxes
+
+        def roomy(box, net):
+            if not free(box, net):
+                return False
+            for (x0, y0, x1, y1) in boxes:
+                if x0 < box[2] and box[0] < x1 and y0 < box[3] and box[1] < y1:
+                    return False
+            return True
+
         # GND always hangs down, supplies always point up: jog the wire if the pin faces elsewhere
         for c in power:
             net, e, d = c['net'], c['end'], c['d']
@@ -524,16 +592,17 @@ class Board:
                 opts = []
                 side = [d] if d[1] == 0 else [(1, 0), (-1, 0)]
                 for sd in side:
-                    for n in (1, 0, 2) if d[1] == 0 else (1, 2):
+                    for n in (1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10) if d[1] == 0 else (1, 2, 3):
                         a = (snap(e[0] + sd[0] * STUB * n), e[1])
                         b = (a[0], snap(a[1] + up[1] * STUB))
                         opts.append([(u, v) for u, v in ((e, a), (a, b)) if u != v])
-                legs = next((o for o in opts if all(clean(u, v, net) for u, v in o)
-                             and free(psym_box(o[-1][1], up), net)), None)
+                legs = next((o for o in opts if all(clean(u, v, net) and not hits_body(u, v) for u, v in o)
+                             and roomy(psym_box(o[-1][1], up), net)), None)
                 if legs is None:
-                    legs = next((o for o in opts if all(clean(u, v, net) for u, v in o)), None)
-                if legs is None:
-                    raise ValueError('%s pin %s: no room to turn %s upright' % (c['tag'][1], c['tag'][2], net))
+                    # no clean way to turn it upright: symbol in line with the pin
+                    out += self._power(net, e[0], e[1], d[0], d[1], path, c['tag'])
+                    pts.setdefault(e, set()).add(net)
+                    continue
             q = legs[-1][1] if legs else e
             for u, v in legs:
                 out.append(self._wire(u, v, c['tag'] + ('jog', u)))
@@ -543,15 +612,36 @@ class Board:
             pts.setdefault(q, set()).add(net)
             out += self._power(net, q[0], q[1], up[0], up[1], path, c['tag'])
             boxes.append(psym_box(q, up))
+        groups = []
         for net in sorted(bynet, key=lambda n: (-len(bynet[n]), n)):
-            cs = bynet[net]
+            taps = [c for c in bynet[net] if c.get('tap')]
+            if len(taps) < 2:
+                groups.append((net, bynet[net]))
+                continue
+            isl = {id(t): [t] for t in taps}
+            for c in bynet[net]:
+                if not c.get('tap'):
+                    t = min(taps, key=lambda t: dist(c['end'], t['end']))
+                    isl[id(t)].append(c)
+            groups += [(net, isl[id(t)]) for t in taps]
+        for net, cs in groups:
             taps = [c for c in cs if c.get('tap')]
             root = taps[0] if taps else min(cs, key=lambda c: (c['end'][0], c['end'][1]))
             tree = [root['end']]        # vertices
+            progress = False
             tsegs = []                  # indexes into wires
             todo = [c for c in cs if c is not root]
             alone = []
-            while todo:
+            waiting = []
+            while todo or waiting:
+                if not todo:
+                    if not progress:
+                        waiting.sort(key=lambda c: min(dist(c['end'], t) for t in tree))
+                        alone.append(waiting.pop(0))
+                        tree, tsegs = [alone[-1]['end']], []
+                    todo, waiting, progress = waiting, [], False
+                    if not todo:
+                        break
                 def cands(c):
                     e = c['end']
                     qs = set(tree)
@@ -564,14 +654,16 @@ class Board:
                 done = False
                 for q in cands(c):
                     best = None
-                    for mid in ((q[0], e[1]), (e[0], q[1])):
-                        legs = [(u, v) for u, v in ((e, mid), (mid, q)) if u != v]
+                    for way in shapes(e, q):
+                        legs = [(u, v) for u, v in zip(way, way[1:]) if u != v]
                         if not all(clean(u, v, net) for u, v in legs):
                             continue
-                        score = sum(hits_body(u, v) for u, v in legs)
+                        if any(hits_body(u, v) for u, v in legs):
+                            continue
+                        score = (len(legs), sum(dist(u, v) for u, v in legs))
                         if best is None or score < best[0]:
                             best = (score, legs)
-                    if best is None or best[0]:
+                    if best is None:
                         continue
                     # split a tree wire that the new branch tees into
                     for i in list(tsegs):
@@ -595,12 +687,16 @@ class Board:
                             pts.setdefault(pq, set()).add(net)
                     done = True
                     break
-                if not done:
-                    alone.append(c)
+                if done:
+                    progress = True
+                else:
+                    waiting.append(c)
             hz = [(abs(u[0] - v[0]), min(u[0], v[0]), u[1]) for (u, v, n, _) in segs
                   if n == net and u[1] == v[1] and abs(u[0] - v[0]) >= 5.08]
-            if root.get('tap') or not hz:
+            if root.get('tap') or alone or (not hz and (net in self.global_nets or len(cs) == 1)):
                 out += self._end(root, root['end'], root['d'], path)
+            elif not hz:
+                pass                    # wired local net, no good spot for its name
             else:
                 ln, x0, y0 = max(hz, key=lambda h: (h[0], -h[2], -h[1]))
                 kind = 'global_label' if net in self.global_nets else 'label'

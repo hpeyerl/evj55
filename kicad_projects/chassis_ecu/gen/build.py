@@ -42,6 +42,7 @@ def main():
         for node in n.iter('node'):
             got[(node.get('ref'), node.get('pin'))] = name
     bad = 0
+    seen = {}                           # wanted net -> KiCad net, must be one-to-one
     for s in board.sheets:
         for p in s.parts:
             if isinstance(p, tuple):
@@ -54,9 +55,21 @@ def main():
                 have = got.get((p.ref, pin['number']))
                 if p.ref.startswith('#'):
                     continue
-                if have != want:
+                if want.startswith('+') or want == 'GND' or want in board.global_nets:
+                    ok = have == want
+                else:
+                    # wired local nets may be unnamed: check they stay one net, and only theirs
+                    ok = have is not None and seen.setdefault((s.filename, want), have) == have
+                if not ok:
                     print('NET MISMATCH %s.%s (%s): want %s, got %s' % (p.ref, pin['number'], pin['name'], want, have))
                     bad += 1
+    owners = {}
+    for (sh, want), have in seen.items():
+        owners.setdefault(have, []).append(want)
+    for have, wants in owners.items():
+        if len(wants) > 1 or have in board.global_nets or have in ('GND', '+3V3'):
+            print('NET MERGE %s: %s' % (have, wants))
+            bad += 1
     print('netlist check: %s' % ('OK' if not bad else '%d mismatches' % bad))
     if '-v' in sys.argv:
         print(rpt)
