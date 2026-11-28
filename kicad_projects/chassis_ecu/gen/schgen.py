@@ -452,6 +452,31 @@ class Board:
                         max(min(u[1], v[1]), y0) <= min(max(u[1], v[1]), y1)):
                     return True
             return False
+        def trects(sym):
+            # approximate extents of the visible ref/value text of one symbol
+            r = []
+            for pr in sym:
+                if head(pr) != 'property' or pr[1] not in ('Reference', 'Value'):
+                    continue
+                at, eff = find(pr, 'at'), find(pr, 'effects')
+                if any(str(x) == 'hide' for x in eff):
+                    continue
+                j = find(eff, 'justify')
+                w = 1.0 * len(str(pr[2]))
+                x0 = at[1] - w if j and str(j[1]) == 'right' else at[1] if j else at[1] - w / 2
+                r.append((x0, at[2] - 0.9, x0 + w, at[2] + 0.9))
+            return r
+
+        def text_busy(rects, skip):
+            for o in placed:
+                if o[0] is skip:
+                    continue
+                for a in trects(o[0]):
+                    for b in rects:
+                        if a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]:
+                            return True
+            return False
+
         for sym, box, sx, sy, txt in placed:
             if txt:
                 continue
@@ -463,6 +488,9 @@ class Board:
                 continue
             left = min(box[0], sx - 2.54) - 1.27
             if busy(left - 8.0, left + 0.6, sy - 2.54, sy + 2.54):
+                continue
+            w = max(len(str(pr[2])) for pr in props)
+            if text_busy([(left - w, sy - 2.2, left, sy + 2.2)], sym):
                 continue
             flip = find(sym, 'at')[3] % 360 == 180
             for pr in props:
