@@ -331,7 +331,7 @@ def motor_sheet(b):
            'IS -> 1k sense resistor -> ADC1 (PAWL_IS).  IS ratio 14k-25k + offset up to 385 uA per chip:\n'
            'firmware calibrates per board or detects stall relatively (current plateau).\n'
            'R250 pulls PAWL_INH low at reset (ESP32 IO39 has a weak pull-up then).\n'
-           'Bulk: 220uF 35V on PAWL_12V.  Pawl stall current: TBD (measure).',
+           'Bulk: 220uF 50V on PAWL_12V.  Pawl stall current: TBD (measure).',
            20, 15)
     s.paper = 'A3'
     s.head('Pawl motor: BTN8982TA as a high-side switch', 30.48, 38.1)
@@ -339,8 +339,9 @@ def motor_sheet(b):
     s.tap('PAWL_12V', 139.7, y)
     flag(s, '#FLG05', 'PAWL_12V', at=anchor('power:PWR_FLAG', '1', (147.32, y)))
     put(s, 'D211', 'Device:D_TVS', 'SMCJ22A', {'1': 'PAWL_12V', '2': 'GND'}, 'Diode_SMD:D_SMC', '1', (172.72, y), 270)
-    put(s, 'C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'},
-        'Capacitor_SMD:CP_Elec_8x10.5', '1', (187.96, y))
+    put(s, 'C242', 'Device:C_Polarized', '220uF 50V', {'1': 'PAWL_12V', '2': 'GND'},
+        'Capacitor_SMD:CP_Elec_10x10', '1', (187.96, y),
+        fields={'LCSC': 'C970698', 'MPN': 'DMBJ RVT1H221M1010'})
     half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW', (149.86, 77.47))
     is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS', 139.7, 80.01)
     RV(s, 'R250', '10k', 'PAWL_INH', 'GND', (149.86 - 40.64, 77.47 - 22.86))

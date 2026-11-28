@@ -2038,7 +2038,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Pawl: 1 BTN8982TA used as a\nhigh-side switch (single direction; actuator - grounds at the motor).  IN=1 drives OUT to VS.\nBTN8982 VS abs max 40 V -> SMCJ22A on the motor feed (Vc ~35.5 V).  No reverse protection on the\nmotor feeds: reverse battery conducts through the body diodes -> the EXTERNAL fuse must blow.\nIS -> 1k sense resistor -> ADC1 (PAWL_IS).  IS ratio 14k-25k + offset up to 385 uA per chip:\nfirmware calibrates per board or detects stall relatively (current plateau).\nR250 pulls PAWL_INH low at reset (ESP32 IO39 has a weak pull-up then).\nBulk: 220uF 35V on PAWL_12V.  Pawl stall current: TBD (measure)."
+	(text "Pawl: 1 BTN8982TA used as a\nhigh-side switch (single direction; actuator - grounds at the motor).  IN=1 drives OUT to VS.\nBTN8982 VS abs max 40 V -> SMCJ22A on the motor feed (Vc ~35.5 V).  No reverse protection on the\nmotor feeds: reverse battery conducts through the body diodes -> the EXTERNAL fuse must blow.\nIS -> 1k sense resistor -> ADC1 (PAWL_IS).  IS ratio 14k-25k + offset up to 385 uA per chip:\nfirmware calibrates per board or detects stall relatively (current plateau).\nR250 pulls PAWL_INH low at reset (ESP32 IO39 has a weak pull-up then).\nBulk: 220uF 50V on PAWL_12V.  Pawl stall current: TBD (measure)."
 		(exclude_from_sim no)
 		(at 20 15 0)
 		(effects
@@ -4126,7 +4126,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "220uF 35V"
+		(property "Value" "220uF 50V"
 			(at 193.04 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4137,7 +4137,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:CP_Elec_8x10.5"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10"
 			(at 187.96 54.61 0)
 			(hide yes)
 			(show_name no)
@@ -4171,7 +4171,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C136294"
+		(property "LCSC" "C970698"
 			(at 187.96 54.61 0)
 			(hide yes)
 			(show_name no)
@@ -4183,7 +4183,7 @@
 				(justify left)
 			)
 		)
-		(property "MPN" "UCD1V221MNL1GS"
+		(property "MPN" "DMBJ RVT1H221M1010"
 			(at 187.96 54.61 0)
 			(hide yes)
 			(show_name no)
