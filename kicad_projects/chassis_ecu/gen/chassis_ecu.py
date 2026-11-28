@@ -396,7 +396,7 @@ def ain(s, n, x0, y):
     """12V-tolerant analog input: 100k / 22k (15 V -> 2.7 V), 100nF, BAT54S clamp."""
     s.tap('AIN%d' % n, x0, y)
     RH(s, 'R%d' % (410 + n), '100k', 'AIN%d' % n, 'AIN%d_ADC' % n, (x0 + 7.62, y))
-    RV(s, 'R%d' % (420 + n), '22k', 'AIN%d_ADC' % n, 'GND', (x0 + 27.94, y))
+    RV(s, 'R%d' % (420 + n), '22k', 'AIN%d_ADC' % n, 'GND', (x0 + 20.32, y))
     CV(s, 'C%d' % (410 + n), '100nF', 'AIN%d_ADC' % n, 'GND', (x0 + 38.1, y))
     put(s, 'D%d' % (410 + n), 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'AIN%d_ADC' % n}, SOT23,
         '3', (x0 + 53.34, y + 5.08), 0, True)
