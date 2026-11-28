@@ -659,6 +659,344 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Diode:BAT54S"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 2.54 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "BAT54S"
+				(at -6.35 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+				(at 1.905 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds11005.pdf"
+				(at -3.048 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "schottky diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "BAT54S_0_1"
+				(polyline
+					(pts
+						(xy -4.445 1.27) (xy -4.445 -1.27) (xy -2.54 0) (xy -4.445 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.175 -1.27) (xy -3.175 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 1.27) (xy -1.905 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -3.175 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 1.27) (xy -1.905 1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 0) (xy 1.905 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 3.81 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 1.27) (xy 1.905 -1.27) (xy 3.81 0) (xy 1.905 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.175 -1.27) (xy 3.175 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 1.27) (xy 4.445 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 -1.27) (xy 3.175 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 -1.27) (xy 3.81 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.445 1.27) (xy 4.445 1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "BAT54S_1_1"
+				(pin passive line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 5.08)
+					(name "COM"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "PCM_Analog_Comparator_AKL:TLV3201AIDBV"
 			(pin_names
 				(offset 0.2)
@@ -1624,7 +1962,7 @@
 		)
 		(uuid "5781d3e4-060f-573c-9c4b-0c1cb680c0e8")
 	)
-	(text "Car-side pilot.  CP -> diode -> 2.74k to GND (state B, always) ; 1.3k via K1 to GND (state C).\nK1 = CPC1117N, form-B (CLOSED when unpowered): a dead board presents state C, so the EVSE delivers\nAC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\nCP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\nload on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\nCP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C).\nPP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\nopen 3.3 V (ADC full scale), plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ESP32 ADC1 IO2."
+	(text "Car-side pilot.  CP -> diode -> 2.74k to GND (state B, always) ; 1.3k via K1 to GND (state C).\nK1 = CPC1117N, form-B (CLOSED when unpowered): a dead board presents state C, so the EVSE delivers\nAC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\nCP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\nload on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\nCP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C);\nADC1 reads to 2.9 V, so state A reads as full scale.\nPP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  1k pull-up to 3V3:\nopen 3.3 V (ADC full scale), plug 150R ~0.43 V, latch pressed (150R+330R) ~1.07 V -> ESP32 ADC1 IO2.\nD303 clamps PP_SENSE to the rails (PP shorted to 12 V)."
 		(exclude_from_sim no)
 		(at 20 15 0)
 		(effects
@@ -1682,6 +2020,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4bd58fbd-9054-59fa-8b55-0e3facb6d5f8")
+	)
+	(junction
+		(at 104.14 175.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "50e79597-0cb9-560a-a493-95c935726513")
 	)
 	(junction
 		(at 50.8 57.15)
@@ -1781,6 +2125,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 187.96) (xy 116.84 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05701d21-183b-5187-a673-b3f60b8f3388")
+	)
+	(wire
+		(pts
 			(xy 146.05 78.74) (xy 148.59 78.74)
 		)
 		(stroke
@@ -1788,6 +2142,16 @@
 			(type default)
 		)
 		(uuid "063c7994-9a16-5168-8a77-e7a99dc9f5a9")
+	)
+	(wire
+		(pts
+			(xy 104.14 180.34) (xy 104.14 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06b80d9e-79d2-50bc-805b-bdec4b541d68")
 	)
 	(wire
 		(pts
@@ -1811,6 +2175,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 187.96) (xy 93.98 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0da461f6-a201-5585-be3d-8063aa99a56e")
+	)
+	(wire
+		(pts
 			(xy 69.85 57.15) (xy 72.39 57.15)
 		)
 		(stroke
@@ -1828,6 +2202,16 @@
 			(type default)
 		)
 		(uuid "10300a89-0833-52d7-9f22-a84346f001b3")
+	)
+	(wire
+		(pts
+			(xy 86.36 175.26) (xy 104.14 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14086565-0a56-5855-bb1c-dfb80cdd825f")
 	)
 	(wire
 		(pts
@@ -2051,6 +2435,26 @@
 	)
 	(wire
 		(pts
+			(xy 93.98 187.96) (xy 91.44 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6bf98a2f-320a-5d59-8bdc-ab01f5e1a0ab")
+	)
+	(wire
+		(pts
+			(xy 104.14 175.26) (xy 121.92 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7135ac3e-bc07-506a-b69c-dc942554aa98")
+	)
+	(wire
+		(pts
 			(xy 78.74 116.84) (xy 78.74 119.38)
 		)
 		(stroke
@@ -2251,6 +2655,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 187.96) (xy 116.84 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad9ce35e-c619-5579-af71-faf214de1cc6")
+	)
+	(wire
+		(pts
 			(xy 123.19 88.9) (xy 120.65 88.9)
 		)
 		(stroke
@@ -2291,6 +2705,16 @@
 	)
 	(wire
 		(pts
+			(xy 104.14 182.88) (xy 104.14 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b17e6359-912a-556c-ac7a-eff690f103cb")
+	)
+	(wire
+		(pts
 			(xy 77.47 175.26) (xy 80.01 175.26)
 		)
 		(stroke
@@ -2318,6 +2742,26 @@
 			(type default)
 		)
 		(uuid "b9d153c3-eb63-51bd-ad0f-f56a72cbcc45")
+	)
+	(wire
+		(pts
+			(xy 111.76 187.96) (xy 114.3 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc7a32be-3eb2-5157-ba24-c4885a130785")
+	)
+	(wire
+		(pts
+			(xy 91.44 187.96) (xy 91.44 190.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0ab0401-9401-5c95-b70d-d9eea5f232a5")
 	)
 	(wire
 		(pts
@@ -2581,16 +3025,6 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 175.26) (xy 96.52 175.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f704cfdd-e91c-5c7f-9938-d5e33dd05ad2")
-	)
-	(wire
-		(pts
 			(xy 129.54 139.7) (xy 129.54 137.16)
 		)
 		(stroke
@@ -2661,7 +3095,7 @@
 	)
 	(global_label "PP_SENSE"
 		(shape passive)
-		(at 96.52 175.26 0)
+		(at 121.92 175.26 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2671,7 +3105,7 @@
 		)
 		(uuid "00b3a005-199b-5e33-82db-4232b0dd1a93")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 96.52 175.26 0)
+			(at 121.92 175.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2831,7 +3265,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "05b2ee42-d085-5fd4-81a4-b31402a03dfc")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR092"
 			(at 104.14 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -2890,7 +3324,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR091")
+					(reference "#PWR092")
 					(unit 1)
 				)
 			)
@@ -3119,7 +3553,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "13205ad2-448f-510e-afdd-0964614e3635")
-		(property "Reference" "#PWR101"
+		(property "Reference" "#PWR102"
 			(at 142.24 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -3178,7 +3612,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR101")
+					(reference "#PWR102")
 					(unit 1)
 				)
 			)
@@ -3628,7 +4062,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "2f9f6993-d389-5bb5-a641-45dccecd3ee1")
-		(property "Reference" "#PWR097"
+		(property "Reference" "#PWR098"
 			(at 129.54 118.11 0)
 			(hide yes)
 			(show_name no)
@@ -3687,7 +4121,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR097")
+					(reference "#PWR098")
 					(unit 1)
 				)
 			)
@@ -3810,7 +4244,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "32e016f4-0735-5bca-9a64-4f4f908f641a")
-		(property "Reference" "#PWR098"
+		(property "Reference" "#PWR099"
 			(at 129.54 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -3869,7 +4303,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR098")
+					(reference "#PWR099")
 					(unit 1)
 				)
 			)
@@ -3886,7 +4320,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "3a9bfbb0-05eb-5a3a-915b-7ea6fc912d05")
-		(property "Reference" "#PWR104"
+		(property "Reference" "#PWR105"
 			(at 50.8 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -3945,7 +4379,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR104")
+					(reference "#PWR105")
 					(unit 1)
 				)
 			)
@@ -3962,7 +4396,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "499b0061-7718-5c1b-97b5-c83f729a5156")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR090"
 			(at 78.74 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -4021,7 +4455,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR089")
+					(reference "#PWR090")
 					(unit 1)
 				)
 			)
@@ -4144,7 +4578,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "520e2536-710e-5f2a-9174-473990305b80")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR091"
 			(at 129.54 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -4203,7 +4637,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR090")
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
@@ -4326,7 +4760,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "58039c78-e3f3-5473-9050-81e2ddf949ff")
-		(property "Reference" "#PWR092"
+		(property "Reference" "#PWR093"
 			(at 160.02 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -4385,7 +4819,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR092")
+					(reference "#PWR093")
 					(unit 1)
 				)
 			)
@@ -4402,7 +4836,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5dc5135c-1640-55d1-8657-d2a6b633ce1b")
-		(property "Reference" "#PWR106"
+		(property "Reference" "#PWR107"
 			(at 86.36 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -4461,7 +4895,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR106")
+					(reference "#PWR107")
 					(unit 1)
 				)
 			)
@@ -4692,6 +5126,82 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 91.44 190.5 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6899ba1e-b14e-5d8e-93db-68db815194ae")
+		(property "Reference" "#PWR108"
+			(at 91.44 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 91.44 194.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 91.44 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8e8bf03d-471c-50b1-8a74-4d1ab20eff28")
+		)
+		(instances
+			(project "chassis_ecu"
+				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
+					(reference "#PWR108")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 60.96 168.91 0)
 		(unit 1)
@@ -4713,7 +5223,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "1k"
 			(at 66.04 170.18 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4758,7 +5268,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23162"
+		(property "LCSC" "C21190"
 			(at 60.96 168.91 0)
 			(hide yes)
 			(show_name no)
@@ -4770,7 +5280,7 @@
 				(justify left)
 			)
 		)
-		(property "MPN" "0603WAF4701T5E"
+		(property "MPN" "0603WAF1001T5E"
 			(at 60.96 168.91 0)
 			(hide yes)
 			(show_name no)
@@ -4808,7 +5318,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "715b52f9-0b09-500e-b66c-68aa08a354ce")
-		(property "Reference" "#PWR102"
+		(property "Reference" "#PWR103"
 			(at 172.72 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -4867,7 +5377,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR102")
+					(reference "#PWR103")
 					(unit 1)
 				)
 			)
@@ -4884,7 +5394,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "724ed87f-3637-585f-bf28-49c5092afaa9")
-		(property "Reference" "#PWR100"
+		(property "Reference" "#PWR101"
 			(at 129.54 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -4943,7 +5453,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR100")
+					(reference "#PWR101")
 					(unit 1)
 				)
 			)
@@ -5378,7 +5888,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "8bd70caf-4a59-5e87-83e3-86ee46c5786e")
-		(property "Reference" "#PWR105"
+		(property "Reference" "#PWR106"
 			(at 60.96 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -5437,7 +5947,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR105")
+					(reference "#PWR106")
 					(unit 1)
 				)
 			)
@@ -5454,7 +5964,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "94acc997-9bfb-582f-98f1-b7c4e88640d7")
-		(property "Reference" "#PWR093"
+		(property "Reference" "#PWR094"
 			(at 73.66 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -5513,7 +6023,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR093")
+					(reference "#PWR094")
 					(unit 1)
 				)
 			)
@@ -5630,7 +6140,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a107bc29-a1a5-5bbe-978d-7599ddf86566")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR089"
 			(at 50.8 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -5689,7 +6199,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR088")
+					(reference "#PWR089")
 					(unit 1)
 				)
 			)
@@ -5902,6 +6412,110 @@
 		)
 	)
 	(symbol
+		(lib_id "Diode:BAT54S")
+		(at 104.14 187.96 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "c05afc37-a463-5631-ba39-91bc2cca6d91")
+		(property "Reference" "D303"
+			(at 104.14 191.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT54S"
+			(at 104.14 194.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 104.14 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "BAT54S"
+			(at 104.14 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C7420333"
+			(at 104.14 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "595b6026-443f-5508-b5d3-72a47ad0e801")
+		)
+		(pin "2"
+			(uuid "24f3097b-04d1-5228-9def-fd829472fb67")
+		)
+		(pin "3"
+			(uuid "d4e791cf-87ab-5703-85e9-5efcf8bf5534")
+		)
+		(instances
+			(project "chassis_ecu"
+				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
+					(reference "D303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 91.44 119.38 0)
 		(unit 1)
@@ -5912,7 +6526,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c102a28a-9ed6-5dbc-9b87-676cd1a8ec62")
-		(property "Reference" "#PWR095"
+		(property "Reference" "#PWR096"
 			(at 91.44 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -5971,7 +6585,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR095")
+					(reference "#PWR096")
 					(unit 1)
 				)
 			)
@@ -5988,7 +6602,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c1de68d0-74c0-52b7-9f04-a47b22c6e867")
-		(property "Reference" "#PWR094"
+		(property "Reference" "#PWR095"
 			(at 78.74 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -6047,7 +6661,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR094")
+					(reference "#PWR095")
 					(unit 1)
 				)
 			)
@@ -6064,7 +6678,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c37cf279-9284-5450-abb8-4165bd275abc")
-		(property "Reference" "#PWR096"
+		(property "Reference" "#PWR097"
 			(at 104.14 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -6123,7 +6737,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR096")
+					(reference "#PWR097")
 					(unit 1)
 				)
 			)
@@ -6437,6 +7051,82 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
+		(at 116.84 185.42 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f8814da7-bfe7-5db1-9f2e-f91bf6552a6f")
+		(property "Reference" "#PWR109"
+			(at 116.84 185.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 116.84 180.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 185.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 185.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 185.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "22852d1b-7ee9-5013-bd70-f6b9a504a17e")
+		)
+		(instances
+			(project "chassis_ecu"
+				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
+					(reference "#PWR109")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
 		(at 124.46 124.46 0)
 		(unit 1)
 		(body_style 1)
@@ -6446,7 +7136,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f977d05f-8254-5a8a-89a0-f48706d73c7c")
-		(property "Reference" "#PWR099"
+		(property "Reference" "#PWR100"
 			(at 124.46 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -6505,7 +7195,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR099")
+					(reference "#PWR100")
 					(unit 1)
 				)
 			)
@@ -6628,7 +7318,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "fcced9a2-10ca-5521-b6d8-a2a5758bc5bf")
-		(property "Reference" "#PWR103"
+		(property "Reference" "#PWR104"
 			(at 172.72 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -6687,7 +7377,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/9db444fc-9452-5cab-a9ee-85236aff89da"
-					(reference "#PWR103")
+					(reference "#PWR104")
 					(unit 1)
 				)
 			)

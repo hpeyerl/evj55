@@ -1773,7 +1773,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "2a87c1e1-0d3d-5315-a0fa-13a2ceb56352")
-		(property "Reference" "#PWR124"
+		(property "Reference" "#PWR127"
 			(at 119.38 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -1832,7 +1832,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR124")
+					(reference "#PWR127")
 					(unit 1)
 				)
 			)
@@ -1849,7 +1849,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "48a4a025-22df-55b1-ba11-f040ba9a030f")
-		(property "Reference" "#PWR125"
+		(property "Reference" "#PWR128"
 			(at 129.54 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -1908,7 +1908,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR125")
+					(reference "#PWR128")
 					(unit 1)
 				)
 			)
@@ -1925,7 +1925,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5b6adf35-aa8c-5eeb-a73f-de6ac1ec105f")
-		(property "Reference" "#PWR123"
+		(property "Reference" "#PWR126"
 			(at 114.3 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -1984,7 +1984,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/66475688-70dc-565b-91a8-8c9dc9b0ff63"
-					(reference "#PWR123")
+					(reference "#PWR126")
 					(unit 1)
 				)
 			)

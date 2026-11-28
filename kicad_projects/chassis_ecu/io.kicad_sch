@@ -1673,7 +1673,7 @@
 		)
 		(uuid "058e1b8a-2a5e-5ff7-85b5-5b19984fbe8f")
 	)
-	(text "Opto inputs -> native GPIO IO35-38, ACTIVE-LOW (collector pulled up to 3V3).\nOpto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\nJ10 (DNP) expansion: I2C, ANA1-3 (raw ESP32 ADC1, 0-3.1 V), 2 GPIO."
+	(text "Opto inputs -> native GPIO IO35-38, ACTIVE-LOW (collector pulled up to 3V3).\nOpto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\nJ10 (DNP) expansion: I2C, ANA1-3 (raw ESP32 ADC1, 0-2.9 V), 2 GPIO."
 		(exclude_from_sim no)
 		(at 20 15 0)
 		(effects

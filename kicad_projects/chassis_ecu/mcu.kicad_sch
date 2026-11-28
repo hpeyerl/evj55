@@ -3016,7 +3016,7 @@
 		)
 		(uuid "882df74b-d30f-52d9-85d3-f4cd1e52472f")
 	)
-	(text "ESP32-S3-WROOM-1-N4 (4 MB flash, no PSRAM; PCB antenna).  JLC-assembled (bottom GND pad).\n4 MB = 2 x ~1.9 MB OTA slots (min_spiffs).  -1-N8 is a drop-in if more flash is ever needed.\nSame pad pattern; the -1 footprint outline covers both.  Keep the antenna end clear of copper.\nStrapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\nUSB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\nruns from 12V, so bench programming needs the 12V supply.\nADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.\nADC1: IO1 CP_LVL, IO2 PP_SENSE, IO4/5/10 ANA1-3 (J10), IO6 PAWL_IS, IO7 VSENSE_12V, IO8/9 AIN1/2.\nOpto inputs IO35-38 (active-low), PAWL_INH IO39, status LEDs IO40 / IO21, J10 GPIO IO11 / IO12.\nBOOT / RESET = solder-jumper pads (short with tweezers); USB auto-reset covers normal flashing.\nSpare (unconnected): IO13, IO14."
+	(text "ESP32-S3-WROOM-1-N4 (4 MB flash, no PSRAM; PCB antenna).  JLC-assembled (bottom GND pad).\n4 MB = 2 x ~1.9 MB OTA slots (min_spiffs).  -1-N8 is a drop-in if more flash is ever needed.\nSame pad pattern; the -1 footprint outline covers both.  Keep the antenna end clear of copper.\nStrapping: IO0 = BOOT (button), IO3 / IO45 / IO46 left unconnected.\nUSB: data only (native USB-Serial-JTAG).  VBUS feeds only the ESD part; the board\nruns from 12V, so bench programming needs the 12V supply.\nADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.\nADC1: IO1 CP_LVL, IO2 PP_SENSE, IO4/5/10 ANA1-3 (J10), IO6 PAWL_IS, IO7 VSENSE_12V, IO8/9 AIN1/2.\nOpto inputs IO35-38 (active-low), PAWL_INH IO39, status LEDs IO17 / IO18, J10 GPIO IO11 / IO12.\nCAN1 TXD / RXD on IO40 / IO21: IO17 / IO18 glitch at power-up (datasheet table 2-2).  CAN1_RS IO13.\nADC1 effective range 0-2.9 V (12 dB attenuation).\nBOOT / RESET = solder-jumper pads (short with tweezers); USB auto-reset covers normal flashing.\nSpare (unconnected): IO14."
 		(exclude_from_sim no)
 		(at 20 15 0)
 		(effects
@@ -3114,10 +3114,6 @@
 	(no_connect
 		(at 180.34 142.24)
 		(uuid "0bca1af1-7a16-54a5-bad3-3f2b5c774833")
-	)
-	(no_connect
-		(at 149.86 142.24)
-		(uuid "48f527e4-c30b-5e9c-a91e-1211e6286934")
 	)
 	(no_connect
 		(at 180.34 144.78)
@@ -3538,6 +3534,16 @@
 			(type default)
 		)
 		(uuid "45c801a3-91e0-553d-87bd-d702469f3bdb")
+	)
+	(wire
+		(pts
+			(xy 149.86 142.24) (xy 147.32 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "467172ea-6de2-59e1-a04c-93cde92cd1f5")
 	)
 	(wire
 		(pts
@@ -4546,7 +4552,7 @@
 			)
 		)
 	)
-	(global_label "CAN1_TXD"
+	(global_label "LED_STAT1"
 		(shape passive)
 		(at 182.88 109.22 0)
 		(fields_autoplaced yes)
@@ -4605,6 +4611,29 @@
 		(uuid "62dd7ced-e203-582e-a4fc-72cb60ae0138")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 182.88 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CAN1_RS"
+		(shape passive)
+		(at 147.32 142.24 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7a0ca057-9838-5411-8912-ef097cb393a4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 147.32 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4730,7 +4759,7 @@
 			)
 		)
 	)
-	(global_label "LED_STAT2"
+	(global_label "CAN1_RXD"
 		(shape passive)
 		(at 182.88 119.38 0)
 		(fields_autoplaced yes)
@@ -4891,7 +4920,7 @@
 			)
 		)
 	)
-	(global_label "CAN1_RXD"
+	(global_label "LED_STAT2"
 		(shape passive)
 		(at 182.88 111.76 0)
 		(fields_autoplaced yes)
@@ -4937,7 +4966,7 @@
 			)
 		)
 	)
-	(global_label "LED_STAT1"
+	(global_label "CAN1_TXD"
 		(shape passive)
 		(at 182.88 134.62 0)
 		(fields_autoplaced yes)

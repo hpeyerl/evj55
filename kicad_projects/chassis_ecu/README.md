@@ -27,8 +27,9 @@ brake / P-position inputs, 2 analog inputs, 6-axis IMU, one CAN bus. The EPB is 
 - Starts at about 6 V (UVLO). 3.3 V rail >= 1 A (ESP32 + CAN + sensors, ~0.6 A peak estimate).
 - Low sleep current is wanted (an optional harness change feeds the board from permanent B+).
 
-**Opto inputs x4 (J20 B2-B5: P_SENSE, BRAKE, WELD1, WELD2):** 12V-active, isolated, active-low at
-the GPIO, filtered. P_SENSE taps a sense line shared with other loads, so it must draw little current.
+**Opto inputs x4 (J20 B2-B5: P_SENSE, BRAKE, WELD1, WELD2):** 12V-active, opto-coupled (level shift
+and robustness; NOT isolated - the inputs share vehicle GND), active-low at the GPIO, filtered.
+WELD1/WELD2 are the contactors' dry aux contacts (open = no voltage). P_SENSE taps a sense line shared with other loads, so it must draw little current.
 
 **Pawl output (J20 A1/B1 feed, A8/B8 out):** high-side 12 V switch to the actuator (the actuator's
 other lead grounds at the motor). Current sense for stall detection; firmware enforces a run
@@ -43,11 +44,12 @@ the motor feed: the external harness fuse protects it.
 - Survive the +/-12 V CP swing; load on CP >= 100 k.
 - Read PP: open / plug inserted / latch button pressed must be distinguishable.
 
-**CAN:** one classic CAN bus (truck CAN1), in and out pins on J20 for daisy-chaining. 120R
+**CAN:** one classic CAN bus (truck CAN1), in and out pins on J20 for daisy-chaining. No glitch
+on CAN TX at power-up. Transceiver standby under firmware control (sleep current). 120R
 terminator selectable, default off (mid-bus). Bus TVS. Firmware emulates the Zombie CPC (TX 0x357,
 RX 0x358).
 
-**Analog inputs AIN1/AIN2 (J20 B6/B7):** 0-15 V into the ESP32 ADC1, survive reverse / overvoltage
+**Analog inputs AIN1/AIN2 (J20 B6/B7):** 0-15 V into the ESP32 ADC1 (effective range 0-2.9 V), survive reverse / overvoltage
 spikes. Coarse accuracy is fine. 12 V logic supply sensed on ADC1 as well.
 
 **IMU:** 6-axis accel + gyro on I2C, no magnetometer. The board mounts square to the vehicle axes.
@@ -80,7 +82,7 @@ antenna keep-out, not used here) and the paired case holes H1/H2, H3/H4 overlap.
 - U2 = ESP32-S3-WROOM-1-N4 (LCSC C2913197), JLC-assembled; 4 MB = 2 x ~1.9 MB OTA slots (min_spiffs).
   Not assembled by JLC: connectors (J20 = through-hole), BOOT/RESET jumper pads,
   solder jumpers, test points.
-- 55 BOM lines, 114 placements. Low JLC stock (< 5000) on the
+- 55 BOM lines, 117 placements. Low JLC stock (< 5000) on the
   BTN8982TA, CPC1117N, FDD4685, LSM6DSOX, SMCJ22A, TLV3201 - recheck at order time.
 
 ## Status
@@ -102,22 +104,23 @@ antenna keep-out, not used here) and the paired case holes H1/H2, H3/H4 overlap.
 | GPIO | Net | GPIO | Net |
 |---|---|---|---|
 | IO0 | ESP_BOOT (JP4 pad) | IO35-38 | OPTO_IN1-4 (P_SENSE, BRAKE, WELD1, WELD2; active-low) |
-| IO1 | CP_LVL (ADC1) | IO39 | PAWL_INH |
-| IO2 | PP_SENSE (ADC1) | IO40 | LED_STAT1 |
-| IO4 / IO5 / IO10 | ANA1-3 (ADC1, J10) | IO21 | LED_STAT2 |
+| IO1 | CP_LVL (ADC1) | IO39 | PAWL_INH (10k pull-down) |
+| IO2 | PP_SENSE (ADC1) | IO40 | CAN1_TXD |
+| IO4 / IO5 / IO10 | ANA1-3 (ADC1, J10) | IO21 | CAN1_RXD |
 | IO6 | PAWL_IS (ADC1) | IO41 | CP_DUTY |
 | IO7 | VSENSE_12V (ADC1) | IO42 | CP_S2_OPEN |
 | IO8 / IO9 | AIN1 / AIN2 (ADC1, J20) | IO47 | IMU_INT1 |
 | IO11 / IO12 | EXP_GPIO1 / 2 (J10) | IO48 | PAWL_DRV |
-| IO15 / IO16 | I2C_SDA / I2C_SCL | IO17 / IO18 | CAN1_TXD / CAN1_RXD |
+| IO15 / IO16 | I2C_SDA / I2C_SCL | IO17 / IO18 | LED_STAT1 / LED_STAT2 |
+| IO13 | CAN1_RS (low = run, high = standby; 10k pull-down) | | |
 | IO19 / IO20 | USB D- / D+ | IO43 / IO44 | UART TX / RX (J2, DNP) |
-| unused | IO13, IO14 | strapping, NC | IO3, IO45, IO46 |
+| unused | IO14 | strapping, NC | IO3, IO45, IO46 |
 
 ## I2C
 0x6A LSM6DSO. J10 brings the bus out for add-ons.
 
 ## J10 expansion (DNP)
-1 GND, 2 3V3, 3 SDA, 4 SCL, 5-7 ANA1-3 (raw ADC1, 0-3.1 V), 8-9 EXP_GPIO1/2, 10 GND.
+1 GND, 2 3V3, 3 SDA, 4 SCL, 5-7 ANA1-3 (raw ADC1, 0-2.9 V), 8-9 EXP_GPIO1/2, 10 GND.
 
 ## J20 pinout (columns 1 and 8 = high-current cavities)
 | Pin | Net | Pin | Net | Pin | Net |

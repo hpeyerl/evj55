@@ -54,15 +54,12 @@ def put(s, ref, lib, val, nets, fp, pin, pt, rot=0, mirror=False, **k):
 # Manufacturer part numbers by Value.  LCSC numbers are filled only once verified
 # against the JLC parts index; JLCPCB's BOM matcher can also resolve from MPN.
 MPN = {
-    'LM5164DDAR': 'LM5164DDAR', 'FDD4685': 'FDD4685', 'SMAJ33CA': 'SMAJ33CA', 'BZT52C15': 'BZT52C15',
-    'BAT54S': 'BAT54S', 'ESP32-S3-WROOM-1-N8': 'ESP32-S3-WROOM-1-N8', 'USBLC6-2SC6': 'USBLC6-2SC6',
-    'SN65HVD230': 'SN65HVD230DR', 'NUP2105L': 'NUP2105LT1G', 'MCP2518FD': 'MCP2518FDT-E/QBB',
-    'LTV-357T': 'LTV-357T',
-    '1N4148W': '1N4148W', 'DMN6075S': 'DMN6075S-7', 'B5819W': 'B5819W', '2N7002': '2N7002',
-    'AO3401A': 'AO3401A', 'BTN8982TA': 'BTN8982TA', 'SMCJ22A': 'SMCJ22A', 'SMAJ15CA': 'SMAJ15CA',
+    'LM5164DDAR': 'LM5164DDAR', 'FDD4685': 'FDD4685', 'BZT52C15': 'BZT52C15',
+    'BAT54S': 'BAT54S', 'USBLC6-2SC6': 'USBLC6-2SC6',
+    'SN65HVD230': 'SN65HVD230DR', 'NUP2105L': 'NUP2105LT1G',
+    '1N4148W': '1N4148W', 'BTN8982TA': 'BTN8982TA', 'SMCJ22A': 'SMCJ22A', 'SMAJ15CA': 'SMAJ15CA',
     'CPC1117N': 'CPC1117NTR', 'TLV3201AIDBV': 'TLV3201AIDBVR',
-    'LSM6DSOX': 'LSM6DSOXTR', 'SMAJ24CA': 'SMAJ24CA',
-    'BSS84': 'LBSS84LT1G', 'TYPE-C-31-M-12': 'TYPE-C-31-M-12',
+    'LSM6DSOX': 'LSM6DSOXTR', 'SMAJ24CA': 'SMAJ24CA', 'TYPE-C-31-M-12': 'TYPE-C-31-M-12',
     '22uH 2.2A': 'FNR6045S220MT', '1A 63V': '0466001.NRHF', 'LTV-357T': 'LTV-357T-C',
 }
 # LCSC numbers: gen/lcsc_parts.json, written by jlc_select.py from the jlcparts database
@@ -150,9 +147,11 @@ def build():
            'runs from 12V, so bench programming needs the 12V supply.\n'
            'ADC1 (IO1-10) for analog; ADC2 is unusable with WiFi.\n'
            'ADC1: IO1 CP_LVL, IO2 PP_SENSE, IO4/5/10 ANA1-3 (J10), IO6 PAWL_IS, IO7 VSENSE_12V, IO8/9 AIN1/2.\n'
-           'Opto inputs IO35-38 (active-low), PAWL_INH IO39, status LEDs IO40 / IO21, J10 GPIO IO11 / IO12.\n'
+           'Opto inputs IO35-38 (active-low), PAWL_INH IO39, status LEDs IO17 / IO18, J10 GPIO IO11 / IO12.\n'
+           'CAN1 TXD / RXD on IO40 / IO21: IO17 / IO18 glitch at power-up (datasheet table 2-2).  CAN1_RS IO13.\n'
+           'ADC1 effective range 0-2.9 V (12 dB attenuation).\n'
            'BOOT / RESET = solder-jumper pads (short with tweezers); USB auto-reset covers normal flashing.\n'
-           'Spare (unconnected): IO13, IO14.',
+           'Spare (unconnected): IO14.',
            20, 15)
     s.paper = 'A3'
     s.head('ESP32-S3 module', 152.4, 172.72)
@@ -160,14 +159,14 @@ def build():
         'GND': 'GND', '3V3': '+3V3', 'EN': 'ESP_EN', 'IO0': 'ESP_BOOT',
         'IO1': 'CP_LVL', 'IO2': 'PP_SENSE', 'IO4': 'ANA1', 'IO5': 'ANA2', 'IO6': 'PAWL_IS',
         'IO7': 'VSENSE_12V', 'IO8': 'AIN1_ADC', 'IO9': 'AIN2_ADC', 'IO10': 'ANA3', 'IO47': 'IMU_INT1',
-        'IO11': 'EXP_GPIO1', 'IO12': 'EXP_GPIO2', 'IO21': 'LED_STAT2',
+        'IO11': 'EXP_GPIO1', 'IO12': 'EXP_GPIO2', 'IO21': 'CAN1_RXD', 'IO13': 'CAN1_RS',
         'IO15': 'I2C_SDA', 'IO16': 'I2C_SCL',
         'IO35': 'OPTO_IN1', 'IO36': 'OPTO_IN2', 'IO37': 'OPTO_IN3', 'IO38': 'OPTO_IN4',
-        'IO39': 'PAWL_INH', 'IO40': 'LED_STAT1',
-        'IO17': 'CAN1_TXD', 'IO18': 'CAN1_RXD',
+        'IO39': 'PAWL_INH', 'IO40': 'CAN1_TXD',
+        'IO17': 'LED_STAT1', 'IO18': 'LED_STAT2',
         'IO41': 'CP_DUTY', 'IO42': 'CP_S2_OPEN', 'IO48': 'PAWL_DRV',
         'TXD0': 'UART_TX', 'RXD0': 'UART_RX', 'USB_D-': 'USB_DM', 'USB_D+': 'USB_DP',
-    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO13', 'IO14'],
+    }, 'RF_Module:ESP32-S3-WROOM-1', nc=['IO3', 'IO45', 'IO46', 'IO14'],
         fields={'LCSC': 'C2913197'}, at=(165.1, 127.0), text='below-left')
     CV(s, 'C10', '22uF 10V X7R', '+3V3', 'GND', (172.72, 66.04), C1206)
     CV(s, 'C11', '100nF', '+3V3', 'GND', (154.94, 66.04))
@@ -208,15 +207,20 @@ def build():
 
     s = b.sheet('CAN', 'can.kicad_sch')
     s.note('CAN1 = native TWAI (vehicle bus), in + out pins on J20 (daisy chain).\n'
-           'Rs tied to GND = high-speed mode.  120R terminator on a solder jumper, default OPEN (mid-bus).',
+           'Rs = CAN1_RS (IO13): drive LOW = high-speed, HIGH = standby (~0.4 mA vs ~10 mA recessive).\n'
+           'R17 holds Rs low through 10k when IO13 floats (reset): that is slope-control mode, still on the bus.\n'
+           'Firmware: drive IO13 low before starting TWAI.\n'
+           '120R terminator on a solder jumper, default OPEN (mid-bus).',
            20, 15)
     s.paper = 'A3'
     s.head('CAN1: native TWAI, vehicle bus', 30.48, 40.64)
     s.add('U4', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230',
-          {'D': 'CAN1_TXD', 'R': 'CAN1_RXD', 'VCC': '+3V3', 'GND': 'GND', 'Rs': 'GND',
+          {'D': 'CAN1_TXD', 'R': 'CAN1_RXD', 'VCC': '+3V3', 'GND': 'GND', 'Rs': 'CAN1_RS',
            'CANH': 'CAN1_H', 'CANL': 'CAN1_L'}, 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', nc=['Vref'],
           at=(88.9, 76.2))
     CV(s, 'C13', '100nF', '+3V3', 'GND', (63.5, 50.8))
+    s.tap('CAN1_RS', 58.42, 81.28)
+    RV(s, 'R17', '10k', 'CAN1_RS', 'GND', (68.58, 81.28))
     put(s, 'D4', 'Power_Protection:NUP2105L', 'NUP2105L', {'1': 'CAN1_H', '2': 'CAN1_L', '3': 'GND'}, SOT23,
         '2', (114.3, 88.9), 0, 'y')
     put(s, 'JP1', 'Jumper:SolderJumper_2_Open', 'CAN1 TERM', {'A': 'CAN1_H', 'B': 'CAN1_TERM'},
@@ -271,7 +275,7 @@ def io_sheet(b):
     s = b.sheet('IO', 'io.kicad_sch')
     s.note('Opto inputs -> native GPIO IO35-38, ACTIVE-LOW (collector pulled up to 3V3).\n'
            'Opto inputs: 12V -> 2.2k (IN1 P_SENSE 4.7k: light tap on a shared sense line) -> LTV-357T.\n'
-           'J10 (DNP) expansion: I2C, ANA1-3 (raw ESP32 ADC1, 0-3.1 V), 2 GPIO.',
+           'J10 (DNP) expansion: I2C, ANA1-3 (raw ESP32 ADC1, 0-2.9 V), 2 GPIO.',
            20, 15)
     s.paper = 'A3'
     s.head('Opto inputs (12V active)', 30.48, 33.02)
@@ -296,12 +300,12 @@ def half_bridge(s, ref, n, vs, out, inp, inh, isn, at):
     s.add(ref, 'Power_Management:BTN8982TA', 'BTN8982TA',
           {'1': 'GND', '2': 'BR%d_IN' % n, '3': 'BR%d_INH' % n, '4': out, '8': out,
            '5': 'BR%d_SR' % n, '6': isn, '7': vs}, at=at)
-    s.tap(inh, x - 38.1, y - 12.7)
-    RH(s, 'R%d' % (210 + n), '1k', inh, 'BR%d_INH' % n, (x - 30.48, y - 12.7))
-    s.tap(inp, x - 38.1, y - 2.54)
-    RH(s, 'R%d' % (200 + n), '1k', inp, 'BR%d_IN' % n, (x - 30.48, y - 2.54))
+    s.tap(inh, x - 43.18, y - 22.86)
+    RH(s, 'R%d' % (210 + n), '1k', inh, 'BR%d_INH' % n, (x - 30.48, y - 22.86))
+    s.tap(inp, x - 43.18, y - 2.54)
+    RH(s, 'R%d' % (200 + n), '1k', inp, 'BR%d_IN' % n, (x - 30.48, y - 2.54), text='above')
     RV(s, 'R%d' % (220 + n), '5.1k', 'BR%d_SR' % n, 'GND', (x - 15.24, y + 10.16))
-    CV(s, 'C%d' % (200 + n), '100nF 50V', vs, 'GND', (x + 45.72, y - 24.13))
+    CV(s, 'C%d' % (200 + n), '100nF 50V', vs, 'GND', (x + 53.34, y - 29.21))
     CV(s, 'C%d' % (210 + n), '220nF 50V', out, 'GND', (x + 17.78, y), 'Capacitor_SMD:C_0805_2012Metric')
     s.tap(out, x + 30.48, y, (1, 0))
 
@@ -324,7 +328,9 @@ def motor_sheet(b):
            'high-side switch (single direction; actuator - grounds at the motor).  IN=1 drives OUT to VS.\n'
            'BTN8982 VS abs max 40 V -> SMCJ22A on the motor feed (Vc ~35.5 V).  No reverse protection on the\n'
            'motor feeds: reverse battery conducts through the body diodes -> the EXTERNAL fuse must blow.\n'
-           'IS -> 1k sense resistor -> ADC1 (PAWL_IS).\n'
+           'IS -> 1k sense resistor -> ADC1 (PAWL_IS).  IS ratio 14k-25k + offset up to 385 uA per chip:\n'
+           'firmware calibrates per board or detects stall relatively (current plateau).\n'
+           'R250 pulls PAWL_INH low at reset (ESP32 IO39 has a weak pull-up then).\n'
            'Bulk: 220uF 35V on PAWL_12V.  Pawl stall current: TBD (measure).',
            20, 15)
     s.paper = 'A3'
@@ -332,11 +338,12 @@ def motor_sheet(b):
     y = 48.26                           # PAWL_12V rail
     s.tap('PAWL_12V', 139.7, y)
     flag(s, '#FLG05', 'PAWL_12V', at=anchor('power:PWR_FLAG', '1', (147.32, y)))
-    put(s, 'D211', 'Device:D_TVS', 'SMCJ22A', {'1': 'PAWL_12V', '2': 'GND'}, 'Diode_SMD:D_SMC', '1', (165.1, y), 270)
+    put(s, 'D211', 'Device:D_TVS', 'SMCJ22A', {'1': 'PAWL_12V', '2': 'GND'}, 'Diode_SMD:D_SMC', '1', (172.72, y), 270)
     put(s, 'C242', 'Device:C_Polarized', '220uF 35V', {'1': 'PAWL_12V', '2': 'GND'},
-        'Capacitor_SMD:CP_Elec_8x10.5', '1', (180.34, y))
-    half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW', (149.86, 72.39))
-    is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS', 139.7, 74.93)
+        'Capacitor_SMD:CP_Elec_8x10.5', '1', (187.96, y))
+    half_bridge(s, 'U24', 5, 'PAWL_12V', 'MOT_OUT', 'PAWL_DRV', 'PAWL_INH', 'PAWL_ISRAW', (149.86, 77.47))
+    is_sense(s, 5, 'PAWL_ISRAW', 'PAWL_IS', 139.7, 80.01)
+    RV(s, 'R250', '10k', 'PAWL_INH', 'GND', (149.86 - 40.64, 77.47 - 22.86))
 
 
 def j1772_sheet(b):
@@ -346,9 +353,11 @@ def j1772_sheet(b):
            'AC and Pin-B wakes the truck.  CP_S2_OPEN high = LED on = K1 open = state B (pause / stop).\n'
            'CP read: 200k / 45.3k to 3V3 / 57.6k to GND maps CP -12..+12 V to 0.3..3.0 V (CP 0 V = 1.65 V),\n'
            'load on CP >= 200k.  TLV3201 vs 1.65 V, 1M hysteresis (~0.7 V at CP) -> CP_DUTY (MCPWM capture).\n'
-           'CP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C).\n'
-           'PP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  4.7k pull-up to 3V3:\n'
-           'open 3.3 V (ADC full scale), plug 150R ~0.10 V, latch pressed (150R+330R) ~0.31 V -> ESP32 ADC1 IO2.',
+           'CP_SENSE -> 1k/1nF -> CP_LVL -> ESP32 ADC1 IO1: +12 / +9 / +6 V = 3.0 / 2.66 / 2.33 V (state A / B / C);\n'
+           'ADC1 reads to 2.9 V, so state A reads as full scale.\n'
+           'PP: this board owns PP (Zombie interface=CPC, plug state in 0x357).  1k pull-up to 3V3:\n'
+           'open 3.3 V (ADC full scale), plug 150R ~0.43 V, latch pressed (150R+330R) ~1.07 V -> ESP32 ADC1 IO2.\n'
+           'D303 clamps PP_SENSE to the rails (PP shorted to 12 V).',
            20, 15)
     s.paper = 'A3'
     s.head('Pilot: vehicle-side state resistors', 30.48, 43.18)
@@ -386,10 +395,12 @@ def j1772_sheet(b):
     s.tap('PP', 38.1, 175.26)
     s.add('D302', 'Device:D_TVS', 'SMAJ15CA', {'1': 'PP', '2': 'GND'}, 'Diode_SMD:D_SMA',
           at=(50.8, 181.61), rot=270)
-    R(s, 'R311', '4.7k', '+3V3', 'PP', at=(60.96, 168.91))
+    R(s, 'R311', '1k', '+3V3', 'PP', at=(60.96, 168.91))
     R(s, 'R312', '1k', 'PP', 'PP_SENSE', at=(73.66, 175.26), rot=90)
     C(s, 'C304', '10nF', 'PP_SENSE', 'GND', at=(86.36, 181.61))
-    s.tap('PP_SENSE', 96.52, 175.26, (1, 0))
+    put(s, 'D303', 'Diode:BAT54S', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'PP_SENSE'}, SOT23,
+        '3', (104.14, 175.26 + 5.08), 0, True)
+    s.tap('PP_SENSE', 121.92, 175.26, (1, 0))
 
 
 def ain(s, n, x0, y):

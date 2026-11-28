@@ -1277,7 +1277,7 @@
 		)
 		(uuid "5eef9b1c-8225-58ec-a44c-ac5d845a0eba")
 	)
-	(text "CAN1 = native TWAI (vehicle bus), in + out pins on J20 (daisy chain).\nRs tied to GND = high-speed mode.  120R terminator on a solder jumper, default OPEN (mid-bus)."
+	(text "CAN1 = native TWAI (vehicle bus), in + out pins on J20 (daisy chain).\nRs = CAN1_RS (IO13): drive LOW = high-speed, HIGH = standby (~0.4 mA vs ~10 mA recessive).\nR17 holds Rs low through 10k when IO13 floats (reset): that is slope-control mode, still on the bus.\nFirmware: drive IO13 low before starting TWAI.\n120R terminator on a solder jumper, default OPEN (mid-bus)."
 		(exclude_from_sim no)
 		(at 20 15 0)
 		(effects
@@ -1312,9 +1312,25 @@
 		(color 0 0 0 0)
 		(uuid "b32505b7-657c-535d-9126-cc92adc8bcb4")
 	)
+	(junction
+		(at 68.58 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e9c361ac-add8-59b1-9be3-3b6ba7198899")
+	)
 	(no_connect
 		(at 78.74 78.74)
 		(uuid "0425dc14-46dc-5542-a74b-3d866fd12e1f")
+	)
+	(wire
+		(pts
+			(xy 76.2 81.28) (xy 68.58 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03a82508-080f-52a6-9f7f-00920f5c936b")
 	)
 	(wire
 		(pts
@@ -1328,6 +1344,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.58 81.28) (xy 58.42 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d573d24-ca65-592c-91aa-f7ac824ac45e")
+	)
+	(wire
+		(pts
 			(xy 114.3 88.9) (xy 114.3 78.74)
 		)
 		(stroke
@@ -1335,16 +1361,6 @@
 			(type default)
 		)
 		(uuid "0edd8d64-3372-5a5f-8f6a-130be69e7bd3")
-	)
-	(wire
-		(pts
-			(xy 73.66 81.28) (xy 73.66 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12011924-a605-51ea-89dc-771cace20897")
 	)
 	(wire
 		(pts
@@ -1518,16 +1534,6 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 81.28) (xy 73.66 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "af20a739-adb9-524c-b15d-bbeda9ae6689")
-	)
-	(wire
-		(pts
 			(xy 144.78 73.66) (xy 144.78 78.74)
 		)
 		(stroke
@@ -1545,6 +1551,26 @@
 			(type default)
 		)
 		(uuid "c2cab0e1-6ebd-591c-a5a8-d927b6f5b650")
+	)
+	(wire
+		(pts
+			(xy 68.58 91.44) (xy 68.58 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2dd7ffa-3541-5ee8-8f99-5446b8dc33ea")
+	)
+	(wire
+		(pts
+			(xy 68.58 83.82) (xy 68.58 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d93c4c13-806f-5e43-80d3-682ccfa044a3")
 	)
 	(wire
 		(pts
@@ -1616,19 +1642,19 @@
 		)
 		(uuid "2d261dc6-221c-54b8-b5f0-082582023eb8")
 	)
-	(global_label "CAN1_H"
+	(global_label "CAN1_RS"
 		(shape passive)
-		(at 157.48 76.2 0)
+		(at 58.42 81.28 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "2a4c18e8-e281-5fcb-98e2-e3b02a727cf4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 76.2 0)
+			(at 58.42 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1639,9 +1665,9 @@
 			)
 		)
 	)
-	(global_label "CAN1_L"
+	(global_label "CAN1_H"
 		(shape passive)
-		(at 157.48 78.74 0)
+		(at 157.48 76.2 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1651,7 +1677,7 @@
 		)
 		(uuid "89fa870f-3c44-5070-b6c3-086b3c8d7ff2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 157.48 78.74 0)
+			(at 157.48 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1698,6 +1724,29 @@
 		(uuid "b6fccc01-d998-52ae-a183-c5d9671d012f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 76.2 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CAN1_L"
+		(shape passive)
+		(at 157.48 78.74 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bc48dd93-0824-5482-8b74-50de86de7709")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 157.48 78.74 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1896,6 +1945,82 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 68.58 93.98 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "54b6a736-70d2-587a-83b0-a8fbe685e820")
+		(property "Reference" "#PWR048"
+			(at 68.58 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 68.58 97.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 68.58 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 68.58 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 68.58 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b27ec10a-3c31-5bf8-ac4c-95663f6c9eee")
+		)
+		(instances
+			(project "chassis_ecu"
+				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 63.5 63.5 0)
 		(unit 1)
 		(body_style 1)
@@ -1905,7 +2030,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5ac12f27-876b-5611-8b5c-e236ca590af4")
-		(property "Reference" "#PWR048"
+		(property "Reference" "#PWR047"
 			(at 63.5 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -1964,7 +2089,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
-					(reference "#PWR048")
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -2181,7 +2306,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "afe5558c-0085-5727-bc18-9f3b979715f7")
-		(property "Reference" "#PWR047"
+		(property "Reference" "#PWR046"
 			(at 63.5 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -2240,7 +2365,7 @@
 		(instances
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
-					(reference "#PWR047")
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -2317,82 +2442,6 @@
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
 					(reference "#PWR044")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 73.66 83.82 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b73a1ef4-03c6-5f5d-a23c-dbad98066783")
-		(property "Reference" "#PWR046"
-			(at 73.66 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 73.66 87.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 73.66 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 73.66 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 73.66 83.82 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d9e0ca94-7dfa-5eaa-abaf-e47c608a1dd9")
-		)
-		(instances
-			(project "chassis_ecu"
-				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
-					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -2499,6 +2548,112 @@
 			(project "chassis_ecu"
 				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
 					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 68.58 87.63 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ec7fa111-b024-588e-8600-024d5b2cb0b6")
+		(property "Reference" "R17"
+			(at 73.66 86.36 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 73.66 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 68.58 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 68.58 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Description" ""
+			(at 68.58 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 68.58 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "MPN" "0603WAF1002T5E"
+			(at 68.58 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "1"
+			(uuid "0b3848c8-783f-5923-9bcd-f52539c83927")
+		)
+		(pin "2"
+			(uuid "69a210f2-af2c-5b2e-8e10-ba1de93d6716")
+		)
+		(instances
+			(project "chassis_ecu"
+				(path "/fd25475b-2097-5b65-9996-70dc977a2af5/a6ce970d-2253-56fa-8b58-f400adecc808"
+					(reference "R17")
 					(unit 1)
 				)
 			)
